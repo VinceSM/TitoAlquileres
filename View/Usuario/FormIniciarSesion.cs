@@ -33,19 +33,16 @@ namespace SistemaAlquileres.View.Usuario
                 // Llamamos al controlador para iniciar sesión
                 Entities.Usuario usuario = await usuarioController.getUsuarioByEmail(email);
 
-                // Verificamos si el usuario existe
-                if (usuario != null)
+                if (usuario != null && usuario.nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase))
                 {
                     MessageBox.Show("Inicio de sesión exitoso");
-
-                    // Crear y mostrar el formulario de alquiler
                     FormAlquilar formAlquilar = new FormAlquilar();
                     formAlquilar.Show();
-                    this.Hide(); // Ocultamos el formulario de inicio de sesión
+                    this.Hide(); // Ocultar el formulario de inicio de sesión
                 }
                 else
                 {
-                    MessageBox.Show("Usuario o mail incorrectos");
+                    MessageBox.Show("Nombre o email incorrectos");
                 }
             }
             catch (Exception ex)
