@@ -11,7 +11,7 @@ namespace SistemaAlquileres.Model.Strategy
     {
         public double CalcularPrecio(Alquiler alquiler, Item item)
         {
-            return (alquiler.tiempo_dias * item.tarifa) * 0.9; // 10% de descuento para miembros premium
+            return (alquiler.tiempo_dias * item.tarifa) * 0.9; //10% de descuento para usuarios Premium
         }
     }
 }

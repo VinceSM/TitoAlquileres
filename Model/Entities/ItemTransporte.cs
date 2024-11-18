@@ -8,6 +8,5 @@ namespace SistemaAlquileres.Model.Entities
 {
     public class ItemTransporte : Item
     {
-
     }
 }

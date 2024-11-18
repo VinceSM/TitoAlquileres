@@ -10,5 +10,6 @@ namespace SistemaAlquileres.Model.Factory
     public abstract class FabricaItems
     {
         public abstract Item CrearItem();
+
     }
 }

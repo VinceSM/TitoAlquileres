@@ -1,19 +1,18 @@
 ﻿using SistemaAlquileres.Model.Entities;
+using SistemaAlquileres.Model.Strategy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaAlquileres.Model.Strategy
+namespace TitoAlquiler.Model.Strategy
 {
-    public class EstrategiaEstandar : IEstrategiaAlquiler
+    public class EstrategiaCategoria : IEstrategiaAlquiler
     {
         public double CalcularPrecio(Alquiler alquiler, Item item)
         {
-            return alquiler.tiempo_dias * item.tarifa; //Precio estandar para usuario estandar
+            return 0; //Precio por categoria (Transporte, Inmuebles, Indumentaria, Electronica, Electrodomesticos)
         }
     }
-
-    
 }

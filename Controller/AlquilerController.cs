@@ -2,6 +2,7 @@
 using SistemaAlquileres.Model.Dao;
 using System;
 using System.Collections.Generic;
+using SistemaAlquileres.Model.Strategy;
 
 namespace SistemaAlquileres.Controller
 {
@@ -41,16 +42,16 @@ namespace SistemaAlquileres.Controller
         }
 
         // Método para crear un nuevo alquiler
-        public Alquiler CrearAlquiler(int usuarioId, int itemId, int dias)
+        public Alquiler CrearAlquiler(int dias, Item item, Usuario usuario, IEstrategiaAlquiler estrategiaAlquiler)
         {
             var alquiler = _alquilerDao.CreateAlquiler(new Alquiler
             {
-                usuario_id = usuarioId,
-                item_id = itemId,
+                usuario_id = usuario,
+                item_id = item,
                 tiempo_dias = dias,
                 fecha_inicio = DateTime.Now,
                 fecha_fin = DateTime.Now.AddDays(dias),
-                precio_total = dias * 100 // Esta es una tarifa de ejemplo, debería calcularse en función de los datos reales del item
+                precio_total = estrategiaAlquiler.getEstrategia()
             });
 
             return alquiler;

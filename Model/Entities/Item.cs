@@ -11,14 +11,11 @@ namespace SistemaAlquileres.Model.Entities
     public class Item
     {
         public int id { get; set; }
-        public string categoria { get; set; }
-        public string nombre { get; set; }
-        public string marca { get; set; }
-        public string modelo { get; set; }
-        public float tarifa { get; set; }
-
-        // Relación de navegación
-        public ICollection<Alquiler> alquileres { get; set; }
+        public string categoria { get; set; }//Transporte, Electronica, Electrodomesticos, Inmuebles, Indumentaria
+        public string nombre { get; set; }//Auto, Mouse, Lavarropa, Casa, Remera
+        public string marca { get; set; }//Toyota, Redragon, Samsung, Remax, Adidas
+        public string modelo { get; set; }//Corolla, M608, Silver, Estancia, Iv4728 
+        public float tarifa { get; set; }//$150, $10, $15, $100, $10 
 
     }
 }

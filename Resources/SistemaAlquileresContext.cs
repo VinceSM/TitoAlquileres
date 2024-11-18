@@ -20,19 +20,19 @@ public class SistemaAlquilerContext : DbContext
         // Configuración de Usuario
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.ToTable("usuario");
+            entity.ToTable("usuario"); 
             entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.nombre).HasColumnName("nombre").HasMaxLength(65);
             entity.Property(e => e.dni).HasColumnName("dni");
             entity.Property(e => e.email).HasColumnName("email").HasMaxLength(65);
             entity.Property(e => e.tipoMembresia).HasColumnName("tipo_membresia").HasMaxLength(65);
-            entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
+            entity.Property(e => e.deletedAt).HasColumnName("deletedAt").HasDefaultValue(null); 
         });
 
-        // Configuración de ItemAlquilable
+        // Configuración de Item
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.ToTable("itemAlquilable");
+            entity.ToTable("itemAlquilable"); 
             entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.categoria).HasColumnName("categoria").HasMaxLength(65);
             entity.Property(e => e.nombre).HasColumnName("nombre").HasMaxLength(65);
@@ -44,7 +44,7 @@ public class SistemaAlquilerContext : DbContext
         // Configuración de Alquiler
         modelBuilder.Entity<Alquiler>(entity =>
         {
-            entity.ToTable("alquiler");
+            entity.ToTable("alquiler"); 
             entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.item_id).HasColumnName("item_id");
             entity.Property(e => e.usuario_id).HasColumnName("usuario_id");
@@ -52,15 +52,22 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.fecha_inicio).HasColumnName("fecha_inicio");
             entity.Property(e => e.fecha_fin).HasColumnName("fecha_fin");
             entity.Property(e => e.precio_total).HasColumnName("precioTotal");
-            entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
+            entity.Property(e => e.deletedAt).HasColumnName("deletedAt").HasDefaultValue(null); 
 
-            entity.HasOne(d => d.item)
-                .WithMany(p => p.alquileres)
-                .HasForeignKey(d => d.item_id);
+            // Relaciones de Alquiler con Item y Usuario
+            entity.HasOne(d => d.item_id)
+                .WithMany()
+                .HasForeignKey(d => d.item_id) 
+                .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(d => d.usuario)
-                .WithMany(p => p.Alquileres)
-                .HasForeignKey(d => d.usuario_id);
+            entity.HasOne(d => d.usuario_id) 
+                .WithMany() 
+                .HasForeignKey(d => d.usuario_id) 
+                .OnDelete(DeleteBehavior.Restrict); 
         });
+
+        modelBuilder.Entity<Usuario>().HasQueryFilter(u => u.deletedAt == null);
+        modelBuilder.Entity<Alquiler>().HasQueryFilter(a => a.deletedAt == null);
     }
+
 }
