@@ -2,9 +2,6 @@
 using SistemaAlquileres.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaAlquileres.Controller
 {
@@ -18,7 +15,7 @@ namespace SistemaAlquileres.Controller
 
         private ItemController() { }
 
-        public static ItemController getInstance()
+        public static ItemController GetInstance()
         {
             if (Instance == null)
             {
@@ -29,57 +26,57 @@ namespace SistemaAlquileres.Controller
         #endregion
 
         // Método para cargar todos los items
-        public async Task<List<Item>> loadItems()
+        public List<Item> LoadItems()
         {
-            return await itemDao.GetAllItems();
+            return itemDao.GetAllItems();
         }
 
         // Método para obtener un item por su ID
-        public async Task<Item> getItemById(int id)
+        public Item GetItemById(int id)
         {
-            return await itemDao.GetItemById(id);
+            return itemDao.GetItemById(id);
         }
 
         // Método para obtener items por nombre
-        public async Task<List<Item>> getItemByName(string nombre)
+        public List<Item> GetItemsByName(string nombre)
         {
-            return await itemDao.GetItemsByName(nombre);
+            return itemDao.GetItemsByName(nombre);
         }
 
         // Método para obtener items por marca
-        public async Task<List<Item>> getItemByMarca(string marca)
+        public List<Item> GetItemsByMarca(string marca)
         {
-            return await itemDao.GetItemsByMarca(marca);
+            return itemDao.GetItemsByMarca(marca);
         }
 
         // Método para obtener items por modelo
-        public async Task<List<Item>> getItemByModelo(string modelo)
+        public List<Item> GetItemsByModelo(string modelo)
         {
-            return await itemDao.GetItemsByModelo(modelo);
+            return itemDao.GetItemsByModelo(modelo);
         }
 
         // Método para obtener items por categoría
-        public async Task<List<Item>> getItemByCategoria(string categoria)
+        public List<Item> GetItemsByCategoria(string categoria)
         {
-            return await itemDao.GetItemsByCategoria(categoria);
+            return itemDao.GetItemsByCategoria(categoria);
         }
 
         // Método para crear un nuevo item
-        public async Task<Item> createItem(Item item)
+        public Item CreateItem(Item item)
         {
-            return await itemDao.CreateItem(item);
+            return itemDao.CreateItem(item);
         }
 
         // Método para actualizar un item
-        public async Task<Item> updateItem(Item item)
+        public Item UpdateItem(Item item)
         {
-            return await itemDao.UpdateItem(item);
+            return itemDao.UpdateItem(item);
         }
 
         // Método para eliminar un item
-        public async Task deleteItem(int id)
+        public void DeleteItem(int id)
         {
-            await itemDao.DeleteItem(id);
+            itemDao.DeleteItem(id);
         }
     }
 }

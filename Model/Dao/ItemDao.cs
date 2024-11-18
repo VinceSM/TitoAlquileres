@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SistemaAlquileres.Model.Entities;
 
@@ -16,57 +15,57 @@ namespace SistemaAlquileres.Model.Dao
             _context = new SistemaAlquilerContext();
         }
 
-        public async Task<List<Item>> GetAllItems()
+        public List<Item> GetAllItems()
         {
-            return await _context.itemsAlquilables.ToListAsync();
+            return _context.itemsAlquilables.ToList();
         }
 
-        public async Task<Item> GetItemById(int id)
+        public Item GetItemById(int id)
         {
-            return await _context.itemsAlquilables.FindAsync(id);
+            return _context.itemsAlquilables.Find(id);
         }
 
-        public async Task<List<Item>> GetItemsByName(string nombre)
+        public List<Item> GetItemsByName(string nombre)
         {
-            return await _context.itemsAlquilables.Where(i => i.nombre.Contains(nombre)).ToListAsync();
+            return _context.itemsAlquilables.Where(i => i.nombre.Contains(nombre)).ToList();
         }
 
-        public async Task<List<Item>> GetItemsByMarca(string marca)
+        public List<Item> GetItemsByMarca(string marca)
         {
-            return await _context.itemsAlquilables.Where(i => i.marca == marca).ToListAsync();
+            return _context.itemsAlquilables.Where(i => i.marca == marca).ToList();
         }
 
-        public async Task<List<Item>> GetItemsByModelo(string modelo)
+        public List<Item> GetItemsByModelo(string modelo)
         {
-            return await _context.itemsAlquilables.Where(i => i.modelo == modelo).ToListAsync();
+            return _context.itemsAlquilables.Where(i => i.modelo == modelo).ToList();
         }
 
-        public async Task<List<Item>> GetItemsByCategoria(string categoria)
+        public List<Item> GetItemsByCategoria(string categoria)
         {
-            return await _context.itemsAlquilables.Where(i => i.categoria == categoria).ToListAsync();
+            return _context.itemsAlquilables.Where(i => i.categoria == categoria).ToList();
         }
 
-        public async Task<Item> CreateItem(Item item)
+        public Item CreateItem(Item item)
         {
             _context.itemsAlquilables.Add(item);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return item;
         }
 
-        public async Task<Item> UpdateItem(Item item)
+        public Item UpdateItem(Item item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return item;
         }
 
-        public async Task DeleteItem(int id)
+        public void DeleteItem(int id)
         {
-            var item = await _context.itemsAlquilables.FindAsync(id);
+            var item = _context.itemsAlquilables.Find(id);
             if (item != null)
             {
                 _context.itemsAlquilables.Remove(item);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
     }

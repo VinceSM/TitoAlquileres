@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SistemaAlquileres.Model.Entities;
 
@@ -9,66 +8,67 @@ namespace SistemaAlquileres.Model.Dao
 {
     public class UsuarioDao
     {
-        private SistemaAlquilerContext _context = new SistemaAlquilerContext();
+        private SistemaAlquilerContext _context;
 
         public UsuarioDao()
         {
             _context = new SistemaAlquilerContext();
         }
 
-        public async Task<List<Usuario>> GetAllUsuarios()
+        public List<Usuario> GetAllUsuarios()
         {
-            return await _context.Usuarios.Where(u => u.deletedAt == null).ToListAsync();
+            return _context.Usuarios.Where(u => u.deletedAt == null).ToList();
         }
 
-        public async Task<Usuario> GetUsuarioById(int id)
+        public Usuario GetUsuarioById(int id)
         {
-            return await _context.Usuarios.FindAsync(id);
+            return _context.Usuarios.Find(id);
         }
 
-        public async Task<Usuario> GetUsuarioByName(string nombre)
+        public Usuario GetUsuarioByName(string nombre)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.nombre == nombre && u.deletedAt == null);
+            return _context.Usuarios.FirstOrDefault(u => u.nombre == nombre && u.deletedAt == null);
         }
 
-        public async Task<Usuario> GetUsuarioByDni(int dni)
+        public Usuario GetUsuarioByDni(int dni)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.dni == dni && u.deletedAt == null);
+            return _context.Usuarios.FirstOrDefault(u => u.dni == dni && u.deletedAt == null);
         }
 
         // Método para obtener un usuario por su email
-        public async Task<Usuario> GetUsuarioByEmail(string email)
+        public Usuario GetUsuarioByEmail(string email)
         {
-            return await _context.Usuarios
-                                 .Where(u => u.email == email)
-                                 .FirstOrDefaultAsync();
+            return _context.Usuarios
+                           .Where(u => u.email == email)
+                           .FirstOrDefault();
         }
 
-        public async Task<List<Usuario>> GetUsuariosByMembresia(string tipoMembresia)
+        public List<Usuario> GetUsuariosByMembresia(string tipoMembresia)
         {
-            return await _context.Usuarios.Where(u => u.tipoMembresia == tipoMembresia && u.deletedAt == null).ToListAsync();
+            return _context.Usuarios.Where(u => u.tipoMembresia == tipoMembresia && u.deletedAt == null).ToList();
         }
 
-        public async Task SoftDeleteUser(int id)
+        public void SoftDeleteUser(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario = _context.Usuarios.Find(id);
             if (usuario != null)
             {
                 usuario.deletedAt = DateTime.Now;
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
-        public async Task<Usuario> CreateUsuario(Usuario usuario)
+        public Usuario CreateUsuario(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return usuario;
         }
 
-        public async Task<Usuario> UpdateUsuario(Usuario usuario)
+        public Usuario UpdateUsuario(Usuario usuario)
         {
-            await _context.SaveChangesAsync();
+            _context.Entry(usuario).State = EntityState.Modified;
+            _context.SaveChanges();
             return usuario;
         }
     }

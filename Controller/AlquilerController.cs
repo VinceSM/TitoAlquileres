@@ -2,14 +2,11 @@
 using SistemaAlquileres.Model.Dao;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SistemaAlquileres.Controller
 {
     public class AlquilerController
     {
-
         private AlquilerDao _alquilerDao = new AlquilerDao();
 
         #region Singleton
@@ -18,7 +15,7 @@ namespace SistemaAlquileres.Controller
 
         private AlquilerController()
         {
-            _alquilerDao = new AlquilerDao(); 
+            _alquilerDao = new AlquilerDao();
         }
 
         public static AlquilerController GetInstance()
@@ -38,16 +35,15 @@ namespace SistemaAlquileres.Controller
         #endregion
 
         // Método para cargar todos los alquileres
-        public async Task<List<Alquiler>> LoadAlquileres()
+        public List<Alquiler> LoadAlquileres()
         {
-            return await _alquilerDao.GetAllAlquileres();
+            return _alquilerDao.GetAllAlquileres();
         }
 
         // Método para crear un nuevo alquiler
-        public async Task<Alquiler> CrearAlquiler(int usuarioId, int itemId, int dias)
+        public Alquiler CrearAlquiler(int usuarioId, int itemId, int dias)
         {
-            
-            var alquiler = await _alquilerDao.CreateAlquiler(new Alquiler
+            var alquiler = _alquilerDao.CreateAlquiler(new Alquiler
             {
                 usuario_id = usuarioId,
                 item_id = itemId,
@@ -61,33 +57,33 @@ namespace SistemaAlquileres.Controller
         }
 
         // Obtener un alquiler por ID
-        public async Task<Alquiler> GetAlquilerById(int id)
+        public Alquiler GetAlquilerById(int id)
         {
-            return await _alquilerDao.GetAlquilerById(id);
+            return _alquilerDao.GetAlquilerById(id);
         }
 
         // Obtener alquileres por Item
-        public async Task<List<Alquiler>> GetAlquileresByItem(int itemId)
+        public List<Alquiler> GetAlquileresByItem(int itemId)
         {
-            return await _alquilerDao.GetAlquileresByItem(itemId);
+            return _alquilerDao.GetAlquileresByItem(itemId);
         }
 
         // Obtener alquileres por Usuario
-        public async Task<List<Alquiler>> GetAlquileresByUsuario(int usuarioId)
+        public List<Alquiler> GetAlquileresByUsuario(int usuarioId)
         {
-            return await _alquilerDao.GetAlquileresByUsuario(usuarioId);
+            return _alquilerDao.GetAlquileresByUsuario(usuarioId);
         }
 
         // Eliminar un alquiler de manera lógica
-        public async Task SoftDeleteAlquiler(int id)
+        public void SoftDeleteAlquiler(int id)
         {
-            await _alquilerDao.SoftDeleteAlquiler(id);
+            _alquilerDao.SoftDeleteAlquiler(id);
         }
 
         // Método para actualizar alquiler (si fuera necesario)
-        public async Task<Alquiler> UpdateAlquiler(Alquiler alquiler)
+        public Alquiler UpdateAlquiler(Alquiler alquiler)
         {
-            return await _alquilerDao.UpdateAlquiler(alquiler);
+            return _alquilerDao.UpdateAlquiler(alquiler);
         }
     }
 }
