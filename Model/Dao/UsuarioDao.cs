@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -44,17 +43,6 @@ namespace SistemaAlquileres.Model.Dao
                                  .Where(u => u.email == email)
                                  .FirstOrDefaultAsync();
         }
-
-
-        // Usando EF 6.x
-        public async Task<Usuario> IniciarSesion(string email, string nombre)
-        {
-            return await _context.Usuarios
-                                 .Where(u => u.email == email && u.nombre == nombre)
-                                 .FirstOrDefaultAsync();
-        }
-
-
 
         public async Task<List<Usuario>> GetUsuariosByMembresia(string tipoMembresia)
         {

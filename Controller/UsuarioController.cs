@@ -2,7 +2,6 @@
 using SistemaAlquileres.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,11 +96,6 @@ namespace SistemaAlquileres.Controller
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
             return usuario;
-        }
-
-        public async Task<Usuario> iniciarSesion(string email, string nombre)
-        {
-            return await usuarioDao.IniciarSesion(email, nombre);
         }
 
         // Método para actualizar un usuario

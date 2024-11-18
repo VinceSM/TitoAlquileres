@@ -1,16 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaAlquileres.Model.Entities;
 
-
 public class SistemaAlquilerContext : DbContext
 {
     public DbSet<Usuario> Usuarios { get; set; }
-    public DbSet<Item>itemsAlquilables { get; set; }
-    public DbSet<Alquiler> alquileres { get; set; }
+    public DbSet<Item>itemsAlquilables { get; set; } // Cambiado a PascalCase
+    public DbSet<Alquiler> alquileres { get; set; } // Cambiado a PascalCase
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
