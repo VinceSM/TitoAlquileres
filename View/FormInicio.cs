@@ -1,12 +1,5 @@
 ﻿using SistemaAlquileres.View.Usuario;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SistemaAlquileres
@@ -16,28 +9,22 @@ namespace SistemaAlquileres
         public FormInicio()
         {
             InitializeComponent();
-            //VerificarConexionBD();
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
+            formIniciarSesion.FormClosed += (s, args) => this.Show();
             formIniciarSesion.Show();
             this.Hide();
         }
 
-        private void VerificarConexionBD()
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            using (var context = new SistemaAlquilerContext())
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (context.TestConnection())
-                {
-                    MessageBox.Show("Conexión a la base de datos establecida con éxito.", "Conexión Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo establecer la conexión a la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Application.Exit();
             }
         }
     }

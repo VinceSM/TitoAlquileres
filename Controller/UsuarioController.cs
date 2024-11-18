@@ -10,12 +10,30 @@ namespace SistemaAlquileres.Controller
 {
     internal class UsuarioController
     {
-        UsuarioDao usuarioDao = new UsuarioDao();
+        // Instanciamos el DAO de Usuario
+        private UsuarioDao usuarioDao = new UsuarioDao();
+        private SistemaAlquilerContext _context = new SistemaAlquilerContext();
 
         #region Singleton
         private static UsuarioController Instance;
 
-        private UsuarioController() { }
+        public UsuarioController()
+        {
+            usuarioDao = new UsuarioDao();
+        }
+
+        public async Task<Usuario> CrearUsuario(string nombre, int dni, string email, string tipoMembresia)
+        {
+            var usuario = new Usuario
+            {
+                nombre = nombre,
+                dni = dni,
+                email = email,
+                tipoMembresia = tipoMembresia
+            };
+
+            return await usuarioDao.CreateUsuario(usuario);
+        }
 
         public static UsuarioController getInstance()
         {
@@ -27,38 +45,63 @@ namespace SistemaAlquileres.Controller
         }
         #endregion
 
-        public List<Usuario> loadUsuarios()
+        // Método para cargar todos los usuarios
+        public async Task<List<Usuario>> loadUsuarios()
         {
-            return null;
-        }
-        public Usuario getUsuarioById(int id)
-        {
-            return null;
+            return await usuarioDao.GetAllUsuarios();
         }
 
-        public Usuario getUsuarioByName(string nombre)
+        // Método para obtener un usuario por su ID
+        public async Task<Usuario> getUsuarioById(int id)
         {
-            return null;
+            return await usuarioDao.GetUsuarioById(id);
         }
 
-        public Usuario getUsuarioByDni(int dni)
+        // Método para obtener un usuario por su nombre
+        public async Task<Usuario> getUsuarioByName(string nombre)
         {
-            return null;
+            return await usuarioDao.GetUsuarioByName(nombre);
         }
 
-        public Usuario getUsuarioByEmail(string email)
+        // Método para obtener un usuario por su DNI
+        public async Task<Usuario> getUsuarioByDni(int dni)
         {
-            return null;
+            return await usuarioDao.GetUsuarioByDni(dni);
         }
 
-        public Usuario getUsuarioByMembresia(string tipo_membresia)
+        // Método para obtener un usuario por su email
+        public async Task<Usuario> getUsuarioByEmail(string email)
         {
-            return null;
+            using (var context = new SistemaAlquilerContext())
+            {
+                return await usuarioDao.GetUsuarioByEmail(email);
+            }
         }
 
-        public void softDeleteUser()
+        // Método para obtener usuarios por su tipo de membresía
+        public async Task<List<Usuario>> getUsuarioByMembresia(string tipo_membresia)
         {
+            return await usuarioDao.GetUsuariosByMembresia(tipo_membresia);
+        }
 
+        // Método para eliminar un usuario (soft delete)
+        public async Task softDeleteUser(int id)
+        {
+            await usuarioDao.SoftDeleteUser(id);
+        }
+
+        // Método para crear un nuevo usuario
+        public async Task<Usuario> createUsuario(Usuario usuario)
+        {
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+            return usuario;
+        }
+
+        // Método para actualizar un usuario
+        public async Task<Usuario> updateUsuario(Usuario usuario)
+        {
+            return await usuarioDao.UpdateUsuario(usuario);
         }
     }
 }

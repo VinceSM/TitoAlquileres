@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SistemaAlquileres.View.Usuario;
+using System;
 using System.Windows.Forms;
 
 namespace SistemaAlquileres.View.Alquiler
@@ -15,6 +9,23 @@ namespace SistemaAlquileres.View.Alquiler
         public FormAlquilar()
         {
             InitializeComponent();
+        }
+
+        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
+            formIniciarSesion.Show();
+            this.Hide();
+        }
+
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }
