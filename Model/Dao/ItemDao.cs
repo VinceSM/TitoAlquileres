@@ -55,7 +55,7 @@ namespace SistemaAlquileres.Model.Dao
 
         public async Task<Item> UpdateItem(Item item)
         {
-            _context.Entry(item).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return item;
         }

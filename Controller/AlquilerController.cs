@@ -9,7 +9,8 @@ namespace SistemaAlquileres.Controller
 {
     public class AlquilerController
     {
-        private readonly AlquilerDao _alquilerDao;
+
+        private AlquilerDao _alquilerDao = new AlquilerDao();
 
         #region Singleton
         private static AlquilerController _instance;

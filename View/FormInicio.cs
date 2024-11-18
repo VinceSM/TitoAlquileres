@@ -1,12 +1,5 @@
 ﻿using SistemaAlquileres.View.Usuario;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SistemaAlquileres
@@ -21,8 +14,18 @@ namespace SistemaAlquileres
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
+            formIniciarSesion.FormClosed += (s, args) => this.Show();
             formIniciarSesion.Show();
             this.Hide();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }

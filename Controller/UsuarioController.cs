@@ -72,7 +72,7 @@ namespace SistemaAlquileres.Controller
         // Método para obtener un usuario por su email
         public async Task<Usuario> getUsuarioByEmail(string email)
         {
-            using (var context = new SistemaAlquilerContext()) // Asegúrate de usar el contexto correcto.
+            using (var context = new SistemaAlquilerContext())
             {
                 return await usuarioDao.GetUsuarioByEmail(email);
             }

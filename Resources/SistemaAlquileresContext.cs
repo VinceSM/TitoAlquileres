@@ -4,9 +4,8 @@ using SistemaAlquileres.Model.Entities;
 public class SistemaAlquilerContext : DbContext
 {
     public DbSet<Usuario> Usuarios { get; set; }
-    public DbSet<Item>itemsAlquilables { get; set; } // Cambiado a PascalCase
-    public DbSet<Alquiler> alquileres { get; set; } // Cambiado a PascalCase
-
+    public DbSet<Item>itemsAlquilables { get; set; }
+    public DbSet<Alquiler> alquileres { get; set; } 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -54,7 +53,6 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.precio_total).HasColumnName("precioTotal");
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
 
-            // Configuración de relaciones
             entity.HasOne(d => d.item)
                 .WithMany(p => p.alquileres)
                 .HasForeignKey(d => d.item_id);

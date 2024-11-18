@@ -34,7 +34,7 @@ namespace SistemaAlquileres.View.Usuario
                 return;
             }
 
-            var NuevoUsuario = new SistemaAlquileres.Model.Entities.Usuario
+            var NuevoUsuario = new Model.Entities.Usuario
             {
                 nombre = nombre,
                 email = email,
@@ -74,7 +74,15 @@ namespace SistemaAlquileres.View.Usuario
         {
             FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
             formIniciarSesion.Show();
-            this.Close();
+            this.Hide();
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }

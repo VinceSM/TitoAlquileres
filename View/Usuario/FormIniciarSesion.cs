@@ -2,7 +2,6 @@
 using Entities = SistemaAlquileres.Model.Entities;
 using System;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using SistemaAlquileres.View.Alquiler;
 
 namespace SistemaAlquileres.View.Usuario
@@ -30,7 +29,6 @@ namespace SistemaAlquileres.View.Usuario
             btnEntrar.Enabled = false;
             try
             {
-                // Llamamos al controlador para iniciar sesión
                 Entities.Usuario usuario = await usuarioController.getUsuarioByEmail(email);
 
                 if (usuario != null && usuario.nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase))
@@ -38,7 +36,7 @@ namespace SistemaAlquileres.View.Usuario
                     MessageBox.Show("Inicio de sesión exitoso");
                     FormAlquilar formAlquilar = new FormAlquilar();
                     formAlquilar.Show();
-                    this.Hide(); // Ocultar el formulario de inicio de sesión
+                    this.Hide();
                 }
                 else
                 {
@@ -57,18 +55,25 @@ namespace SistemaAlquileres.View.Usuario
 
         private void linkCrearUsuario_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Mostrar formulario para crear un nuevo usuario
-            FormCrearUsuario formCrearUsuario = new FormCrearUsuario();
+            FormCrearUsuario formCrearUsuario = new FormCrearUsuario(); 
             formCrearUsuario.Show();
-            this.Hide(); // Ocultar el formulario de inicio de sesión
+            this.Hide();
         }
 
         private void linkVolverInicio_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Volver al formulario de inicio
             FormInicio formInicio = new FormInicio();
             formInicio.Show();
-            this.Close(); // Cerrar el formulario de inicio de sesión
+            this.Hide();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
         }
     }
 }

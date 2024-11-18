@@ -9,7 +9,7 @@ namespace SistemaAlquileres.Model.Dao
 {
     public class UsuarioDao
     {
-        private readonly SistemaAlquilerContext _context;
+        private SistemaAlquilerContext _context = new SistemaAlquilerContext();
 
         public UsuarioDao()
         {

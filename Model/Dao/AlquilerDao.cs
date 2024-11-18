@@ -9,7 +9,7 @@ namespace SistemaAlquileres.Model.Dao
 {
     public class AlquilerDao
     {
-        private readonly SistemaAlquilerContext _context;
+       private SistemaAlquilerContext _context = new SistemaAlquilerContext();
 
         public AlquilerDao()
         {
@@ -59,7 +59,7 @@ namespace SistemaAlquileres.Model.Dao
 
         public async Task<Alquiler> UpdateAlquiler(Alquiler alquiler)
         {
-            _context.Entry(alquiler).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
+            _context.Entry(alquiler).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return alquiler;
         }
