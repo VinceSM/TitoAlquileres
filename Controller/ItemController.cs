@@ -1,7 +1,7 @@
 ﻿using SistemaAlquileres.Model.Dao;
-using SistemaAlquileres.Model.Entities;
 using System;
 using System.Collections.Generic;
+using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Controller
 {
@@ -53,12 +53,6 @@ namespace SistemaAlquileres.Controller
         public List<Item> GetItemsByModelo(string modelo)
         {
             return itemDao.GetItemsByModelo(modelo);
-        }
-
-        // Método para obtener items por categoría
-        public List<Item> GetItemsByCategoria(string categoria)
-        {
-            return itemDao.GetItemsByCategoria(categoria);
         }
 
         // Método para crear un nuevo item

@@ -34,17 +34,17 @@ namespace SistemaAlquileres.View.Usuario
                 return;
             }
 
-            var NuevoUsuario = new Model.Entities.Usuario
+            /*var NuevoUsuario = new Model.Entities.Usuario
             {
                 nombre = nombre,
                 email = email,
                 dni = dni,
                 tipoMembresia = tipoMembresia
-            };
+            };*/
 
             try
             {
-                var usuarioCreado = await usuarioController.createUsuario(NuevoUsuario);
+                var usuarioCreado = usuarioController.CrearUsuario(nombre, dni, email, tipoMembresia);
                 if (usuarioCreado != null)
                 {
                     lblCreado.Text = "Usuario creado exitosamente";

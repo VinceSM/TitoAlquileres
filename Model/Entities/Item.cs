@@ -1,21 +1,36 @@
-﻿using System;
+﻿using SistemaAlquileres.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SistemaAlquileres.Model.Entities
+namespace TitoAlquiler.Model.Entities
 {
-    public class Item
+    public abstract class Item
     {
         public int id { get; set; }
-        public string categoria { get; set; }//Transporte, Electronica, Electrodomesticos, Inmuebles, Indumentaria
-        public string nombre { get; set; }//Auto, Mouse, Lavarropa, Casa, Remera
-        public string marca { get; set; }//Toyota, Redragon, Samsung, Remax, Adidas
-        public string modelo { get; set; }//Corolla, M608, Silver, Estancia, Iv4728 
-        public float tarifa { get; set; }//$150, $10, $15, $100, $10 
 
+        [Required]
+        [StringLength(65)]
+        public string nombreItem { get; set; }
+
+        [StringLength(65)]
+        public string marca { get; set; }
+
+        [StringLength(65)]
+        public string modelo { get; set; }
+
+        [Required]
+        public double tarifaDia { get; set; }
+
+        [Required]
+        public int categoriaId { get; set; }
+
+        [ForeignKey("categoriaId")]
+        public virtual Categoria categoria { get; set; }
+
+        public virtual ICollection<Alquiler> Alquileres { get; set; }
+
+        public DateTime? deletedAt { get; set; }
     }
 }

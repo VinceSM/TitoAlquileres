@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SistemaAlquileres.Model.Entities;
+using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Model.Dao
 {
@@ -27,7 +27,7 @@ namespace SistemaAlquileres.Model.Dao
 
         public List<Item> GetItemsByName(string nombre)
         {
-            return _context.itemsAlquilables.Where(i => i.nombre.Contains(nombre)).ToList();
+            return _context.itemsAlquilables.Where(i => i.nombreItem.Contains(nombre)).ToList();
         }
 
         public List<Item> GetItemsByMarca(string marca)
@@ -38,11 +38,6 @@ namespace SistemaAlquileres.Model.Dao
         public List<Item> GetItemsByModelo(string modelo)
         {
             return _context.itemsAlquilables.Where(i => i.modelo == modelo).ToList();
-        }
-
-        public List<Item> GetItemsByCategoria(string categoria)
-        {
-            return _context.itemsAlquilables.Where(i => i.categoria == categoria).ToList();
         }
 
         public Item CreateItem(Item item)

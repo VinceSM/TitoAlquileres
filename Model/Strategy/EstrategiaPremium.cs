@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Model.Strategy
 {
@@ -11,7 +12,14 @@ namespace SistemaAlquileres.Model.Strategy
     {
         public double CalcularPrecio(Alquiler alquiler, Item item)
         {
-            return (alquiler.tiempo_dias * item.tarifa) * 0.9; //10% de descuento para usuarios Premium
+            return (alquiler.tiempo_dias * item.tarifa) * 0.9; //Precio con 10% off para usuarios premium 
+        }
+
+        public string getEstrategia()
+        {
+            return "Estrategia Premium";
         }
     }
+
+    
 }

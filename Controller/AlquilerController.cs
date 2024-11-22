@@ -3,12 +3,15 @@ using SistemaAlquileres.Model.Dao;
 using System;
 using System.Collections.Generic;
 using SistemaAlquileres.Model.Strategy;
+using SistemaAlquileres.Model.Factory;
+using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Controller
 {
     public class AlquilerController
     {
         private AlquilerDao _alquilerDao = new AlquilerDao();
+
 
         #region Singleton
         private static AlquilerController _instance;
@@ -42,19 +45,19 @@ namespace SistemaAlquileres.Controller
         }
 
         // Método para crear un nuevo alquiler
-        public Alquiler CrearAlquiler(int dias, Item item, Usuario usuario, IEstrategiaAlquiler estrategiaAlquiler)
+        public Alquiler CrearAlquiler(Alquiler alquiler, int dias, Item item, Usuario usuario, IEstrategiaAlquiler estrategia)
         {
-            var alquiler = _alquilerDao.CreateAlquiler(new Alquiler
+            var alq = _alquilerDao.CreateAlquiler(new Alquiler
             {
                 usuario_id = usuario,
                 item_id = item,
                 tiempo_dias = dias,
                 fecha_inicio = DateTime.Now,
-                fecha_fin = DateTime.Now.AddDays(dias),
-                precio_total = estrategiaAlquiler.getEstrategia()
+                fecha_fin = DateTime.Now.AddDays(dias)
+                
             });
-
-            return alquiler;
+            alq.CalcularPrecioTotal(estrategia);
+            return alq;
         }
 
         // Obtener un alquiler por ID

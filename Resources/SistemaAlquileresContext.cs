@@ -1,11 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaAlquileres.Model.Entities;
+using TitoAlquiler.Model.Entities;
 
 public class SistemaAlquilerContext : DbContext
 {
     public DbSet<Usuario> Usuarios { get; set; }
-    public DbSet<Item>itemsAlquilables { get; set; }
-    public DbSet<Alquiler> alquileres { get; set; } 
+    public DbSet<Item> itemsAlquilables { get; set; }
+    public DbSet<Alquiler> alquileres { get; set; }
+    public DbSet<Categoria> categorias { get; set; }
+    public DbSet<ItemTransporte> transportes { get; set; }
+    public DbSet<ItemElectrodomesticos> electrodomesticos { get; set; }
+    public DbSet<ItemElectronica> electronica { get; set; }
+    public DbSet<ItemInmuebles> inmuebles { get; set; }
+
+    //public DbSet<Indumentaria> indumentarias { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -20,54 +28,99 @@ public class SistemaAlquilerContext : DbContext
         // Configuración de Usuario
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.ToTable("usuario"); 
-            entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.nombre).HasColumnName("nombre").HasMaxLength(65);
-            entity.Property(e => e.dni).HasColumnName("dni");
-            entity.Property(e => e.email).HasColumnName("email").HasMaxLength(65);
-            entity.Property(e => e.tipoMembresia).HasColumnName("tipo_membresia").HasMaxLength(65);
-            entity.Property(e => e.deletedAt).HasColumnName("deletedAt").HasDefaultValue(null); 
+            entity.ToTable("Usuario");
+            entity.Property(e => e.id).HasColumnName("Id");
+            entity.Property(e => e.nombre).HasColumnName("Nombre").HasMaxLength(65);
+            entity.Property(e => e.dni).HasColumnName("Dni");
+            entity.Property(e => e.email).HasColumnName("Email").HasMaxLength(65);
+            entity.Property(e => e.membresiaPremium).HasColumnName("MembresiaPremium");
+            entity.Property(e => e.deletedAt).HasColumnName("DeletedAt");
+
+            entity.HasMany(u => u.Alquileres)
+                  .WithOne(a => a.usuario)
+                  .HasForeignKey(a => a.usuarioId)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
 
         // Configuración de Item
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.ToTable("itemAlquilable"); 
-            entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.categoria).HasColumnName("categoria").HasMaxLength(65);
-            entity.Property(e => e.nombre).HasColumnName("nombre").HasMaxLength(65);
-            entity.Property(e => e.marca).HasColumnName("marca").HasMaxLength(65);
-            entity.Property(e => e.modelo).HasColumnName("modelo").HasMaxLength(65);
-            entity.Property(e => e.tarifa).HasColumnName("tarifa");
+            entity.ToTable("Item");
+            entity.Property(e => e.id).HasColumnName("Id");
+            entity.Property(e => e.nombreItem).HasColumnName("NombreItem").HasMaxLength(65);
+            entity.Property(e => e.marca).HasColumnName("Marca").HasMaxLength(65);
+            entity.Property(e => e.modelo).HasColumnName("Modelo").HasMaxLength(65);
+            entity.Property(e => e.tarifaDia).HasColumnName("TarifaDia");
+
+            entity.HasOne(i => i.categoria)
+                  .WithMany(c => c.items)
+                  .HasForeignKey(i => i.categoriaId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasMany(i => i.Alquileres)
+                  .WithOne(a => a.item)
+                  .HasForeignKey(a => a.itemId)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
 
         // Configuración de Alquiler
         modelBuilder.Entity<Alquiler>(entity =>
         {
-            entity.ToTable("alquiler"); 
-            entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.item_id).HasColumnName("item_id");
-            entity.Property(e => e.usuario_id).HasColumnName("usuario_id");
-            entity.Property(e => e.tiempo_dias).HasColumnName("tiempo_dias");
-            entity.Property(e => e.fecha_inicio).HasColumnName("fecha_inicio");
-            entity.Property(e => e.fecha_fin).HasColumnName("fecha_fin");
-            entity.Property(e => e.precio_total).HasColumnName("precioTotal");
-            entity.Property(e => e.deletedAt).HasColumnName("deletedAt").HasDefaultValue(null); 
-
-            // Relaciones de Alquiler con Item y Usuario
-            entity.HasOne(d => d.item_id)
-                .WithMany()
-                .HasForeignKey(d => d.item_id) 
-                .OnDelete(DeleteBehavior.Restrict);
-
-            entity.HasOne(d => d.usuario_id) 
-                .WithMany() 
-                .HasForeignKey(d => d.usuario_id) 
-                .OnDelete(DeleteBehavior.Restrict); 
+            entity.ToTable("Alquiler");
+            entity.Property(e => e.id).HasColumnName("Id");
+            entity.Property(e => e.tiempoDias).HasColumnName("TiempoDias");
+            entity.Property(e => e.fechaInicio).HasColumnName("FechaInicio");
+            entity.Property(e => e.fechaFin).HasColumnName("FechaFin");
+            entity.Property(e => e.precioTotal).HasColumnName("PrecioTotal");
+            entity.Property(e => e.tipoEstrategia).HasColumnName("TipoEstrategia").HasMaxLength(50);
+            entity.Property(e => e.descuento).HasColumnName("Descuento");
+            entity.Property(e => e.deletedAt).HasColumnName("DeletedAt");
         });
 
+        modelBuilder.Entity<Categoria>(entity =>
+        {
+            entity.ToTable("Categoria");
+            entity.Property(e => e.id).HasColumnName("Id");
+            entity.Property(e => e.nombre).HasColumnName("Nombre").HasMaxLength(65);
+            entity.Property(e => e.deletedAt).HasColumnName("DeletedAt");
+        });
+
+        modelBuilder.Entity<ItemTransporte>(entity =>
+        {
+            entity.ToTable("ItemTransporte");
+            entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<ItemElectrodomesticos>(entity =>
+        {
+            entity.ToTable("ItemElectrodomesticos");
+            entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<ItemElectronica>(entity =>
+        {
+            entity.ToTable("ItemElectronica");
+            entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<ItemInmuebles>(entity =>
+        {
+            entity.ToTable("ItemInmuebles");
+            entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        });
+
+        // Configuración de herencia para los tipos de Item
+        modelBuilder.Entity<Item>()
+            .HasDiscriminator<string>("TipoItem")
+            .HasValue<ItemTransporte>("Transporte")
+            .HasValue<ItemElectrodomesticos>("Electrodomesticos")
+            .HasValue<ItemElectronica>("Electronica")
+            .HasValue<ItemInmuebles>("Inmuebles");
+
+        // Configuración de filtros globales para el borrado lógico
         modelBuilder.Entity<Usuario>().HasQueryFilter(u => u.deletedAt == null);
         modelBuilder.Entity<Alquiler>().HasQueryFilter(a => a.deletedAt == null);
+        modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
+        modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
     }
-
 }

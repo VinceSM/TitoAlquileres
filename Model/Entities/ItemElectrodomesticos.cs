@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaAlquileres.Model.Entities
+namespace TitoAlquiler.Model.Entities
 {
     public class ItemElectrodomesticos : Item
     {
+        public string descripcion { get; set; }
     }
-    
+
 }
