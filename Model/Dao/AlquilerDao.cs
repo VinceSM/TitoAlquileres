@@ -22,6 +22,9 @@ namespace SistemaAlquileres.Model.Dao
 
         public Alquiler CreateAlquiler(Alquiler alquiler)
         {
+            if (alquiler == null)
+                throw new ArgumentNullException(nameof(alquiler));
+
             _context.alquileres.Add(alquiler);
             _context.SaveChanges();
             return alquiler;
@@ -51,13 +54,16 @@ namespace SistemaAlquileres.Model.Dao
             var alquiler = _context.alquileres.Find(id);
             if (alquiler != null)
             {
-                alquiler.deletedAt = DateTime.Now;
+                alquiler.deletedAt = DateTime.UtcNow;
                 _context.SaveChanges();
             }
         }
 
         public Alquiler UpdateAlquiler(Alquiler alquiler)
         {
+            if (alquiler == null)
+                throw new ArgumentNullException(nameof(alquiler));
+
             _context.Entry(alquiler).State = EntityState.Modified;
             _context.SaveChanges();
             return alquiler;

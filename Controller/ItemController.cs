@@ -27,48 +27,46 @@ namespace SistemaAlquileres.Controller
         #endregion
 
         // Método para cargar todos los items
-        public List<Item> LoadItems()
+        public List<Item> GetItems()
         {
             return itemDao.GetAllItems();
         }
 
-        // Método para obtener un item por su ID
         public Item GetItemById(int id)
         {
             return itemDao.GetItemById(id);
         }
 
-        // Método para obtener items por nombre
         public List<Item> GetItemsByName(string nombre)
         {
+            if (string.IsNullOrEmpty(nombre)) throw new ArgumentException("Nombre cannot be null or empty", nameof(nombre));
             return itemDao.GetItemsByName(nombre);
         }
 
-        // Método para obtener items por marca
         public List<Item> GetItemsByMarca(string marca)
         {
+            if (string.IsNullOrEmpty(marca)) throw new ArgumentException("Marca cannot be null or empty", nameof(marca));
             return itemDao.GetItemsByMarca(marca);
         }
 
-        // Método para obtener items por modelo
         public List<Item> GetItemsByModelo(string modelo)
         {
+            if (string.IsNullOrEmpty(modelo)) throw new ArgumentException("Modelo cannot be null or empty", nameof(modelo));
             return itemDao.GetItemsByModelo(modelo);
         }
 
-        // Método para crear un nuevo item
         public Item CreateItem(Item item)
         {
+            if (item == null) throw new ArgumentNullException(nameof(item));
             return itemDao.CreateItem(item);
         }
 
-        // Método para actualizar un item
         public Item UpdateItem(Item item)
         {
+            if (item == null) throw new ArgumentNullException(nameof(item));
             return itemDao.UpdateItem(item);
         }
 
-        // Método para eliminar un item
         public void DeleteItem(int id)
         {
             itemDao.DeleteItem(id);

@@ -28,21 +28,33 @@ namespace SistemaAlquileres.Model.Dao
 
         public List<Item> GetItemsByName(string nombre)
         {
+            if (string.IsNullOrEmpty(nombre))
+                throw new ArgumentException("Name cannot be null or empty", nameof(nombre));
+
             return _context.itemsAlquilables.Where(i => i.nombreItem.Contains(nombre)).ToList();
         }
 
         public List<Item> GetItemsByMarca(string marca)
         {
+            if (string.IsNullOrEmpty(marca))
+                throw new ArgumentException("Brand cannot be null or empty", nameof(marca));
+
             return _context.itemsAlquilables.Where(i => i.marca == marca).ToList();
         }
 
         public List<Item> GetItemsByModelo(string modelo)
         {
+            if (string.IsNullOrEmpty(modelo))
+                throw new ArgumentException("Model cannot be null or empty", nameof(modelo));
+
             return _context.itemsAlquilables.Where(i => i.modelo == modelo).ToList();
         }
 
         public Item CreateItem(Item item)
         {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
             _context.itemsAlquilables.Add(item);
             _context.SaveChanges();
             return item;
@@ -50,6 +62,9 @@ namespace SistemaAlquileres.Model.Dao
 
         public Item UpdateItem(Item item)
         {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
             _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
             return item;

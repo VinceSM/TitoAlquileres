@@ -14,52 +14,73 @@ namespace SistemaAlquileres.View.Usuario
             InitializeComponent();
         }
 
-        private async void btnCrearUsuario_Click(object sender, EventArgs e)
+        private void BtnCrearUsuario_Click(object sender, EventArgs e)
         {
-            string nombre = textBoxCrearNombre.Text;
-            string email = textBoxCrearEmail.Text;
-            string dniText = textBoxCrearDNI.Text;
-            string tipoMembresia = comboBoxTipoMembresia.SelectedItem?.ToString();
-
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(dniText) || string.IsNullOrWhiteSpace(tipoMembresia))
+            if (!ValidateInputs(out string nombre, out string email, out int dni, out string tipoMembresia))
             {
-                MessageBox.Show("Por favor, complete todos los campos.");
                 return;
             }
-
-            if (!int.TryParse(dniText, out int dni))
-            {
-                MessageBox.Show("El DNI debe ser un número válido.");
-                return;
-            }
-
-            /*var NuevoUsuario = new Model.Entities.Usuario
-            {
-                nombre = nombre,
-                email = email,
-                dni = dni,
-                tipoMembresia = tipoMembresia
-            };*/
 
             try
             {
-                var usuarioCreado = usuarioController.CrearUsuario(nombre, dni, email, tipoMembresia);
+                var usuarioCreado = usuarioController.CrearUsuario(new Usuario
+                {
+                    Nombre = nombre,
+                    Dni = dni,
+                    Email = email,
+                    MembresiaPremium = tipoMembresia.Equals("Premium", StringComparison.OrdinalIgnoreCase)
+                });
+
                 if (usuarioCreado != null)
                 {
-                    lblCreado.Text = "Usuario creado exitosamente";
-                    MessageBox.Show($"Usuario creado con ID: {usuarioCreado.id}");
+                    MostrarMensajeExito(usuarioCreado.id);
                     LimpiarCampos();
                 }
                 else
                 {
-                    lblCreado.Text = "Error al crear el usuario";
+                    MostrarMensajeError("No se pudo crear el usuario.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el usuario: {ex.Message}");
+                MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
             }
+        }
+
+        private bool ValidateInputs(out string nombre, out string email, out int dni, out string tipoMembresia)
+        {
+            nombre = textBoxCrearNombre.Text.Trim();
+            email = textBoxCrearEmail.Text.Trim();
+            string dniText = textBoxCrearDNI.Text.Trim();
+            tipoMembresia = comboBoxTipoMembresia.SelectedItem?.ToString();
+
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(dniText) || string.IsNullOrWhiteSpace(tipoMembresia))
+            {
+                MostrarMensajeError("Por favor, complete todos los campos.");
+                dni = 0;
+                return false;
+            }
+
+            if (!int.TryParse(dniText, out dni))
+            {
+                MostrarMensajeError("El DNI debe ser un número válido.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void MostrarMensajeExito(int usuarioId)
+        {
+            lblCreado.Text = "Usuario creado exitosamente";
+            MessageBox.Show($"Usuario creado con ID: {usuarioId}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MostrarMensajeError(string mensaje)
+        {
+            lblCreado.Text = "Error al crear el usuario";
+            MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void LimpiarCampos()

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Entities;
-//using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Model.Factory
 {
@@ -12,17 +11,17 @@ namespace SistemaAlquileres.Model.Factory
     {
         public abstract Item CrearItem();
 
-        public Item BuildItem(string nombre, string categoria, string marca, string modelo, double tarifa)
+        public Item BuildItem(string nombreItem, int categoriaId, string marca, string modelo, double tarifaDia)
         {
             Item item = CrearItem();
-            item.nombreItem = nombre;
-            item.categoria = categoria; 
+
+            item.nombreItem = nombreItem;
+            item.categoriaId = categoriaId;
             item.marca = marca;
             item.modelo = modelo;
-            item.tarifaDia = tarifa;
+            item.tarifaDia = tarifaDia;
 
             return item;
         }
-
     }
 }

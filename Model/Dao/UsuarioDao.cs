@@ -17,7 +17,7 @@ namespace SistemaAlquileres.Model.Dao
 
         public List<Usuario> GetAllUsuarios()
         {
-            return _context.Usuarios.Where(u => u.deletedAt == null).ToList();
+            return _context.Usuarios.ToList();
         }
 
         public Usuario GetUsuarioById(int id)
@@ -27,25 +27,28 @@ namespace SistemaAlquileres.Model.Dao
 
         public Usuario GetUsuarioByName(string nombre)
         {
-            return _context.Usuarios.FirstOrDefault(u => u.nombre == nombre && u.deletedAt == null);
+            if (string.IsNullOrEmpty(nombre))
+                throw new ArgumentException("Name cannot be null or empty", nameof(nombre));
+
+            return _context.Usuarios.FirstOrDefault(u => u.nombre == nombre);
         }
 
         public Usuario GetUsuarioByDni(int dni)
         {
-            return _context.Usuarios.FirstOrDefault(u => u.dni == dni && u.deletedAt == null);
+            return _context.Usuarios.FirstOrDefault(u => u.dni == dni);
         }
 
-        // Método para obtener un usuario por su email
         public Usuario GetUsuarioByEmail(string email)
         {
-            return _context.Usuarios
-                           .Where(u => u.email == email)
-                           .FirstOrDefault();
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentException("Email cannot be null or empty", nameof(email));
+
+            return _context.Usuarios.FirstOrDefault(u => u.email == email);
         }
 
-        public List<Usuario> GetUsuariosByMembresia(string tipoMembresia)
+        public List<Usuario> GetUsuariosByMembresia(bool membresiaPremium)
         {
-            return _context.Usuarios.Where(u => u.tipoMembresia == tipoMembresia && u.deletedAt == null).ToList();
+            return _context.Usuarios.Where(u => u.membresiaPremium == membresiaPremium).ToList();
         }
 
         public void SoftDeleteUser(int id)
@@ -53,13 +56,16 @@ namespace SistemaAlquileres.Model.Dao
             var usuario = _context.Usuarios.Find(id);
             if (usuario != null)
             {
-                usuario.deletedAt = DateTime.Now;
+                usuario.deletedAt = DateTime.UtcNow;
                 _context.SaveChanges();
             }
         }
 
         public Usuario CreateUsuario(Usuario usuario)
         {
+            if (usuario == null)
+                throw new ArgumentNullException(nameof(usuario));
+
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
             return usuario;
@@ -67,6 +73,9 @@ namespace SistemaAlquileres.Model.Dao
 
         public Usuario UpdateUsuario(Usuario usuario)
         {
+            if (usuario == null)
+                throw new ArgumentNullException(nameof(usuario));
+
             _context.Entry(usuario).State = EntityState.Modified;
             _context.SaveChanges();
             return usuario;

@@ -31,64 +31,52 @@ namespace SistemaAlquileres.Controller
         #endregion
 
         // Método para crear un nuevo usuario
-        public Usuario CrearUsuario(string nombre, int dni, string email, string tipoMembresia)
+        public Usuario CrearUsuario(Usuario usuario)
         {
-            var usuario = new Usuario
-            {
-                nombre = nombre,
-                dni = dni,
-                email = email,
-                tipoMembresia = tipoMembresia
-            };
-
+            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
             return usuarioDao.CreateUsuario(usuario);
         }
 
-        // Método para cargar todos los usuarios
-        public List<Usuario> LoadUsuarios()
+        public List<Usuario> GetUsuarios()
         {
             return usuarioDao.GetAllUsuarios();
         }
 
-        // Método para obtener un usuario por su ID
         public Usuario GetUsuarioById(int id)
         {
             return usuarioDao.GetUsuarioById(id);
         }
 
-        // Método para obtener un usuario por su nombre
         public Usuario GetUsuarioByName(string nombre)
         {
+            if (string.IsNullOrEmpty(nombre)) throw new ArgumentException("Nombre cannot be null or empty", nameof(nombre));
             return usuarioDao.GetUsuarioByName(nombre);
         }
 
-        // Método para obtener un usuario por su DNI
         public Usuario GetUsuarioByDni(int dni)
         {
             return usuarioDao.GetUsuarioByDni(dni);
         }
 
-        // Método para obtener un usuario por su email
         public Usuario GetUsuarioByEmail(string email)
         {
+            if (string.IsNullOrEmpty(email)) throw new ArgumentException("Email cannot be null or empty", nameof(email));
             return usuarioDao.GetUsuarioByEmail(email);
         }
 
-        // Método para obtener usuarios por su tipo de membresía
-        public List<Usuario> GetUsuarioByMembresia(string tipoMembresia)
+        public List<Usuario> GetUsuariosByMembresia(bool membresiaPremium)
         {
-            return usuarioDao.GetUsuariosByMembresia(tipoMembresia);
+            return usuarioDao.GetUsuariosByMembresia(membresiaPremium);
         }
 
-        // Método para eliminar un usuario (soft delete)
         public void SoftDeleteUser(int id)
         {
             usuarioDao.SoftDeleteUser(id);
         }
 
-        // Método para actualizar un usuario
         public Usuario UpdateUsuario(Usuario usuario)
         {
+            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
             return usuarioDao.UpdateUsuario(usuario);
         }
     }

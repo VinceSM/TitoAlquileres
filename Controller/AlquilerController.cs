@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using SistemaAlquileres.Model.Strategy;
 using SistemaAlquileres.Model.Factory;
 using TitoAlquiler.Model.Entities;
-//using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Controller
 {
@@ -40,54 +39,51 @@ namespace SistemaAlquileres.Controller
         #endregion
 
         // Método para cargar todos los alquileres
-        public List<Alquiler> LoadAlquileres()
+        public List<Alquiler> GetAlquileres()
         {
             return _alquilerDao.GetAllAlquileres();
         }
 
-        // Método para crear un nuevo alquiler
         public Alquiler CrearAlquiler(Alquiler alquiler, int dias, Item item, Usuario usuario, IEstrategiaAlquiler estrategia)
         {
-            var alq = _alquilerDao.CreateAlquiler(new Alquiler
-            {
-                usuarioId = usuario,
-                itemId = item,
-                tiempoDias = dias,
-                fechaInicio = DateTime.Now,
-                fechaFin = DateTime.Now.AddDays(dias)
-                
-            });
-            alq.CalcularPrecioTotal(estrategia);
-            return alq;
+            if (alquiler == null) throw new ArgumentNullException(nameof(alquiler));
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
+            if (estrategia == null) throw new ArgumentNullException(nameof(estrategia));
+
+            alquiler.item = item;
+            alquiler.usuario = usuario;
+            alquiler.tiempoDias = dias;
+            alquiler.fechaInicio = DateTime.UtcNow;
+            alquiler.fechaFin = alquiler.fechaInicio.AddDays(dias);
+            alquiler.CalcularPrecioTotal(estrategia);
+
+            return _alquilerDao.CreateAlquiler(alquiler);
         }
 
-        // Obtener un alquiler por ID
         public Alquiler GetAlquilerById(int id)
         {
             return _alquilerDao.GetAlquilerById(id);
         }
 
-        // Obtener alquileres por Item
         public List<Alquiler> GetAlquileresByItem(int itemId)
         {
             return _alquilerDao.GetAlquileresByItem(itemId);
         }
 
-        // Obtener alquileres por Usuario
         public List<Alquiler> GetAlquileresByUsuario(int usuarioId)
         {
             return _alquilerDao.GetAlquileresByUsuario(usuarioId);
         }
 
-        // Eliminar un alquiler de manera lógica
         public void SoftDeleteAlquiler(int id)
         {
             _alquilerDao.SoftDeleteAlquiler(id);
         }
 
-        // Método para actualizar alquiler (si fuera necesario)
         public Alquiler UpdateAlquiler(Alquiler alquiler)
         {
+            if (alquiler == null) throw new ArgumentNullException(nameof(alquiler));
             return _alquilerDao.UpdateAlquiler(alquiler);
         }
     }
