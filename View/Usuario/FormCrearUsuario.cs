@@ -14,48 +14,15 @@ namespace SistemaAlquileres.View.Usuario
             InitializeComponent();
         }
 
-        private void BtnCrearUsuario_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInputs(out string nombre, out string email, out int dni, out string tipoMembresia))
-            {
-                return;
-            }
-
-            try
-            {
-                var usuarioCreado = usuarioController.CrearUsuario(new Usuario
-                {
-                    Nombre = nombre,
-                    Dni = dni,
-                    Email = email,
-                    MembresiaPremium = tipoMembresia.Equals("Premium", StringComparison.OrdinalIgnoreCase)
-                });
-
-                if (usuarioCreado != null)
-                {
-                    MostrarMensajeExito(usuarioCreado.id);
-                    LimpiarCampos();
-                }
-                else
-                {
-                    MostrarMensajeError("No se pudo crear el usuario.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
-            }
-        }
-
-        private bool ValidateInputs(out string nombre, out string email, out int dni, out string tipoMembresia)
+        private bool ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium)
         {
             nombre = textBoxCrearNombre.Text.Trim();
             email = textBoxCrearEmail.Text.Trim();
             string dniText = textBoxCrearDNI.Text.Trim();
-            tipoMembresia = comboBoxTipoMembresia.SelectedItem?.ToString();
+            membresiaPremium = checkBoxMembresia.Checked;
 
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(dniText) || string.IsNullOrWhiteSpace(tipoMembresia))
+                string.IsNullOrWhiteSpace(dniText))
             {
                 MostrarMensajeError("Por favor, complete todos los campos.");
                 dni = 0;
@@ -88,7 +55,7 @@ namespace SistemaAlquileres.View.Usuario
             textBoxCrearNombre.Clear();
             textBoxCrearEmail.Clear();
             textBoxCrearDNI.Clear();
-            comboBoxTipoMembresia.SelectedIndex = -1;
+            checkBoxMembresia.Checked = false;
         }
 
         private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -103,6 +70,39 @@ namespace SistemaAlquileres.View.Usuario
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 Application.Exit();
+            }
+        }
+
+        private void btnCrearUsuario_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium))
+            {
+                return;
+            }
+
+            try
+            {
+                var usuarioCreado = usuarioController.CrearUsuario(new Model.Entities.Usuario
+                {
+                    nombre = nombre,
+                    dni = dni,
+                    email = email,
+                    membresiaPremium = membresiaPremium
+                });
+
+                if (usuarioCreado != null)
+                {
+                    MostrarMensajeExito(usuarioCreado.id);
+                    LimpiarCampos();
+                }
+                else
+                {
+                    MostrarMensajeError("No se pudo crear el usuario.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
             }
         }
     }

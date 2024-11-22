@@ -18,8 +18,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -85,42 +85,60 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.deletedAt).HasColumnName("DeletedAt");
         });
 
+        modelBuilder.Entity<Item>(entity =>
+        {
+            entity.ToTable("Item");
+            entity.Property(e => e.id).HasColumnName("Id");
+            entity.Property(e => e.nombreItem).HasColumnName("NombreItem").HasMaxLength(65);
+            entity.Property(e => e.marca).HasColumnName("Marca").HasMaxLength(65);
+            entity.Property(e => e.modelo).HasColumnName("Modelo").HasMaxLength(65);
+            entity.Property(e => e.tarifaDia).HasColumnName("TarifaDia");
+            entity.HasDiscriminator<string>("Discriminator")
+                  .HasValue<Item>("Base")
+                  .HasValue<ItemTransporte>("Transporte")
+                  .HasValue<ItemElectrodomesticos>("Electrodomesticos")
+                  .HasValue<ItemElectronica>("Electronica")
+                  .HasValue<ItemInmuebles>("Inmuebles");
+        });
+
+        // Configuración específica para ItemTransporte
         modelBuilder.Entity<ItemTransporte>(entity =>
         {
             entity.ToTable("ItemTransporte");
             entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
         });
 
+        // Configuración específica para ItemElectrodomesticos
         modelBuilder.Entity<ItemElectrodomesticos>(entity =>
         {
             entity.ToTable("ItemElectrodomesticos");
             entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
         });
 
+        // Configuración específica para ItemElectronica
         modelBuilder.Entity<ItemElectronica>(entity =>
         {
             entity.ToTable("ItemElectronica");
             entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
         });
 
+        // Configuración específica para ItemInmuebles
         modelBuilder.Entity<ItemInmuebles>(entity =>
         {
             entity.ToTable("ItemInmuebles");
             entity.Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
         });
 
-        // Configuración de herencia para los tipos de Item
-        modelBuilder.Entity<Item>()
-            .HasDiscriminator<string>("TipoItem")
-            .HasValue<ItemTransporte>("Transporte")
-            .HasValue<ItemElectrodomesticos>("Electrodomesticos")
-            .HasValue<ItemElectronica>("Electronica")
-            .HasValue<ItemInmuebles>("Inmuebles");
+
+        modelBuilder.Entity<ItemTransporte>().Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        modelBuilder.Entity<ItemElectrodomesticos>().Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        modelBuilder.Entity<ItemElectronica>().Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
+        modelBuilder.Entity<ItemInmuebles>().Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
 
         // Configuración de filtros globales para el borrado lógico
         modelBuilder.Entity<Usuario>().HasQueryFilter(u => u.deletedAt == null);
         modelBuilder.Entity<Alquiler>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
-        modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
-    }
+        modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
+    }
 }
