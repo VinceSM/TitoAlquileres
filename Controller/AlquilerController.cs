@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using SistemaAlquileres.Model.Strategy;
 using SistemaAlquileres.Model.Factory;
-using TitoAlquiler.Model.Entities.Item;
+using TitoAlquiler.Model.Entities;
+//using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Controller
 {
@@ -49,11 +50,11 @@ namespace SistemaAlquileres.Controller
         {
             var alq = _alquilerDao.CreateAlquiler(new Alquiler
             {
-                usuario_id = usuario,
-                item_id = item,
-                tiempo_dias = dias,
-                fecha_inicio = DateTime.Now,
-                fecha_fin = DateTime.Now.AddDays(dias)
+                usuarioId = usuario,
+                itemId = item,
+                tiempoDias = dias,
+                fechaInicio = DateTime.Now,
+                fechaFin = DateTime.Now.AddDays(dias)
                 
             });
             alq.CalcularPrecioTotal(estrategia);

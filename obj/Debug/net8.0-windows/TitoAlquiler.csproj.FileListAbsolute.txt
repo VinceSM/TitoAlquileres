@@ -73,47 +73,7 @@ C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.pd
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.Properties.Resources.resources
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.exe
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.deps.json
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.runtimeconfig.json
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.pdb
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Azure.Core.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Azure.Identity.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Data.SqlClient.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.SqlServer.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Identity.Client.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Abstractions.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Logging.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Tokens.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.SqlServer.Server.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Memory.Data.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Runtime.Caching.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.sourcelink.json
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.AssemblyReference.cache
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.Properties.Resources.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\SistemaAlquileres.View.Alquiler.FormAlquilar.resources
@@ -126,10 +86,3 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfo.cs
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.CoreCompileInputs.cache
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.sourcelink.json
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlqu.52134F2B.Up2Date
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\refint\TitoAlquiler.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.pdb
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
-C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.sourcelink.json

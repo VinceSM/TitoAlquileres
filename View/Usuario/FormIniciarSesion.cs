@@ -29,7 +29,7 @@ namespace SistemaAlquileres.View.Usuario
             btnEntrar.Enabled = false;
             try
             {
-                Entities.Usuario usuario = await usuarioController.getUsuarioByEmail(email);
+                Entities.Usuario usuario = usuarioController.GetUsuarioByEmail(email);
 
                 if (usuario != null && usuario.nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase))
                 {

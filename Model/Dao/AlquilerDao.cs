@@ -35,14 +35,14 @@ namespace SistemaAlquileres.Model.Dao
         public List<Alquiler> GetAlquileresByItem(int itemId)
         {
             return _context.alquileres
-                .Where(a => a.item_id == itemId && a.deletedAt == null)
+                .Where(a => a.itemId == itemId && a.deletedAt == null)
                 .ToList();
         }
 
         public List<Alquiler> GetAlquileresByUsuario(int usuarioId)
         {
             return _context.alquileres
-                .Where(a => a.usuario_id == usuarioId && a.deletedAt == null)
+                .Where(a => a.usuarioId == usuarioId && a.deletedAt == null)
                 .ToList();
         }
 

@@ -8,6 +8,8 @@ namespace SistemaAlquileres.Model.Entities
 {
     public class Alquiler
     {
+        internal readonly object fecha_inicio;
+
         public int id { get; set; }
 
         [Required]

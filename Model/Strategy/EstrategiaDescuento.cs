@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TitoAlquiler.Model.Entities.Item;
+using TitoAlquiler.Model.Entities;
+//using TitoAlquiler.Model.Entities.Item;
 
 namespace TitoAlquiler.Model.Strategy
 {
@@ -13,16 +14,16 @@ namespace TitoAlquiler.Model.Strategy
     {
         public double CalcularPrecio(Alquiler alquiler, Item item)
         {
-            if (alquiler.fecha_inicio.Month > 0 && alquiler.fecha_inicio.Month <= 4)
+            if (alquiler.fechaInicio.Month > 0 && alquiler.fechaInicio.Month <= 4)
             {
                 getDescuentoVerano();
 
             }
-            else if (alquiler.fecha_inicio.Month > 4 && alquiler.fecha_inicio.Month <= 8)
+            else if (alquiler.fechaInicio.Month > 4 && alquiler.fechaInicio.Month <= 8)
             {
                 getDescuentoInvierno();
             }
-            else if (alquiler.fecha_inicio.Month > 8 && alquiler.fecha_inicio.Month <= 12)
+            else if (alquiler.fechaInicio.Month > 8 && alquiler.fechaInicio.Month <= 12)
             {
                 getDescuentoPrimavera();
             }

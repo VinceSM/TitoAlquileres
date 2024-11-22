@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TitoAlquiler.Model.Entities.Item;
+using TitoAlquiler.Model.Entities;
+//using TitoAlquiler.Model.Entities.Item;
 
 namespace SistemaAlquileres.Model.Factory
 {
@@ -14,11 +15,11 @@ namespace SistemaAlquileres.Model.Factory
         public Item BuildItem(string nombre, string categoria, string marca, string modelo, double tarifa)
         {
             Item item = CrearItem();
-            item.nombre = nombre;
-            item.categoria = categoria;
+            item.nombreItem = nombre;
+            item.categoria = categoria; 
             item.marca = marca;
             item.modelo = modelo;
-            item.tarifa = tarifa;
+            item.tarifaDia = tarifa;
 
             return item;
         }
