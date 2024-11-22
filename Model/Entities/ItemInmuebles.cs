@@ -9,5 +9,10 @@ namespace TitoAlquiler.Model.Entities
     public class ItemInmuebles : Item
     {
         public string descripcion { get; set; }
+
+        public string GetDescripcion()
+        {
+            return descripcion;
+        }
     }
 }

@@ -18,8 +18,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -93,12 +93,12 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.marca).HasColumnName("Marca").HasMaxLength(65);
             entity.Property(e => e.modelo).HasColumnName("Modelo").HasMaxLength(65);
             entity.Property(e => e.tarifaDia).HasColumnName("TarifaDia");
-            entity.HasDiscriminator<string>("Discriminator")
+           /* entity.HasDiscriminator<string>("Discriminator")
                   .HasValue<Item>("Base")
                   .HasValue<ItemTransporte>("Transporte")
                   .HasValue<ItemElectrodomesticos>("Electrodomesticos")
                   .HasValue<ItemElectronica>("Electronica")
-                  .HasValue<ItemInmuebles>("Inmuebles");
+                  .HasValue<ItemInmuebles>("Inmuebles");*/
         });
 
         // Configuración específica para ItemTransporte

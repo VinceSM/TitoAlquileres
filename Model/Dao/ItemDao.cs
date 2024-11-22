@@ -26,6 +26,12 @@ namespace SistemaAlquileres.Model.Dao
             return _context.itemsAlquilables.Find(id);
         }
 
+        public Item GetItemByCategoria(int categoriaId)
+        {
+            return _context.itemsAlquilables.Find(categoriaId);
+        }
+
+
         public List<Item> GetItemsByName(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
