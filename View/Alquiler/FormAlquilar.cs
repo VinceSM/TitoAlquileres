@@ -27,5 +27,7 @@ namespace SistemaAlquileres.View.Alquiler
                 Application.Exit();
             }
         }
+
+
     }
 }

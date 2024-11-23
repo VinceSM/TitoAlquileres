@@ -28,14 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             lblNombreUsuario = new Label();
             ccbItems = new ComboBox();
-            dataGridViewItems = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            Marca = new DataGridViewTextBoxColumn();
-            Modelo = new DataGridViewTextBoxColumn();
-            Reserva = new DataGridViewTextBoxColumn();
+            categoriaBindingSource = new BindingSource(components);
             lblPrecioPorDias = new Label();
             lblPrecioPorDia = new Label();
             panelFecha = new Panel();
@@ -46,9 +43,31 @@
             lblFecha = new Label();
             btnCrear = new Button();
             linkVolver = new LinkLabel();
+            dataGridViewUsuarios = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nombreDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dniDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            emailDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            membresiaPremiumDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            deletedAtDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            alquileresDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            usuarioBindingSource1 = new BindingSource(components);
+            usuarioBindingSource = new BindingSource(components);
+            sistemaAlquilerContextBindingSource = new BindingSource(components);
+            dataGridViewItem = new DataGridView();
+            id = new DataGridViewTextBoxColumn();
+            nombreItem = new DataGridViewTextBoxColumn();
+            marca = new DataGridViewTextBoxColumn();
+            modelo = new DataGridViewTextBoxColumn();
+            tarifaDia = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewItems).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewItem).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -57,14 +76,14 @@
             panel1.Controls.Add(lblNombreUsuario);
             panel1.Location = new Point(-4, -2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(811, 103);
+            panel1.Size = new Size(1312, 103);
             panel1.TabIndex = 0;
             // 
             // lblNombreUsuario
             // 
             lblNombreUsuario.AutoSize = true;
             lblNombreUsuario.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNombreUsuario.Location = new Point(301, 34);
+            lblNombreUsuario.Location = new Point(566, 28);
             lblNombreUsuario.Name = "lblNombreUsuario";
             lblNombreUsuario.Size = new Size(212, 37);
             lblNombreUsuario.TabIndex = 0;
@@ -75,65 +94,19 @@
             ccbItems.DropDownStyle = ComboBoxStyle.DropDownList;
             ccbItems.FlatStyle = FlatStyle.Flat;
             ccbItems.FormattingEnabled = true;
-            ccbItems.Location = new Point(266, 126);
+            ccbItems.Location = new Point(778, 115);
             ccbItems.Name = "ccbItems";
             ccbItems.Size = new Size(270, 30);
             ccbItems.TabIndex = 1;
             // 
-            // dataGridViewItems
+            // categoriaBindingSource
             // 
-            dataGridViewItems.AllowUserToAddRows = false;
-            dataGridViewItems.AllowUserToDeleteRows = false;
-            dataGridViewItems.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridViewItems.BackgroundColor = Color.LightBlue;
-            dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { Id, Marca, Modelo, Reserva });
-            dataGridViewItems.Location = new Point(210, 172);
-            dataGridViewItems.Name = "dataGridViewItems";
-            dataGridViewItems.ReadOnly = true;
-            dataGridViewItems.RowHeadersVisible = false;
-            dataGridViewItems.RowHeadersWidth = 51;
-            dataGridViewItems.RowTemplate.Height = 24;
-            dataGridViewItems.Size = new Size(379, 150);
-            dataGridViewItems.TabIndex = 2;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.MinimumWidth = 6;
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            Id.Width = 125;
-            // 
-            // Marca
-            // 
-            Marca.HeaderText = "Marca";
-            Marca.MinimumWidth = 6;
-            Marca.Name = "Marca";
-            Marca.ReadOnly = true;
-            Marca.Width = 125;
-            // 
-            // Modelo
-            // 
-            Modelo.HeaderText = "Modelo";
-            Modelo.MinimumWidth = 6;
-            Modelo.Name = "Modelo";
-            Modelo.ReadOnly = true;
-            Modelo.Width = 125;
-            // 
-            // Reserva
-            // 
-            Reserva.HeaderText = "Reserva";
-            Reserva.MinimumWidth = 6;
-            Reserva.Name = "Reserva";
-            Reserva.ReadOnly = true;
-            Reserva.Width = 125;
+            categoriaBindingSource.DataSource = typeof(TitoAlquiler.Model.Entities.Categoria);
             // 
             // lblPrecioPorDias
             // 
             lblPrecioPorDias.AutoSize = true;
-            lblPrecioPorDias.Location = new Point(12, 383);
+            lblPrecioPorDias.Location = new Point(12, 567);
             lblPrecioPorDias.Name = "lblPrecioPorDias";
             lblPrecioPorDias.Size = new Size(138, 22);
             lblPrecioPorDias.TabIndex = 3;
@@ -143,7 +116,7 @@
             // 
             lblPrecioPorDia.AutoSize = true;
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPrecioPorDia.Location = new Point(156, 386);
+            lblPrecioPorDia.Location = new Point(156, 570);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
             lblPrecioPorDia.Size = new Size(63, 19);
             lblPrecioPorDia.TabIndex = 4;
@@ -157,7 +130,7 @@
             panelFecha.Controls.Add(lblFechaFin);
             panelFecha.Controls.Add(lblFechaInicio);
             panelFecha.Controls.Add(lblFecha);
-            panelFecha.Location = new Point(237, 336);
+            panelFecha.Location = new Point(433, 530);
             panelFecha.Name = "panelFecha";
             panelFecha.Size = new Size(418, 114);
             panelFecha.TabIndex = 5;
@@ -205,7 +178,7 @@
             // 
             // btnCrear
             // 
-            btnCrear.Location = new Point(692, 367);
+            btnCrear.Location = new Point(1195, 562);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(96, 55);
             btnCrear.TabIndex = 6;
@@ -224,18 +197,172 @@
             linkVolver.Text = "Volver";
             linkVolver.LinkClicked += linkVolver_LinkClicked;
             // 
+            // dataGridViewUsuarios
+            // 
+            dataGridViewUsuarios.AllowUserToAddRows = false;
+            dataGridViewUsuarios.AllowUserToDeleteRows = false;
+            dataGridViewUsuarios.AutoGenerateColumns = false;
+            dataGridViewUsuarios.BackgroundColor = Color.LightBlue;
+            dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nombreDataGridViewTextBoxColumn, dniDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, membresiaPremiumDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn, alquileresDataGridViewTextBoxColumn });
+            dataGridViewUsuarios.DataSource = usuarioBindingSource1;
+            dataGridViewUsuarios.Location = new Point(12, 162);
+            dataGridViewUsuarios.Name = "dataGridViewUsuarios";
+            dataGridViewUsuarios.ReadOnly = true;
+            dataGridViewUsuarios.RowHeadersVisible = false;
+            dataGridViewUsuarios.RowHeadersWidth = 51;
+            dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewUsuarios.Size = new Size(593, 352);
+            dataGridViewUsuarios.TabIndex = 8;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            idDataGridViewTextBoxColumn.HeaderText = "id";
+            idDataGridViewTextBoxColumn.MinimumWidth = 6;
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Visible = false;
+            idDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // nombreDataGridViewTextBoxColumn
+            // 
+            nombreDataGridViewTextBoxColumn.DataPropertyName = "nombre";
+            nombreDataGridViewTextBoxColumn.HeaderText = "Nombre";
+            nombreDataGridViewTextBoxColumn.MinimumWidth = 6;
+            nombreDataGridViewTextBoxColumn.Name = "nombreDataGridViewTextBoxColumn";
+            nombreDataGridViewTextBoxColumn.ReadOnly = true;
+            nombreDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // dniDataGridViewTextBoxColumn
+            // 
+            dniDataGridViewTextBoxColumn.DataPropertyName = "dni";
+            dniDataGridViewTextBoxColumn.HeaderText = "Dni";
+            dniDataGridViewTextBoxColumn.MinimumWidth = 6;
+            dniDataGridViewTextBoxColumn.Name = "dniDataGridViewTextBoxColumn";
+            dniDataGridViewTextBoxColumn.ReadOnly = true;
+            dniDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // emailDataGridViewTextBoxColumn
+            // 
+            emailDataGridViewTextBoxColumn.DataPropertyName = "email";
+            emailDataGridViewTextBoxColumn.HeaderText = "Email";
+            emailDataGridViewTextBoxColumn.MinimumWidth = 6;
+            emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
+            emailDataGridViewTextBoxColumn.ReadOnly = true;
+            emailDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // membresiaPremiumDataGridViewCheckBoxColumn
+            // 
+            membresiaPremiumDataGridViewCheckBoxColumn.DataPropertyName = "membresiaPremium";
+            membresiaPremiumDataGridViewCheckBoxColumn.HeaderText = "Membresia";
+            membresiaPremiumDataGridViewCheckBoxColumn.MinimumWidth = 6;
+            membresiaPremiumDataGridViewCheckBoxColumn.Name = "membresiaPremiumDataGridViewCheckBoxColumn";
+            membresiaPremiumDataGridViewCheckBoxColumn.ReadOnly = true;
+            membresiaPremiumDataGridViewCheckBoxColumn.Width = 125;
+            // 
+            // deletedAtDataGridViewTextBoxColumn
+            // 
+            deletedAtDataGridViewTextBoxColumn.DataPropertyName = "deletedAt";
+            deletedAtDataGridViewTextBoxColumn.HeaderText = "deletedAt";
+            deletedAtDataGridViewTextBoxColumn.MinimumWidth = 6;
+            deletedAtDataGridViewTextBoxColumn.Name = "deletedAtDataGridViewTextBoxColumn";
+            deletedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            deletedAtDataGridViewTextBoxColumn.Visible = false;
+            deletedAtDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // alquileresDataGridViewTextBoxColumn
+            // 
+            alquileresDataGridViewTextBoxColumn.DataPropertyName = "Alquileres";
+            alquileresDataGridViewTextBoxColumn.HeaderText = "Alquileres";
+            alquileresDataGridViewTextBoxColumn.MinimumWidth = 6;
+            alquileresDataGridViewTextBoxColumn.Name = "alquileresDataGridViewTextBoxColumn";
+            alquileresDataGridViewTextBoxColumn.ReadOnly = true;
+            alquileresDataGridViewTextBoxColumn.Visible = false;
+            alquileresDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // usuarioBindingSource1
+            // 
+            usuarioBindingSource1.DataSource = typeof(Model.Entities.Usuario);
+            // 
+            // usuarioBindingSource
+            // 
+            usuarioBindingSource.DataSource = typeof(Model.Entities.Usuario);
+            // 
+            // sistemaAlquilerContextBindingSource
+            // 
+            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
+            // 
+            // dataGridViewItem
+            // 
+            dataGridViewItem.AllowUserToAddRows = false;
+            dataGridViewItem.AllowUserToDeleteRows = false;
+            dataGridViewItem.BackgroundColor = Color.LightBlue;
+            dataGridViewItem.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewItem.Columns.AddRange(new DataGridViewColumn[] { id, nombreItem, marca, modelo, tarifaDia });
+            dataGridViewItem.Location = new Point(611, 162);
+            dataGridViewItem.Name = "dataGridViewItem";
+            dataGridViewItem.ReadOnly = true;
+            dataGridViewItem.RowHeadersVisible = false;
+            dataGridViewItem.RowHeadersWidth = 51;
+            dataGridViewItem.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewItem.Size = new Size(680, 352);
+            dataGridViewItem.TabIndex = 9;
+            // 
+            // id
+            // 
+            id.HeaderText = "id";
+            id.MinimumWidth = 6;
+            id.Name = "id";
+            id.ReadOnly = true;
+            id.Visible = false;
+            id.Width = 125;
+            // 
+            // nombreItem
+            // 
+            nombreItem.HeaderText = "Nombre";
+            nombreItem.MinimumWidth = 6;
+            nombreItem.Name = "nombreItem";
+            nombreItem.ReadOnly = true;
+            nombreItem.Width = 125;
+            // 
+            // marca
+            // 
+            marca.HeaderText = "Marca";
+            marca.MinimumWidth = 6;
+            marca.Name = "marca";
+            marca.ReadOnly = true;
+            marca.Width = 125;
+            // 
+            // modelo
+            // 
+            modelo.HeaderText = "Modelo";
+            modelo.MinimumWidth = 6;
+            modelo.Name = "modelo";
+            modelo.ReadOnly = true;
+            modelo.Width = 125;
+            // 
+            // tarifaDia
+            // 
+            tarifaDia.HeaderText = "Tarifa";
+            tarifaDia.MinimumWidth = 6;
+            tarifaDia.Name = "tarifaDia";
+            tarifaDia.ReadOnly = true;
+            tarifaDia.Width = 125;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1303, 645);
+            Controls.Add(dataGridViewItem);
+            Controls.Add(dataGridViewUsuarios);
             Controls.Add(linkVolver);
             Controls.Add(btnCrear);
             Controls.Add(panelFecha);
             Controls.Add(lblPrecioPorDia);
             Controls.Add(lblPrecioPorDias);
-            Controls.Add(dataGridViewItems);
             Controls.Add(ccbItems);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -244,9 +371,14 @@
             Text = "FormAlquilar";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewItems).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).EndInit();
             panelFecha.ResumeLayout(false);
             panelFecha.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).EndInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewItem).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -256,11 +388,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.ComboBox ccbItems;
-        private System.Windows.Forms.DataGridView dataGridViewItems;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Marca;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Modelo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Reserva;
         private System.Windows.Forms.Label lblPrecioPorDias;
         private System.Windows.Forms.Label lblPrecioPorDia;
         private System.Windows.Forms.Panel panelFecha;
@@ -271,5 +398,23 @@
         private System.Windows.Forms.Label lblFechaInicio;
         private System.Windows.Forms.Button btnCrear;
         private LinkLabel linkVolver;
+        private DataGridView dataGridViewUsuarios;
+        private BindingSource usuarioBindingSource1;
+        private BindingSource usuarioBindingSource;
+        private BindingSource categoriaBindingSource;
+        private BindingSource sistemaAlquilerContextBindingSource;
+        private DataGridView dataGridViewItem;
+        private DataGridViewTextBoxColumn id;
+        private DataGridViewTextBoxColumn nombreItem;
+        private DataGridViewTextBoxColumn marca;
+        private DataGridViewTextBoxColumn modelo;
+        private DataGridViewTextBoxColumn tarifaDia;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn emailDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn membresiaPremiumDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn deletedAtDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn alquileresDataGridViewTextBoxColumn;
     }
 }
