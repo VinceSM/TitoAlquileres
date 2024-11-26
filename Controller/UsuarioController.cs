@@ -1,4 +1,5 @@
-﻿using SistemaAlquileres.Model.Dao;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaAlquileres.Model.Dao;
 using SistemaAlquileres.Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,10 @@ namespace SistemaAlquileres.Controller
 
         public List<Usuario> GetUsuarios()
         {
-            return usuarioDao.GetAllUsuarios();
+            //return usuarioDao.GetAllUsuarios();
+            // En el método GetUsuarios del UsuarioController
+            return _context.Usuarios.Include(u => u.Alquileres).ToList();
+
         }
 
         public Usuario GetUsuarioById(int id)
