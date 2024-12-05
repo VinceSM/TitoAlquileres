@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gabri\\Desktop\\ITEC\\3er año\\EDI-III\\TitoAlquileres\\TitoAlquiler.csproj": {}
+    "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\TitoAlquiler.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gabri\\Desktop\\ITEC\\3er año\\EDI-III\\TitoAlquileres\\TitoAlquiler.csproj": {
+    "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\TitoAlquiler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gabri\\Desktop\\ITEC\\3er año\\EDI-III\\TitoAlquileres\\TitoAlquiler.csproj",
+        "projectUniqueName": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\TitoAlquiler.csproj",
         "projectName": "TitoAlquiler",
-        "projectPath": "C:\\Users\\gabri\\Desktop\\ITEC\\3er año\\EDI-III\\TitoAlquileres\\TitoAlquiler.csproj",
-        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gabri\\Desktop\\ITEC\\3er año\\EDI-III\\TitoAlquileres\\obj\\",
+        "projectPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\TitoAlquiler.csproj",
+        "packagesPath": "C:\\Users\\Vicente\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vicente\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,9 +43,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -82,7 +82,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -2,24 +2,26 @@
 using SistemaAlquileres.Model.Entities;
 using System;
 using System.Windows.Forms;
+using TitoAlquiler.Controller;
+using TitoAlquiler.Model.Entities;
 
 namespace SistemaAlquileres.View.Usuario
 {
     public partial class FormCrearUsuario : Form
     {
-        private UsuarioController usuarioController = UsuarioController.getInstance();
+        //private UsuarioController usuarioController = UsuarioController.getInstance();
+        private EmpleadoController empleadoController = EmpleadoController.getInstance();
 
         public FormCrearUsuario()
         {
             InitializeComponent();
         }
 
-        private bool ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium)
+        private bool ValidateInputs(out string nombre, out string email, out int dni)
         {
             nombre = textBoxCrearNombre.Text.Trim();
             email = textBoxCrearEmail.Text.Trim();
             string dniText = textBoxCrearDNI.Text.Trim();
-            membresiaPremium = checkBoxMembresia.Checked;
 
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(dniText))
@@ -75,24 +77,23 @@ namespace SistemaAlquileres.View.Usuario
 
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium))
+            if (!ValidateInputs(out string nombre, out string email, out int dni))
             {
                 return;
             }
 
             try
             {
-                var usuarioCreado = usuarioController.CrearUsuario(new Model.Entities.Usuario
+                var empleadoCreado = empleadoController.CreateEmpleado(new Empleado
                 {
                     nombre = nombre,
                     dni = dni,
-                    email = email,
-                    membresiaPremium = membresiaPremium
+                    email = email
                 });
 
-                if (usuarioCreado != null)
+                if (empleadoCreado != null)
                 {
-                    MostrarMensajeExito(usuarioCreado.id);
+                    MostrarMensajeExito(empleadoCreado.id);
                     LimpiarCampos();
                 }
                 else
