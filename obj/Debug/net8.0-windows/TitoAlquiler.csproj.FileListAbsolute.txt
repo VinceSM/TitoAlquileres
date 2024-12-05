@@ -2,7 +2,6 @@ C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.cs
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\SistemaAlquileres.View.Alquiler.FormAlquilar.resources
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\SistemaAlquileres.FormInicio.resources
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\SistemaAlquileres.View.Usuario.FormCrearUsuario.resources
-C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\SistemaAlquileres.View.Usuario.FormIniciarSesion.resources
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.csproj.GenerateResource.cache
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfoInputs.cache

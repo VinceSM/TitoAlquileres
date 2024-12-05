@@ -1,4 +1,5 @@
-﻿using SistemaAlquileres.View.Usuario;
+﻿using SistemaAlquileres.View.Alquiler;
+using SistemaAlquileres.View.Usuario;
 using System;
 using System.Windows.Forms;
 
@@ -13,9 +14,8 @@ namespace SistemaAlquileres
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
-            formIniciarSesion.FormClosed += (s, args) => this.Show();
-            formIniciarSesion.Show();
+            FormAlquilar form = new FormAlquilar();
+            form.Show();
             this.Hide();
         }
 

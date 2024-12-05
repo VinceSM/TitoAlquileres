@@ -8,7 +8,7 @@ namespace SistemaAlquileres.Model.Dao
 {
     public class AlquilerDao
     {
-        private SistemaAlquilerContext _context = new SistemaAlquilerContext();
+        private SistemaAlquilerContext _context;
 
         public AlquilerDao()
         {

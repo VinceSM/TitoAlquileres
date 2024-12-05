@@ -11,7 +11,7 @@ namespace TitoAlquiler.Model.Dao
     public class CategoriaDao
     {
         private SistemaAlquilerContext _context;
-        private Categoria categoria = new Categoria();
+
         public CategoriaDao() 
         {
             _context = new SistemaAlquilerContext();

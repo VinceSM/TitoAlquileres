@@ -17,7 +17,7 @@ namespace SistemaAlquileres.Model.Dao
 
         public List<Usuario> GetAllUsuarios()
         {
-            return _context.Usuarios.ToList();
+            return _context.Usuarios.Include(u => u.Alquileres).ToList();
         }
 
         public Usuario GetUsuarioById(int id)

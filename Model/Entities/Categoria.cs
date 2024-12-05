@@ -10,9 +10,9 @@ namespace TitoAlquiler.Model.Entities
 
         [Required]
         [StringLength(65)]
-        public string nombre { get; set; }
+        public string? nombre { get; set; }
 
-        public virtual ICollection<Item> items { get; set; }
+        public virtual ICollection<Item>? items { get; set; }
 
         public DateTime? deletedAt { get; set; }
     }

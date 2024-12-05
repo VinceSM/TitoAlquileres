@@ -10,8 +10,5 @@
     <Compile Update="View\Usuario\FormCrearUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="View\Usuario\FormIniciarSesion.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>

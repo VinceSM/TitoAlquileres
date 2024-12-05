@@ -2,26 +2,24 @@
 using SistemaAlquileres.Model.Entities;
 using System;
 using System.Windows.Forms;
-using TitoAlquiler.Controller;
-using TitoAlquiler.Model.Entities;
 
 namespace SistemaAlquileres.View.Usuario
 {
     public partial class FormCrearUsuario : Form
     {
-        //private UsuarioController usuarioController = UsuarioController.getInstance();
-        private EmpleadoController empleadoController = EmpleadoController.getInstance();
+        private UsuarioController usuarioController = UsuarioController.getInstance();
 
         public FormCrearUsuario()
         {
             InitializeComponent();
         }
 
-        private bool ValidateInputs(out string nombre, out string email, out int dni)
+        private bool ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium)
         {
             nombre = textBoxCrearNombre.Text.Trim();
             email = textBoxCrearEmail.Text.Trim();
             string dniText = textBoxCrearDNI.Text.Trim();
+            membresiaPremium = checkBoxMembresia.Checked;
 
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(dniText))
@@ -62,8 +60,8 @@ namespace SistemaAlquileres.View.Usuario
 
         private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
-            formIniciarSesion.Show();
+            FormInicio formInicio = new FormInicio();
+            formInicio.Show();
             this.Hide();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -77,23 +75,24 @@ namespace SistemaAlquileres.View.Usuario
 
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs(out string nombre, out string email, out int dni))
+            if (!ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium))
             {
                 return;
             }
 
             try
             {
-                var empleadoCreado = empleadoController.CreateEmpleado(new Empleado
+                var usuarioCreado = usuarioController.CrearUsuario(new Model.Entities.Usuario
                 {
                     nombre = nombre,
                     dni = dni,
-                    email = email
+                    email = email,
+                    membresiaPremium = membresiaPremium
                 });
 
-                if (empleadoCreado != null)
+                if (usuarioCreado != null)
                 {
-                    MostrarMensajeExito(empleadoCreado.id);
+                    MostrarMensajeExito(usuarioCreado.id);
                     LimpiarCampos();
                 }
                 else

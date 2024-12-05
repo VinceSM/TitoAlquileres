@@ -12,17 +12,17 @@ namespace SistemaAlquileres.Controller
         private ItemDao itemDao = new ItemDao();
 
         #region Singleton
-        private static ItemController Instance;
+        private static ItemController? _instance;
 
         private ItemController() { }
 
         public static ItemController GetInstance()
         {
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = new ItemController();
+                _instance = new ItemController();
             }
-            return Instance;
+            return _instance;
         }
         #endregion
 

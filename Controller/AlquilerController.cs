@@ -14,7 +14,7 @@ namespace SistemaAlquileres.Controller
 
 
         #region Singleton
-        private static AlquilerController _instance;
+        private static AlquilerController? _instance;
         private static readonly object _lock = new object();
 
         private AlquilerController()

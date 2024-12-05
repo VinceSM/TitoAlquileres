@@ -16,8 +16,8 @@ namespace SistemaAlquileres.View.Alquiler
 
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormIniciarSesion formIniciarSesion = new FormIniciarSesion();
-            formIniciarSesion.Show();
+            FormInicio formInicio = new FormInicio();
+            formInicio.Show();
             this.Hide();
         }
 

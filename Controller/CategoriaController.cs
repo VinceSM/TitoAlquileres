@@ -15,7 +15,7 @@ namespace TitoAlquiler.Controller
         private CategoriaDao _categoriaDao = new CategoriaDao();
 
         #region Singleton
-        private static CategoriaController _instance;
+        private static CategoriaController? _instance;
         private static readonly object _lock = new object();
 
         private CategoriaController()

@@ -10,24 +10,22 @@ namespace SistemaAlquileres.Controller
     {
         // Instanciamos el DAO de Usuario
         private UsuarioDao usuarioDao;
-        private SistemaAlquilerContext _context;
 
         #region Singleton
-        private static UsuarioController Instance;
+        private static UsuarioController? _instance;
 
         public UsuarioController()
         {
             usuarioDao = new UsuarioDao();
-            _context = new SistemaAlquilerContext();
         }
 
         public static UsuarioController getInstance()
         {
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = new UsuarioController();
+                _instance = new UsuarioController();
             }
-            return Instance;
+            return _instance;
         }
         #endregion
 
@@ -40,10 +38,7 @@ namespace SistemaAlquileres.Controller
 
         public List<Usuario> GetUsuarios()
         {
-            //return usuarioDao.GetAllUsuarios();
-            // En el método GetUsuarios del UsuarioController
-            return _context.Usuarios.Include(u => u.Alquileres).ToList();
-
+            return usuarioDao.GetAllUsuarios();
         }
 
         public Usuario GetUsuarioById(int id)
