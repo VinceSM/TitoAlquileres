@@ -1,5 +1,6 @@
 ﻿using SistemaAlquileres.Controller;
 using SistemaAlquileres.Model.Entities;
+using SistemaAlquileres.View.Alquiler;
 using System;
 using System.Windows.Forms;
 
@@ -60,8 +61,8 @@ namespace SistemaAlquileres.View.Usuario
 
         private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormInicio formInicio = new FormInicio();
-            formInicio.Show();
+            FormAlquilar formAlquilar = new FormAlquilar();
+            formAlquilar.Show();
             this.Hide();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)

@@ -2,6 +2,7 @@
 using SistemaAlquileres.View.Usuario;
 using System;
 using System.Windows.Forms;
+using TitoAlquiler.Model.Entities;
 
 namespace SistemaAlquileres.View.Alquiler
 {
@@ -10,7 +11,7 @@ namespace SistemaAlquileres.View.Alquiler
         public FormAlquilar()
         {
             InitializeComponent();
-            //CargarItems();
+            CargarItems();
             CargarUsuarios();
         }
 
@@ -31,39 +32,61 @@ namespace SistemaAlquileres.View.Alquiler
             }
         }
 
-        /* private void CargarItems()
-         {
-             // Obtener los datos desde el controlador
-             var items = ItemController.GetInstance().GetItems();
+        private void CargarItems()
+        {
+            try
+            {
+                // Obtener los datos desde el controlador
+                var items = ItemController.GetInstance().GetItems();
 
-             // Llenar el DataGridView
-             dataGridViewItem.DataSource = items.Select(item => new {
-                 item.id,
-                 item.nombreItem,
-                 item.marca,
-                 item.modelo,
-                 item.tarifaDia
-             }).ToList();
-         }*/
-
+                // Crear una lista de objetos anónimos para el DataGridView
+                var itemsData = items.Select(item => new
+                {
+                    item.id,
+                    item.nombreItem,
+                    item.marca,
+                    item.modelo,
+                    item.tarifaDia,
+                    Categoria = item.categoria?.nombre ?? "Sin categoría",
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void CargarUsuarios()
         {
-            // Obtener los datos desde el controlador
-            var usuarios = UsuarioController.getInstance().GetUsuarios();
-
-            // Llenar el DataGridView
-            dataGridViewUsuarios.DataSource = usuarios.Select(u => new
+            try
             {
-                u.id,
-                u.nombre,
-                u.dni,
-                u.email,
-                u.membresiaPremium,
-                DeletedAt = u.deletedAt.HasValue ? u.deletedAt.Value.ToString("yyyy-MM-dd") : "Activo",
-                Alquileres = u.Alquileres.Count // Si tienes la relación de alquileres cargada
-            }).ToList();
+                // Obtener los datos desde el controlador
+                var usuarios = UsuarioController.getInstance().GetUsuarios();
+
+                // Crear una lista de objetos anónimos para el DataGridView
+                var usuariosData = usuarios.Select(u => new
+                {
+                    u.id,
+                    u.nombre,
+                    u.dni,
+                    u.email,
+                    u.membresiaPremium,
+                    u.deletedAt.HasValue,
+                    CantidadAlquileres = u.Alquileres?.Count ?? 0
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar usuarios: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        private void btnCrearUsuario_Click(object sender, EventArgs e)
+        {
+            FormCrearUsuario formCrearUsuario = new FormCrearUsuario();
+            formCrearUsuario.Show();
+            this.Hide();
+        }
     }
 }
+

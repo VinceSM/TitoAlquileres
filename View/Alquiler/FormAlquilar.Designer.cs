@@ -51,8 +51,8 @@
             membresiaPremiumDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             deletedAtDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             alquileresDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            usuarioBindingSource1 = new BindingSource(components);
             usuarioBindingSource = new BindingSource(components);
+            usuarioBindingSource1 = new BindingSource(components);
             sistemaAlquilerContextBindingSource = new BindingSource(components);
             dataGridViewItem = new DataGridView();
             id = new DataGridViewTextBoxColumn();
@@ -60,12 +60,13 @@
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             tarifaDia = new DataGridViewTextBoxColumn();
+            btnCrearUsuario = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewItem).BeginInit();
             SuspendLayout();
@@ -205,14 +206,14 @@
             dataGridViewUsuarios.BackgroundColor = Color.LightBlue;
             dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nombreDataGridViewTextBoxColumn, dniDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, membresiaPremiumDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn, alquileresDataGridViewTextBoxColumn });
-            dataGridViewUsuarios.DataSource = usuarioBindingSource1;
+            dataGridViewUsuarios.DataSource = usuarioBindingSource;
             dataGridViewUsuarios.Location = new Point(12, 162);
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.RowHeadersVisible = false;
             dataGridViewUsuarios.RowHeadersWidth = 51;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewUsuarios.Size = new Size(593, 352);
+            dataGridViewUsuarios.Size = new Size(617, 352);
             dataGridViewUsuarios.TabIndex = 8;
             // 
             // idDataGridViewTextBoxColumn
@@ -228,7 +229,7 @@
             // nombreDataGridViewTextBoxColumn
             // 
             nombreDataGridViewTextBoxColumn.DataPropertyName = "nombre";
-            nombreDataGridViewTextBoxColumn.HeaderText = "Nombre";
+            nombreDataGridViewTextBoxColumn.HeaderText = "nombre";
             nombreDataGridViewTextBoxColumn.MinimumWidth = 6;
             nombreDataGridViewTextBoxColumn.Name = "nombreDataGridViewTextBoxColumn";
             nombreDataGridViewTextBoxColumn.ReadOnly = true;
@@ -237,7 +238,7 @@
             // dniDataGridViewTextBoxColumn
             // 
             dniDataGridViewTextBoxColumn.DataPropertyName = "dni";
-            dniDataGridViewTextBoxColumn.HeaderText = "Dni";
+            dniDataGridViewTextBoxColumn.HeaderText = "dni";
             dniDataGridViewTextBoxColumn.MinimumWidth = 6;
             dniDataGridViewTextBoxColumn.Name = "dniDataGridViewTextBoxColumn";
             dniDataGridViewTextBoxColumn.ReadOnly = true;
@@ -246,7 +247,7 @@
             // emailDataGridViewTextBoxColumn
             // 
             emailDataGridViewTextBoxColumn.DataPropertyName = "email";
-            emailDataGridViewTextBoxColumn.HeaderText = "Email";
+            emailDataGridViewTextBoxColumn.HeaderText = "email";
             emailDataGridViewTextBoxColumn.MinimumWidth = 6;
             emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
             emailDataGridViewTextBoxColumn.ReadOnly = true;
@@ -255,7 +256,7 @@
             // membresiaPremiumDataGridViewCheckBoxColumn
             // 
             membresiaPremiumDataGridViewCheckBoxColumn.DataPropertyName = "membresiaPremium";
-            membresiaPremiumDataGridViewCheckBoxColumn.HeaderText = "Membresia";
+            membresiaPremiumDataGridViewCheckBoxColumn.HeaderText = "membresiaPremium";
             membresiaPremiumDataGridViewCheckBoxColumn.MinimumWidth = 6;
             membresiaPremiumDataGridViewCheckBoxColumn.Name = "membresiaPremiumDataGridViewCheckBoxColumn";
             membresiaPremiumDataGridViewCheckBoxColumn.ReadOnly = true;
@@ -281,13 +282,13 @@
             alquileresDataGridViewTextBoxColumn.Visible = false;
             alquileresDataGridViewTextBoxColumn.Width = 125;
             // 
-            // usuarioBindingSource1
-            // 
-            usuarioBindingSource1.DataSource = typeof(Model.Entities.Usuario);
-            // 
             // usuarioBindingSource
             // 
             usuarioBindingSource.DataSource = typeof(Model.Entities.Usuario);
+            // 
+            // usuarioBindingSource1
+            // 
+            usuarioBindingSource1.DataSource = typeof(Model.Entities.Usuario);
             // 
             // sistemaAlquilerContextBindingSource
             // 
@@ -300,13 +301,13 @@
             dataGridViewItem.BackgroundColor = Color.LightBlue;
             dataGridViewItem.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewItem.Columns.AddRange(new DataGridViewColumn[] { id, nombreItem, marca, modelo, tarifaDia });
-            dataGridViewItem.Location = new Point(611, 162);
+            dataGridViewItem.Location = new Point(635, 162);
             dataGridViewItem.Name = "dataGridViewItem";
             dataGridViewItem.ReadOnly = true;
             dataGridViewItem.RowHeadersVisible = false;
             dataGridViewItem.RowHeadersWidth = 51;
             dataGridViewItem.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewItem.Size = new Size(680, 352);
+            dataGridViewItem.Size = new Size(656, 352);
             dataGridViewItem.TabIndex = 9;
             // 
             // id
@@ -350,12 +351,23 @@
             tarifaDia.ReadOnly = true;
             tarifaDia.Width = 125;
             // 
+            // btnCrearUsuario
+            // 
+            btnCrearUsuario.Location = new Point(192, 127);
+            btnCrearUsuario.Name = "btnCrearUsuario";
+            btnCrearUsuario.Size = new Size(188, 29);
+            btnCrearUsuario.TabIndex = 10;
+            btnCrearUsuario.Text = "Crear Usuario";
+            btnCrearUsuario.UseVisualStyleBackColor = true;
+            btnCrearUsuario.Click += btnCrearUsuario_Click;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1303, 645);
+            Controls.Add(btnCrearUsuario);
             Controls.Add(dataGridViewItem);
             Controls.Add(dataGridViewUsuarios);
             Controls.Add(linkVolver);
@@ -375,8 +387,8 @@
             panelFecha.ResumeLayout(false);
             panelFecha.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).EndInit();
-            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewItem).EndInit();
             ResumeLayout(false);
@@ -416,5 +428,6 @@
         private DataGridViewCheckBoxColumn membresiaPremiumDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn deletedAtDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn alquileresDataGridViewTextBoxColumn;
+        private Button btnCrearUsuario;
     }
 }

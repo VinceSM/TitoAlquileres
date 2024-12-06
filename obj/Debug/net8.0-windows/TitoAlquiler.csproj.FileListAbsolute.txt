@@ -55,7 +55,6 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\SistemaAlquileres.View.Alquiler.FormAlquilar.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\SistemaAlquileres.FormInicio.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\SistemaAlquileres.View.Usuario.FormCrearUsuario.resources
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\SistemaAlquileres.View.Usuario.FormIniciarSesion.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.GenerateResource.cache
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfoInputs.cache
