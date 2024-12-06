@@ -8,19 +8,18 @@ namespace SistemaAlquileres.View.Usuario
 {
     public partial class FormCrearUsuario : Form
     {
-        private UsuarioController usuarioController = UsuarioController.getInstance();
+        private readonly UsuarioController usuarioController = UsuarioController.getInstance();
 
         public FormCrearUsuario()
         {
             InitializeComponent();
         }
 
-        private bool ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium)
+        private bool ValidateInputs(out string nombre, out string email, out int dni)
         {
             nombre = textBoxCrearNombre.Text.Trim();
             email = textBoxCrearEmail.Text.Trim();
             string dniText = textBoxCrearDNI.Text.Trim();
-            membresiaPremium = checkBoxMembresia.Checked;
 
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(dniText))
@@ -57,6 +56,7 @@ namespace SistemaAlquileres.View.Usuario
             textBoxCrearEmail.Clear();
             textBoxCrearDNI.Clear();
             checkBoxMembresia.Checked = false;
+            lblCreado.Text = string.Empty;
         }
 
         private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -65,6 +65,7 @@ namespace SistemaAlquileres.View.Usuario
             formAlquilar.Show();
             this.Hide();
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -76,35 +77,64 @@ namespace SistemaAlquileres.View.Usuario
 
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs(out string nombre, out string email, out int dni, out bool membresiaPremium))
-            {
-                return;
-            }
-
             try
             {
-                var usuarioCreado = usuarioController.CrearUsuario(new Model.Entities.Usuario
+                if (!ValidateInputs(out string nombre, out string email, out int dni))
+                {
+                    return;
+                }
+
+                bool membresiaPremium = checkBoxMembresia.Checked;
+
+                // Verificar si ya existe un usuario con el mismo DNI
+                var usuarioExistente = usuarioController.GetUsuarioByDni(dni);
+                if (usuarioExistente != null)
+                {
+                    MostrarMensajeError("Ya existe un usuario con ese DNI.");
+                    return;
+                }
+
+                // Verificar si ya existe un usuario con el mismo email
+                usuarioExistente = usuarioController.GetUsuarioByEmail(email);
+                if (usuarioExistente != null)
+                {
+                    MostrarMensajeError("Ya existe un usuario con ese email.");
+                    return;
+                }
+
+                var nuevoUsuario = new Model.Entities.Usuario
                 {
                     nombre = nombre,
                     dni = dni,
                     email = email,
-                    membresiaPremium = membresiaPremium
-                });
+                    membresiaPremium = membresiaPremium,
+                    deletedAt = null
+                };
 
-                if (usuarioCreado != null)
+                var usuarioCreado = usuarioController.CrearUsuario(nuevoUsuario);
+
+                if (usuarioCreado != null && usuarioCreado.id > 0)
                 {
                     MostrarMensajeExito(usuarioCreado.id);
                     LimpiarCampos();
                 }
                 else
                 {
-                    MostrarMensajeError("No se pudo crear el usuario.");
+                    MostrarMensajeError("No se pudo crear el usuario. Verifique los datos e intente nuevamente.");
                 }
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
+                // Obtener el mensaje de la excepción más interna
+                var innerException = ex;
+                while (innerException.InnerException != null)
+                {
+                    innerException = innerException.InnerException;
+                }
+
+                MostrarMensajeError($"Error al crear el usuario: {innerException.Message}");
             }
         }
     }
 }
+

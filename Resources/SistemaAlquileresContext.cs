@@ -28,13 +28,13 @@ public class SistemaAlquilerContext : DbContext
         // Configuración de Usuario
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.ToTable("Usuario");
-            entity.Property(e => e.id).HasColumnName("Id");
-            entity.Property(e => e.nombre).HasColumnName("Nombre").HasMaxLength(65);
-            entity.Property(e => e.dni).HasColumnName("Dni");
-            entity.Property(e => e.email).HasColumnName("Email").HasMaxLength(65);
-            entity.Property(e => e.membresiaPremium).HasColumnName("MembresiaPremium");
-            entity.Property(e => e.deletedAt).HasColumnName("DeletedAt");
+            entity.ToTable("usuario");
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.nombre).HasColumnName("nombre").HasMaxLength(65);
+            entity.Property(e => e.dni).HasColumnName("dni");
+            entity.Property(e => e.email).HasColumnName("email").HasMaxLength(65);
+            entity.Property(e => e.membresiaPremium).HasColumnName("tipo_membresia").HasMaxLength(65);
+            entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
 
             entity.HasMany(u => u.Alquileres)
                   .WithOne(a => a.usuario)
