@@ -1,75 +1,53 @@
-﻿using SistemaAlquileres.Model.Dao;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
-//using TitoAlquiler.Model.Entities.Item;
 
-namespace SistemaAlquileres.Controller
+namespace TitoAlquiler.Controllers
 {
-    internal class ItemController
+    public class ItemController
     {
-        // Instanciamos el DAO de Item
-        private ItemDao itemDao = new ItemDao();
+        private ItemDao _itemDao;
 
-        #region Singleton
-        private static ItemController? _instance;
-
-        private ItemController() { }
-
-        public static ItemController GetInstance()
+        public ItemController()
         {
-            if (_instance == null)
-            {
-                _instance = new ItemController();
-            }
-            return _instance;
-        }
-        #endregion
-
-        // Método para cargar todos los items
-        public List<Item> GetItems()
-        {
-            return itemDao.GetAllItems();
+            _itemDao = new ItemDao();
         }
 
-        public Item GetItemById(int id)
+        public void CrearItem(Item item)
         {
-            return itemDao.GetItemById(id);
+            _itemDao.InsertItem(item);
         }
 
-        public List<Item> GetItemsByName(string nombre)
+        public void ActualizarItem(Item item)
         {
-            if (string.IsNullOrEmpty(nombre)) throw new ArgumentException("Nombre cannot be null or empty", nameof(nombre));
-            return itemDao.GetItemsByName(nombre);
+            _itemDao.UpdateItem(item);
         }
 
-        public List<Item> GetItemsByMarca(string marca)
+        public void EliminarItem(Item item)
         {
-            if (string.IsNullOrEmpty(marca)) throw new ArgumentException("Marca cannot be null or empty", nameof(marca));
-            return itemDao.GetItemsByMarca(marca);
+            _itemDao.SoftDeleteItem(item);
         }
 
-        public List<Item> GetItemsByModelo(string modelo)
+        public List<Item> ObtenerTodosLosItems()
         {
-            if (string.IsNullOrEmpty(modelo)) throw new ArgumentException("Modelo cannot be null or empty", nameof(modelo));
-            return itemDao.GetItemsByModelo(modelo);
+            return _itemDao.LoadAllItems();
         }
 
-        public Item CreateItem(Item item)
+        public Item ObtenerItemPorId(int id)
         {
-            if (item == null) throw new ArgumentNullException(nameof(item));
-            return itemDao.CreateItem(item);
+            return _itemDao.FindItemById(id);
         }
 
-        public Item UpdateItem(Item item)
+        public List<Item> ObtenerItemsPorCategoria(int categoriaId)
         {
-            if (item == null) throw new ArgumentNullException(nameof(item));
-            return itemDao.UpdateItem(item);
+            return _itemDao.FindItemsByCategoria(categoriaId);
         }
 
-        public void DeleteItem(int id)
+        public List<Item> BuscarItems(string busqueda)
         {
-            itemDao.DeleteItem(id);
+            return _itemDao.SearchItems(busqueda);
         }
     }
 }
+

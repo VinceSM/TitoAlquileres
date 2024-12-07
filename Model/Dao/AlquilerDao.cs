@@ -8,65 +8,81 @@ namespace SistemaAlquileres.Model.Dao
 {
     public class AlquilerDao
     {
-        private SistemaAlquilerContext _context;
+        public AlquilerDao() { }
 
-        public AlquilerDao()
+        public void InsertAlquiler(Alquiler alquiler)
         {
-            _context = new SistemaAlquilerContext();
-        }
-
-        public List<Alquiler> GetAllAlquileres()
-        {
-            return _context.alquileres.Where(a => a.deletedAt == null).ToList();
-        }
-
-        public Alquiler CreateAlquiler(Alquiler alquiler)
-        {
-            if (alquiler == null)
-                throw new ArgumentNullException(nameof(alquiler));
-
-            _context.alquileres.Add(alquiler);
-            _context.SaveChanges();
-            return alquiler;
-        }
-
-        public Alquiler GetAlquilerById(int id)
-        {
-            return _context.alquileres.Find(id);
-        }
-
-        public List<Alquiler> GetAlquileresByItem(int itemId)
-        {
-            return _context.alquileres
-                .Where(a => a.itemId == itemId && a.deletedAt == null)
-                .ToList();
-        }
-
-        public List<Alquiler> GetAlquileresByUsuario(int usuarioId)
-        {
-            return _context.alquileres
-                .Where(a => a.usuarioId == usuarioId && a.deletedAt == null)
-                .ToList();
-        }
-
-        public void SoftDeleteAlquiler(int id)
-        {
-            var alquiler = _context.alquileres.Find(id);
-            if (alquiler != null)
+            using (var db = new SistemaAlquilerContext())
             {
-                alquiler.deletedAt = DateTime.UtcNow;
-                _context.SaveChanges();
+                db.alquileres.Add(alquiler);
+                db.SaveChanges();
             }
         }
 
-        public Alquiler UpdateAlquiler(Alquiler alquiler)
+        public void UpdateAlquiler(Alquiler alquiler)
         {
-            if (alquiler == null)
-                throw new ArgumentNullException(nameof(alquiler));
+            using (var db = new SistemaAlquilerContext())
+            {
+                db.Update(alquiler);
+                db.SaveChanges();
+            }
+        }
 
-            _context.Entry(alquiler).State = EntityState.Modified;
-            _context.SaveChanges();
-            return alquiler;
+        public void SoftDeleteAlquiler(Alquiler alquiler)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                alquiler.deletedAt = DateTime.Now;
+                db.Update(alquiler);
+                db.SaveChanges();
+            }
+        }
+
+        public List<Alquiler> LoadAllAlquileres()
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.alquileres
+                    .Where(x => x.deletedAt == null)
+                    .Include(x => x.item)
+                    .Include(x => x.usuario)
+                    .ToList();
+            }
+        }
+
+        public Alquiler FindAlquilerById(int id)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.alquileres
+                    .Where(x => x.id == id && x.deletedAt == null)
+                    .Include(x => x.item)
+                    .Include(x => x.usuario)
+                    .FirstOrDefault();
+            }
+        }
+
+        public List<Alquiler> FindAlquileresByUsuario(int usuarioId)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.alquileres
+                    .Where(x => x.usuarioId == usuarioId && x.deletedAt == null)
+                    .Include(x => x.item)
+                    .ToList();
+            }
+        }
+
+        public List<Alquiler> FindAlquileresByItem(int itemId)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.alquileres
+                    .Where(x => x.itemId == itemId && x.deletedAt == null)
+                    .Include(x => x.usuario)
+                    .ToList();
+            }
         }
     }
 }
+

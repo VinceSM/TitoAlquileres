@@ -1,57 +1,53 @@
-﻿using SistemaAlquileres.Controller;
-using SistemaAlquileres.Model.Dao;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
 
-namespace TitoAlquiler.Controller
+namespace TitoAlquiler.Controllers
 {
     public class CategoriaController
     {
-        private CategoriaDao _categoriaDao = new CategoriaDao();
+        private CategoriaDao _categoriaDao;
 
-        #region Singleton
-        private static CategoriaController? _instance;
-        private static readonly object _lock = new object();
-
-        private CategoriaController()
+        public CategoriaController()
         {
             _categoriaDao = new CategoriaDao();
         }
 
-        public static CategoriaController GetInstance()
+        public void CrearCategoria(Categoria categoria)
         {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new CategoriaController();
-                    }
-                }
-            }
-            return _instance;
-        }
-        #endregion
-
-        public List<Categoria> GetCategorias()
-        {
-            return _categoriaDao.GetCategorias();
+            _categoriaDao.InsertCategoria(categoria);
         }
 
-        public Categoria GetCategoriaById(int id)
+        public void ActualizarCategoria(Categoria categoria)
         {
-            return _categoriaDao.GetCategoriaById(id);
+            _categoriaDao.UpdateCategoria(categoria);
         }
 
-        public Categoria GetCategoriaByName(string nombre)
+        public void EliminarCategoria(Categoria categoria)
         {
-            return _categoriaDao.GetCategoriaByName(nombre);
+            _categoriaDao.SoftDeleteCategoria(categoria);
+        }
+
+        public List<Categoria> ObtenerTodasLasCategorias()
+        {
+            return _categoriaDao.LoadAllCategorias();
+        }
+
+        public Categoria ObtenerCategoriaPorId(int id)
+        {
+            return _categoriaDao.FindCategoriaById(id);
+        }
+
+        public Categoria ObtenerCategoriaPorNombre(string nombre)
+        {
+            return _categoriaDao.FindCategoriaByNombre(nombre);
+        }
+
+        public List<Categoria> BuscarCategorias(string busqueda)
+        {
+            return _categoriaDao.SearchCategorias(busqueda);
         }
     }
 }
+

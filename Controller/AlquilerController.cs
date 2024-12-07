@@ -1,90 +1,53 @@
-﻿using SistemaAlquileres.Model.Entities;
-using SistemaAlquileres.Model.Dao;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using SistemaAlquileres.Model.Strategy;
-using SistemaAlquileres.Model.Factory;
-using TitoAlquiler.Model.Entities;
+using SistemaAlquileres.Model.Dao;
+using SistemaAlquileres.Model.Entities;
 
-namespace SistemaAlquileres.Controller
+namespace SistemaAlquileres.Controllers
 {
     public class AlquilerController
     {
-        private AlquilerDao _alquilerDao = new AlquilerDao();
+        private AlquilerDao _alquilerDao;
 
-
-        #region Singleton
-        private static AlquilerController? _instance;
-        private static readonly object _lock = new object();
-
-        private AlquilerController()
+        public AlquilerController()
         {
             _alquilerDao = new AlquilerDao();
         }
 
-        public static AlquilerController GetInstance()
+        public void CrearAlquiler(Alquiler alquiler)
         {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new AlquilerController();
-                    }
-                }
-            }
-            return _instance;
-        }
-        #endregion
-
-        // Método para cargar todos los alquileres
-        public List<Alquiler> GetAlquileres()
-        {
-            return _alquilerDao.GetAllAlquileres();
+            _alquilerDao.InsertAlquiler(alquiler);
         }
 
-        public Alquiler CrearAlquiler(Alquiler alquiler, int dias, Item item, Usuario usuario, IEstrategiaAlquiler estrategia)
+        public void ActualizarAlquiler(Alquiler alquiler)
         {
-            if (alquiler == null) throw new ArgumentNullException(nameof(alquiler));
-            if (item == null) throw new ArgumentNullException(nameof(item));
-            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
-            if (estrategia == null) throw new ArgumentNullException(nameof(estrategia));
-
-            alquiler.item = item;
-            alquiler.usuario = usuario;
-            alquiler.tiempoDias = dias;
-            alquiler.fechaInicio = DateTime.UtcNow;
-            alquiler.fechaFin = alquiler.fechaInicio.AddDays(dias);
-            alquiler.CalcularPrecioTotal(estrategia);
-
-            return _alquilerDao.CreateAlquiler(alquiler);
+            _alquilerDao.UpdateAlquiler(alquiler);
         }
 
-        public Alquiler GetAlquilerById(int id)
+        public void EliminarAlquiler(Alquiler alquiler)
         {
-            return _alquilerDao.GetAlquilerById(id);
+            _alquilerDao.SoftDeleteAlquiler(alquiler);
         }
 
-        public List<Alquiler> GetAlquileresByItem(int itemId)
+        public List<Alquiler> ObtenerTodosLosAlquileres()
         {
-            return _alquilerDao.GetAlquileresByItem(itemId);
+            return _alquilerDao.LoadAllAlquileres();
         }
 
-        public List<Alquiler> GetAlquileresByUsuario(int usuarioId)
+        public Alquiler ObtenerAlquilerPorId(int id)
         {
-            return _alquilerDao.GetAlquileresByUsuario(usuarioId);
+            return _alquilerDao.FindAlquilerById(id);
         }
 
-        public void SoftDeleteAlquiler(int id)
+        public List<Alquiler> ObtenerAlquileresPorUsuario(int usuarioId)
         {
-            _alquilerDao.SoftDeleteAlquiler(id);
+            return _alquilerDao.FindAlquileresByUsuario(usuarioId);
         }
 
-        public Alquiler UpdateAlquiler(Alquiler alquiler)
+        public List<Alquiler> ObtenerAlquileresPorItem(int itemId)
         {
-            if (alquiler == null) throw new ArgumentNullException(nameof(alquiler));
-            return _alquilerDao.UpdateAlquiler(alquiler);
+            return _alquilerDao.FindAlquileresByItem(itemId);
         }
     }
 }
+

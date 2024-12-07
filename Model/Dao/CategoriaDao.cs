@@ -1,38 +1,84 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities;
 
 namespace TitoAlquiler.Model.Dao
 {
     public class CategoriaDao
     {
-        private SistemaAlquilerContext _context;
+        public CategoriaDao() { }
 
-        public CategoriaDao() 
+        public void InsertCategoria(Categoria categoria)
         {
-            _context = new SistemaAlquilerContext();
+            using (var db = new SistemaAlquilerContext())
+            {
+                db.categorias.Add(categoria);
+                db.SaveChanges();
+            }
         }
 
-        public List<Categoria> GetCategorias()
+        public void UpdateCategoria(Categoria categoria)
         {
-            return _context.categorias.ToList();
+            using (var db = new SistemaAlquilerContext())
+            {
+                db.Update(categoria);
+                db.SaveChanges();
+            }
         }
 
-        public Categoria GetCategoriaById(int id)
+        public void SoftDeleteCategoria(Categoria categoria)
         {
-            return _context.categorias.Find(id);
+            using (var db = new SistemaAlquilerContext())
+            {
+                categoria.deletedAt = DateTime.Now;
+                db.Update(categoria);
+                db.SaveChanges();
+            }
         }
 
-        public Categoria GetCategoriaByName(string nombre)
+        public List<Categoria> LoadAllCategorias()
         {
-            if (string.IsNullOrEmpty(nombre))
-                throw new ArgumentException("Name cannot be null or empty", nameof(nombre));
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.categorias
+                    .Where(x => x.deletedAt == null)
+                    .Include(x => x.items)
+                    .ToList();
+            }
+        }
 
-            return _context.categorias.Where(c => c.deletedAt == null).FirstOrDefault(u => u.nombre == nombre);
+        public Categoria FindCategoriaById(int id)
+        {
+            using (var db = new SistemaAlquilerContext())
+            { 
+                return db.categorias
+                    .Where(x => x.id == id && x.deletedAt == null)
+                    .Include(x => x.items)
+                    .FirstOrDefault();
+            }
+        }
+
+        public Categoria FindCategoriaByNombre(string nombre)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.categorias
+                    .Where(x => x.nombre == nombre && x.deletedAt == null)
+                    .FirstOrDefault();
+            }
+        }
+
+        public List<Categoria> SearchCategorias(string search)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.categorias
+                    .Where(x => x.nombre.Contains(search) && x.deletedAt == null)
+                    .ToList();
+            }
         }
     }
 }
+

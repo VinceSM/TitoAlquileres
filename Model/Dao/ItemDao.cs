@@ -3,87 +3,84 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities;
-//using TitoAlquiler.Model.Entities.Item;
 
-namespace SistemaAlquileres.Model.Dao
+namespace TitoAlquiler.Model.Dao
 {
     public class ItemDao
     {
-        private SistemaAlquilerContext _context;
+        public ItemDao() { }
 
-        public ItemDao()
+        public void InsertItem(Item item)
         {
-            _context = new SistemaAlquilerContext();
-        }
-
-        public List<Item> GetAllItems()
-        {
-            return _context.itemsAlquilables.ToList();
-        }
-
-        public Item GetItemById(int id)
-        {
-            return _context.itemsAlquilables.Find(id);
-        }
-
-        public Item GetItemByCategoria(int categoriaId)
-        {
-            return _context.itemsAlquilables.Find(categoriaId);
-        }
-
-
-        public List<Item> GetItemsByName(string nombre)
-        {
-            if (string.IsNullOrEmpty(nombre))
-                throw new ArgumentException("Name cannot be null or empty", nameof(nombre));
-
-            return _context.itemsAlquilables.Where(i => i.nombreItem.Contains(nombre)).ToList();
-        }
-
-        public List<Item> GetItemsByMarca(string marca)
-        {
-            if (string.IsNullOrEmpty(marca))
-                throw new ArgumentException("Brand cannot be null or empty", nameof(marca));
-
-            return _context.itemsAlquilables.Where(i => i.marca == marca).ToList();
-        }
-
-        public List<Item> GetItemsByModelo(string modelo)
-        {
-            if (string.IsNullOrEmpty(modelo))
-                throw new ArgumentException("Model cannot be null or empty", nameof(modelo));
-
-            return _context.itemsAlquilables.Where(i => i.modelo == modelo).ToList();
-        }
-
-        public Item CreateItem(Item item)
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            _context.itemsAlquilables.Add(item);
-            _context.SaveChanges();
-            return item;
-        }
-
-        public Item UpdateItem(Item item)
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
-            return item;
-        }
-
-        public void DeleteItem(int id)
-        {
-            var item = _context.itemsAlquilables.Find(id);
-            if (item != null)
+            using (var db = new SistemaAlquilerContext())
             {
-                _context.itemsAlquilables.Remove(item);
-                _context.SaveChanges();
+                db.itemsAlquilables.Add(item);
+                db.SaveChanges();
+            }
+        }
+
+        public void UpdateItem(Item item)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                db.Update(item);
+                db.SaveChanges();
+            }
+        }
+
+        public void SoftDeleteItem(Item item)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                item.deletedAt = DateTime.Now;
+                db.Update(item);
+                db.SaveChanges();
+            }
+        }
+
+        public List<Item> LoadAllItems()
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.itemsAlquilables
+                    .Where(x => x.deletedAt == null)
+                    .Include(x => x.categoria)
+                    .ToList();
+            }
+        }
+
+        public Item FindItemById(int id)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.itemsAlquilables
+                    .Where(x => x.id == id && x.deletedAt == null)
+                    .Include(x => x.categoria)
+                    .Include(x => x.Alquileres)
+                    .FirstOrDefault();
+            }
+        }
+
+        public List<Item> FindItemsByCategoria(int categoriaId)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.itemsAlquilables
+                    .Where(x => x.categoriaId == categoriaId && x.deletedAt == null)
+                    .ToList();
+            }
+        }
+
+        public List<Item> SearchItems(string search)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.itemsAlquilables
+                    .Where(x => (x.nombreItem.Contains(search) || x.marca.Contains(search) || x.modelo.Contains(search)) && x.deletedAt == null)
+                    .Include(x => x.categoria)
+                    .ToList();
             }
         }
     }
 }
+

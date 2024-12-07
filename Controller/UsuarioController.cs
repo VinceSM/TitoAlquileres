@@ -1,82 +1,53 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using SistemaAlquileres.Model.Dao;
 using SistemaAlquileres.Model.Entities;
-using System;
-using System.Collections.Generic;
 
-namespace SistemaAlquileres.Controller
+namespace SistemaAlquileres.Controllers
 {
-    internal class UsuarioController
+    public class UsuarioController
     {
-        // Instanciamos el DAO de Usuario
-        private UsuarioDao usuarioDao;
-
-        #region Singleton
-        private static UsuarioController? _instance;
+        private UsuarioDao _usuarioDao;
 
         public UsuarioController()
         {
-            usuarioDao = new UsuarioDao();
+            _usuarioDao = new UsuarioDao();
         }
 
-        public static UsuarioController getInstance()
+        public void CrearUsuario(Usuario usuario)
         {
-            if (_instance == null)
-            {
-                _instance = new UsuarioController();
-            }
-            return _instance;
-        }
-        #endregion
-
-        // Método para crear un nuevo usuario
-        public Usuario CrearUsuario(Usuario usuario)
-        {
-            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
-            return usuarioDao.CreateUsuario(usuario);
+            _usuarioDao.InsertUsuario(usuario);
         }
 
-        public List<Usuario> GetUsuarios()
+        public void ActualizarUsuario(Usuario usuario)
         {
-            return usuarioDao.GetAllUsuarios();
+            _usuarioDao.UpdateUsuario(usuario);
         }
 
-        public Usuario GetUsuarioById(int id)
+        public void EliminarUsuario(Usuario usuario)
         {
-            return usuarioDao.GetUsuarioById(id);
+            _usuarioDao.SoftDeleteUsuario(usuario);
         }
 
-        public Usuario GetUsuarioByName(string nombre)
+        public List<Usuario> ObtenerTodosLosUsuarios()
         {
-            if (string.IsNullOrEmpty(nombre)) throw new ArgumentException("Nombre cannot be null or empty", nameof(nombre));
-            return usuarioDao.GetUsuarioByName(nombre);
+            return _usuarioDao.LoadAllUsuarios();
         }
 
-        public Usuario GetUsuarioByDni(int dni)
+        public Usuario ObtenerUsuarioPorId(int id)
         {
-            return usuarioDao.GetUsuarioByDni(dni);
+            return _usuarioDao.FindUsuarioById(id);
         }
 
-        public Usuario GetUsuarioByEmail(string email)
+        public Usuario ObtenerUsuarioPorDNI(int dni)
         {
-            if (string.IsNullOrEmpty(email)) throw new ArgumentException("Email cannot be null or empty", nameof(email));
-            return usuarioDao.GetUsuarioByEmail(email);
+            return _usuarioDao.FindUsuarioByDNI(dni);
         }
 
-        public List<Usuario> GetUsuariosByMembresia(bool membresiaPremium)
+        public List<Usuario> BuscarUsuarios(string busqueda)
         {
-            return usuarioDao.GetUsuariosByMembresia(membresiaPremium);
-        }
-
-        public void SoftDeleteUser(int id)
-        {
-            usuarioDao.SoftDeleteUser(id);
-        }
-
-        public Usuario UpdateUsuario(Usuario usuario)
-        {
-            if (usuario == null) throw new ArgumentNullException(nameof(usuario));
-            return usuarioDao.UpdateUsuario(usuario);
+            return _usuarioDao.SearchUsuarios(busqueda);
         }
     }
 }
+
