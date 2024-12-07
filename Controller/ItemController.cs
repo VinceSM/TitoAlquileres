@@ -1,11 +1,10 @@
-﻿using SistemaAlquileres.Controllers;
-using SistemaAlquileres.Model.Dao;
+﻿using TitoAlquiler.Model.Dao;
 using System;
 using System.Collections.Generic;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
 
-namespace TitoAlquiler.Controllers
+namespace TitoAlquiler.Controller
 {
     public class ItemController
     {

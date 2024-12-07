@@ -1,12 +1,11 @@
-﻿using SistemaAlquileres.Controllers;
-using SistemaAlquileres.View.Usuario;
+﻿using TitoAlquiler.Controller;
+using TitoAlquiler.View.Usuario;
 using System;
 using System.Windows.Forms;
-using TitoAlquiler.Controllers;
 using TitoAlquiler.Model.Entities;
 using System.Linq;
 
-namespace SistemaAlquileres.View.Alquiler
+namespace TitoAlquiler.View.Alquiler
 {
     public partial class FormAlquilar : Form
     {
@@ -48,11 +47,12 @@ namespace SistemaAlquileres.View.Alquiler
                 // Crear una lista de objetos anónimos para el DataGridView
                 var itemsData = items.Select(item => new
                 {
-                    item.id,
-                    item.nombreItem,
-                    item.marca,
-                    item.modelo,
-                    item.tarifaDia
+                    ID = item.id,
+                    Nombre = item.nombreItem,
+                    Marca = item.marca,
+                    Modelo = item.modelo,
+                    Tarifa = item.tarifaDia,
+                    Categoria = item.categoria,
                 }).ToList();
 
                 // Asignar los datos al DataGridView
@@ -63,6 +63,7 @@ namespace SistemaAlquileres.View.Alquiler
                 MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void CargarUsuarios()
         {

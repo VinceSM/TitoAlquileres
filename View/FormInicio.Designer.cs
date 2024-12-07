@@ -1,4 +1,4 @@
-﻿namespace SistemaAlquileres
+﻿namespace TitoAlquiler
 {
     partial class FormInicio
     {

@@ -1,13 +1,14 @@
-﻿using SistemaAlquileres.Model.Strategy;
+﻿using TitoAlquiler.Model.Strategy;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TitoAlquiler.Model.Entities;
 
-namespace SistemaAlquileres.Model.Entities
+namespace TitoAlquiler.Model.Entities
 {
     public class Alquiler
-    { 
+    {
+        [Column("ID")]
         public int id { get; set; }
 
         [Required]

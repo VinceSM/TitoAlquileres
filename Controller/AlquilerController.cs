@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SistemaAlquileres.Model.Dao;
-using SistemaAlquileres.Model.Entities;
+using TitoAlquiler.Model.Dao;
+using TitoAlquiler.Model.Entities;
 
-namespace SistemaAlquileres.Controllers
+namespace TitoAlquiler.Controller
 {
     public class AlquilerController
     {

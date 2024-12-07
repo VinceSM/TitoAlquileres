@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Entities;
 
-namespace SistemaAlquileres.Model.Factory
+namespace TitoAlquiler.Model.Factory
 {
     public abstract class FabricaItems
     {

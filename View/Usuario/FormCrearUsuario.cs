@@ -1,10 +1,10 @@
-﻿using SistemaAlquileres.Controllers;
-using SistemaAlquileres.Model.Entities;
-using SistemaAlquileres.View.Alquiler;
+﻿using TitoAlquiler.Controller;
+using TitoAlquiler.Model.Entities;
+using TitoAlquiler.View.Alquiler;
 using System;
 using System.Windows.Forms;
 
-namespace SistemaAlquileres.View.Usuario
+namespace TitoAlquiler.View.Usuario
 {
     public partial class FormCrearUsuario : Form
     {

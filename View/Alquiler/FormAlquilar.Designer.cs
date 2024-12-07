@@ -1,4 +1,4 @@
-﻿namespace SistemaAlquileres.View.Alquiler
+﻿namespace TitoAlquiler.View.Alquiler
 {
     partial class FormAlquilar
     {
@@ -55,12 +55,13 @@
             usuarioBindingSource1 = new BindingSource(components);
             sistemaAlquilerContextBindingSource = new BindingSource(components);
             dataGridViewItem = new DataGridView();
-            id = new DataGridViewTextBoxColumn();
+            btnCrearUsuario = new Button();
+            ID = new DataGridViewTextBoxColumn();
+            categoria = new DataGridViewTextBoxColumn();
             nombreItem = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             tarifaDia = new DataGridViewTextBoxColumn();
-            btnCrearUsuario = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -300,7 +301,7 @@
             dataGridViewItem.AllowUserToDeleteRows = false;
             dataGridViewItem.BackgroundColor = Color.LightBlue;
             dataGridViewItem.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewItem.Columns.AddRange(new DataGridViewColumn[] { id, nombreItem, marca, modelo, tarifaDia });
+            dataGridViewItem.Columns.AddRange(new DataGridViewColumn[] { ID, categoria, nombreItem, marca, modelo, tarifaDia });
             dataGridViewItem.Location = new Point(635, 162);
             dataGridViewItem.Name = "dataGridViewItem";
             dataGridViewItem.ReadOnly = true;
@@ -310,14 +311,32 @@
             dataGridViewItem.Size = new Size(656, 352);
             dataGridViewItem.TabIndex = 9;
             // 
-            // id
+            // btnCrearUsuario
             // 
-            id.HeaderText = "id";
-            id.MinimumWidth = 6;
-            id.Name = "id";
-            id.ReadOnly = true;
-            id.Visible = false;
-            id.Width = 125;
+            btnCrearUsuario.Location = new Point(192, 127);
+            btnCrearUsuario.Name = "btnCrearUsuario";
+            btnCrearUsuario.Size = new Size(188, 29);
+            btnCrearUsuario.TabIndex = 10;
+            btnCrearUsuario.Text = "Crear Usuario";
+            btnCrearUsuario.UseVisualStyleBackColor = true;
+            btnCrearUsuario.Click += btnCrearUsuario_Click;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Visible = false;
+            ID.Width = 125;
+            // 
+            // categoria
+            // 
+            categoria.HeaderText = "Categoria";
+            categoria.MinimumWidth = 6;
+            categoria.Name = "categoria";
+            categoria.ReadOnly = true;
+            categoria.Width = 125;
             // 
             // nombreItem
             // 
@@ -350,16 +369,6 @@
             tarifaDia.Name = "tarifaDia";
             tarifaDia.ReadOnly = true;
             tarifaDia.Width = 125;
-            // 
-            // btnCrearUsuario
-            // 
-            btnCrearUsuario.Location = new Point(192, 127);
-            btnCrearUsuario.Name = "btnCrearUsuario";
-            btnCrearUsuario.Size = new Size(188, 29);
-            btnCrearUsuario.TabIndex = 10;
-            btnCrearUsuario.Text = "Crear Usuario";
-            btnCrearUsuario.UseVisualStyleBackColor = true;
-            btnCrearUsuario.Click += btnCrearUsuario_Click;
             // 
             // FormAlquilar
             // 
@@ -416,11 +425,6 @@
         private BindingSource categoriaBindingSource;
         private BindingSource sistemaAlquilerContextBindingSource;
         private DataGridView dataGridViewItem;
-        private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn nombreItem;
-        private DataGridViewTextBoxColumn marca;
-        private DataGridViewTextBoxColumn modelo;
-        private DataGridViewTextBoxColumn tarifaDia;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn;
@@ -429,5 +433,11 @@
         private DataGridViewTextBoxColumn deletedAtDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn alquileresDataGridViewTextBoxColumn;
         private Button btnCrearUsuario;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn categoria;
+        private DataGridViewTextBoxColumn nombreItem;
+        private DataGridViewTextBoxColumn marca;
+        private DataGridViewTextBoxColumn modelo;
+        private DataGridViewTextBoxColumn tarifaDia;
     }
 }

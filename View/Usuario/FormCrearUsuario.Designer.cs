@@ -1,4 +1,4 @@
-﻿namespace SistemaAlquileres.View.Usuario
+﻿namespace TitoAlquiler.View.Usuario
 {
     partial class FormCrearUsuario
     {

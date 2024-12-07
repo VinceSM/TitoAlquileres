@@ -1,4 +1,4 @@
-﻿using SistemaAlquileres.Model.Entities;
+﻿using TitoAlquiler.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,6 +8,7 @@ namespace TitoAlquiler.Model.Entities
 {
     public abstract class Item
     {
+        [Column("ID")]
         public int id { get; set; }
 
         [Required]

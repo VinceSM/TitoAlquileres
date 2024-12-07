@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SistemaAlquileres.Model.Entities;
+using TitoAlquiler.Model.Entities;
 
-namespace SistemaAlquileres.Model.Dao
+namespace TitoAlquiler.Model.Dao
 {
     public class AlquilerDao
     {

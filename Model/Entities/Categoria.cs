@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TitoAlquiler.Model.Entities
 {
     public class Categoria
     {
+        [Column("ID")]
         public int id { get; set; }
 
         [Required]

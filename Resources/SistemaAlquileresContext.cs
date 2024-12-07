@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaAlquileres.Model.Entities;
+using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities;
 
 public class SistemaAlquilerContext : DbContext
@@ -18,8 +18,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -94,7 +94,6 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<ItemTransporte>(entity =>
         {
             entity.ToTable("ItemsTransporte");
-            entity.Property(e => e.id).HasColumnName("ID");
             entity.Property(e => e.descripcion).HasColumnName("descripcion");
             entity.HasOne(i => i.itemId).WithOne().HasForeignKey<ItemTransporte>("ItemId");
         });
@@ -103,7 +102,6 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<ItemElectrodomesticos>(entity =>
         {
             entity.ToTable("ItemsElectrodomesticos");
-            entity.Property(e => e.id).HasColumnName("ID");
             entity.Property(e => e.descripcion).HasColumnName("descripcion");
             entity.HasOne(i => i.itemId).WithOne().HasForeignKey<ItemElectrodomesticos>("ItemId");
         });
@@ -112,7 +110,6 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<ItemElectronica>(entity =>
         {
             entity.ToTable("ItemsElectronica");
-            entity.Property(e => e.id).HasColumnName("ID");
             entity.Property(e => e.descripcion).HasColumnName("descripcion");
             entity.HasOne(i => i.itemId).WithOne().HasForeignKey<ItemElectronica>("ItemId");
         });
@@ -121,7 +118,6 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<ItemInmuebles>(entity =>
         {
             entity.ToTable("ItemsInmuebles");
-            entity.Property(e => e.id).HasColumnName("ID");
             entity.Property(e => e.descripcion).HasColumnName("descripcion");
             entity.HasOne(i => i.itemId).WithOne().HasForeignKey<ItemInmuebles>("ItemId");
         });

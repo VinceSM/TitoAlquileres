@@ -1,9 +1,9 @@
-﻿using SistemaAlquileres.View.Alquiler;
-using SistemaAlquileres.View.Usuario;
+﻿using TitoAlquiler.View.Alquiler;
+using TitoAlquiler.View.Usuario;
 using System;
 using System.Windows.Forms;
 
-namespace SistemaAlquileres
+namespace TitoAlquiler
 {
     public partial class FormInicio : Form
     {
