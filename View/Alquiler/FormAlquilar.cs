@@ -57,12 +57,6 @@ namespace SistemaAlquileres.View.Alquiler
 
                 // Asignar los datos al DataGridView
                 dataGridViewItem.DataSource = itemsData;
-
-                // Ocultar la columna ID si es necesario
-                if (dataGridViewItem.Columns["id"] != null)
-                {
-                    dataGridViewItem.Columns["id"].Visible = false;
-                }
             }
             catch (Exception ex)
             {

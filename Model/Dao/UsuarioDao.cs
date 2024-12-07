@@ -12,69 +12,125 @@ namespace SistemaAlquileres.Model.Dao
 
         public void InsertUsuario(Usuarios usuario)
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                db.Usuarios.Add(usuario);
-                db.SaveChanges();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    db.Usuarios.Add(usuario);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inserting usuario: {ex.Message}");
+                throw;
             }
         }
 
         public void UpdateUsuario(Usuarios usuario)
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                db.Update(usuario);
-                db.SaveChanges();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    db.Update(usuario);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating usuario: {ex.Message}");
+                throw;
             }
         }
 
         public void SoftDeleteUsuario(Usuarios usuario)
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                usuario.deletedAt = DateTime.Now;
-                db.Update(usuario);
-                db.SaveChanges();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    usuario.deletedAt = DateTime.Now;
+                    db.Update(usuario);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error soft deleting usuario: {ex.Message}");
+                throw;
             }
         }
 
         public List<Usuarios> LoadAllUsuarios()
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                return db.Usuarios.Where(x => x.deletedAt == null).ToList();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Usuarios.Where(x => x.deletedAt == null).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading all usuarios: {ex.Message}");
+                throw;
             }
         }
 
         public Usuarios FindUsuarioById(int id)
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                return db.Usuarios
-                    .Where(x => x.id == id && x.deletedAt == null)
-                    .Include(x => x.Alquileres)
-                    .FirstOrDefault();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Usuarios
+                        .Where(x => x.id == id && x.deletedAt == null)
+                        .Include(x => x.Alquileres)
+                        .FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error finding usuario by id: {ex.Message}");
+                throw;
             }
         }
 
         public Usuarios FindUsuarioByDNI(int dni)
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                return db.Usuarios
-                    .Where(x => x.dni == dni && x.deletedAt == null)
-                    .Include(x => x.Alquileres)
-                    .FirstOrDefault();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Usuarios
+                        .Where(x => x.dni == dni && x.deletedAt == null)
+                        .Include(x => x.Alquileres)
+                        .FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error finding usuario by DNI: {ex.Message}");
+                throw;
             }
         }
 
         public List<Usuarios> SearchUsuarios(string search)
         {
-            using (var db = new SistemaAlquilerContext())
+            try
             {
-                return db.Usuarios
-                    .Where(x => (x.nombre.Contains(search) || x.email.Contains(search)) && x.deletedAt == null)
-                    .ToList();
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Usuarios
+                        .Where(x => (x.nombre.Contains(search) || x.email.Contains(search)) && x.deletedAt == null)
+                        .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error searching usuarios: {ex.Message}");
+                throw;
             }
         }
     }
