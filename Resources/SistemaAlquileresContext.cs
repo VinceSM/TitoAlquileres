@@ -4,7 +4,7 @@ using TitoAlquiler.Model.Entities;
 
 public class SistemaAlquilerContext : DbContext
 {
-    public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Usuarios> Usuarios { get; set; }
     public DbSet<Item> itemsAlquilables { get; set; }
     public DbSet<Alquiler> alquileres { get; set; }
     public DbSet<Categoria> categorias { get; set; }
@@ -26,7 +26,7 @@ public class SistemaAlquilerContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Configuración de Usuario
-        modelBuilder.Entity<Usuario>(entity =>
+        modelBuilder.Entity<Usuarios>(entity =>
         {
             entity.ToTable("usuario");
             entity.Property(e => e.id).HasColumnName("id");
@@ -130,7 +130,7 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<ItemInmuebles>().Property(e => e.descripcion).HasColumnName("Descripcion").HasMaxLength(255);
 
         // Configuración de filtros globales para el borrado lógico
-        modelBuilder.Entity<Usuario>().HasQueryFilter(u => u.deletedAt == null);
+        modelBuilder.Entity<Usuarios>().HasQueryFilter(u => u.deletedAt == null);
         modelBuilder.Entity<Alquiler>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);

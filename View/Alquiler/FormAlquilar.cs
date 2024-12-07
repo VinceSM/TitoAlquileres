@@ -1,13 +1,18 @@
-﻿using SistemaAlquileres.Controller;
+﻿using SistemaAlquileres.Controllers;
 using SistemaAlquileres.View.Usuario;
 using System;
 using System.Windows.Forms;
+using TitoAlquiler.Controllers;
 using TitoAlquiler.Model.Entities;
 
 namespace SistemaAlquileres.View.Alquiler
 {
     public partial class FormAlquilar : Form
     {
+        UsuarioController usuarioController = UsuarioController.getInstance();
+        AlquilerController alquilerController = AlquilerController.getInstance();
+        ItemController itemController = ItemController.getInstance();
+
         public FormAlquilar()
         {
             InitializeComponent();
@@ -37,7 +42,7 @@ namespace SistemaAlquileres.View.Alquiler
             try
             {
                 // Obtener los datos desde el controlador
-                var items = ItemController.GetInstance().GetItems();
+                var items = itemController.ObtenerTodosLosItems();
 
                 // Crear una lista de objetos anónimos para el DataGridView
                 var itemsData = items.Select(item => new
@@ -61,7 +66,7 @@ namespace SistemaAlquileres.View.Alquiler
             try
             {
                 // Obtener los datos desde el controlador
-                var usuarios = UsuarioController.getInstance().GetUsuarios();
+                var usuarios = usuarioController.ObtenerTodosLosUsuarios();
 
                 // Crear una lista de objetos anónimos para el DataGridView
                 var usuariosData = usuarios.Select(u => new

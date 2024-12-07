@@ -7,44 +7,55 @@ namespace SistemaAlquileres.Controllers
 {
     public class UsuarioController
     {
-        private UsuarioDao _usuarioDao;
+        UsuarioDao _usuarioDao = new UsuarioDao();
 
-        public UsuarioController()
+        #region Singletone
+
+        private static UsuarioController? Instance;
+
+        private UsuarioController() { }
+
+        public static UsuarioController getInstance()
         {
-            _usuarioDao = new UsuarioDao();
+            if (Instance == null)
+            {
+                Instance = new UsuarioController();
+            }
+            return Instance;
         }
+        #endregion
 
-        public void CrearUsuario(Usuario usuario)
+        public void CrearUsuario(Usuarios usuario)
         {
             _usuarioDao.InsertUsuario(usuario);
         }
 
-        public void ActualizarUsuario(Usuario usuario)
+        public void ActualizarUsuario(Usuarios usuario)
         {
             _usuarioDao.UpdateUsuario(usuario);
         }
 
-        public void EliminarUsuario(Usuario usuario)
+        public void EliminarUsuario(Usuarios usuario)
         {
             _usuarioDao.SoftDeleteUsuario(usuario);
         }
 
-        public List<Usuario> ObtenerTodosLosUsuarios()
+        public List<Usuarios> ObtenerTodosLosUsuarios()
         {
             return _usuarioDao.LoadAllUsuarios();
         }
 
-        public Usuario ObtenerUsuarioPorId(int id)
+        public Usuarios ObtenerUsuarioPorId(int id)
         {
             return _usuarioDao.FindUsuarioById(id);
         }
 
-        public Usuario ObtenerUsuarioPorDNI(int dni)
+        public Usuarios ObtenerUsuarioPorDNI(int dni)
         {
             return _usuarioDao.FindUsuarioByDNI(dni);
         }
 
-        public List<Usuario> BuscarUsuarios(string busqueda)
+        public List<Usuarios> BuscarUsuarios(string busqueda)
         {
             return _usuarioDao.SearchUsuarios(busqueda);
         }

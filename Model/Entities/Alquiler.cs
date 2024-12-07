@@ -20,7 +20,7 @@ namespace SistemaAlquileres.Model.Entities
         public int usuarioId { get; set; }
 
         [ForeignKey("UsuarioId")]
-        public virtual Usuario usuario { get; set; }
+        public virtual Usuarios usuario { get; set; }
 
         [Required]
         public int tiempoDias { get; set; }

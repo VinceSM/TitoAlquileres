@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SistemaAlquileres.Controllers;
+using SistemaAlquileres.Model.Dao;
+using System;
 using System.Collections.Generic;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
@@ -7,12 +9,23 @@ namespace TitoAlquiler.Controllers
 {
     public class CategoriaController
     {
-        private CategoriaDao _categoriaDao;
+        CategoriaDao _categoriaDao = new CategoriaDao();
 
-        public CategoriaController()
+        #region Singletone
+
+        private static CategoriaController? Instance;
+
+        private CategoriaController() { }
+
+        public static CategoriaController getInstance()
         {
-            _categoriaDao = new CategoriaDao();
+            if (Instance == null)
+            {
+                Instance = new CategoriaController();
+            }
+            return Instance;
         }
+        #endregion
 
         public void CrearCategoria(Categoria categoria)
         {

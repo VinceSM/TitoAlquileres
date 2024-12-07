@@ -7,12 +7,23 @@ namespace SistemaAlquileres.Controllers
 {
     public class AlquilerController
     {
-        private AlquilerDao _alquilerDao;
+        AlquilerDao _alquilerDao = new AlquilerDao();
 
-        public AlquilerController()
+        #region Singletone
+
+        private static AlquilerController? Instance;
+
+        private AlquilerController() { }
+
+        public static AlquilerController getInstance()
         {
-            _alquilerDao = new AlquilerDao();
+            if (Instance == null)
+            {
+                Instance = new AlquilerController();
+            }
+            return Instance;
         }
+        #endregion
 
         public void CrearAlquiler(Alquiler alquiler)
         {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SistemaAlquileres.Controllers;
+using SistemaAlquileres.Model.Dao;
+using System;
 using System.Collections.Generic;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
@@ -7,12 +9,23 @@ namespace TitoAlquiler.Controllers
 {
     public class ItemController
     {
-        private ItemDao _itemDao;
+        ItemDao _itemDao = new ItemDao();
 
-        public ItemController()
+        #region Singletone
+
+        private static ItemController? Instance;
+
+        private ItemController() { }
+
+        public static ItemController getInstance()
         {
-            _itemDao = new ItemDao();
+            if (Instance == null)
+            {
+                Instance = new ItemController();
+            }
+            return Instance;
         }
+        #endregion
 
         public void CrearItem(Item item)
         {

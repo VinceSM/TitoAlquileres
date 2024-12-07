@@ -284,11 +284,11 @@
             // 
             // usuarioBindingSource
             // 
-            usuarioBindingSource.DataSource = typeof(Model.Entities.Usuario);
+            usuarioBindingSource.DataSource = typeof(Model.Entities.Usuarios);
             // 
             // usuarioBindingSource1
             // 
-            usuarioBindingSource1.DataSource = typeof(Model.Entities.Usuario);
+            usuarioBindingSource1.DataSource = typeof(Model.Entities.Usuarios);
             // 
             // sistemaAlquilerContextBindingSource
             // 

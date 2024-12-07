@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaAlquileres.Model.Entities
 {
-    public class Usuario
+    public class Usuarios
     {
         public int id { get; set; }
         public string? nombre { get; set; }

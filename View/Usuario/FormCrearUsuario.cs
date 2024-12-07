@@ -1,4 +1,4 @@
-﻿using SistemaAlquileres.Controller;
+﻿using SistemaAlquileres.Controllers;
 using SistemaAlquileres.Model.Entities;
 using SistemaAlquileres.View.Alquiler;
 using System;
@@ -77,62 +77,60 @@ namespace SistemaAlquileres.View.Usuario
 
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
+            // Validate input
+            if (string.IsNullOrWhiteSpace(textBoxCrearNombre.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un nombre válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxCrearDNI.Text) || !int.TryParse(textBoxCrearDNI.Text, out int dni))
+            {
+                MessageBox.Show("Por favor, ingrese un DNI válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxCrearEmail.Text) || !IsValidEmail(textBoxCrearEmail.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un email válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Create new Usuario object
+            Usuarios nuevoUsuario = new Usuarios
+            {
+                nombre = textBoxCrearNombre.Text.Trim(),
+                dni = dni,
+                email = textBoxCrearEmail.Text.Trim(),
+                membresiaPremium = checkBoxMembresia.Checked
+            };
+
             try
             {
-                if (!ValidateInputs(out string nombre, out string email, out int dni))
-                {
-                    return;
-                }
+                // Use UsuarioController singleton to create the user
+                usuarioController.CrearUsuario(nuevoUsuario);
 
-                bool membresiaPremium = checkBoxMembresia.Checked;
+                MessageBox.Show("Usuario creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Verificar si ya existe un usuario con el mismo DNI
-                var usuarioExistente = usuarioController.GetUsuarioByDni(dni);
-                if (usuarioExistente != null)
-                {
-                    MostrarMensajeError("Ya existe un usuario con ese DNI.");
-                    return;
-                }
-
-                // Verificar si ya existe un usuario con el mismo email
-                usuarioExistente = usuarioController.GetUsuarioByEmail(email);
-                if (usuarioExistente != null)
-                {
-                    MostrarMensajeError("Ya existe un usuario con ese email.");
-                    return;
-                }
-
-                var nuevoUsuario = new Model.Entities.Usuario
-                {
-                    nombre = nombre,
-                    dni = dni,
-                    email = email,
-                    membresiaPremium = membresiaPremium,
-                    deletedAt = null
-                };
-
-                var usuarioCreado = usuarioController.CrearUsuario(nuevoUsuario);
-
-                if (usuarioCreado != null && usuarioCreado.id > 0)
-                {
-                    MostrarMensajeExito(usuarioCreado.id);
-                    LimpiarCampos();
-                }
-                else
-                {
-                    MostrarMensajeError("No se pudo crear el usuario. Verifique los datos e intente nuevamente.");
-                }
+                // Clear input fields after successful creation
+                LimpiarCampos();
             }
             catch (Exception ex)
             {
-                // Obtener el mensaje de la excepción más interna
-                var innerException = ex;
-                while (innerException.InnerException != null)
-                {
-                    innerException = innerException.InnerException;
-                }
+                MessageBox.Show($"Error al crear el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                MostrarMensajeError($"Error al crear el usuario: {innerException.Message}");
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

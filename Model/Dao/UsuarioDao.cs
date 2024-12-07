@@ -10,7 +10,7 @@ namespace SistemaAlquileres.Model.Dao
     {
         public UsuarioDao() { }
 
-        public void InsertUsuario(Usuario usuario)
+        public void InsertUsuario(Usuarios usuario)
         {
             using (var db = new SistemaAlquilerContext())
             {
@@ -19,7 +19,7 @@ namespace SistemaAlquileres.Model.Dao
             }
         }
 
-        public void UpdateUsuario(Usuario usuario)
+        public void UpdateUsuario(Usuarios usuario)
         {
             using (var db = new SistemaAlquilerContext())
             {
@@ -28,7 +28,7 @@ namespace SistemaAlquileres.Model.Dao
             }
         }
 
-        public void SoftDeleteUsuario(Usuario usuario)
+        public void SoftDeleteUsuario(Usuarios usuario)
         {
             using (var db = new SistemaAlquilerContext())
             {
@@ -38,7 +38,7 @@ namespace SistemaAlquileres.Model.Dao
             }
         }
 
-        public List<Usuario> LoadAllUsuarios()
+        public List<Usuarios> LoadAllUsuarios()
         {
             using (var db = new SistemaAlquilerContext())
             {
@@ -46,7 +46,7 @@ namespace SistemaAlquileres.Model.Dao
             }
         }
 
-        public Usuario FindUsuarioById(int id)
+        public Usuarios FindUsuarioById(int id)
         {
             using (var db = new SistemaAlquilerContext())
             {
@@ -57,7 +57,7 @@ namespace SistemaAlquileres.Model.Dao
             }
         }
 
-        public Usuario FindUsuarioByDNI(int dni)
+        public Usuarios FindUsuarioByDNI(int dni)
         {
             using (var db = new SistemaAlquilerContext())
             {
@@ -68,7 +68,7 @@ namespace SistemaAlquileres.Model.Dao
             }
         }
 
-        public List<Usuario> SearchUsuarios(string search)
+        public List<Usuarios> SearchUsuarios(string search)
         {
             using (var db = new SistemaAlquilerContext())
             {
