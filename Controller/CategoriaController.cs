@@ -1,7 +1,6 @@
 ﻿using TitoAlquiler.Model.Dao;
 using System;
 using System.Collections.Generic;
-using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
 
 namespace TitoAlquiler.Controller

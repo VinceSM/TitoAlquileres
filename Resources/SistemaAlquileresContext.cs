@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities;
-using TitoAlquiler.Model.Entities;
 
 public class SistemaAlquilerContext : DbContext
 {
