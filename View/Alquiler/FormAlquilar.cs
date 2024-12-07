@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using TitoAlquiler.Controllers;
 using TitoAlquiler.Model.Entities;
+using System.Linq;
 
 namespace SistemaAlquileres.View.Alquiler
 {
@@ -51,9 +52,17 @@ namespace SistemaAlquileres.View.Alquiler
                     item.nombreItem,
                     item.marca,
                     item.modelo,
-                    item.tarifaDia,
-                    Categoria = item.categoria?.nombre ?? "Sin categoría",
+                    item.tarifaDia
                 }).ToList();
+
+                // Asignar los datos al DataGridView
+                dataGridViewItem.DataSource = itemsData;
+
+                // Ocultar la columna ID si es necesario
+                if (dataGridViewItem.Columns["id"] != null)
+                {
+                    dataGridViewItem.Columns["id"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -75,10 +84,12 @@ namespace SistemaAlquileres.View.Alquiler
                     u.nombre,
                     u.dni,
                     u.email,
-                    u.membresiaPremium,
-                    u.deletedAt.HasValue,
+                    membresiaPremium = u.membresiaPremium,
                     CantidadAlquileres = u.Alquileres?.Count ?? 0
                 }).ToList();
+
+                // Asignar los datos al DataGridView
+                dataGridViewUsuarios.DataSource = usuariosData;
             }
             catch (Exception ex)
             {

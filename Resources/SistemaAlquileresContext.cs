@@ -18,8 +18,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -33,7 +33,12 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.nombre).HasColumnName("nombre").HasMaxLength(65);
             entity.Property(e => e.dni).HasColumnName("dni");
             entity.Property(e => e.email).HasColumnName("email").HasMaxLength(65);
-            entity.Property(e => e.membresiaPremium).HasColumnName("tipo_membresia").HasMaxLength(65);
+            entity.Property(e => e.membresiaPremium)
+                .HasColumnName("tipo_membresia")
+                .HasConversion(
+                    v => v ? "Premium" : "Normal",
+                    v => v.Equals("Premium", StringComparison.OrdinalIgnoreCase))
+                .HasMaxLength(65);
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
 
             entity.HasMany(u => u.Alquileres)
@@ -45,12 +50,12 @@ public class SistemaAlquilerContext : DbContext
         // Configuración de Item
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.ToTable("Item");
-            entity.Property(e => e.id).HasColumnName("Id");
-            entity.Property(e => e.nombreItem).HasColumnName("NombreItem").HasMaxLength(65);
-            entity.Property(e => e.marca).HasColumnName("Marca").HasMaxLength(65);
-            entity.Property(e => e.modelo).HasColumnName("Modelo").HasMaxLength(65);
-            entity.Property(e => e.tarifaDia).HasColumnName("TarifaDia");
+            entity.ToTable("itemAlquilable");  // Change this to match your actual table name
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.nombreItem).HasColumnName("nombre").HasMaxLength(65);
+            entity.Property(e => e.marca).HasColumnName("marca").HasMaxLength(65);
+            entity.Property(e => e.modelo).HasColumnName("modelo").HasMaxLength(65);
+            entity.Property(e => e.tarifaDia).HasColumnName("tarifa");
 
             entity.HasOne(i => i.categoria)
                   .WithMany(c => c.items)
@@ -83,16 +88,6 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.id).HasColumnName("Id");
             entity.Property(e => e.nombre).HasColumnName("Nombre").HasMaxLength(65);
             entity.Property(e => e.deletedAt).HasColumnName("DeletedAt");
-        });
-
-        modelBuilder.Entity<Item>(entity =>
-        {
-            entity.ToTable("Item");
-            entity.Property(e => e.id).HasColumnName("Id");
-            entity.Property(e => e.nombreItem).HasColumnName("NombreItem").HasMaxLength(65);
-            entity.Property(e => e.marca).HasColumnName("Marca").HasMaxLength(65);
-            entity.Property(e => e.modelo).HasColumnName("Modelo").HasMaxLength(65);
-            entity.Property(e => e.tarifaDia).HasColumnName("TarifaDia");
         });
 
         // Configuración específica para ItemTransporte
