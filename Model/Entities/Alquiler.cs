@@ -8,20 +8,20 @@ namespace TitoAlquiler.Model.Entities
 {
     public class Alquiler
     {
-        [Column("ID")]
+        [Column("id")]
         public int id { get; set; }
 
-        [Required]
-        public int itemId { get; set; }
-
         [ForeignKey("ItemId")]
-        public virtual Item item { get; set; }
+        public int ItemID { get; set; }
 
         [Required]
-        public int usuarioId { get; set; }
-
+        public virtual Item? item { get; set; }
+        
         [ForeignKey("UsuarioId")]
-        public virtual Usuarios usuario { get; set; }
+        public int UsuarioID { get; set; }
+
+        [Required]
+        public virtual Usuarios? usuario { get; set; }
 
         [Required]
         public int tiempoDias { get; set; }
@@ -36,7 +36,7 @@ namespace TitoAlquiler.Model.Entities
         public double precioTotal { get; set; }
 
         [StringLength(50)]
-        public string tipoEstrategia { get; set; }
+        public string? tipoEstrategia { get; set; }
 
         public bool descuento { get; set; }
 

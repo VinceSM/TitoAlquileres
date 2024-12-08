@@ -8,7 +8,7 @@ namespace TitoAlquiler.Model.Entities
 {
     public abstract class Item
     {
-        [Column("ID")]
+        [Column("id")]
         public int id { get; set; }
 
         [Required]

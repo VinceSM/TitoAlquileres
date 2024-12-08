@@ -109,7 +109,7 @@ namespace TitoAlquiler.Model.Dao
                 using (var db = new SistemaAlquilerContext())
                 {
                     return db.Alquileres
-                        .Where(x => x.usuarioId == usuarioId && x.deletedAt == null)
+                        .Where(x => x.UsuarioID == usuarioId && x.deletedAt == null)
                         .Include(x => x.item)
                         .ToList();
                 }
@@ -128,7 +128,7 @@ namespace TitoAlquiler.Model.Dao
                 using (var db = new SistemaAlquilerContext())
                 {
                     return db.Alquileres
-                        .Where(x => x.itemId == itemId && x.deletedAt == null)
+                        .Where(x => x.ItemID == itemId && x.deletedAt == null)
                         .Include(x => x.usuario)
                         .ToList();
                 }

@@ -7,7 +7,7 @@ namespace TitoAlquiler.Model.Entities
 {
     public class Categoria
     {
-        [Column("ID")]
+        [Column("id")]
         public int id { get; set; }
 
         [Required]
