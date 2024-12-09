@@ -35,15 +35,16 @@
             // 
             // btnEntrar
             // 
+            btnEntrar.Anchor = AnchorStyles.Bottom;
             btnEntrar.BackColor = Color.White;
             btnEntrar.FlatAppearance.BorderSize = 0;
             btnEntrar.FlatStyle = FlatStyle.Flat;
             btnEntrar.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEntrar.ForeColor = Color.Blue;
-            btnEntrar.Location = new Point(186, 306);
-            btnEntrar.Margin = new Padding(2);
+            btnEntrar.Location = new Point(213, 408);
+            btnEntrar.Margin = new Padding(2, 3, 2, 3);
             btnEntrar.Name = "btnEntrar";
-            btnEntrar.Size = new Size(313, 53);
+            btnEntrar.Size = new Size(358, 71);
             btnEntrar.TabIndex = 1;
             btnEntrar.Text = "Entrar";
             btnEntrar.UseVisualStyleBackColor = false;
@@ -52,24 +53,24 @@
             // pictureBoxImageInicio
             // 
             pictureBoxImageInicio.Dock = DockStyle.Fill;
-            pictureBoxImageInicio.Image = TitoAlquiler.Properties.Resources.Logo_Tito;
+            pictureBoxImageInicio.Image = Properties.Resources.Logo_Tito;
             pictureBoxImageInicio.Location = new Point(0, 0);
-            pictureBoxImageInicio.Margin = new Padding(2);
+            pictureBoxImageInicio.Margin = new Padding(2, 3, 2, 3);
             pictureBoxImageInicio.Name = "pictureBoxImageInicio";
-            pictureBoxImageInicio.Size = new Size(700, 422);
+            pictureBoxImageInicio.Size = new Size(800, 563);
             pictureBoxImageInicio.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxImageInicio.TabIndex = 0;
             pictureBoxImageInicio.TabStop = false;
             // 
             // FormInicio
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(700, 422);
+            ClientSize = new Size(800, 563);
             Controls.Add(btnEntrar);
             Controls.Add(pictureBoxImageInicio);
-            Margin = new Padding(2);
+            Margin = new Padding(2, 3, 2, 3);
             Name = "FormInicio";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pictureBoxImageInicio).EndInit();

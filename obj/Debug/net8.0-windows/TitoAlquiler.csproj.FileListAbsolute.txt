@@ -121,3 +121,10 @@ C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\refint\TitoAlqu
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.pdb
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.ClientModel.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Formats.Asn1.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Text.Encodings.Web.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Text.Json.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll

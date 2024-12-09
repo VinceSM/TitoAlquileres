@@ -19,7 +19,6 @@ namespace TitoAlquiler.View.Alquiler
             InitializeComponent();
             CargarUsuarios();
             CargarCategorias();
-            //CargarItems();
         }
 
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -39,9 +38,37 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
-        private void CargarItems()
+        private void CargarItems(int categoriaId)
         {
+            try
+            {
+                var items = itemController.ObtenerItemsPorCategoria(categoriaId);
 
+                if (items == null || !items.Any())
+                {
+                    dataGridViewItems.Rows.Clear();
+                    MessageBox.Show("No se encontraron items para esta categoría.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                dataGridViewItems.Rows.Clear();
+                foreach (var item in items)
+                {
+                    dataGridViewItems.Rows.Add(
+                        item.id,
+                        item.nombreItem,
+                        item.marca,
+                        item.modelo,
+                        item.tarifaDia,
+                        item.categoria?.nombre ?? "N/A",
+                        item.deletedAt == null ? "Activo" : "Inactivo"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -96,13 +123,21 @@ namespace TitoAlquiler.View.Alquiler
 
         private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCategorias.SelectedItem != null)
+            try
             {
-                Categoria categoriaSeleccionada = (Categoria)cmbCategorias.SelectedItem;
-                int categoriaId = categoriaSeleccionada.id;
-                string categoriaNombre = categoriaSeleccionada.nombre;
-
-                //MessageBox.Show($"Categoría seleccionada: {categoriaNombre} (ID: {categoriaId})", "Categoría Seleccionada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
+                {
+                    int categoriaId = categoriaSeleccionada.id;
+                    CargarItems(categoriaId);
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una categoría válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al seleccionar categoría: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
