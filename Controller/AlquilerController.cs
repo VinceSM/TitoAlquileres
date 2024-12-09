@@ -83,7 +83,7 @@ namespace TitoAlquiler.Controller
             };
 
             alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
-            alquiler.descuento = tipoEstrategia != "EstrategiaNormal";
+            alquiler.descuento = tipoEstrategia == "EstrategiaEstacion";
 
             CrearAlquiler(alquiler);
 
@@ -92,24 +92,7 @@ namespace TitoAlquiler.Controller
 
         public double CalcularPrecioTotal(Alquileres alquiler, Item item)
         {
-            IEstrategiaAlquiler estrategia;
-
-            switch (alquiler.tipoEstrategia)
-            {
-                case "EstrategiaEstacion":
-                    estrategia = new EstrategiaEstacion();
-                    break;
-                case "EstrategiaPremium":
-                    estrategia = new EstrategiaPremium();
-                    break;
-                case "EstrategiaCompleta":
-                    estrategia = new EstrategiaEstacionPremium();
-                    break;
-                default:
-                    estrategia = new EstrategiaNormal();
-                    break;
-            }
-
+            EstrategiaEstacion estrategia = new EstrategiaEstacion();
             return estrategia.CalcularPrecio(alquiler, item);
         }
 

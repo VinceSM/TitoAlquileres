@@ -20,11 +20,5 @@ namespace TitoAlquiler.Model.Entities
         public string? tipoEstrategia { get; set; }
         public bool descuento { get; set; }
         public DateTime? deletedAt { get; set; }
-
-        public void CalcularPrecioTotal(IEstrategiaAlquiler estrategia)
-        {
-            precioTotal = estrategia.CalcularPrecio(this, item);
-            tipoEstrategia = estrategia.getEstrategia();
-        }
     }
 }

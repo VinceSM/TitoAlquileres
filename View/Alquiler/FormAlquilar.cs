@@ -160,12 +160,7 @@ namespace TitoAlquiler.View.Alquiler
                 int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
-                string tipoEstrategia = "EstrategiaNormal";
-
-                if (((bool)dataGridViewUsuarios.SelectedRows[0].Cells["membresiaPremiumDataGridViewCheckBoxColumn"].Value))
-                {
-                    tipoEstrategia = "EstrategiaPremium";
-                }
+                string tipoEstrategia = "EstrategiaEstacion";
 
                 if (!alquilerController.VerificarDisponibilidad(itemId, fechaInicio, fechaFin))
                 {
