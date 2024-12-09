@@ -32,7 +32,7 @@
             panel1 = new Panel();
             lblNombreUsuario = new Label();
             categoriaBindingSource = new BindingSource(components);
-            lblPrecioPorDias = new Label();
+            lblTotal = new Label();
             lblPrecioPorDia = new Label();
             panelFecha = new Panel();
             dateTimePickerFechaFin = new DateTimePicker();
@@ -96,14 +96,14 @@
             // 
             categoriaBindingSource.DataSource = typeof(Model.Entities.Categoria);
             // 
-            // lblPrecioPorDias
+            // lblTotal
             // 
-            lblPrecioPorDias.AutoSize = true;
-            lblPrecioPorDias.Location = new Point(610, 587);
-            lblPrecioPorDias.Name = "lblPrecioPorDias";
-            lblPrecioPorDias.Size = new Size(77, 22);
-            lblPrecioPorDias.TabIndex = 3;
-            lblPrecioPorDias.Text = "TOTAL:";
+            lblTotal.AutoSize = true;
+            lblTotal.Location = new Point(610, 587);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(77, 22);
+            lblTotal.TabIndex = 3;
+            lblTotal.Text = "TOTAL:";
             // 
             // lblPrecioPorDia
             // 
@@ -178,6 +178,7 @@
             btnCrear.TabIndex = 6;
             btnCrear.Text = "Crear";
             btnCrear.UseVisualStyleBackColor = true;
+            btnCrear.Click += btnCrear_Click;
             // 
             // linkVolver
             // 
@@ -398,7 +399,7 @@
             Controls.Add(btnCrear);
             Controls.Add(panelFecha);
             Controls.Add(lblPrecioPorDia);
-            Controls.Add(lblPrecioPorDias);
+            Controls.Add(lblTotal);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
@@ -422,7 +423,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblNombreUsuario;
-        private System.Windows.Forms.Label lblPrecioPorDias;
+        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblPrecioPorDia;
         private System.Windows.Forms.Panel panelFecha;
         private System.Windows.Forms.Label lblFecha;

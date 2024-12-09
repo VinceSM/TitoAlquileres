@@ -123,21 +123,11 @@ namespace TitoAlquiler.View.Alquiler
 
         private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            if (cmbCategorias.SelectedItem != null)
             {
-                if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
-                {
-                    int categoriaId = categoriaSeleccionada.id;
-                    CargarItems(categoriaId);
-                }
-                else
-                {
-                    MessageBox.Show("Por favor, seleccione una categoría válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al seleccionar categoría: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Categoria categoriaSeleccionada = (Categoria)cmbCategorias.SelectedItem;
+                int categoriaId = categoriaSeleccionada.id;
+                CargarItems(categoriaId);
             }
         }
 
@@ -152,9 +142,63 @@ namespace TitoAlquiler.View.Alquiler
             {
                 MessageBox.Show($"La fecha fin no puede ser menor a la fecha de inicio");
             }
-            else if(dateTimePickerFechaFin.Value == dateTimePickerFechaInicio.Value)
+            else if (dateTimePickerFechaFin.Value == dateTimePickerFechaInicio.Value)
             {
                 MessageBox.Show("Las fechas de alquiler no pueden ser iguales");
+            }
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewUsuarios.SelectedRows.Count == 0 || dataGridViewItems.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, seleccione un usuario y un item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                DateTime fechaInicio = dateTimePickerFechaInicio.Value;
+                DateTime fechaFin = dateTimePickerFechaFin.Value;
+
+                if (fechaInicio >= fechaFin)
+                {
+                    MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!alquilerController.VerificarDisponibilidad(itemId, fechaInicio, fechaFin))
+                {
+                    MessageBox.Show("El item no está disponible para las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string tipoEstrategia = "EstrategiaNormal";
+                if (((bool)dataGridViewUsuarios.SelectedRows[0].Cells["membresiaPremiumDataGridViewCheckBoxColumn"].Value))
+                {
+                    tipoEstrategia = "EstrategiaPremium";
+                }
+                else if (fechaInicio.Month >= 1 && fechaInicio.Month <= 3)
+                {
+                    tipoEstrategia = "EstrategiaDescuento";
+                }
+
+                var nuevoAlquiler = alquilerController.CrearNuevoAlquiler(itemId, usuarioId, fechaInicio, fechaFin, tipoEstrategia);
+
+                MessageBox.Show($"Alquiler creado con éxito. Precio total: {nuevoAlquiler.precioTotal:C}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Actualizar la interfaz de usuario después de crear el alquiler
+                CargarUsuarios();
+                if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
+                {
+                    CargarItems(categoriaSeleccionada.id);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al crear el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
