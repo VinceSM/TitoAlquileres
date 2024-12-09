@@ -10,6 +10,10 @@ namespace TitoAlquiler.Model.Dao
     {
         public UsuarioDao() { }
 
+        /// <summary>
+        /// Inserta un nuevo usuario en la base de datos.
+        /// </summary>
+        /// <param name="usuario">Objeto de tipo <see cref="Usuarios"/> que contiene los datos del usuario a insertar.</param>
         public void InsertUsuario(Usuarios usuario)
         {
             try
@@ -26,6 +30,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Actualiza un usuario existente en la base de datos.
+        /// </summary>
+        /// <param name="usuario">Objeto de tipo <see cref="Usuarios"/> que contiene los datos actualizados del usuario.</param>
         public void UpdateUsuario(Usuarios usuario)
         {
             try
@@ -42,6 +50,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Elimina un usuario de manera lógica (soft delete), marcando la fecha de eliminación.
+        /// </summary>
+        /// <param name="usuario">Objeto de tipo <see cref="Usuarios"/> que representa el usuario a eliminar.</param>
         public void SoftDeleteUsuario(Usuarios usuario)
         {
             try
@@ -59,6 +71,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Obtiene todos los usuarios que no han sido eliminados de la base de datos.
+        /// </summary>
+        /// <returns>Lista de objetos <see cref="Usuarios"/> que representan los usuarios activos.</returns>
         public List<Usuarios> LoadAllUsuarios()
         {
             try
@@ -74,6 +90,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Busca un usuario por su identificador único.
+        /// </summary>
+        /// <param name="id">ID del usuario a buscar.</param>
+        /// <returns>Objeto <see cref="Usuarios"/> con los detalles del usuario encontrado, o null si no se encuentra.</returns>
         public Usuarios FindUsuarioById(int id)
         {
             try
@@ -92,6 +113,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Busca un usuario por su número de DNI.
+        /// </summary>
+        /// <param name="dni">Número de DNI del usuario a buscar.</param>
+        /// <returns>Objeto <see cref="Usuarios"/> con los detalles del usuario encontrado, o null si no se encuentra.</returns>
         public Usuarios FindUsuarioByDNI(int dni)
         {
             try
@@ -110,6 +136,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Busca usuarios cuyo nombre o correo electrónico coincidan con el término de búsqueda.
+        /// </summary>
+        /// <param name="search">Término de búsqueda que se debe encontrar en el nombre o correo electrónico de los usuarios.</param>
+        /// <returns>Lista de objetos <see cref="Usuarios"/> que coinciden con el término de búsqueda.</returns>
         public List<Usuarios> SearchUsuarios(string search)
         {
             try
@@ -127,6 +158,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Compara si existe un usuario con el DNI especificado.
+        /// </summary>
+        /// <param name="dni">Número de DNI a comparar.</param>
+        /// <returns>True si existe un usuario con el DNI proporcionado, false en caso contrario.</returns>
         public bool CompararDNI(int dni)
         {
             try
@@ -142,6 +178,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Compara si existe un usuario con el correo electrónico especificado.
+        /// </summary>
+        /// <param name="email">Correo electrónico a comparar.</param>
+        /// <returns>True si existe un usuario con el correo electrónico proporcionado, false en caso contrario.</returns>
         public bool CompararEmail(string email)
         {
             try

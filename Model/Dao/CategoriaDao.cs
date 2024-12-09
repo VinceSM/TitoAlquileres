@@ -10,6 +10,10 @@ namespace TitoAlquiler.Model.Dao
     {
         public CategoriaDao() { }
 
+        /// <summary>
+        /// Inserta una nueva categoría en la base de datos.
+        /// </summary>
+        /// <param name="categoria">Objeto de tipo <see cref="Categoria"/> que contiene los datos de la categoría a insertar.</param>
         public void InsertCategoria(Categoria categoria)
         {
             try
@@ -28,6 +32,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Actualiza una categoría existente en la base de datos.
+        /// </summary>
+        /// <param name="categoria">Objeto de tipo <see cref="Categoria"/> que contiene los datos actualizados de la categoría.</param>
         public void UpdateCategoria(Categoria categoria)
         {
             try
@@ -45,6 +53,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Elimina una categoría de manera lógica (soft delete), marcando la fecha de eliminación.
+        /// </summary>
+        /// <param name="categoria">Objeto de tipo <see cref="Categoria"/> que representa la categoría a eliminar.</param>
         public void SoftDeleteCategoria(Categoria categoria)
         {
             try
@@ -63,6 +75,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Obtiene todas las categorías que no han sido eliminadas de la base de datos.
+        /// </summary>
+        /// <returns>Lista de objetos <see cref="Categoria"/> que representan las categorías activas.</returns>
         public List<Categoria> LoadAllCategorias()
         {
             try
@@ -82,6 +98,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Busca una categoría por su identificador único.
+        /// </summary>
+        /// <param name="id">ID de la categoría a buscar.</param>
+        /// <returns>Objeto <see cref="Categoria"/> con los detalles de la categoría encontrada, o null si no se encuentra.</returns>
         public Categoria FindCategoriaById(int id)
         {
             try
@@ -101,6 +122,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Busca una categoría por su nombre.
+        /// </summary>
+        /// <param name="nombre">Nombre de la categoría a buscar.</param>
+        /// <returns>Objeto <see cref="Categoria"/> con los detalles de la categoría encontrada, o null si no se encuentra.</returns>
         public Categoria FindCategoriaByNombre(string nombre)
         {
             try
@@ -119,6 +145,11 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Busca categorías que contienen el término de búsqueda en su nombre.
+        /// </summary>
+        /// <param name="search">Término de búsqueda que se debe encontrar en el nombre de las categorías.</param>
+        /// <returns>Lista de objetos <see cref="Categoria"/> que coinciden con el término de búsqueda.</returns>
         public List<Categoria> SearchCategorias(string search)
         {
             try

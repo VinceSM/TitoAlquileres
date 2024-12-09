@@ -28,41 +28,82 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
+        /// <summary>
+        /// Crea un nuevo alquiler en la base de datos.
+        /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres que contiene la información del alquiler a crear.</param>
         public void CrearAlquiler(Alquileres alquiler)
         {
             _alquilerDao.InsertAlquiler(alquiler);
         }
 
+        /// <summary>
+        /// Actualiza un alquiler existente en la base de datos.
+        /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres con los datos actualizados.</param>
         public void ActualizarAlquiler(Alquileres alquiler)
         {
             _alquilerDao.UpdateAlquiler(alquiler);
         }
 
+        /// <summary>
+        /// Elimina un alquiler de manera lógica (soft delete).
+        /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres que representa el alquiler a eliminar.</param>
         public void EliminarAlquiler(Alquileres alquiler)
         {
             _alquilerDao.SoftDeleteAlquiler(alquiler);
         }
 
+        /// <summary>
+        /// Obtiene todos los alquileres registrados.
+        /// </summary>
+        /// <returns>Lista de objetos Alquileres.</returns>
         public List<Alquileres> ObtenerTodosLosAlquileres()
         {
             return _alquilerDao.LoadAllAlquileres();
         }
 
+        /// <summary>
+        /// Obtiene un alquiler por su identificador.
+        /// </summary>
+        /// <param name="id">ID del alquiler.</param>
+        /// <returns>Objeto de tipo Alquileres con los detalles del alquiler.</returns>
         public Alquileres ObtenerAlquilerPorId(int id)
         {
             return _alquilerDao.FindAlquilerById(id);
         }
 
+        /// <summary>
+        /// Obtiene los alquileres realizados por un usuario específico.
+        /// </summary>
+        /// <param name="usuarioId">ID del usuario.</param>
+        /// <returns>Lista de objetos Alquileres asociados al usuario.</returns>
         public List<Alquileres> ObtenerAlquileresPorUsuario(int usuarioId)
         {
             return _alquilerDao.FindAlquileresByUsuario(usuarioId);
         }
 
+        /// <summary>
+        /// Obtiene los alquileres que involucran un item específico.
+        /// </summary>
+        /// <param name="itemId">ID del item.</param>
+        /// <returns>Lista de objetos Alquileres que contienen el item.</returns>
         public List<Alquileres> ObtenerAlquileresPorItem(int itemId)
         {
             return _alquilerDao.FindAlquileresByItem(itemId);
         }
 
+
+        /// <summary>
+        /// Crea un nuevo alquiler con los parámetros proporcionados y calcula el precio total basado en la estrategia seleccionada.
+        /// </summary>
+        /// <param name="itemId">ID del item a alquilar.</param>
+        /// <param name="usuarioId">ID del usuario que realiza el alquiler.</param>
+        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
+        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
+        /// <param name="tipoEstrategia">Tipo de estrategia a aplicar (por ejemplo, "EstrategiaEstacion").</param>
+        /// <returns>Objeto Alquileres con el alquiler creado y su precio calculado.</returns>
         public Alquileres CrearNuevoAlquiler(int itemId, int usuarioId, DateTime fechaInicio, DateTime fechaFin, string tipoEstrategia)
         {
             var item = ItemController.getInstance().ObtenerItemPorId(itemId);
@@ -93,7 +134,12 @@ namespace TitoAlquiler.Controller
             return alquiler;
         }
 
-
+        /// <summary>
+        /// Calcula el precio total de un alquiler basándose en la estrategia seleccionada.
+        /// </summary>
+        /// <param name="alquiler">Objeto Alquileres que contiene la información del alquiler.</param>
+        /// <param name="item">Objeto Item que representa el artículo alquilado.</param>
+        /// <returns>El precio total calculado para el alquiler.</returns>
         public double CalcularPrecioTotal(Alquileres alquiler, Item item)
         {
             var usuario = UsuarioController.getInstance().ObtenerUsuarioPorId(alquiler.UsuarioID);
@@ -106,6 +152,13 @@ namespace TitoAlquiler.Controller
             return estrategia.CalcularPrecio(alquiler, item);
         }
 
+        /// <summary>
+        /// Verifica la disponibilidad de un item para el rango de fechas especificado.
+        /// </summary>
+        /// <param name="itemId">ID del item a verificar.</param>
+        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
+        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
+        /// <returns>True si el item está disponible, False si ya está alquilado para esas fechas.</returns>
         public bool VerificarDisponibilidad(int itemId, DateTime fechaInicio, DateTime fechaFin)
         {
             var alquileresExistentes = ObtenerAlquileresPorItem(itemId);
