@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\controller\\alquilercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:controller\\alquilercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategiaestacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategiaestacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|C:\\Users\\Vicente\\Documents\\TitoAlquiler\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,46 +34,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EstrategiaEstacion.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaEstacion.cs",
-              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaEstacion.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaEstacion.cs",
-              "RelativeToolTip": "Model\\Strategy\\EstrategiaEstacion.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T20:09:29.938Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Alquileres.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Alquileres.cs",
-              "RelativeDocumentMoniker": "Model\\Entities\\Alquileres.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Alquileres.cs",
-              "RelativeToolTip": "Model\\Entities\\Alquileres.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBUAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T19:31:39.21Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "FormAlquilar.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquilar.cs",
               "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquilar.cs",
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquilar.cs",
               "RelativeToolTip": "View\\Alquiler\\FormAlquilar.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAswKIAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAKgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-09T02:37:41.672Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "FormAlquilar.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquilar.cs",
               "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquilar.cs",
@@ -93,13 +59,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AlquilerController.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
               "RelativeDocumentMoniker": "Controller\\AlquilerController.cs",
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
               "RelativeToolTip": "Controller\\AlquilerController.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAAwFUAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAAwFUAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-09T00:00:07.551Z",
               "EditorCaption": ""

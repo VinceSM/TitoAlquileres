@@ -140,6 +140,7 @@
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
             dateTimePickerFechaInicio.Size = new Size(344, 26);
             dateTimePickerFechaInicio.TabIndex = 3;
+            dateTimePickerFechaInicio.ValueChanged += dateTimePickerFechaInicio_ValueChanged;
             // 
             // lblFechaFin
             // 
