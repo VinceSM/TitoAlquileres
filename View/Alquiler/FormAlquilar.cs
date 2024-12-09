@@ -12,12 +12,14 @@ namespace TitoAlquiler.View.Alquiler
         UsuarioController usuarioController = UsuarioController.getInstance();
         AlquilerController alquilerController = AlquilerController.getInstance();
         ItemController itemController = ItemController.getInstance();
+        CategoriaController categoriaController = CategoriaController.getInstance();
 
         public FormAlquilar()
         {
             InitializeComponent();
-            CargarItems();
+            //CargarItems();
             CargarUsuarios();
+            CargarCategorias();
         }
 
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -39,29 +41,7 @@ namespace TitoAlquiler.View.Alquiler
 
         private void CargarItems()
         {
-            try
-            {
-                // Obtener los datos desde el controlador
-                var items = itemController.ObtenerTodosLosItems();
 
-                // Crear una lista de objetos anónimos para el DataGridView
-                var itemsData = items.Select(item => new
-                {
-                    ID = item.id,
-                    Nombre = item.nombreItem,
-                    Marca = item.marca,
-                    Modelo = item.modelo,
-                    Tarifa = item.tarifaDia,
-                    Categoria = item.categoria,
-                }).ToList();
-
-                // Asignar los datos al DataGridView
-                dataGridViewItem.DataSource = itemsData;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
 
@@ -97,6 +77,35 @@ namespace TitoAlquiler.View.Alquiler
             FormCrearUsuario formCrearUsuario = new FormCrearUsuario();
             formCrearUsuario.Show();
             this.Hide();
+        }
+
+        private void CargarCategorias()
+        {
+            try
+            {
+                List<Categoria> categorias = categoriaController.ObtenerTodasLasCategorias();
+                cmbCategorias.DataSource = categorias;
+                cmbCategorias.DisplayMember = "nombre";
+                cmbCategorias.ValueMember = "id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar las categorías: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCategorias.SelectedItem != null)
+            {
+                Categoria categoriaSeleccionada = (Categoria)cmbCategorias.SelectedItem;
+                int categoriaId = categoriaSeleccionada.id;
+                string categoriaNombre = categoriaSeleccionada.nombre;
+
+                // Aquí puedes realizar acciones basadas en la categoría seleccionada
+                // Por ejemplo, cargar items de esta categoría
+                MessageBox.Show($"Categoría seleccionada: {categoriaNombre} (ID: {categoriaId})", "Categoría Seleccionada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

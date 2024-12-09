@@ -12,16 +12,20 @@ namespace TitoAlquiler.Model.Strategy
     {
         public double CalcularPrecio(Alquiler alquiler, Item item)
         {
-            if (alquiler.fechaInicio.Month > 0 && alquiler.fechaInicio.Month <= 4)
+            if (alquiler.fechaInicio.Month > 0 && alquiler.fechaInicio.Month < 4)
             {
                 getDescuentoVerano();
 
             }
-            else if (alquiler.fechaInicio.Month > 4 && alquiler.fechaInicio.Month <= 8)
+            else if (alquiler.fechaInicio.Month > 3 && alquiler.fechaInicio.Month < 7)
+            {
+                getDescuentoOtoño();
+            }
+            else if (alquiler.fechaInicio.Month > 5 && alquiler.fechaInicio.Month < 10)
             {
                 getDescuentoInvierno();
             }
-            else if (alquiler.fechaInicio.Month > 8 && alquiler.fechaInicio.Month <= 12)
+            else if (alquiler.fechaInicio.Month > 9 && alquiler.fechaInicio.Month < 13)
             {
                 getDescuentoPrimavera();
             }
@@ -32,6 +36,11 @@ namespace TitoAlquiler.Model.Strategy
         public double getDescuentoVerano()
         {
             return 0.9; //Descuento del 10%
+        }
+
+        public double getDescuentoOtoño()
+        {
+            return 0.85; //Descuento del 15%
         }
 
         public double getDescuentoInvierno()

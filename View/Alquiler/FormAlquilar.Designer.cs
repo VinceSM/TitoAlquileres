@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
             lblNombreUsuario = new Label();
-            ccbItems = new ComboBox();
             categoriaBindingSource = new BindingSource(components);
             lblPrecioPorDias = new Label();
             lblPrecioPorDia = new Label();
@@ -54,14 +53,8 @@
             usuarioBindingSource = new BindingSource(components);
             usuarioBindingSource1 = new BindingSource(components);
             sistemaAlquilerContextBindingSource = new BindingSource(components);
-            dataGridViewItem = new DataGridView();
             btnCrearUsuario = new Button();
-            ID = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
-            nombreItem = new DataGridViewTextBoxColumn();
-            marca = new DataGridViewTextBoxColumn();
-            modelo = new DataGridViewTextBoxColumn();
-            tarifaDia = new DataGridViewTextBoxColumn();
+            cmbCategorias = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -69,7 +62,6 @@
             ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewItem).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -87,30 +79,20 @@
             lblNombreUsuario.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblNombreUsuario.Location = new Point(566, 28);
             lblNombreUsuario.Name = "lblNombreUsuario";
-            lblNombreUsuario.Size = new Size(212, 37);
+            lblNombreUsuario.Size = new Size(174, 31);
             lblNombreUsuario.TabIndex = 0;
             lblNombreUsuario.Text = "-------- ---------";
             // 
-            // ccbItems
-            // 
-            ccbItems.DropDownStyle = ComboBoxStyle.DropDownList;
-            ccbItems.FlatStyle = FlatStyle.Flat;
-            ccbItems.FormattingEnabled = true;
-            ccbItems.Location = new Point(778, 115);
-            ccbItems.Name = "ccbItems";
-            ccbItems.Size = new Size(270, 30);
-            ccbItems.TabIndex = 1;
-            // 
             // categoriaBindingSource
             // 
-            categoriaBindingSource.DataSource = typeof(TitoAlquiler.Model.Entities.Categoria);
+            categoriaBindingSource.DataSource = typeof(Model.Entities.Categoria);
             // 
             // lblPrecioPorDias
             // 
             lblPrecioPorDias.AutoSize = true;
             lblPrecioPorDias.Location = new Point(12, 567);
             lblPrecioPorDias.Name = "lblPrecioPorDias";
-            lblPrecioPorDias.Size = new Size(138, 22);
+            lblPrecioPorDias.Size = new Size(104, 19);
             lblPrecioPorDias.TabIndex = 3;
             lblPrecioPorDias.Text = "Precio por dias:";
             // 
@@ -120,7 +102,7 @@
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPrecioPorDia.Location = new Point(156, 570);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
-            lblPrecioPorDia.Size = new Size(63, 19);
+            lblPrecioPorDia.Size = new Size(52, 16);
             lblPrecioPorDia.TabIndex = 4;
             lblPrecioPorDia.Text = "---------";
             // 
@@ -141,14 +123,14 @@
             // 
             dateTimePickerFechaFin.Location = new Point(66, 66);
             dateTimePickerFechaFin.Name = "dateTimePickerFechaFin";
-            dateTimePickerFechaFin.Size = new Size(344, 30);
+            dateTimePickerFechaFin.Size = new Size(344, 26);
             dateTimePickerFechaFin.TabIndex = 4;
             // 
             // dateTimePickerFechaInicio
             // 
             dateTimePickerFechaInicio.Location = new Point(66, 30);
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
-            dateTimePickerFechaInicio.Size = new Size(344, 30);
+            dateTimePickerFechaInicio.Size = new Size(344, 26);
             dateTimePickerFechaInicio.TabIndex = 3;
             // 
             // lblFechaFin
@@ -156,7 +138,7 @@
             lblFechaFin.AutoSize = true;
             lblFechaFin.Location = new Point(23, 67);
             lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(42, 22);
+            lblFechaFin.Size = new Size(31, 19);
             lblFechaFin.TabIndex = 2;
             lblFechaFin.Text = "Fin:";
             // 
@@ -165,7 +147,7 @@
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Location = new Point(3, 36);
             lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(62, 22);
+            lblFechaInicio.Size = new Size(45, 19);
             lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Inicio:";
             // 
@@ -174,7 +156,7 @@
             lblFecha.AutoSize = true;
             lblFecha.Location = new Point(139, 0);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(65, 22);
+            lblFecha.Size = new Size(52, 19);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fechas";
             // 
@@ -193,7 +175,7 @@
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.Location = new Point(12, 115);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(66, 24);
+            linkVolver.Size = new Size(54, 19);
             linkVolver.TabIndex = 7;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -214,7 +196,7 @@
             dataGridViewUsuarios.RowHeadersVisible = false;
             dataGridViewUsuarios.RowHeadersWidth = 51;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewUsuarios.Size = new Size(617, 352);
+            dataGridViewUsuarios.Size = new Size(503, 352);
             dataGridViewUsuarios.TabIndex = 8;
             // 
             // idDataGridViewTextBoxColumn
@@ -230,7 +212,7 @@
             // nombreDataGridViewTextBoxColumn
             // 
             nombreDataGridViewTextBoxColumn.DataPropertyName = "nombre";
-            nombreDataGridViewTextBoxColumn.HeaderText = "nombre";
+            nombreDataGridViewTextBoxColumn.HeaderText = "NOMBRE";
             nombreDataGridViewTextBoxColumn.MinimumWidth = 6;
             nombreDataGridViewTextBoxColumn.Name = "nombreDataGridViewTextBoxColumn";
             nombreDataGridViewTextBoxColumn.ReadOnly = true;
@@ -239,7 +221,7 @@
             // dniDataGridViewTextBoxColumn
             // 
             dniDataGridViewTextBoxColumn.DataPropertyName = "dni";
-            dniDataGridViewTextBoxColumn.HeaderText = "dni";
+            dniDataGridViewTextBoxColumn.HeaderText = "DNI";
             dniDataGridViewTextBoxColumn.MinimumWidth = 6;
             dniDataGridViewTextBoxColumn.Name = "dniDataGridViewTextBoxColumn";
             dniDataGridViewTextBoxColumn.ReadOnly = true;
@@ -248,7 +230,7 @@
             // emailDataGridViewTextBoxColumn
             // 
             emailDataGridViewTextBoxColumn.DataPropertyName = "email";
-            emailDataGridViewTextBoxColumn.HeaderText = "email";
+            emailDataGridViewTextBoxColumn.HeaderText = "EMAIL";
             emailDataGridViewTextBoxColumn.MinimumWidth = 6;
             emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
             emailDataGridViewTextBoxColumn.ReadOnly = true;
@@ -257,7 +239,7 @@
             // membresiaPremiumDataGridViewCheckBoxColumn
             // 
             membresiaPremiumDataGridViewCheckBoxColumn.DataPropertyName = "membresiaPremium";
-            membresiaPremiumDataGridViewCheckBoxColumn.HeaderText = "membresiaPremium";
+            membresiaPremiumDataGridViewCheckBoxColumn.HeaderText = "MEMBRESIA";
             membresiaPremiumDataGridViewCheckBoxColumn.MinimumWidth = 6;
             membresiaPremiumDataGridViewCheckBoxColumn.Name = "membresiaPremiumDataGridViewCheckBoxColumn";
             membresiaPremiumDataGridViewCheckBoxColumn.ReadOnly = true;
@@ -295,25 +277,9 @@
             // 
             sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
             // 
-            // dataGridViewItem
-            // 
-            dataGridViewItem.AllowUserToAddRows = false;
-            dataGridViewItem.AllowUserToDeleteRows = false;
-            dataGridViewItem.BackgroundColor = Color.LightBlue;
-            dataGridViewItem.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewItem.Columns.AddRange(new DataGridViewColumn[] { ID, categoria, nombreItem, marca, modelo, tarifaDia });
-            dataGridViewItem.Location = new Point(635, 162);
-            dataGridViewItem.Name = "dataGridViewItem";
-            dataGridViewItem.ReadOnly = true;
-            dataGridViewItem.RowHeadersVisible = false;
-            dataGridViewItem.RowHeadersWidth = 51;
-            dataGridViewItem.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewItem.Size = new Size(656, 352);
-            dataGridViewItem.TabIndex = 9;
-            // 
             // btnCrearUsuario
             // 
-            btnCrearUsuario.Location = new Point(192, 127);
+            btnCrearUsuario.Location = new Point(156, 105);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(188, 29);
             btnCrearUsuario.TabIndex = 10;
@@ -321,70 +287,30 @@
             btnCrearUsuario.UseVisualStyleBackColor = true;
             btnCrearUsuario.Click += btnCrearUsuario_Click;
             // 
-            // ID
+            // cmbCategorias
             // 
-            ID.HeaderText = "ID";
-            ID.MinimumWidth = 6;
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.Visible = false;
-            ID.Width = 125;
-            // 
-            // categoria
-            // 
-            categoria.HeaderText = "Categoria";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
-            // 
-            // nombreItem
-            // 
-            nombreItem.HeaderText = "Nombre";
-            nombreItem.MinimumWidth = 6;
-            nombreItem.Name = "nombreItem";
-            nombreItem.ReadOnly = true;
-            nombreItem.Width = 125;
-            // 
-            // marca
-            // 
-            marca.HeaderText = "Marca";
-            marca.MinimumWidth = 6;
-            marca.Name = "marca";
-            marca.ReadOnly = true;
-            marca.Width = 125;
-            // 
-            // modelo
-            // 
-            modelo.HeaderText = "Modelo";
-            modelo.MinimumWidth = 6;
-            modelo.Name = "modelo";
-            modelo.ReadOnly = true;
-            modelo.Width = 125;
-            // 
-            // tarifaDia
-            // 
-            tarifaDia.HeaderText = "Tarifa";
-            tarifaDia.MinimumWidth = 6;
-            tarifaDia.Name = "tarifaDia";
-            tarifaDia.ReadOnly = true;
-            tarifaDia.Width = 125;
+            cmbCategorias.DataSource = categoriaBindingSource;
+            cmbCategorias.FormattingEnabled = true;
+            cmbCategorias.Location = new Point(869, 105);
+            cmbCategorias.Name = "cmbCategorias";
+            cmbCategorias.Size = new Size(223, 27);
+            cmbCategorias.TabIndex = 11;
+            cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 
             // FormAlquilar
             // 
-            AutoScaleDimensions = new SizeF(11F, 22F);
+            AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1303, 645);
+            Controls.Add(cmbCategorias);
             Controls.Add(btnCrearUsuario);
-            Controls.Add(dataGridViewItem);
             Controls.Add(dataGridViewUsuarios);
             Controls.Add(linkVolver);
             Controls.Add(btnCrear);
             Controls.Add(panelFecha);
             Controls.Add(lblPrecioPorDia);
             Controls.Add(lblPrecioPorDias);
-            Controls.Add(ccbItems);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
@@ -399,7 +325,6 @@
             ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)usuarioBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewItem).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -408,7 +333,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblNombreUsuario;
-        private System.Windows.Forms.ComboBox ccbItems;
         private System.Windows.Forms.Label lblPrecioPorDias;
         private System.Windows.Forms.Label lblPrecioPorDia;
         private System.Windows.Forms.Panel panelFecha;
@@ -424,7 +348,7 @@
         private BindingSource usuarioBindingSource;
         private BindingSource categoriaBindingSource;
         private BindingSource sistemaAlquilerContextBindingSource;
-        private DataGridView dataGridViewItem;
+        private Button btnCrearUsuario;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn;
@@ -432,12 +356,6 @@
         private DataGridViewCheckBoxColumn membresiaPremiumDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn deletedAtDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn alquileresDataGridViewTextBoxColumn;
-        private Button btnCrearUsuario;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn categoria;
-        private DataGridViewTextBoxColumn nombreItem;
-        private DataGridViewTextBoxColumn marca;
-        private DataGridViewTextBoxColumn modelo;
-        private DataGridViewTextBoxColumn tarifaDia;
+        private ComboBox cmbCategorias;
     }
 }

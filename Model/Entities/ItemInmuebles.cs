@@ -9,13 +9,6 @@ namespace TitoAlquiler.Model.Entities
 {
     public class ItemInmuebles : Item
     {
-        [Column("ItemId")]
-        public Item? itemId { get; set; }
         public string? descripcion { get; set; }
-
-        public string? GetDescripcion()
-        {
-            return descripcion;
-        }
     }
 }
