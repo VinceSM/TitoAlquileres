@@ -10,6 +10,7 @@ namespace TitoAlquiler.Controller
     public class AlquilerController
     {
         AlquilerDao _alquilerDao = new AlquilerDao();
+        Usuarios usuarios = new Usuarios();
 
         #region Singletone
 
@@ -72,6 +73,8 @@ namespace TitoAlquiler.Controller
                 throw new ArgumentException("Item o Usuario no encontrado");
             }
 
+            bool esPremium = usuario.membresiaPremium;
+
             var alquiler = new Alquileres
             {
                 ItemID = itemId,
@@ -79,20 +82,27 @@ namespace TitoAlquiler.Controller
                 fechaInicio = fechaInicio,
                 fechaFin = fechaFin,
                 tiempoDias = (int)(fechaFin - fechaInicio).TotalDays + 1,
-                tipoEstrategia = tipoEstrategia
+                tipoEstrategia = esPremium ? "EstrategiaPremium" : tipoEstrategia
             };
 
             alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
-            alquiler.descuento = tipoEstrategia == "EstrategiaEstacion";
+            alquiler.descuento = esPremium || tipoEstrategia == "EstrategiaEstacion";
 
             CrearAlquiler(alquiler);
 
             return alquiler;
         }
 
+
         public double CalcularPrecioTotal(Alquileres alquiler, Item item)
         {
-            EstrategiaEstacion estrategia = new EstrategiaEstacion();
+            var usuario = UsuarioController.getInstance().ObtenerUsuarioPorId(alquiler.UsuarioID);
+            bool esPremium = usuario?.membresiaPremium ?? false;
+
+            IEstrategiaAlquiler estrategia = esPremium ?
+                new EstrategiaPremium() :
+                new EstrategiaEstacion();
+
             return estrategia.CalcularPrecio(alquiler, item);
         }
 

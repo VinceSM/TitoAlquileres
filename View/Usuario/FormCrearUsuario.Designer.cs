@@ -31,7 +31,6 @@
             panelTitle = new Panel();
             lblTitle = new Label();
             linkVolverInicioSesion = new LinkLabel();
-            lblSubTitle = new Label();
             lblCrearNombre = new Label();
             lblCrearMail = new Label();
             textBoxCrearNombre = new TextBox();
@@ -80,17 +79,6 @@
             linkVolverInicioSesion.TabStop = true;
             linkVolverInicioSesion.Text = "Volver";
             linkVolverInicioSesion.LinkClicked += linkVolverInicioSesion_LinkClicked;
-            // 
-            // lblSubTitle
-            // 
-            lblSubTitle.Anchor = AnchorStyles.Top;
-            lblSubTitle.AutoSize = true;
-            lblSubTitle.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSubTitle.Location = new Point(58, 23);
-            lblSubTitle.Name = "lblSubTitle";
-            lblSubTitle.Size = new Size(135, 26);
-            lblSubTitle.TabIndex = 2;
-            lblSubTitle.Text = "Ingrese datos";
             // 
             // lblCrearNombre
             // 
@@ -197,7 +185,6 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(lblSubTitle);
             groupBox1.Controls.Add(checkBoxMembresia);
             groupBox1.Controls.Add(lblCreado);
             groupBox1.Controls.Add(textBoxCrearNombre);
@@ -209,7 +196,7 @@
             groupBox1.Size = new Size(274, 336);
             groupBox1.TabIndex = 13;
             groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            groupBox1.Text = "INGRESE DATOS";
             // 
             // FormCrearUsuario
             // 
@@ -239,7 +226,6 @@
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.LinkLabel linkVolverInicioSesion;
-        private System.Windows.Forms.Label lblSubTitle;
         private System.Windows.Forms.Label lblCrearNombre;
         private System.Windows.Forms.Label lblCrearMail;
         private System.Windows.Forms.TextBox textBoxCrearNombre;

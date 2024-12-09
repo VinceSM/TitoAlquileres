@@ -15,9 +15,6 @@ namespace TitoAlquiler.Model.Strategy
         /// Esta estrategia aplica descuentos según la temporada en la que se realiza el alquiler y si el usuario tiene membresía premium.
         /// </summary>
 
-
-        Usuarios usuarios = new Usuarios();
-
         /// <summary>
         /// Calcula el precio del alquiler aplicando descuentos dependiendo de la estación del año y si el usuario tiene membresía premium.
         /// </summary>
@@ -26,10 +23,6 @@ namespace TitoAlquiler.Model.Strategy
         /// <returns>El precio calculado después de aplicar el descuento de acuerdo a la estación y la membresía del usuario.</returns>
         public double CalcularPrecio(Alquileres alquiler, Item item)
         {
-            if (usuarios.membresiaPremium)
-            {
-                return (GetDescuentosEstaciones(alquiler, item)) * 0.9;
-            }
             return GetDescuentosEstaciones(alquiler, item);
         }
 

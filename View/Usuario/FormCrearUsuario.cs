@@ -22,14 +22,6 @@ namespace TitoAlquiler.View.Usuario
             email = textBoxCrearEmail.Text.Trim();
             string dniText = textBoxCrearDNI.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(dniText))
-            {
-                MostrarMensajeError("Por favor, complete todos los campos.");
-                dni = 0;
-                return false;
-            }
-
             if (!int.TryParse(dniText, out dni))
             {
                 MostrarMensajeError("El DNI debe ser un número válido.");
@@ -43,12 +35,6 @@ namespace TitoAlquiler.View.Usuario
             }
 
             return true;
-        }
-
-        private void MostrarMensajeExito(int usuarioId)
-        {
-            lblCreado.Text = "Usuario creado exitosamente";
-            MessageBox.Show($"Usuario creado con ID: {usuarioId}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MostrarMensajeError(string mensaje)

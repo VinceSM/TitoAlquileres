@@ -103,9 +103,8 @@
             lblTotal.AutoSize = true;
             lblTotal.Location = new Point(201, 566);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(77, 22);
+            lblTotal.Size = new Size(0, 22);
             lblTotal.TabIndex = 3;
-            lblTotal.Text = "TOTAL:";
             // 
             // lblPrecioPorDia
             // 
@@ -114,9 +113,8 @@
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPrecioPorDia.Location = new Point(313, 566);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
-            lblPrecioPorDia.Size = new Size(63, 19);
+            lblPrecioPorDia.Size = new Size(0, 19);
             lblPrecioPorDia.TabIndex = 4;
-            lblPrecioPorDia.Text = "---------";
             // 
             // panelFecha
             // 
@@ -145,7 +143,6 @@
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
             dateTimePickerFechaInicio.Size = new Size(344, 30);
             dateTimePickerFechaInicio.TabIndex = 3;
-            dateTimePickerFechaInicio.ValueChanged += dateTimePickerFechaInicio_ValueChanged;
             // 
             // lblFechaFin
             // 

@@ -131,14 +131,6 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
-        private void CondicionFechas()
-        {
-            if (dateTimePickerFechaInicio.Value >= dateTimePickerFechaFin.Value)
-            {
-                MessageBox.Show($"La fecha fin debe ser mayor a la fecha de inicio.");
-            }
-        }
-
         private void VerificarSeleccionFilaDataGrid()
         {
             if (dataGridViewUsuarios.SelectedRows.Count == 0 || dataGridViewItems.SelectedRows.Count == 0)
@@ -187,11 +179,6 @@ namespace TitoAlquiler.View.Alquiler
             {
                 MessageBox.Show($"Error al crear el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }
