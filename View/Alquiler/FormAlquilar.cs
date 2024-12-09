@@ -60,7 +60,6 @@ namespace TitoAlquiler.View.Alquiler
                         item.marca,
                         item.modelo,
                         item.tarifaDia,
-                        //item.categoria?.nombre ?? "N/A",
                         item.deletedAt == null ? "Activo" : "Inactivo"
                     );
                 }
@@ -153,7 +152,6 @@ namespace TitoAlquiler.View.Alquiler
         {
             try
             {
-                CondicionFechas();
                 VerificarSeleccionFilaDataGrid();
 
                 int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
@@ -161,6 +159,12 @@ namespace TitoAlquiler.View.Alquiler
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
                 string tipoEstrategia = "EstrategiaEstacion";
+
+                if (fechaInicio >= fechaFin)
+                {
+                    MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 if (!alquilerController.VerificarDisponibilidad(itemId, fechaInicio, fechaFin))
                 {
@@ -183,6 +187,11 @@ namespace TitoAlquiler.View.Alquiler
             {
                 MessageBox.Show($"Error al crear el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void dateTimePickerFechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
