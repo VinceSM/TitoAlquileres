@@ -60,7 +60,7 @@ namespace TitoAlquiler.View.Alquiler
                         item.marca,
                         item.modelo,
                         item.tarifaDia,
-                        item.categoria?.nombre ?? "N/A",
+                        //item.categoria?.nombre ?? "N/A",
                         item.deletedAt == null ? "Activo" : "Inactivo"
                     );
                 }
@@ -110,6 +110,7 @@ namespace TitoAlquiler.View.Alquiler
         {
             try
             {
+                cmbCategorias.DropDownStyle = ComboBoxStyle.DropDownList;
                 List<Categoria> categorias = categoriaController.ObtenerTodasLasCategorias();
                 cmbCategorias.DataSource = categorias;
                 cmbCategorias.DisplayMember = "nombre";
@@ -131,20 +132,20 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
-        private void dateTimePickerFechaFin_ValueChanged(object sender, EventArgs e)
-        {
-            CondicionFechas();
-        }
-
         private void CondicionFechas()
         {
-            if (dateTimePickerFechaInicio.Value < dateTimePickerFechaFin.Value)
+            if (dateTimePickerFechaInicio.Value <= dateTimePickerFechaFin.Value)
             {
-                MessageBox.Show($"La fecha fin no puede ser menor a la fecha de inicio");
+                MessageBox.Show($"La fecha fin no puede ser menor o igual a la fecha de inicio");
             }
-            else if (dateTimePickerFechaFin.Value == dateTimePickerFechaInicio.Value)
+        }
+
+        private void VerificarSeleccionFilaDataGrid()
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count == 0 || dataGridViewItems.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Las fechas de alquiler no pueden ser iguales");
+                MessageBox.Show("Por favor, seleccione un usuario y un item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -152,37 +153,24 @@ namespace TitoAlquiler.View.Alquiler
         {
             try
             {
-                if (dataGridViewUsuarios.SelectedRows.Count == 0 || dataGridViewItems.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Por favor, seleccione un usuario y un item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                CondicionFechas();
+                VerificarSeleccionFilaDataGrid();
 
-                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
                 int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
+                string tipoEstrategia = "EstrategiaNormal";
 
-                if (fechaInicio >= fechaFin)
+                if (((bool)dataGridViewUsuarios.SelectedRows[0].Cells["membresiaPremiumDataGridViewCheckBoxColumn"].Value))
                 {
-                    MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    tipoEstrategia = "EstrategiaPremium";
                 }
 
                 if (!alquilerController.VerificarDisponibilidad(itemId, fechaInicio, fechaFin))
                 {
                     MessageBox.Show("El item no está disponible para las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                }
-
-                string tipoEstrategia = "EstrategiaNormal";
-                if (((bool)dataGridViewUsuarios.SelectedRows[0].Cells["membresiaPremiumDataGridViewCheckBoxColumn"].Value))
-                {
-                    tipoEstrategia = "EstrategiaPremium";
-                }
-                else if (fechaInicio.Month >= 1 && fechaInicio.Month <= 3)
-                {
-                    tipoEstrategia = "EstrategiaDescuento";
                 }
 
                 var nuevoAlquiler = alquilerController.CrearNuevoAlquiler(itemId, usuarioId, fechaInicio, fechaFin, tipoEstrategia);

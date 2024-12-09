@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Strategy
 {
-    public class EstrategiaDescuento : IEstrategiaAlquiler
+    public class EstrategiaEstacion : IEstrategiaAlquiler
     {
-        public double CalcularPrecio(Alquiler alquiler, Item item)
+        public double CalcularPrecio(Alquileres alquiler, Item item)
         {
             if (alquiler.fechaInicio.Month > 0 && alquiler.fechaInicio.Month < 4)
             {
                 getDescuentoVerano();
-
             }
             else if (alquiler.fechaInicio.Month > 3 && alquiler.fechaInicio.Month < 7)
             {
@@ -55,7 +54,7 @@ namespace TitoAlquiler.Model.Strategy
 
         public string getEstrategia()
         {
-            return "Estrategia Descuento";
+            return "EstrategiaEstacion";
         }
     }
 }

@@ -27,42 +27,42 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
-        public void CrearAlquiler(Alquiler alquiler)
+        public void CrearAlquiler(Alquileres alquiler)
         {
             _alquilerDao.InsertAlquiler(alquiler);
         }
 
-        public void ActualizarAlquiler(Alquiler alquiler)
+        public void ActualizarAlquiler(Alquileres alquiler)
         {
             _alquilerDao.UpdateAlquiler(alquiler);
         }
 
-        public void EliminarAlquiler(Alquiler alquiler)
+        public void EliminarAlquiler(Alquileres alquiler)
         {
             _alquilerDao.SoftDeleteAlquiler(alquiler);
         }
 
-        public List<Alquiler> ObtenerTodosLosAlquileres()
+        public List<Alquileres> ObtenerTodosLosAlquileres()
         {
             return _alquilerDao.LoadAllAlquileres();
         }
 
-        public Alquiler ObtenerAlquilerPorId(int id)
+        public Alquileres ObtenerAlquilerPorId(int id)
         {
             return _alquilerDao.FindAlquilerById(id);
         }
 
-        public List<Alquiler> ObtenerAlquileresPorUsuario(int usuarioId)
+        public List<Alquileres> ObtenerAlquileresPorUsuario(int usuarioId)
         {
             return _alquilerDao.FindAlquileresByUsuario(usuarioId);
         }
 
-        public List<Alquiler> ObtenerAlquileresPorItem(int itemId)
+        public List<Alquileres> ObtenerAlquileresPorItem(int itemId)
         {
             return _alquilerDao.FindAlquileresByItem(itemId);
         }
 
-        public Alquiler CrearNuevoAlquiler(int itemId, int usuarioId, DateTime fechaInicio, DateTime fechaFin, string tipoEstrategia)
+        public Alquileres CrearNuevoAlquiler(int itemId, int usuarioId, DateTime fechaInicio, DateTime fechaFin, string tipoEstrategia)
         {
             var item = ItemController.getInstance().ObtenerItemPorId(itemId);
             var usuario = UsuarioController.getInstance().ObtenerUsuarioPorId(usuarioId);
@@ -72,7 +72,7 @@ namespace TitoAlquiler.Controller
                 throw new ArgumentException("Item o Usuario no encontrado");
             }
 
-            var alquiler = new Alquiler
+            var alquiler = new Alquileres
             {
                 ItemID = itemId,
                 UsuarioID = usuarioId,
@@ -82,7 +82,7 @@ namespace TitoAlquiler.Controller
                 tipoEstrategia = tipoEstrategia
             };
 
-            alquiler.precioTotal = CalcularPrecioTotal(alquiler, item, usuario);
+            alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
             alquiler.descuento = tipoEstrategia != "EstrategiaNormal";
 
             CrearAlquiler(alquiler);
@@ -90,17 +90,20 @@ namespace TitoAlquiler.Controller
             return alquiler;
         }
 
-        private double CalcularPrecioTotal(Alquiler alquiler, Item item, Usuarios usuario)
+        public double CalcularPrecioTotal(Alquileres alquiler, Item item)
         {
             IEstrategiaAlquiler estrategia;
 
             switch (alquiler.tipoEstrategia)
             {
-                case "EstrategiaDescuento":
-                    estrategia = new EstrategiaDescuento();
+                case "EstrategiaEstacion":
+                    estrategia = new EstrategiaEstacion();
                     break;
                 case "EstrategiaPremium":
                     estrategia = new EstrategiaPremium();
+                    break;
+                case "EstrategiaCompleta":
+                    estrategia = new EstrategiaEstacionPremium();
                     break;
                 default:
                     estrategia = new EstrategiaNormal();

@@ -6,7 +6,7 @@ using TitoAlquiler.Model.Entities;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Alquiler
+    public class Alquileres
     {
         public int id { get; set; }
         public int ItemID { get; set; }

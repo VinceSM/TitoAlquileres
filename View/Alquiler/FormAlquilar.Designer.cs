@@ -61,7 +61,6 @@
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             tarifaXDia = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
             estado = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
@@ -88,7 +87,7 @@
             lblNombreUsuario.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblNombreUsuario.Location = new Point(693, 26);
             lblNombreUsuario.Name = "lblNombreUsuario";
-            lblNombreUsuario.Size = new Size(320, 37);
+            lblNombreUsuario.Size = new Size(264, 31);
             lblNombreUsuario.TabIndex = 0;
             lblNombreUsuario.Text = "TITO ALQUILERES";
             // 
@@ -101,7 +100,7 @@
             lblTotal.AutoSize = true;
             lblTotal.Location = new Point(610, 587);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(77, 22);
+            lblTotal.Size = new Size(61, 19);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "TOTAL:";
             // 
@@ -111,7 +110,7 @@
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPrecioPorDia.Location = new Point(722, 587);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
-            lblPrecioPorDia.Size = new Size(63, 19);
+            lblPrecioPorDia.Size = new Size(52, 16);
             lblPrecioPorDia.TabIndex = 4;
             lblPrecioPorDia.Text = "---------";
             // 
@@ -132,15 +131,14 @@
             // 
             dateTimePickerFechaFin.Location = new Point(66, 66);
             dateTimePickerFechaFin.Name = "dateTimePickerFechaFin";
-            dateTimePickerFechaFin.Size = new Size(344, 30);
+            dateTimePickerFechaFin.Size = new Size(344, 26);
             dateTimePickerFechaFin.TabIndex = 4;
-            dateTimePickerFechaFin.ValueChanged += dateTimePickerFechaFin_ValueChanged;
             // 
             // dateTimePickerFechaInicio
             // 
             dateTimePickerFechaInicio.Location = new Point(66, 30);
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
-            dateTimePickerFechaInicio.Size = new Size(344, 30);
+            dateTimePickerFechaInicio.Size = new Size(344, 26);
             dateTimePickerFechaInicio.TabIndex = 3;
             // 
             // lblFechaFin
@@ -148,7 +146,7 @@
             lblFechaFin.AutoSize = true;
             lblFechaFin.Location = new Point(23, 67);
             lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(42, 22);
+            lblFechaFin.Size = new Size(31, 19);
             lblFechaFin.TabIndex = 2;
             lblFechaFin.Text = "Fin:";
             // 
@@ -157,7 +155,7 @@
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Location = new Point(3, 36);
             lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(62, 22);
+            lblFechaInicio.Size = new Size(45, 19);
             lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Inicio:";
             // 
@@ -166,7 +164,7 @@
             lblFecha.AutoSize = true;
             lblFecha.Location = new Point(139, 0);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(65, 22);
+            lblFecha.Size = new Size(52, 19);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fechas";
             // 
@@ -186,7 +184,7 @@
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.Location = new Point(12, 115);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(66, 24);
+            linkVolver.Size = new Size(54, 19);
             linkVolver.TabIndex = 7;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -308,7 +306,7 @@
             cmbCategorias.FormattingEnabled = true;
             cmbCategorias.Location = new Point(1003, 103);
             cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(223, 31);
+            cmbCategorias.Size = new Size(223, 25);
             cmbCategorias.TabIndex = 11;
             cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 
@@ -318,14 +316,14 @@
             dataGridViewItems.AllowUserToDeleteRows = false;
             dataGridViewItems.BackgroundColor = Color.LightBlue;
             dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, categoria, estado });
+            dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, estado });
             dataGridViewItems.Location = new Point(610, 162);
             dataGridViewItems.Name = "dataGridViewItems";
             dataGridViewItems.ReadOnly = true;
             dataGridViewItems.RowHeadersVisible = false;
             dataGridViewItems.RowHeadersWidth = 51;
             dataGridViewItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewItems.Size = new Size(966, 352);
+            dataGridViewItems.Size = new Size(731, 352);
             dataGridViewItems.TabIndex = 8;
             // 
             // ID
@@ -369,14 +367,6 @@
             tarifaXDia.ReadOnly = true;
             tarifaXDia.Width = 125;
             // 
-            // categoria
-            // 
-            categoria.HeaderText = "CATEGORIA";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
-            // 
             // estado
             // 
             estado.HeaderText = "ESTADO";
@@ -387,10 +377,10 @@
             // 
             // FormAlquilar
             // 
-            AutoScaleDimensions = new SizeF(11F, 22F);
+            AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(1616, 645);
+            ClientSize = new Size(1364, 645);
             Controls.Add(dataGridViewItems);
             Controls.Add(cmbCategorias);
             Controls.Add(btnCrearUsuario);
@@ -453,7 +443,6 @@
         private DataGridViewTextBoxColumn marca;
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn tarifaXDia;
-        private DataGridViewTextBoxColumn categoria;
         private DataGridViewTextBoxColumn estado;
     }
 }

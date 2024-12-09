@@ -9,14 +9,21 @@ namespace TitoAlquiler.Model.Strategy
 {
     public class EstrategiaPremium : IEstrategiaAlquiler
     {
-        public double CalcularPrecio(Alquiler alquiler, Item item)
+        Usuarios usuarios = new Usuarios();
+        public double CalcularPrecio(Alquileres alquiler, Item item)
         {
-            return (alquiler.tiempoDias * item.tarifaDia) * 0.9; //Precio con 10% off para usuarios premium 
+            if(usuarios.membresiaPremium == true)
+            {
+                return (alquiler.tiempoDias * item.tarifaDia) * 0.9; //Precio con 10% off para usuarios premium 
+            }
+
+            return 1;
+            
         }
 
         public string getEstrategia()
         {
-            return "Estrategia Premium";
+            return "EstrategiaPremium";
         }
     }
 

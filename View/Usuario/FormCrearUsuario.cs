@@ -36,6 +36,12 @@ namespace TitoAlquiler.View.Usuario
                 return false;
             }
 
+            if (dniText.Length != 8)
+            {
+                MostrarMensajeError("El DNI debe constar de 8 dígitos.");
+                return false;
+            }
+
             return true;
         }
 

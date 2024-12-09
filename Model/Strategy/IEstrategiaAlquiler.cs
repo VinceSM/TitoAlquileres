@@ -10,6 +10,6 @@ namespace TitoAlquiler.Model.Strategy
     public interface IEstrategiaAlquiler
     {
         string getEstrategia();
-        double CalcularPrecio(Alquiler alquiler, Item item);
+        double CalcularPrecio(Alquileres alquiler, Item item);
     }
 }

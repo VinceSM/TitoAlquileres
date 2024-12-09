@@ -5,15 +5,15 @@ public class SistemaAlquilerContext : DbContext
 {
     public DbSet<Usuarios> Usuarios { get; set; }
     public DbSet<Item> Items { get; set; }
-    public DbSet<Alquiler> Alquileres { get; set; }
+    public DbSet<Alquileres> Alquileres { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -72,7 +72,7 @@ public class SistemaAlquilerContext : DbContext
         });
 
         // Configuración de Alquiler
-        modelBuilder.Entity<Alquiler>(entity =>
+        modelBuilder.Entity<Alquileres>(entity =>
         {
             entity.ToTable("Alquileres");
             entity.HasKey(e => e.id);
@@ -90,7 +90,7 @@ public class SistemaAlquilerContext : DbContext
 
         // Configuración de filtros globales para el borrado lógico
         modelBuilder.Entity<Usuarios>().HasQueryFilter(u => u.deletedAt == null);
-        modelBuilder.Entity<Alquiler>().HasQueryFilter(a => a.deletedAt == null);
+        modelBuilder.Entity<Alquileres>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
     }

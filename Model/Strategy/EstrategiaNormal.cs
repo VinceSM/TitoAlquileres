@@ -5,14 +5,14 @@ namespace TitoAlquiler.Model.Strategy
 {
     public class EstrategiaNormal : IEstrategiaAlquiler
     {
-        public double CalcularPrecio(Alquiler alquiler, Item item)
+        public double CalcularPrecio(Alquileres alquiler, Item item)
         {
             return alquiler.tiempoDias * item.tarifaDia;
         }
 
         public string getEstrategia()
         {
-            return "Estrategia Normal";
+            return "EstrategiaNormal";
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TitoAlquiler.Model.Dao
     {
         public AlquilerDao() { }
 
-        public void InsertAlquiler(Alquiler alquiler)
+        public void InsertAlquiler(Alquileres alquiler)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        public void UpdateAlquiler(Alquiler alquiler)
+        public void UpdateAlquiler(Alquileres alquiler)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        public void SoftDeleteAlquiler(Alquiler alquiler)
+        public void SoftDeleteAlquiler(Alquileres alquiler)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        public List<Alquiler> LoadAllAlquileres()
+        public List<Alquileres> LoadAllAlquileres()
         {
             try
             {
@@ -82,7 +82,7 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        public Alquiler FindAlquilerById(int id)
+        public Alquileres FindAlquilerById(int id)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        public List<Alquiler> FindAlquileresByUsuario(int usuarioId)
+        public List<Alquileres> FindAlquileresByUsuario(int usuarioId)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        public List<Alquiler> FindAlquileresByItem(int itemId)
+        public List<Alquileres> FindAlquileresByItem(int itemId)
         {
             try
             {
