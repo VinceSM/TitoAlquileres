@@ -43,23 +43,24 @@ namespace TitoAlquiler.Model.Strategy
         {
             if (alquiler.fechaInicio.Month > 0 && alquiler.fechaInicio.Month < 4)
             {
-                getDescuentoVerano(alquiler, item);
+                return getDescuentoVerano(alquiler, item);
             }
             else if (alquiler.fechaInicio.Month > 3 && alquiler.fechaInicio.Month < 7)
             {
-                getDescuentoOtoño(alquiler, item);
+                return getDescuentoOtoño(alquiler, item);
             }
-            else if (alquiler.fechaInicio.Month > 5 && alquiler.fechaInicio.Month < 10)
+            else if (alquiler.fechaInicio.Month > 6 && alquiler.fechaInicio.Month < 10)
             {
-                getDescuentoInvierno(alquiler, item);
+                return getDescuentoInvierno(alquiler, item);
             }
             else if (alquiler.fechaInicio.Month > 9 && alquiler.fechaInicio.Month < 13)
             {
-                getDescuentoPrimavera(alquiler, item);
+                return getDescuentoPrimavera(alquiler, item);
             }
 
-            return 1;
+            return alquiler.tiempoDias * item.tarifaDia; // Si no entra en ningún rango (seguro para evitar errores)
         }
+
 
         public double getDescuentoVerano(Alquileres alquiler, Item item)
         {

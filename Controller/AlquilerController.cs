@@ -78,7 +78,7 @@ namespace TitoAlquiler.Controller
                 UsuarioID = usuarioId,
                 fechaInicio = fechaInicio,
                 fechaFin = fechaFin,
-                tiempoDias = (int)(fechaFin - fechaInicio).TotalDays,
+                tiempoDias = (int)(fechaFin - fechaInicio).TotalDays + 1,
                 tipoEstrategia = tipoEstrategia
             };
 

@@ -73,6 +73,7 @@
             Margin = new Padding(2, 3, 2, 3);
             Name = "FormInicio";
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)pictureBoxImageInicio).EndInit();
             ResumeLayout(false);
         }

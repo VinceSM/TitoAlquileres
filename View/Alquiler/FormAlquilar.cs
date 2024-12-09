@@ -134,9 +134,9 @@ namespace TitoAlquiler.View.Alquiler
 
         private void CondicionFechas()
         {
-            if (dateTimePickerFechaInicio.Value <= dateTimePickerFechaFin.Value)
+            if (dateTimePickerFechaInicio.Value >= dateTimePickerFechaFin.Value)
             {
-                MessageBox.Show($"La fecha fin no puede ser menor o igual a la fecha de inicio");
+                MessageBox.Show($"La fecha fin debe ser mayor a la fecha de inicio.");
             }
         }
 

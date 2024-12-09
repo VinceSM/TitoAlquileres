@@ -87,8 +87,10 @@ namespace TitoAlquiler.View.Usuario
             // Validate input
             if (!ValidateInputs(out string nombre, out string email, out int dni))
             {
-                MessageBox.Show("Por favor, completa los campos correctamente");
+                MessageBox.Show("Por favor, completa los campos correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
 
             Usuarios nuevoUsuario = new Usuarios
             {
@@ -144,6 +146,7 @@ namespace TitoAlquiler.View.Usuario
                 return false;
             }
         }
+
     }
 }
 

@@ -74,6 +74,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.SteelBlue;
             panel1.Controls.Add(lblNombreUsuario);
             panel1.Location = new Point(-4, -2);
@@ -83,11 +84,12 @@
             // 
             // lblNombreUsuario
             // 
+            lblNombreUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lblNombreUsuario.AutoSize = true;
             lblNombreUsuario.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblNombreUsuario.Location = new Point(693, 26);
             lblNombreUsuario.Name = "lblNombreUsuario";
-            lblNombreUsuario.Size = new Size(264, 31);
+            lblNombreUsuario.Size = new Size(320, 37);
             lblNombreUsuario.TabIndex = 0;
             lblNombreUsuario.Text = "TITO ALQUILERES";
             // 
@@ -97,32 +99,35 @@
             // 
             // lblTotal
             // 
+            lblTotal.Anchor = AnchorStyles.Top;
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(610, 587);
+            lblTotal.Location = new Point(201, 566);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(61, 19);
+            lblTotal.Size = new Size(77, 22);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "TOTAL:";
             // 
             // lblPrecioPorDia
             // 
+            lblPrecioPorDia.Anchor = AnchorStyles.Top;
             lblPrecioPorDia.AutoSize = true;
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPrecioPorDia.Location = new Point(722, 587);
+            lblPrecioPorDia.Location = new Point(313, 566);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
-            lblPrecioPorDia.Size = new Size(52, 16);
+            lblPrecioPorDia.Size = new Size(63, 19);
             lblPrecioPorDia.TabIndex = 4;
             lblPrecioPorDia.Text = "---------";
             // 
             // panelFecha
             // 
+            panelFecha.Anchor = AnchorStyles.Top;
             panelFecha.BorderStyle = BorderStyle.FixedSingle;
             panelFecha.Controls.Add(dateTimePickerFechaFin);
             panelFecha.Controls.Add(dateTimePickerFechaInicio);
             panelFecha.Controls.Add(lblFechaFin);
             panelFecha.Controls.Add(lblFechaInicio);
             panelFecha.Controls.Add(lblFecha);
-            panelFecha.Location = new Point(821, 529);
+            panelFecha.Location = new Point(464, 520);
             panelFecha.Name = "panelFecha";
             panelFecha.Size = new Size(418, 114);
             panelFecha.TabIndex = 5;
@@ -131,14 +136,14 @@
             // 
             dateTimePickerFechaFin.Location = new Point(66, 66);
             dateTimePickerFechaFin.Name = "dateTimePickerFechaFin";
-            dateTimePickerFechaFin.Size = new Size(344, 26);
+            dateTimePickerFechaFin.Size = new Size(344, 30);
             dateTimePickerFechaFin.TabIndex = 4;
             // 
             // dateTimePickerFechaInicio
             // 
             dateTimePickerFechaInicio.Location = new Point(66, 30);
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
-            dateTimePickerFechaInicio.Size = new Size(344, 26);
+            dateTimePickerFechaInicio.Size = new Size(344, 30);
             dateTimePickerFechaInicio.TabIndex = 3;
             // 
             // lblFechaFin
@@ -146,7 +151,7 @@
             lblFechaFin.AutoSize = true;
             lblFechaFin.Location = new Point(23, 67);
             lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(31, 19);
+            lblFechaFin.Size = new Size(42, 22);
             lblFechaFin.TabIndex = 2;
             lblFechaFin.Text = "Fin:";
             // 
@@ -155,7 +160,7 @@
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Location = new Point(3, 36);
             lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(45, 19);
+            lblFechaInicio.Size = new Size(62, 22);
             lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Inicio:";
             // 
@@ -164,13 +169,14 @@
             lblFecha.AutoSize = true;
             lblFecha.Location = new Point(139, 0);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(52, 19);
+            lblFecha.Size = new Size(65, 22);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fechas";
             // 
             // btnCrear
             // 
-            btnCrear.Location = new Point(1298, 566);
+            btnCrear.Anchor = AnchorStyles.Top;
+            btnCrear.Location = new Point(967, 551);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(96, 55);
             btnCrear.TabIndex = 6;
@@ -184,7 +190,7 @@
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.Location = new Point(12, 115);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(54, 19);
+            linkVolver.Size = new Size(66, 24);
             linkVolver.TabIndex = 7;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -194,6 +200,7 @@
             // 
             dataGridViewUsuarios.AllowUserToAddRows = false;
             dataGridViewUsuarios.AllowUserToDeleteRows = false;
+            dataGridViewUsuarios.Anchor = AnchorStyles.Top;
             dataGridViewUsuarios.AutoGenerateColumns = false;
             dataGridViewUsuarios.BackgroundColor = Color.LightBlue;
             dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -288,7 +295,8 @@
             // 
             // btnCrearUsuario
             // 
-            btnCrearUsuario.Location = new Point(156, 105);
+            btnCrearUsuario.Anchor = AnchorStyles.Top;
+            btnCrearUsuario.Location = new Point(190, 104);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(188, 29);
             btnCrearUsuario.TabIndex = 10;
@@ -298,15 +306,16 @@
             // 
             // cmbCategorias
             // 
+            cmbCategorias.Anchor = AnchorStyles.Top;
             cmbCategorias.BackColor = Color.LightBlue;
             cmbCategorias.Cursor = Cursors.Hand;
             cmbCategorias.DataSource = categoriaBindingSource;
             cmbCategorias.FlatStyle = FlatStyle.Flat;
             cmbCategorias.Font = new Font("Segoe UI", 10F);
             cmbCategorias.FormattingEnabled = true;
-            cmbCategorias.Location = new Point(1003, 103);
+            cmbCategorias.Location = new Point(913, 104);
             cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(223, 25);
+            cmbCategorias.Size = new Size(223, 31);
             cmbCategorias.TabIndex = 11;
             cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 
@@ -314,6 +323,7 @@
             // 
             dataGridViewItems.AllowUserToAddRows = false;
             dataGridViewItems.AllowUserToDeleteRows = false;
+            dataGridViewItems.Anchor = AnchorStyles.Top;
             dataGridViewItems.BackgroundColor = Color.LightBlue;
             dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, estado });
@@ -377,7 +387,7 @@
             // 
             // FormAlquilar
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 645);
@@ -395,6 +405,7 @@
             Margin = new Padding(4);
             Name = "FormAlquilar";
             Text = "FormAlquilar";
+            WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).EndInit();
