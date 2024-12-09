@@ -125,6 +125,7 @@
             dateTimePickerFechaFin.Name = "dateTimePickerFechaFin";
             dateTimePickerFechaFin.Size = new Size(344, 26);
             dateTimePickerFechaFin.TabIndex = 4;
+            dateTimePickerFechaFin.ValueChanged += dateTimePickerFechaFin_ValueChanged;
             // 
             // dateTimePickerFechaInicio
             // 
@@ -289,11 +290,15 @@
             // 
             // cmbCategorias
             // 
+            cmbCategorias.BackColor = SystemColors.WindowFrame;
+            cmbCategorias.Cursor = Cursors.Hand;
             cmbCategorias.DataSource = categoriaBindingSource;
+            cmbCategorias.FlatStyle = FlatStyle.Flat;
+            cmbCategorias.Font = new Font("Segoe UI", 10F);
             cmbCategorias.FormattingEnabled = true;
             cmbCategorias.Location = new Point(869, 105);
             cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(223, 27);
+            cmbCategorias.Size = new Size(223, 25);
             cmbCategorias.TabIndex = 11;
             cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 

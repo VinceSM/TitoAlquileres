@@ -20,9 +20,8 @@ namespace TitoAlquiler.Model.Dao
                     db.SaveChanges();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error inserting usuario: {ex.Message}");
                 throw;
             }
         }
@@ -37,9 +36,8 @@ namespace TitoAlquiler.Model.Dao
                     db.SaveChanges();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error updating usuario: {ex.Message}");
                 throw;
             }
         }
@@ -55,9 +53,8 @@ namespace TitoAlquiler.Model.Dao
                     db.SaveChanges();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error soft deleting usuario: {ex.Message}");
                 throw;
             }
         }
@@ -71,9 +68,8 @@ namespace TitoAlquiler.Model.Dao
                     return db.Usuarios.Where(x => x.deletedAt == null).ToList();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error loading all usuarios: {ex.Message}");
                 throw;
             }
         }
@@ -90,9 +86,8 @@ namespace TitoAlquiler.Model.Dao
                         .FirstOrDefault();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error finding usuario by id: {ex.Message}");
                 throw;
             }
         }
@@ -109,9 +104,8 @@ namespace TitoAlquiler.Model.Dao
                         .FirstOrDefault();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error finding usuario by DNI: {ex.Message}");
                 throw;
             }
         }
@@ -127,12 +121,42 @@ namespace TitoAlquiler.Model.Dao
                         .ToList();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error searching usuarios: {ex.Message}");
                 throw;
             }
         }
+
+        public bool CompararDNI(int dni)
+        {
+            try
+            {
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Usuarios.Any(u => u.dni == dni);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool CompararEmail(string email)
+        {
+            try
+            {
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Usuarios.Any(u => u.email == email);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
 

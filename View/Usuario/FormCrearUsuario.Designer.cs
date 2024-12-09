@@ -49,19 +49,18 @@
             panelTitle.BackColor = Color.SteelBlue;
             panelTitle.BorderStyle = BorderStyle.FixedSingle;
             panelTitle.Controls.Add(lblTitle);
-            panelTitle.Location = new Point(-5, -3);
-            panelTitle.Margin = new Padding(3, 4, 3, 4);
+            panelTitle.Location = new Point(-4, -2);
             panelTitle.Name = "panelTitle";
-            panelTitle.Size = new Size(811, 127);
+            panelTitle.Size = new Size(710, 96);
             panelTitle.TabIndex = 0;
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(301, 43);
+            lblTitle.Location = new Point(263, 32);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(220, 37);
+            lblTitle.Size = new Size(185, 31);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Crear Usuario";
             // 
@@ -69,9 +68,9 @@
             // 
             linkVolverInicioSesion.AutoSize = true;
             linkVolverInicioSesion.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            linkVolverInicioSesion.Location = new Point(11, 144);
+            linkVolverInicioSesion.Location = new Point(10, 108);
             linkVolverInicioSesion.Name = "linkVolverInicioSesion";
-            linkVolverInicioSesion.Size = new Size(75, 24);
+            linkVolverInicioSesion.Size = new Size(61, 19);
             linkVolverInicioSesion.TabIndex = 1;
             linkVolverInicioSesion.TabStop = true;
             linkVolverInicioSesion.Text = "Volver";
@@ -81,9 +80,9 @@
             // 
             lblSubTitle.AutoSize = true;
             lblSubTitle.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSubTitle.Location = new Point(335, 181);
+            lblSubTitle.Location = new Point(293, 136);
             lblSubTitle.Name = "lblSubTitle";
-            lblSubTitle.Size = new Size(135, 26);
+            lblSubTitle.Size = new Size(110, 21);
             lblSubTitle.TabIndex = 2;
             lblSubTitle.Text = "Ingrese datos";
             // 
@@ -91,40 +90,38 @@
             // 
             lblCrearNombre.AutoSize = true;
             lblCrearNombre.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCrearNombre.Location = new Point(230, 239);
+            lblCrearNombre.Location = new Point(201, 179);
             lblCrearNombre.Name = "lblCrearNombre";
-            lblCrearNombre.Size = new Size(0, 22);
+            lblCrearNombre.Size = new Size(0, 19);
             lblCrearNombre.TabIndex = 3;
             // 
             // lblCrearMail
             // 
             lblCrearMail.AutoSize = true;
             lblCrearMail.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCrearMail.Location = new Point(247, 275);
+            lblCrearMail.Location = new Point(216, 206);
             lblCrearMail.Name = "lblCrearMail";
-            lblCrearMail.Size = new Size(0, 22);
+            lblCrearMail.Size = new Size(0, 19);
             lblCrearMail.TabIndex = 4;
             // 
             // textBoxCrearNombre
             // 
             textBoxCrearNombre.BorderStyle = BorderStyle.FixedSingle;
             textBoxCrearNombre.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCrearNombre.Location = new Point(287, 237);
-            textBoxCrearNombre.Margin = new Padding(3, 4, 3, 4);
+            textBoxCrearNombre.Location = new Point(251, 178);
             textBoxCrearNombre.Name = "textBoxCrearNombre";
             textBoxCrearNombre.PlaceholderText = "Nombre";
-            textBoxCrearNombre.Size = new Size(231, 28);
+            textBoxCrearNombre.Size = new Size(202, 24);
             textBoxCrearNombre.TabIndex = 5;
             // 
             // textBoxCrearEmail
             // 
             textBoxCrearEmail.BorderStyle = BorderStyle.FixedSingle;
             textBoxCrearEmail.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCrearEmail.Location = new Point(287, 275);
-            textBoxCrearEmail.Margin = new Padding(3, 4, 3, 4);
+            textBoxCrearEmail.Location = new Point(251, 206);
             textBoxCrearEmail.Name = "textBoxCrearEmail";
             textBoxCrearEmail.PlaceholderText = "Email";
-            textBoxCrearEmail.Size = new Size(231, 28);
+            textBoxCrearEmail.Size = new Size(202, 24);
             textBoxCrearEmail.TabIndex = 6;
             // 
             // btnCrearUsuario
@@ -133,10 +130,9 @@
             btnCrearUsuario.FlatStyle = FlatStyle.Flat;
             btnCrearUsuario.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCrearUsuario.ForeColor = Color.Blue;
-            btnCrearUsuario.Location = new Point(335, 408);
-            btnCrearUsuario.Margin = new Padding(3, 4, 3, 4);
+            btnCrearUsuario.Location = new Point(293, 306);
             btnCrearUsuario.Name = "btnCrearUsuario";
-            btnCrearUsuario.Size = new Size(130, 49);
+            btnCrearUsuario.Size = new Size(114, 37);
             btnCrearUsuario.TabIndex = 7;
             btnCrearUsuario.Text = "Crear";
             btnCrearUsuario.UseVisualStyleBackColor = false;
@@ -146,9 +142,9 @@
             // 
             lblCreado.AutoSize = true;
             lblCreado.Font = new Font("Times New Roman", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblCreado.Location = new Point(247, 473);
+            lblCreado.Location = new Point(216, 355);
             lblCreado.Name = "lblCreado";
-            lblCreado.Size = new Size(101, 22);
+            lblCreado.Size = new Size(74, 19);
             lblCreado.TabIndex = 8;
             lblCreado.Text = "-------------";
             // 
@@ -156,39 +152,39 @@
             // 
             lblDNI.AutoSize = true;
             lblDNI.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDNI.Location = new Point(261, 312);
+            lblDNI.Location = new Point(228, 234);
             lblDNI.Name = "lblDNI";
-            lblDNI.Size = new Size(0, 22);
+            lblDNI.Size = new Size(0, 19);
             lblDNI.TabIndex = 10;
             // 
             // textBoxCrearDNI
             // 
             textBoxCrearDNI.BorderStyle = BorderStyle.FixedSingle;
             textBoxCrearDNI.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCrearDNI.Location = new Point(287, 309);
-            textBoxCrearDNI.Margin = new Padding(3, 4, 3, 4);
+            textBoxCrearDNI.Location = new Point(251, 232);
             textBoxCrearDNI.Name = "textBoxCrearDNI";
             textBoxCrearDNI.PlaceholderText = "DNI";
-            textBoxCrearDNI.Size = new Size(231, 28);
+            textBoxCrearDNI.Size = new Size(202, 24);
             textBoxCrearDNI.TabIndex = 11;
             // 
             // checkBoxMembresia
             // 
             checkBoxMembresia.AutoSize = true;
             checkBoxMembresia.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBoxMembresia.Location = new Point(287, 344);
+            checkBoxMembresia.Location = new Point(251, 258);
+            checkBoxMembresia.Margin = new Padding(3, 2, 3, 2);
             checkBoxMembresia.Name = "checkBoxMembresia";
-            checkBoxMembresia.Size = new Size(113, 25);
+            checkBoxMembresia.Size = new Size(91, 21);
             checkBoxMembresia.TabIndex = 12;
             checkBoxMembresia.Text = "Membresia";
             checkBoxMembresia.UseVisualStyleBackColor = true;
             // 
             // FormCrearUsuario
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(800, 563);
+            ClientSize = new Size(700, 422);
             Controls.Add(checkBoxMembresia);
             Controls.Add(textBoxCrearDNI);
             Controls.Add(lblDNI);
@@ -201,7 +197,6 @@
             Controls.Add(lblSubTitle);
             Controls.Add(linkVolverInicioSesion);
             Controls.Add(panelTitle);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "FormCrearUsuario";
             panelTitle.ResumeLayout(false);
             panelTitle.PerformLayout();

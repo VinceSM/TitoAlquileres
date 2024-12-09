@@ -59,6 +59,16 @@ namespace TitoAlquiler.Controller
         {
             return _usuarioDao.SearchUsuarios(busqueda);
         }
+
+        public bool CompararDNI(int dni)
+        {
+           return _usuarioDao.CompararDNI(dni);
+        }
+
+        public bool CompararEmail(string email)
+        {
+           return _usuarioDao.CompararEmail(email);
+        }
     }
 }
 

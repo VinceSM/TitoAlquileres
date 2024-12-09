@@ -17,9 +17,9 @@ namespace TitoAlquiler.View.Alquiler
         public FormAlquilar()
         {
             InitializeComponent();
-            //CargarItems();
             CargarUsuarios();
             CargarCategorias();
+            //CargarItems();
         }
 
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -102,9 +102,24 @@ namespace TitoAlquiler.View.Alquiler
                 int categoriaId = categoriaSeleccionada.id;
                 string categoriaNombre = categoriaSeleccionada.nombre;
 
-                // Aquí puedes realizar acciones basadas en la categoría seleccionada
-                // Por ejemplo, cargar items de esta categoría
-                MessageBox.Show($"Categoría seleccionada: {categoriaNombre} (ID: {categoriaId})", "Categoría Seleccionada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show($"Categoría seleccionada: {categoriaNombre} (ID: {categoriaId})", "Categoría Seleccionada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void dateTimePickerFechaFin_ValueChanged(object sender, EventArgs e)
+        {
+            CondicionFechas();
+        }
+
+        private void CondicionFechas()
+        {
+            if (dateTimePickerFechaInicio.Value < dateTimePickerFechaFin.Value)
+            {
+                MessageBox.Show($"La fecha fin no puede ser menor a la fecha de inicio");
+            }
+            else if(dateTimePickerFechaFin.Value == dateTimePickerFechaInicio.Value)
+            {
+                MessageBox.Show("Las fechas de alquiler no pueden ser iguales");
             }
         }
     }

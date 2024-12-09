@@ -3,6 +3,7 @@ using TitoAlquiler.Model.Entities;
 using TitoAlquiler.View.Alquiler;
 using System;
 using System.Windows.Forms;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TitoAlquiler.View.Usuario
 {
@@ -78,25 +79,11 @@ namespace TitoAlquiler.View.Usuario
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
             // Validate input
-            if (string.IsNullOrWhiteSpace(textBoxCrearNombre.Text))
+            if (!ValidateInputs(out string nombre, out string email, out int dni))
             {
-                MessageBox.Show("Por favor, ingrese un nombre válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Por favor, completa los campos correctamente");
             }
 
-            if (string.IsNullOrWhiteSpace(textBoxCrearDNI.Text) || !int.TryParse(textBoxCrearDNI.Text, out int dni))
-            {
-                MessageBox.Show("Por favor, ingrese un DNI válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(textBoxCrearEmail.Text) || !IsValidEmail(textBoxCrearEmail.Text))
-            {
-                MessageBox.Show("Por favor, ingrese un email válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Create new Usuario object
             Usuarios nuevoUsuario = new Usuarios
             {
                 nombre = textBoxCrearNombre.Text.Trim(),
@@ -107,6 +94,8 @@ namespace TitoAlquiler.View.Usuario
 
             try
             {
+                ValidateDni(dni);
+                ValidateEmail(textBoxCrearEmail.Text);
                 // Use UsuarioController singleton to create the user
                 usuarioController.CrearUsuario(nuevoUsuario);
 
@@ -118,6 +107,22 @@ namespace TitoAlquiler.View.Usuario
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al crear el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ValidateDni(int dni) // Verifica que los DNI no se repitan
+        {
+            if (usuarioController.CompararDNI(dni))
+            {
+                throw new ArgumentException("El DNI ingresado ya está registrado.");
+            }
+        }
+
+        private void ValidateEmail(string email) // Verifica que los emails no se repitan
+        {
+            if (usuarioController.CompararEmail(email))
+            {
+                throw new ArgumentException("El Email ingresado ya está registrado.");
             }
         }
 
