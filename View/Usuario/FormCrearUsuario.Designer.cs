@@ -71,6 +71,7 @@
             // linkVolverInicioSesion
             // 
             linkVolverInicioSesion.AutoSize = true;
+            linkVolverInicioSesion.Cursor = Cursors.Hand;
             linkVolverInicioSesion.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             linkVolverInicioSesion.Location = new Point(11, 144);
             linkVolverInicioSesion.Name = "linkVolverInicioSesion";
@@ -102,6 +103,7 @@
             // 
             textBoxCrearNombre.Anchor = AnchorStyles.Top;
             textBoxCrearNombre.BorderStyle = BorderStyle.FixedSingle;
+            textBoxCrearNombre.Cursor = Cursors.IBeam;
             textBoxCrearNombre.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxCrearNombre.Location = new Point(19, 58);
             textBoxCrearNombre.Margin = new Padding(3, 4, 3, 4);
@@ -114,6 +116,7 @@
             // 
             textBoxCrearEmail.Anchor = AnchorStyles.Top;
             textBoxCrearEmail.BorderStyle = BorderStyle.FixedSingle;
+            textBoxCrearEmail.Cursor = Cursors.IBeam;
             textBoxCrearEmail.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxCrearEmail.Location = new Point(19, 94);
             textBoxCrearEmail.Margin = new Padding(3, 4, 3, 4);
@@ -126,6 +129,7 @@
             // 
             btnCrearUsuario.Anchor = AnchorStyles.Bottom;
             btnCrearUsuario.BackColor = Color.White;
+            btnCrearUsuario.Cursor = Cursors.Hand;
             btnCrearUsuario.FlatStyle = FlatStyle.Flat;
             btnCrearUsuario.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCrearUsuario.ForeColor = Color.Blue;
@@ -162,6 +166,7 @@
             // 
             textBoxCrearDNI.Anchor = AnchorStyles.Top;
             textBoxCrearDNI.BorderStyle = BorderStyle.FixedSingle;
+            textBoxCrearDNI.Cursor = Cursors.IBeam;
             textBoxCrearDNI.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxCrearDNI.Location = new Point(19, 129);
             textBoxCrearDNI.Margin = new Padding(3, 4, 3, 4);
@@ -174,6 +179,7 @@
             // 
             checkBoxMembresia.Anchor = AnchorStyles.Top;
             checkBoxMembresia.AutoSize = true;
+            checkBoxMembresia.Cursor = Cursors.Hand;
             checkBoxMembresia.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBoxMembresia.Location = new Point(19, 164);
             checkBoxMembresia.Name = "checkBoxMembresia";
@@ -212,6 +218,7 @@
             Controls.Add(panelTitle);
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormCrearUsuario";
+            Text = "Crear Usuario";
             WindowState = FormWindowState.Maximized;
             panelTitle.ResumeLayout(false);
             panelTitle.PerformLayout();

@@ -174,6 +174,7 @@
             // btnCrear
             // 
             btnCrear.Anchor = AnchorStyles.Top;
+            btnCrear.Cursor = Cursors.Hand;
             btnCrear.Location = new Point(967, 551);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(96, 55);
@@ -185,6 +186,7 @@
             // linkVolver
             // 
             linkVolver.AutoSize = true;
+            linkVolver.Cursor = Cursors.Hand;
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.Location = new Point(12, 115);
             linkVolver.Name = "linkVolver";
@@ -294,6 +296,7 @@
             // btnCrearUsuario
             // 
             btnCrearUsuario.Anchor = AnchorStyles.Top;
+            btnCrearUsuario.Cursor = Cursors.Hand;
             btnCrearUsuario.Location = new Point(190, 104);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(188, 29);
@@ -402,7 +405,7 @@
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
             Name = "FormAlquilar";
-            Text = "FormAlquilar";
+            Text = "Alquilar";
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

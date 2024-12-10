@@ -37,6 +37,7 @@
             // 
             btnEntrar.Anchor = AnchorStyles.Bottom;
             btnEntrar.BackColor = Color.White;
+            btnEntrar.Cursor = Cursors.Hand;
             btnEntrar.FlatAppearance.BorderSize = 0;
             btnEntrar.FlatStyle = FlatStyle.Flat;
             btnEntrar.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -72,7 +73,7 @@
             Controls.Add(pictureBoxImageInicio);
             Margin = new Padding(2, 3, 2, 3);
             Name = "FormInicio";
-            Text = "Form1";
+            Text = "Inicio";
             WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)pictureBoxImageInicio).EndInit();
             ResumeLayout(false);
@@ -80,7 +81,7 @@
 
         #endregion
         private System.Windows.Forms.Button btnEntrar;
-        private System.Windows.Forms.PictureBox pictureBoxImageInicio;
+        private PictureBox pictureBoxImageInicio;
     }
 }
 
