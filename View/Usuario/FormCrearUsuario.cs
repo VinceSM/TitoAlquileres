@@ -77,6 +77,12 @@ namespace TitoAlquiler.View.Usuario
                 return;
             }
 
+            // Validar el email
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("El correo electrónico ingresado no es válido. Asegúrate de incluir un '@' y una terminación válida como '.com'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             Usuarios nuevoUsuario = new Usuarios
             {
@@ -89,7 +95,7 @@ namespace TitoAlquiler.View.Usuario
             try
             {
                 ValidateDni(dni);
-                ValidateEmail(textBoxCrearEmail.Text);
+                VerificarEmailExistente(textBoxCrearEmail.Text);
                 // Use UsuarioController singleton to create the user
                 usuarioController.CrearUsuario(nuevoUsuario);
 
@@ -104,6 +110,7 @@ namespace TitoAlquiler.View.Usuario
             }
         }
 
+
         private void ValidateDni(int dni) // Verifica que los DNI no se repitan
         {
             if (usuarioController.CompararDNI(dni))
@@ -112,26 +119,33 @@ namespace TitoAlquiler.View.Usuario
             }
         }
 
-        private void ValidateEmail(string email) // Verifica que los emails no se repitan
+        private void VerificarEmailExistente(string email) // Verifica que los emails no se repitan
         {
             if (usuarioController.CompararEmail(email))
             {
                 throw new ArgumentException("El Email ingresado ya está registrado.");
+
             }
         }
 
+
         private bool IsValidEmail(string email)
         {
+            
             try
             {
                 var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
+                // Verificar que el correo contiene el '@' y que tiene una terminación válida
+                string[] validEndings = { ".com", ".net", ".org", ".edu", ".gov", ".ar", ".es" };
+ 
+                return addr.Address == email && validEndings.Any(ending => email.EndsWith(ending, StringComparison.OrdinalIgnoreCase));
             }
             catch
             {
                 return false;
             }
         }
+
 
     }
 }

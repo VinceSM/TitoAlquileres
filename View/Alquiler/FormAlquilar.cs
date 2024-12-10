@@ -152,9 +152,15 @@ namespace TitoAlquiler.View.Alquiler
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
                 string tipoEstrategia = "EstrategiaEstacion";
 
-                if (fechaInicio >= fechaFin)
+                if (fechaInicio > fechaFin)
                 {
                     MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (fechaInicio < DateTime.Now.Date)
+                {
+                    MessageBox.Show("La fecha de inicio debe ser mayor o igual a la fecha de hoy", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

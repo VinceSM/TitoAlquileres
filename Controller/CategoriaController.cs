@@ -82,6 +82,15 @@ namespace TitoAlquiler.Controller
         {
             return _categoriaDao.SearchCategorias(busqueda);
         }
+
+        /// <summary>
+        /// Obtiene todas las categorías registradas en la base de datos.
+        /// </summary>
+        /// <returns>Lista de objetos Categoria.</returns>
+        public List<Categoria> ObtenerTodasLasCategorias()
+        {
+            return _categoriaDao.LoadAllCategorias();
+        }
     }
 }
 
