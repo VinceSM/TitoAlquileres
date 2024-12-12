@@ -30,7 +30,7 @@
         {
             panelTitle = new Panel();
             lblTitle = new Label();
-            linkVolverInicioSesion = new LinkLabel();
+            linkVolver = new LinkLabel();
             lblCrearNombre = new Label();
             lblCrearMail = new Label();
             textBoxCrearNombre = new TextBox();
@@ -68,18 +68,18 @@
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Crear Usuario";
             // 
-            // linkVolverInicioSesion
+            // linkVolver
             // 
-            linkVolverInicioSesion.AutoSize = true;
-            linkVolverInicioSesion.Cursor = Cursors.Hand;
-            linkVolverInicioSesion.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            linkVolverInicioSesion.Location = new Point(11, 144);
-            linkVolverInicioSesion.Name = "linkVolverInicioSesion";
-            linkVolverInicioSesion.Size = new Size(75, 24);
-            linkVolverInicioSesion.TabIndex = 1;
-            linkVolverInicioSesion.TabStop = true;
-            linkVolverInicioSesion.Text = "Volver";
-            linkVolverInicioSesion.LinkClicked += linkVolverInicioSesion_LinkClicked;
+            linkVolver.AutoSize = true;
+            linkVolver.Cursor = Cursors.Hand;
+            linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            linkVolver.Location = new Point(11, 144);
+            linkVolver.Name = "linkVolver";
+            linkVolver.Size = new Size(75, 24);
+            linkVolver.TabIndex = 1;
+            linkVolver.TabStop = true;
+            linkVolver.Text = "Volver";
+            linkVolver.LinkClicked += linkVolverInicioSesion_LinkClicked;
             // 
             // lblCrearNombre
             // 
@@ -214,7 +214,7 @@
             Controls.Add(lblDNI);
             Controls.Add(lblCrearMail);
             Controls.Add(lblCrearNombre);
-            Controls.Add(linkVolverInicioSesion);
+            Controls.Add(linkVolver);
             Controls.Add(panelTitle);
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormCrearUsuario";
@@ -232,7 +232,7 @@
 
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.LinkLabel linkVolverInicioSesion;
+        private System.Windows.Forms.LinkLabel linkVolver;
         private System.Windows.Forms.Label lblCrearNombre;
         private System.Windows.Forms.Label lblCrearMail;
         private System.Windows.Forms.TextBox textBoxCrearNombre;

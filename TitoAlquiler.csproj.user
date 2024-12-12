@@ -4,6 +4,9 @@
     <Compile Update="View\Alquiler\FormAlquilar.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\Alquiler\FormAlquileres.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="View\FormInicio.cs">
       <SubType>Form</SubType>
     </Compile>

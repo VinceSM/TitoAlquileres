@@ -128,3 +128,4 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Text.Encodings.Web.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Text.Json.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Alquiler.FormAlquileres.resources

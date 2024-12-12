@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
-            lblNombreUsuario = new Label();
+            lblTitulo = new Label();
             categoriaBindingSource = new BindingSource(components);
             lblTotal = new Label();
             lblPrecioPorDia = new Label();
@@ -62,6 +62,8 @@
             modelo = new DataGridViewTextBoxColumn();
             tarifaXDia = new DataGridViewTextBoxColumn();
             estado = new DataGridViewTextBoxColumn();
+            btnVerAlquileres = new Button();
+            btnSoftDelete = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -76,22 +78,22 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.SteelBlue;
-            panel1.Controls.Add(lblNombreUsuario);
+            panel1.Controls.Add(lblTitulo);
             panel1.Location = new Point(-4, -2);
             panel1.Name = "panel1";
             panel1.Size = new Size(1645, 103);
             panel1.TabIndex = 0;
             // 
-            // lblNombreUsuario
+            // lblTitulo
             // 
-            lblNombreUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            lblNombreUsuario.AutoSize = true;
-            lblNombreUsuario.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNombreUsuario.Location = new Point(693, 26);
-            lblNombreUsuario.Name = "lblNombreUsuario";
-            lblNombreUsuario.Size = new Size(320, 37);
-            lblNombreUsuario.TabIndex = 0;
-            lblNombreUsuario.Text = "TITO ALQUILERES";
+            lblTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Location = new Point(756, 28);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(320, 37);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "TITO ALQUILERES";
             // 
             // categoriaBindingSource
             // 
@@ -297,7 +299,7 @@
             // 
             btnCrearUsuario.Anchor = AnchorStyles.Top;
             btnCrearUsuario.Cursor = Cursors.Hand;
-            btnCrearUsuario.Location = new Point(190, 104);
+            btnCrearUsuario.Location = new Point(111, 104);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(188, 29);
             btnCrearUsuario.TabIndex = 10;
@@ -386,12 +388,36 @@
             estado.ReadOnly = true;
             estado.Width = 125;
             // 
+            // btnVerAlquileres
+            // 
+            btnVerAlquileres.Anchor = AnchorStyles.Top;
+            btnVerAlquileres.Location = new Point(1136, 551);
+            btnVerAlquileres.Name = "btnVerAlquileres";
+            btnVerAlquileres.Size = new Size(163, 55);
+            btnVerAlquileres.TabIndex = 12;
+            btnVerAlquileres.Text = "Ver Alquileres";
+            btnVerAlquileres.UseVisualStyleBackColor = true;
+            btnVerAlquileres.Click += btnVerAlquileres_Click;
+            // 
+            // btnSoftDelete
+            // 
+            btnSoftDelete.Anchor = AnchorStyles.Top;
+            btnSoftDelete.Location = new Point(313, 104);
+            btnSoftDelete.Name = "btnSoftDelete";
+            btnSoftDelete.Size = new Size(162, 29);
+            btnSoftDelete.TabIndex = 13;
+            btnSoftDelete.Text = "Borrar usuario";
+            btnSoftDelete.UseVisualStyleBackColor = true;
+            btnSoftDelete.Click += btnSoftDelete_Click;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 645);
+            Controls.Add(btnSoftDelete);
+            Controls.Add(btnVerAlquileres);
             Controls.Add(dataGridViewItems);
             Controls.Add(cmbCategorias);
             Controls.Add(btnCrearUsuario);
@@ -424,7 +450,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblNombreUsuario;
+        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblPrecioPorDia;
         private System.Windows.Forms.Panel panelFecha;
@@ -456,5 +482,7 @@
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn tarifaXDia;
         private DataGridViewTextBoxColumn estado;
+        private Button btnVerAlquileres;
+        private Button btnSoftDelete;
     }
 }
