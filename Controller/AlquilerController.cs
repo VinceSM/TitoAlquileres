@@ -10,7 +10,8 @@ namespace TitoAlquiler.Controller
     public class AlquilerController
     {
         AlquilerDao _alquilerDao = new AlquilerDao();
-        Usuarios usuarios = new Usuarios();
+        UsuarioController usuarioController = UsuarioController.getInstance();
+        ItemController itemController = ItemController.getInstance();
 
         #region Singletone
 
@@ -106,8 +107,8 @@ namespace TitoAlquiler.Controller
         /// <returns>Objeto Alquileres con el alquiler creado y su precio calculado.</returns>
         public Alquileres CrearNuevoAlquiler(int itemId, int usuarioId, DateTime fechaInicio, DateTime fechaFin, string tipoEstrategia)
         {
-            var item = ItemController.getInstance().ObtenerItemPorId(itemId);
-            var usuario = UsuarioController.getInstance().ObtenerUsuarioPorId(usuarioId);
+            var item = itemController.ObtenerItemPorId(itemId);
+            var usuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
 
             if (item == null || usuario == null)
             {
@@ -142,7 +143,7 @@ namespace TitoAlquiler.Controller
         /// <returns>El precio total calculado para el alquiler.</returns>
         public double CalcularPrecioTotal(Alquileres alquiler, Item item)
         {
-            var usuario = UsuarioController.getInstance().ObtenerUsuarioPorId(alquiler.UsuarioID);
+            var usuario = usuarioController.ObtenerUsuarioPorId(alquiler.UsuarioID);
             bool esPremium = usuario?.membresiaPremium ?? false;
 
             IEstrategiaAlquiler estrategia = esPremium ?
@@ -166,6 +167,55 @@ namespace TitoAlquiler.Controller
                 (fechaInicio >= a.fechaInicio && fechaInicio < a.fechaFin) ||
                 (fechaFin > a.fechaInicio && fechaFin <= a.fechaFin) ||
                 (fechaInicio <= a.fechaInicio && fechaFin >= a.fechaFin));
+        }
+
+        /// <summary>
+        /// Obtiene el nombre del usuario por alquiler.
+        /// </summary>
+        /// <param name="alquilerId">ID del alquiler.</param>
+        /// <returns>Nombre del usuario que realizó el alquiler.</returns>
+        public string ObtenerNombreUsuarioPorAlquiler(int alquilerId)
+        {
+            var alquiler = ObtenerAlquilerPorId(alquilerId);
+            if (alquiler == null)
+            {
+                MessageBox.Show("Alquiler no encontrado");
+            }
+            var usuario = usuarioController.ObtenerUsuarioPorId(alquiler.UsuarioID);
+            return usuario?.nombre ?? "Usuario no encontrado";
+        }
+
+        /// <summary>
+        /// Obtiene el nombre del item por alquiler.
+        /// </summary>
+        /// <param name="alquilerId">ID del alquiler.</param>
+        /// <returns>Nombre del item alquilado.</returns>
+        public string ObtenerNombreItemPorAlquiler(int alquilerId)
+        {
+            var alquiler = ObtenerAlquilerPorId(alquilerId);
+            if (alquiler == null)
+            {
+                MessageBox.Show("Alquiler no encontrado");
+            }
+            var item = itemController.ObtenerItemPorId(alquiler.ItemID);
+            return item?.nombreItem ?? "Item no encontrado";
+        }
+
+        /// <summary>
+        /// Obtiene el nombre del item y del usuario por alquiler.
+        /// </summary>
+        /// <param name="alquilerId">ID del alquiler.</param>
+        /// <returns>Tupla con el nombre del item y el nombre del usuario.</returns>
+        public (string nombreItem, string nombreUsuario) ObtenerNombreItemYUsuarioPorAlquiler(int alquilerId)
+        {
+            var alquiler = ObtenerAlquilerPorId(alquilerId);
+            if (alquiler == null)
+            {
+                MessageBox.Show("Alquiler no encontrado");
+            }
+            var item = itemController.ObtenerItemPorId(alquiler.ItemID);
+            var usuario = usuarioController.ObtenerUsuarioPorId(alquiler.UsuarioID);
+            return (item?.nombreItem ?? "Item no encontrado", usuario?.nombre ?? "Usuario no encontrado");
         }
     }
 }
