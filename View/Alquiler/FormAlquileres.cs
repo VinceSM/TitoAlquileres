@@ -23,12 +23,10 @@ namespace TitoAlquiler.View.Alquiler
             LoadAlquileres();
         }
 
-        private void LoadAlquileres()
-        {
-            var alquileres = alquilerController.ObtenerTodosLosAlquileres();
-            dataGridViewAlquileres.DataSource = alquileres;
-        }
-
+        /// <summary>
+        /// Maneja el evento de cierre del formulario para finalizar la aplicación si el usuario cierra la ventana.
+        /// </summary>
+        /// <param name="e">Argumentos del evento de cierre del formulario.</param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -38,6 +36,35 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Navega de vuelta al formulario principal para gestionar alquileres.
+        /// </summary>
+        /// <param name="sender">El objeto que desencadenó el evento.</param>
+        /// <param name="e">Argumentos del evento del enlace.</param>
+        private void linkLabelVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FormAlquilar formAlquilar = new FormAlquilar();
+            formAlquilar.Show();
+            this.Hide();
+        }
+
+
+        #region FormAlquileres
+
+        /// <summary>
+        /// Carga todos los alquileres disponibles desde el controlador y los muestra en el DataGridView.
+        /// </summary>
+        private void LoadAlquileres()
+        {
+            var alquileres = alquilerController.ObtenerTodosLosAlquileres();
+            dataGridViewAlquileres.DataSource = alquileres;
+        }
+
+        /// <summary>
+        /// Cierra el alquiler seleccionado en el DataGridView.
+        /// </summary>
+        /// <param name="sender">El objeto que desencadenó el evento.</param>
+        /// <param name="e">Argumentos del evento del botón.</param>
         private void btnCerrarAlquiler_Click(object sender, EventArgs e)
         {
             if (dataGridViewAlquileres.SelectedRows.Count > 0)
@@ -52,7 +79,7 @@ namespace TitoAlquiler.View.Alquiler
                     {
                         alquilerController.EliminarAlquiler(selectedAlquiler);
                         MessageBox.Show("Alquiler cerrado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadAlquileres(); // Recargar la lista de alquileres
+                        LoadAlquileres(); // Cargar la lista de alquileres
                     }
                     catch (Exception ex)
                     {
@@ -66,11 +93,6 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
-        private void linkLabelVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            FormAlquilar formAlquilar = new FormAlquilar();
-            formAlquilar.Show();
-            this.Hide();
-        }
+        #endregion
     }
 }

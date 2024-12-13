@@ -7,12 +7,8 @@
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -40,36 +36,22 @@
               "RelativeDocumentMoniker": "View\\Usuario\\FormCrearUsuario.cs",
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs",
               "RelativeToolTip": "View\\Usuario\\FormCrearUsuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAD0AAAAAAAAAAAA9wFAAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T05:30:12.616Z",
+              "WhenOpened": "2024-12-13T06:02:50.516Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FormAlquilar.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquilar.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquilar.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquilar.cs",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquilar.cs",
-              "ViewState": "AgIAAMUAAAAAAAAAAAAiwOQAAAAgAAAAAAAAAA==",
+              "Title": "FormCrearUsuario.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs",
+              "RelativeDocumentMoniker": "View\\Usuario\\FormCrearUsuario.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs [Dise\u00F1o]",
+              "RelativeToolTip": "View\\Usuario\\FormCrearUsuario.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-12T13:35:48.919Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FormAlquileres.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquileres.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquileres.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Alquiler\\FormAlquileres.cs",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquileres.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAgwBkAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-12T13:22:10.455Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-13T06:02:47.409Z",
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }

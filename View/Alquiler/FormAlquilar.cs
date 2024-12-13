@@ -21,6 +21,9 @@ namespace TitoAlquiler.View.Alquiler
             CargarCategorias();
         }
 
+        /// <summary>
+        /// Evento que redirige al formulario de inicio y oculta el formulario actual.
+        /// </summary>
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FormInicio formInicio = new FormInicio();
@@ -28,7 +31,10 @@ namespace TitoAlquiler.View.Alquiler
             this.Hide();
         }
 
-
+        /// <summary>
+        /// Sobrescribe el comportamiento al cerrar el formulario. Finaliza la aplicación si el usuario cierra.
+        /// </summary>
+        /// <param name="e">Argumentos del evento de cierre del formulario.</param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -38,6 +44,11 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        #region Items
+        /// <summary>
+        /// Carga los items de una categoría específica en un DataGridView.
+        /// </summary>
+        /// <param name="categoriaId">ID de la categoría cuyos items se desean cargar.</param>
         private void CargarItems(int categoriaId)
         {
             try
@@ -69,16 +80,19 @@ namespace TitoAlquiler.View.Alquiler
                 MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
+        #region Usuarios
 
+        /// <summary>
+        /// Carga todos los usuarios en un DataGridView con información relevante.
+        /// </summary>
         private void CargarUsuarios()
         {
             try
             {
-                // Obtener los datos desde el controlador
                 var usuarios = usuarioController.ObtenerTodosLosUsuarios();
 
-                // Crear una lista de objetos anónimos para el DataGridView
                 var usuariosData = usuarios.Select(u => new
                 {
                     u.id,
@@ -89,7 +103,6 @@ namespace TitoAlquiler.View.Alquiler
                     CantidadAlquileres = u.Alquileres?.Count ?? 0
                 }).ToList();
 
-                // Asignar los datos al DataGridView
                 dataGridViewUsuarios.DataSource = usuariosData;
             }
             catch (Exception ex)
@@ -98,13 +111,22 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Abre el formulario para crear un nuevo usuario y oculta el formulario actual.
+        /// </summary>
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
             FormCrearUsuario formCrearUsuario = new FormCrearUsuario();
             formCrearUsuario.Show();
             this.Hide();
         }
+        #endregion
 
+        #region Categorias
+
+        /// <summary>
+        /// Carga todas las categorías en un ComboBox.
+        /// </summary>
         private void CargarCategorias()
         {
             try
@@ -121,6 +143,9 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Maneja el evento de cambio de selección en el ComboBox de categorías y carga los items relacionados.
+        /// </summary>
         private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbCategorias.SelectedItem != null)
@@ -130,7 +155,13 @@ namespace TitoAlquiler.View.Alquiler
                 CargarItems(categoriaId);
             }
         }
+        #endregion
 
+        #region FormAlquilar
+
+        /// <summary>
+        /// Verifica si hay filas seleccionadas en los DataGridView de usuarios e items.
+        /// </summary>
         private void VerificarSeleccionFilaDataGrid()
         {
             if (dataGridViewUsuarios.SelectedRows.Count == 0 || dataGridViewItems.SelectedRows.Count == 0)
@@ -140,6 +171,9 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Crea un nuevo alquiler basado en las entradas seleccionadas y muestra el precio total.
+        /// </summary>
         private void btnCrear_Click(object sender, EventArgs e)
         {
             try
@@ -174,7 +208,6 @@ namespace TitoAlquiler.View.Alquiler
 
                 MessageBox.Show($"Alquiler creado con éxito. Precio total: {nuevoAlquiler.precioTotal:C}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Actualizar la interfaz de usuario después de crear el alquiler
                 CargarUsuarios();
                 if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
                 {
@@ -187,6 +220,9 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Abre el formulario de visualización de alquileres y oculta el formulario actual.
+        /// </summary>
         private void btnVerAlquileres_Click(object sender, EventArgs e)
         {
             FormAlquileres formAlquileres = new FormAlquileres();
@@ -194,6 +230,9 @@ namespace TitoAlquiler.View.Alquiler
             this.Hide();
         }
 
+        /// <summary>
+        /// Realiza un borrado lógico del usuario seleccionado en el DataGridView.
+        /// </summary>
         private void btnSoftDelete_Click(object sender, EventArgs e)
         {
             if (dataGridViewUsuarios.SelectedRows.Count == 0)
@@ -202,12 +241,10 @@ namespace TitoAlquiler.View.Alquiler
                 return;
             }
 
-            // Obtener el ID del usuario seleccionado
             int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
 
             try
             {
-                // Buscar el usuario en el controlador
                 var selectedUsuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
                 if (selectedUsuario == null)
                 {
@@ -215,7 +252,6 @@ namespace TitoAlquiler.View.Alquiler
                     return;
                 }
 
-                // Confirmar eliminación
                 DialogResult result = MessageBox.Show($"¿Está seguro que desea eliminar al usuario {selectedUsuario.nombre}?",
                     "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -223,15 +259,15 @@ namespace TitoAlquiler.View.Alquiler
                 {
                     usuarioController.EliminarUsuario(selectedUsuario);
                     MessageBox.Show("Usuario eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarUsuarios(); // Recargar la lista de usuarios
+                    CargarUsuarios();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al eliminar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+        #endregion
     }
 }
 

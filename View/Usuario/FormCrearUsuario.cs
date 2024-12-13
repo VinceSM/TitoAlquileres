@@ -4,6 +4,9 @@ using TitoAlquiler.View.Alquiler;
 using System;
 using System.Windows.Forms;
 using Microsoft.IdentityModel.Tokens;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Net;
 
 namespace TitoAlquiler.View.Usuario
 {
@@ -16,7 +19,122 @@ namespace TitoAlquiler.View.Usuario
             InitializeComponent();
         }
 
-        private bool ValidateInputs(out string nombre, out string email, out int dni)
+        /// <summary>
+        /// Muestra un mensaje de error en un cuadro de diálogo y actualiza la etiqueta de estado.
+        /// </summary>
+        /// <param name="mensaje">Mensaje de error a mostrar.</param>
+        private void MostrarMensajeError(string mensaje)
+        {
+            lblCreado.Text = "Error al crear el usuario";
+            MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Navega al formulario de inicio de sesión.
+        /// </summary>
+        /// <param name="sender">El objeto que dispara el evento.</param>
+        /// <param name="e">Datos del evento.</param>
+        private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FormAlquilar formAlquilar = new FormAlquilar();
+            formAlquilar.Show();
+            this.Hide();
+        }
+
+        /// <summary>
+        /// Maneja el evento de cierre del formulario, cerrando toda la aplicación si el usuario lo cierra.
+        /// </summary>
+        /// <param name="e">Datos del evento de cierre del formulario.</param>
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
+        }
+
+        #region FormUsuario
+
+        /// <summary>
+        /// Limpia los campos de entrada en el formulario.
+        /// </summary>
+        private void LimpiarCampos()
+        {
+            textBoxCrearNombre.Clear();
+            textBoxCrearEmail.Clear();
+            textBoxCrearDNI.Clear();
+            checkBoxMembresia.Checked = false;
+            lblCreado.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Crea un nuevo usuario basado en los datos ingresados y los valida antes de proceder.
+        /// </summary>
+        /// <param name="sender">El objeto que dispara el evento.</param>
+        /// <param name="e">Datos del evento.</param>
+        private void btnCrearUsuario_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputsBoolean(out string nombre, out string email, out int dni))
+            {
+                MostrarMensajeError("Por favor, completa los campos correctamente");
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                MostrarMensajeError("El email ingresado no es válido. Asegúrate de incluir un '@' y una terminación válida como '.com'.");
+                return;
+            }
+
+            Usuarios nuevoUsuario = new Usuarios
+            {
+                nombre = nombre,
+                dni = dni,
+                email = email,
+                membresiaPremium = checkBoxMembresia.Checked
+            };
+
+            try
+            {
+                VerificarDniExistente(dni);
+                VerificarEmailExistente(email);
+                usuarioController.CrearUsuario(nuevoUsuario);
+                MessageBox.Show("Usuario creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCampos();
+            }
+            catch (Exception ex)
+            {
+                MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
+            }
+        }
+
+        #endregion
+
+        
+        #region Validate Dni
+
+        /// <summary>
+        /// Verifica si el DNI ingresado ya está registrado en el sistema.
+        /// </summary>
+        /// <param name="dni">El DNI a validar.</param>
+        private void VerificarDniExistente(int dni)
+        {
+            if (usuarioController.CompararDNI(dni))
+            {
+                MostrarMensajeError("El DNI ingresado ya está registrado.");
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Valida los datos de entrada del formulario para la creación de un usuario.
+        /// </summary>
+        /// <param name="nombre">Salida: Nombre ingresado por el usuario.</param>
+        /// <param name="email">Salida: Email ingresado por el usuario.</param>
+        /// <param name="dni">Salida: DNI ingresado por el usuario.</param>
+        /// <returns>True si todos los datos son válidos, de lo contrario False.</returns>
+        private bool ValidateInputsBoolean(out string nombre, out string email, out int dni)
         {
             nombre = textBoxCrearNombre.Text.Trim();
             email = textBoxCrearEmail.Text.Trim();
@@ -37,107 +155,34 @@ namespace TitoAlquiler.View.Usuario
             return true;
         }
 
-        private void MostrarMensajeError(string mensaje)
-        {
-            lblCreado.Text = "Error al crear el usuario";
-            MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void LimpiarCampos()
-        {
-            textBoxCrearNombre.Clear();
-            textBoxCrearEmail.Clear();
-            textBoxCrearDNI.Clear();
-            checkBoxMembresia.Checked = false;
-            lblCreado.Text = string.Empty;
-        }
-
-        private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            FormAlquilar formAlquilar = new FormAlquilar();
-            formAlquilar.Show();
-            this.Hide();
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                Application.Exit();
-            }
-        }
-
-        private void btnCrearUsuario_Click(object sender, EventArgs e)
-        {
-            // Validate input
-            if (!ValidateInputs(out string nombre, out string email, out int dni))
-            {
-                MessageBox.Show("Por favor, completa los campos correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Validar el email
-            if (!IsValidEmail(email))
-            {
-                MessageBox.Show("El correo electrónico ingresado no es válido. Asegúrate de incluir un '@' y una terminación válida como '.com'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            Usuarios nuevoUsuario = new Usuarios
-            {
-                nombre = textBoxCrearNombre.Text.Trim(),
-                dni = dni,
-                email = textBoxCrearEmail.Text.Trim(),
-                membresiaPremium = checkBoxMembresia.Checked
-            };
-
-            try
-            {
-                ValidateDni(dni);
-                VerificarEmailExistente(textBoxCrearEmail.Text);
-                // Use UsuarioController singleton to create the user
-                usuarioController.CrearUsuario(nuevoUsuario);
-
-                MessageBox.Show("Usuario creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Clear input fields after successful creation
-                LimpiarCampos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al crear el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        #endregion
 
 
-        private void ValidateDni(int dni) // Verifica que los DNI no se repitan
-        {
-            if (usuarioController.CompararDNI(dni))
-            {
-                throw new ArgumentException("El DNI ingresado ya está registrado.");
-            }
-        }
+        #region ValidateEmail
 
-        private void VerificarEmailExistente(string email) // Verifica que los emails no se repitan
+        /// <summary>
+        /// Verifica si el correo electrónico ingresado ya está registrado en el sistema.
+        /// </summary>
+        /// <param name="email">El correo electrónico a validar.</param>
+        private void VerificarEmailExistente(string email)
         {
             if (usuarioController.CompararEmail(email))
             {
-                throw new ArgumentException("El Email ingresado ya está registrado.");
-
+                MostrarMensajeError("El Email ingresado ya está registrado.");
             }
         }
 
-
+        /// <summary>
+        /// Valida que el correo electrónico tenga un formato válido.
+        /// </summary>
+        /// <param name="email">El correo electrónico a validar.</param>
+        /// <returns>True si el correo tiene un formato válido, de lo contrario False.</returns>
         private bool IsValidEmail(string email)
         {
-            
             try
             {
                 var addr = new System.Net.Mail.MailAddress(email);
-                // Verificar que el correo contiene el '@' y que tiene una terminación válida
                 string[] validEndings = { ".com", ".net", ".org", ".edu", ".gov", ".ar", ".es" };
- 
                 return addr.Address == email && validEndings.Any(ending => email.EndsWith(ending, StringComparison.OrdinalIgnoreCase));
             }
             catch
@@ -146,7 +191,7 @@ namespace TitoAlquiler.View.Usuario
             }
         }
 
-
+        #endregion
     }
 }
 
