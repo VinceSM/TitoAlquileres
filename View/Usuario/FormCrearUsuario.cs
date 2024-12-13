@@ -100,6 +100,7 @@ namespace TitoAlquiler.View.Usuario
                 VerificarDniExistente(dni);
                 VerificarEmailExistente(email);
                 usuarioController.CrearUsuario(nuevoUsuario);
+                lblCreado.Text = "Usuario creado exitosamente";
                 MessageBox.Show("Usuario creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos();
             }

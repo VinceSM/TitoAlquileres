@@ -147,7 +147,7 @@
             lblCreado.Anchor = AnchorStyles.Top;
             lblCreado.AutoSize = true;
             lblCreado.Font = new Font("Times New Roman", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblCreado.Location = new Point(92, 207);
+            lblCreado.Location = new Point(31, 205);
             lblCreado.Name = "lblCreado";
             lblCreado.Size = new Size(101, 22);
             lblCreado.TabIndex = 8;

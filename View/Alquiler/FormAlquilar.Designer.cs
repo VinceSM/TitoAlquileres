@@ -57,14 +57,14 @@
             btnCrearUsuario = new Button();
             cmbCategorias = new ComboBox();
             dataGridViewItems = new DataGridView();
-            btnVerAlquileres = new Button();
-            btnSoftDelete = new Button();
             ID = new DataGridViewTextBoxColumn();
             nombreItem = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             tarifaXDia = new DataGridViewTextBoxColumn();
             estado = new DataGridViewTextBoxColumn();
+            btnVerAlquileres = new Button();
+            btnSoftDelete = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -92,7 +92,7 @@
             lblTitulo.Font = new Font("Times New Roman", 19.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.Location = new Point(756, 28);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(264, 31);
+            lblTitulo.Size = new Size(320, 37);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "TITO ALQUILERES";
             // 
@@ -106,7 +106,7 @@
             lblTotal.AutoSize = true;
             lblTotal.Location = new Point(201, 566);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(0, 19);
+            lblTotal.Size = new Size(0, 22);
             lblTotal.TabIndex = 3;
             // 
             // lblPrecioPorDia
@@ -116,7 +116,7 @@
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPrecioPorDia.Location = new Point(313, 566);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
-            lblPrecioPorDia.Size = new Size(0, 16);
+            lblPrecioPorDia.Size = new Size(0, 19);
             lblPrecioPorDia.TabIndex = 4;
             // 
             // panelFecha
@@ -135,16 +135,18 @@
             // 
             // dateTimePickerFechaFin
             // 
+            dateTimePickerFechaFin.Cursor = Cursors.Hand;
             dateTimePickerFechaFin.Location = new Point(66, 66);
             dateTimePickerFechaFin.Name = "dateTimePickerFechaFin";
-            dateTimePickerFechaFin.Size = new Size(344, 26);
+            dateTimePickerFechaFin.Size = new Size(344, 30);
             dateTimePickerFechaFin.TabIndex = 4;
             // 
             // dateTimePickerFechaInicio
             // 
+            dateTimePickerFechaInicio.Cursor = Cursors.Hand;
             dateTimePickerFechaInicio.Location = new Point(66, 30);
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
-            dateTimePickerFechaInicio.Size = new Size(344, 26);
+            dateTimePickerFechaInicio.Size = new Size(344, 30);
             dateTimePickerFechaInicio.TabIndex = 3;
             // 
             // lblFechaFin
@@ -152,7 +154,7 @@
             lblFechaFin.AutoSize = true;
             lblFechaFin.Location = new Point(23, 67);
             lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(31, 19);
+            lblFechaFin.Size = new Size(42, 22);
             lblFechaFin.TabIndex = 2;
             lblFechaFin.Text = "Fin:";
             // 
@@ -161,7 +163,7 @@
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Location = new Point(3, 36);
             lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(45, 19);
+            lblFechaInicio.Size = new Size(62, 22);
             lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Inicio:";
             // 
@@ -170,7 +172,7 @@
             lblFecha.AutoSize = true;
             lblFecha.Location = new Point(139, 0);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(52, 19);
+            lblFecha.Size = new Size(65, 22);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fechas";
             // 
@@ -193,7 +195,7 @@
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.Location = new Point(12, 115);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(54, 19);
+            linkVolver.Size = new Size(66, 24);
             linkVolver.TabIndex = 7;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -208,6 +210,7 @@
             dataGridViewUsuarios.BackgroundColor = Color.LightBlue;
             dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nombreDataGridViewTextBoxColumn, dniDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, membresiaPremiumDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn, alquileresDataGridViewTextBoxColumn });
+            dataGridViewUsuarios.Cursor = Cursors.Hand;
             dataGridViewUsuarios.DataSource = usuarioBindingSource;
             dataGridViewUsuarios.Location = new Point(12, 162);
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
@@ -319,7 +322,7 @@
             cmbCategorias.FormattingEnabled = true;
             cmbCategorias.Location = new Point(913, 104);
             cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(223, 25);
+            cmbCategorias.Size = new Size(223, 31);
             cmbCategorias.TabIndex = 11;
             cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 
@@ -331,6 +334,7 @@
             dataGridViewItems.BackgroundColor = Color.LightBlue;
             dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, estado });
+            dataGridViewItems.Cursor = Cursors.Hand;
             dataGridViewItems.Location = new Point(610, 162);
             dataGridViewItems.Name = "dataGridViewItems";
             dataGridViewItems.ReadOnly = true;
@@ -339,28 +343,6 @@
             dataGridViewItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewItems.Size = new Size(731, 352);
             dataGridViewItems.TabIndex = 8;
-            // 
-            // btnVerAlquileres
-            // 
-            btnVerAlquileres.Anchor = AnchorStyles.Top;
-            btnVerAlquileres.Location = new Point(1136, 551);
-            btnVerAlquileres.Name = "btnVerAlquileres";
-            btnVerAlquileres.Size = new Size(163, 55);
-            btnVerAlquileres.TabIndex = 12;
-            btnVerAlquileres.Text = "Ver Alquileres";
-            btnVerAlquileres.UseVisualStyleBackColor = true;
-            btnVerAlquileres.Click += btnVerAlquileres_Click;
-            // 
-            // btnSoftDelete
-            // 
-            btnSoftDelete.Anchor = AnchorStyles.Top;
-            btnSoftDelete.Location = new Point(313, 104);
-            btnSoftDelete.Name = "btnSoftDelete";
-            btnSoftDelete.Size = new Size(162, 29);
-            btnSoftDelete.TabIndex = 13;
-            btnSoftDelete.Text = "Borrar usuario";
-            btnSoftDelete.UseVisualStyleBackColor = true;
-            btnSoftDelete.Click += btnSoftDelete_Click;
             // 
             // ID
             // 
@@ -414,9 +396,32 @@
             estado.ReadOnly = true;
             estado.Width = 125;
             // 
+            // btnVerAlquileres
+            // 
+            btnVerAlquileres.Anchor = AnchorStyles.Top;
+            btnVerAlquileres.Location = new Point(1136, 551);
+            btnVerAlquileres.Name = "btnVerAlquileres";
+            btnVerAlquileres.Size = new Size(163, 55);
+            btnVerAlquileres.TabIndex = 12;
+            btnVerAlquileres.Text = "Ver Alquileres";
+            btnVerAlquileres.UseVisualStyleBackColor = true;
+            btnVerAlquileres.Click += btnVerAlquileres_Click;
+            // 
+            // btnSoftDelete
+            // 
+            btnSoftDelete.Anchor = AnchorStyles.Top;
+            btnSoftDelete.Cursor = Cursors.Hand;
+            btnSoftDelete.Location = new Point(313, 104);
+            btnSoftDelete.Name = "btnSoftDelete";
+            btnSoftDelete.Size = new Size(162, 29);
+            btnSoftDelete.TabIndex = 13;
+            btnSoftDelete.Text = "Borrar usuario";
+            btnSoftDelete.UseVisualStyleBackColor = true;
+            btnSoftDelete.Click += btnSoftDelete_Click;
+            // 
             // FormAlquilar
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 645);

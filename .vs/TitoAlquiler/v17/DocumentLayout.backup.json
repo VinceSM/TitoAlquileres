@@ -1,14 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\",
+  "WorkspaceRootPath": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\usuario\\formcrearusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\resources\\sistemaalquilerescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:resources\\sistemaalquilerescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\model\\factory\\fabricainmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\fabricainmuebles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\model\\factory\\fabricaitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\fabricaitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\model\\factory\\fabricaelectrodomesticos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\fabricaelectrodomesticos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +42,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 10,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -30,24 +58,100 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FormCrearUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Usuario\\FormCrearUsuario.cs",
               "RelativeDocumentMoniker": "View\\Usuario\\FormCrearUsuario.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Usuario\\FormCrearUsuario.cs",
               "RelativeToolTip": "View\\Usuario\\FormCrearUsuario.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAA9wFAAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAowGYAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T06:02:50.516Z",
+              "WhenOpened": "2024-12-13T11:52:05.031Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "FormAlquileres.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.cs",
+              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquileres.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.cs [Dise\u00F1o]",
+              "RelativeToolTip": "View\\Alquiler\\FormAlquileres.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T11:48:39.683Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormAlquilar.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquilar.cs",
+              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquilar.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquilar.cs [Dise\u00F1o]",
+              "RelativeToolTip": "View\\Alquiler\\FormAlquilar.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T11:43:30.553Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FabricaInmuebles.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Factory\\FabricaInmuebles.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\FabricaInmuebles.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Factory\\FabricaInmuebles.cs",
+              "RelativeToolTip": "Model\\Factory\\FabricaInmuebles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T11:41:48.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FabricaItems.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Factory\\FabricaItems.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\FabricaItems.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Factory\\FabricaItems.cs",
+              "RelativeToolTip": "Model\\Factory\\FabricaItems.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T11:41:09.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FabricaElectrodomesticos.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Factory\\FabricaElectrodomesticos.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\FabricaElectrodomesticos.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Factory\\FabricaElectrodomesticos.cs",
+              "RelativeToolTip": "Model\\Factory\\FabricaElectrodomesticos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T11:41:05.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SistemaAlquileresContext.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Resources\\SistemaAlquileresContext.cs",
+              "RelativeDocumentMoniker": "Resources\\SistemaAlquileresContext.cs",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Resources\\SistemaAlquileresContext.cs",
+              "RelativeToolTip": "Resources\\SistemaAlquileresContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T11:40:53.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "FormCrearUsuario.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Usuario\\FormCrearUsuario.cs",
               "RelativeDocumentMoniker": "View\\Usuario\\FormCrearUsuario.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\Usuario\\FormCrearUsuario.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Usuario\\FormCrearUsuario.cs [Dise\u00F1o]",
               "RelativeToolTip": "View\\Usuario\\FormCrearUsuario.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-13T06:02:47.409Z",
