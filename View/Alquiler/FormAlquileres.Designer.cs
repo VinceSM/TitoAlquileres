@@ -33,9 +33,13 @@
             panel1 = new Panel();
             labelTitulo = new Label();
             dataGridViewAlquileres = new DataGridView();
+            alquileresBindingSource = new BindingSource(components);
+            sistemaAlquilerContextBindingSource = new BindingSource(components);
+            btnCerrarAlquiler = new Button();
+            linkLabelVolver = new LinkLabel();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            itemIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            usuarioIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            item = new DataGridViewTextBoxColumn();
+            usuario = new DataGridViewTextBoxColumn();
             tiempoDiasDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             fechaInicioDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             fechaFinDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -43,10 +47,6 @@
             tipoEstrategiaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             descuentoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             deletedAtDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            alquileresBindingSource = new BindingSource(components);
-            sistemaAlquilerContextBindingSource = new BindingSource(components);
-            btnCerrarAlquiler = new Button();
-            linkLabelVolver = new LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlquileres).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alquileresBindingSource).BeginInit();
@@ -79,11 +79,10 @@
             // 
             dataGridViewAlquileres.AllowUserToAddRows = false;
             dataGridViewAlquileres.AllowUserToDeleteRows = false;
-            dataGridViewAlquileres.Anchor = AnchorStyles.Top;
             dataGridViewAlquileres.AutoGenerateColumns = false;
             dataGridViewAlquileres.BackgroundColor = Color.LightBlue;
             dataGridViewAlquileres.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, itemIDDataGridViewTextBoxColumn, usuarioIDDataGridViewTextBoxColumn, tiempoDiasDataGridViewTextBoxColumn, fechaInicioDataGridViewTextBoxColumn, fechaFinDataGridViewTextBoxColumn, precioTotalDataGridViewTextBoxColumn, tipoEstrategiaDataGridViewTextBoxColumn, descuentoDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn });
+            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, item, usuario, tiempoDiasDataGridViewTextBoxColumn, fechaInicioDataGridViewTextBoxColumn, fechaFinDataGridViewTextBoxColumn, precioTotalDataGridViewTextBoxColumn, tipoEstrategiaDataGridViewTextBoxColumn, descuentoDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn });
             dataGridViewAlquileres.Cursor = Cursors.Hand;
             dataGridViewAlquileres.DataSource = alquileresBindingSource;
             dataGridViewAlquileres.Location = new Point(58, 176);
@@ -96,6 +95,42 @@
             dataGridViewAlquileres.Size = new Size(1232, 298);
             dataGridViewAlquileres.TabIndex = 1;
             // 
+            // alquileresBindingSource
+            // 
+            alquileresBindingSource.DataSource = typeof(Model.Entities.Alquileres);
+            // 
+            // sistemaAlquilerContextBindingSource
+            // 
+            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
+            // 
+            // btnCerrarAlquiler
+            // 
+            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
+            btnCerrarAlquiler.BackColor = Color.White;
+            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
+            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCerrarAlquiler.ForeColor = Color.Blue;
+            btnCerrarAlquiler.Location = new Point(572, 482);
+            btnCerrarAlquiler.Margin = new Padding(4);
+            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
+            btnCerrarAlquiler.Size = new Size(221, 55);
+            btnCerrarAlquiler.TabIndex = 2;
+            btnCerrarAlquiler.Text = "Cerrar alquiler";
+            btnCerrarAlquiler.UseVisualStyleBackColor = false;
+            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
+            // 
+            // linkLabelVolver
+            // 
+            linkLabelVolver.AutoSize = true;
+            linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabelVolver.Location = new Point(12, 124);
+            linkLabelVolver.Name = "linkLabelVolver";
+            linkLabelVolver.Size = new Size(66, 24);
+            linkLabelVolver.TabIndex = 3;
+            linkLabelVolver.TabStop = true;
+            linkLabelVolver.Text = "Volver";
+            linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
+            // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "id";
@@ -106,23 +141,23 @@
             idDataGridViewTextBoxColumn.Visible = false;
             idDataGridViewTextBoxColumn.Width = 125;
             // 
-            // itemIDDataGridViewTextBoxColumn
+            // item
             // 
-            itemIDDataGridViewTextBoxColumn.DataPropertyName = "ItemID";
-            itemIDDataGridViewTextBoxColumn.HeaderText = "ITEM";
-            itemIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            itemIDDataGridViewTextBoxColumn.Name = "itemIDDataGridViewTextBoxColumn";
-            itemIDDataGridViewTextBoxColumn.ReadOnly = true;
-            itemIDDataGridViewTextBoxColumn.Width = 125;
+            item.DataPropertyName = "item";
+            item.HeaderText = "ITEM";
+            item.MinimumWidth = 6;
+            item.Name = "item";
+            item.ReadOnly = true;
+            item.Width = 125;
             // 
-            // usuarioIDDataGridViewTextBoxColumn
+            // usuario
             // 
-            usuarioIDDataGridViewTextBoxColumn.DataPropertyName = "UsuarioID";
-            usuarioIDDataGridViewTextBoxColumn.HeaderText = "USUARIO";
-            usuarioIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            usuarioIDDataGridViewTextBoxColumn.Name = "usuarioIDDataGridViewTextBoxColumn";
-            usuarioIDDataGridViewTextBoxColumn.ReadOnly = true;
-            usuarioIDDataGridViewTextBoxColumn.Width = 125;
+            usuario.DataPropertyName = "usuario";
+            usuario.HeaderText = "USUARIO";
+            usuario.MinimumWidth = 6;
+            usuario.Name = "usuario";
+            usuario.ReadOnly = true;
+            usuario.Width = 125;
             // 
             // tiempoDiasDataGridViewTextBoxColumn
             // 
@@ -191,42 +226,6 @@
             deletedAtDataGridViewTextBoxColumn.Visible = false;
             deletedAtDataGridViewTextBoxColumn.Width = 125;
             // 
-            // alquileresBindingSource
-            // 
-            alquileresBindingSource.DataSource = typeof(Model.Entities.Alquileres);
-            // 
-            // sistemaAlquilerContextBindingSource
-            // 
-            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
-            // 
-            // btnCerrarAlquiler
-            // 
-            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
-            btnCerrarAlquiler.BackColor = Color.White;
-            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
-            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCerrarAlquiler.ForeColor = Color.Blue;
-            btnCerrarAlquiler.Location = new Point(572, 482);
-            btnCerrarAlquiler.Margin = new Padding(4);
-            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
-            btnCerrarAlquiler.Size = new Size(221, 55);
-            btnCerrarAlquiler.TabIndex = 2;
-            btnCerrarAlquiler.Text = "Cerrar alquiler";
-            btnCerrarAlquiler.UseVisualStyleBackColor = false;
-            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
-            // 
-            // linkLabelVolver
-            // 
-            linkLabelVolver.AutoSize = true;
-            linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabelVolver.Location = new Point(12, 124);
-            linkLabelVolver.Name = "linkLabelVolver";
-            linkLabelVolver.Size = new Size(66, 24);
-            linkLabelVolver.TabIndex = 3;
-            linkLabelVolver.TabStop = true;
-            linkLabelVolver.Text = "Volver";
-            linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
-            // 
             // FormAlquileres
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
@@ -260,9 +259,11 @@
         private Button btnCerrarAlquiler;
         private LinkLabel linkLabelVolver;
         private Label labelTitulo;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn itemIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn usuarioIDDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn item;
+        private DataGridViewTextBoxColumn usuario;
         private DataGridViewTextBoxColumn tiempoDiasDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fechaInicioDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fechaFinDataGridViewTextBoxColumn;

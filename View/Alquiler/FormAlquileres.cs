@@ -48,7 +48,6 @@ namespace TitoAlquiler.View.Alquiler
             this.Hide();
         }
 
-
         #region FormAlquileres
 
         /// <summary>
@@ -57,7 +56,21 @@ namespace TitoAlquiler.View.Alquiler
         private void LoadAlquileres()
         {
             var alquileres = alquilerController.ObtenerTodosLosAlquileres();
-            dataGridViewAlquileres.DataSource = alquileres;
+            var alquileresView = alquileres.Select(a => new
+            {
+                a.id,
+                usuario = a.usuario?.nombre,
+                item = a.item?.nombreItem,
+                a.tiempoDias,
+                a.fechaInicio,
+                a.fechaFin,
+                a.precioTotal,
+                a.tipoEstrategia,
+                a.descuento,
+                a.deletedAt
+            }).ToList();
+
+            dataGridViewAlquileres.DataSource = alquileresView;
         }
 
         /// <summary>
