@@ -112,7 +112,7 @@ namespace TitoAlquiler.View.Usuario
 
         #endregion
 
-        
+
         #region Validate Dni
 
         /// <summary>
@@ -123,8 +123,7 @@ namespace TitoAlquiler.View.Usuario
         {
             if (usuarioController.CompararDNI(dni))
             {
-                MostrarMensajeError("El DNI ingresado ya está registrado.");
-                return;
+                throw new Exception("El DNI ingresado ya está registrado.");
             }
         }
 
@@ -169,7 +168,7 @@ namespace TitoAlquiler.View.Usuario
         {
             if (usuarioController.CompararEmail(email))
             {
-                MostrarMensajeError("El Email ingresado ya está registrado.");
+                throw new Exception("El Email ingresado ya está registrado.");
             }
         }
 
