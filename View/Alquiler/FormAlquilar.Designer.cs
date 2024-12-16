@@ -219,13 +219,13 @@
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nombreDataGridViewTextBoxColumn, dniDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, membresiaPremiumDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn, alquileresDataGridViewTextBoxColumn });
             dataGridViewUsuarios.Cursor = Cursors.Hand;
             dataGridViewUsuarios.DataSource = usuarioBindingSource;
-            dataGridViewUsuarios.Location = new Point(18, 162);
+            dataGridViewUsuarios.Location = new Point(12, 162);
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.RowHeadersVisible = false;
             dataGridViewUsuarios.RowHeadersWidth = 51;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewUsuarios.Size = new Size(592, 352);
+            dataGridViewUsuarios.Size = new Size(615, 352);
             dataGridViewUsuarios.TabIndex = 8;
             // 
             // idDataGridViewTextBoxColumn
@@ -342,13 +342,13 @@
             dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, estado });
             dataGridViewItems.Cursor = Cursors.Hand;
-            dataGridViewItems.Location = new Point(616, 162);
+            dataGridViewItems.Location = new Point(635, 162);
             dataGridViewItems.Name = "dataGridViewItems";
             dataGridViewItems.ReadOnly = true;
             dataGridViewItems.RowHeadersVisible = false;
             dataGridViewItems.RowHeadersWidth = 51;
             dataGridViewItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewItems.Size = new Size(731, 352);
+            dataGridViewItems.Size = new Size(768, 352);
             dataGridViewItems.TabIndex = 8;
             // 
             // ID
