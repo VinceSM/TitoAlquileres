@@ -133,6 +133,45 @@ namespace TitoAlquiler.View.Alquiler
                 MessageBox.Show($"Error al eliminar el item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnEditarTarifa_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un item para editar su tarifa.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+            string marca = dataGridViewItems.SelectedRows[0].Cells["marca"].Value.ToString();
+            string modelo = dataGridViewItems.SelectedRows[0].Cells["modelo"].Value.ToString();
+            double tarifaActual = Convert.ToDouble(dataGridViewItems.SelectedRows[0].Cells["tarifaXDia"].Value);
+
+            string input = Microsoft.VisualBasic.Interaction.InputBox($"Ingrese la nueva tarifa para {marca} {modelo}:", "Editar Tarifa", tarifaActual.ToString());
+
+            if (string.IsNullOrEmpty(input))
+                return;
+
+            if (double.TryParse(input, out double nuevaTarifa))
+            {
+                if (itemController.ActualizarTarifaItem(itemId, nuevaTarifa))
+                {
+                    MessageBox.Show("Tarifa actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
+                    {
+                        CargarItems(categoriaSeleccionada.id);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar la tarifa del item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese un valor numérico válido para la tarifa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Usuarios
@@ -321,7 +360,6 @@ namespace TitoAlquiler.View.Alquiler
             this.Hide();
         }
         #endregion
-
 
     }
 }

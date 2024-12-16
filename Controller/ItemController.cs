@@ -123,6 +123,31 @@ namespace TitoAlquiler.Controller
                 _ => throw new ArgumentException("Categoría no válida")
             };
         }
+
+        /// <summary>
+        /// Actualiza la tarifa de un ítem existente en la base de datos.
+        /// </summary>
+        /// <param name="itemId">ID del ítem a actualizar.</param>
+        /// <param name="nuevaTarifa">Nueva tarifa para el ítem.</param>
+        /// <returns>True si la actualización fue exitosa, false en caso contrario.</returns>
+        public bool ActualizarTarifaItem(int itemId, double nuevaTarifa)
+        {
+            try
+            {
+                var item = _itemDao.FindItemById(itemId);
+                if (item != null)
+                {
+                    item.tarifaDia = nuevaTarifa;
+                    _itemDao.UpdateItem(item);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
 

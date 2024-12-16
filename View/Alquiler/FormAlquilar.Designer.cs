@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lblTitulo = new Label();
             categoriaBindingSource = new BindingSource(components);
@@ -67,6 +67,7 @@
             btnSoftDelete = new Button();
             btnCrearItem = new Button();
             btnSoftDeleteItem = new Button();
+            btnEditarTarifa = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -84,7 +85,7 @@
             panel1.Controls.Add(lblTitulo);
             panel1.Location = new Point(-4, -2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1645, 103);
+            panel1.Size = new Size(1657, 103);
             panel1.TabIndex = 0;
             // 
             // lblTitulo
@@ -106,7 +107,7 @@
             // 
             lblTotal.Anchor = AnchorStyles.Top;
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(201, 566);
+            lblTotal.Location = new Point(207, 566);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(0, 22);
             lblTotal.TabIndex = 3;
@@ -116,7 +117,7 @@
             lblPrecioPorDia.Anchor = AnchorStyles.Top;
             lblPrecioPorDia.AutoSize = true;
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPrecioPorDia.Location = new Point(313, 566);
+            lblPrecioPorDia.Location = new Point(319, 566);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
             lblPrecioPorDia.Size = new Size(0, 19);
             lblPrecioPorDia.TabIndex = 4;
@@ -130,7 +131,7 @@
             panelFecha.Controls.Add(lblFechaFin);
             panelFecha.Controls.Add(lblFechaInicio);
             panelFecha.Controls.Add(lblFecha);
-            panelFecha.Location = new Point(464, 520);
+            panelFecha.Location = new Point(470, 520);
             panelFecha.Name = "panelFecha";
             panelFecha.Size = new Size(418, 114);
             panelFecha.TabIndex = 5;
@@ -186,7 +187,7 @@
             btnCrear.FlatStyle = FlatStyle.Flat;
             btnCrear.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCrear.ForeColor = Color.Blue;
-            btnCrear.Location = new Point(967, 551);
+            btnCrear.Location = new Point(973, 551);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(96, 55);
             btnCrear.TabIndex = 6;
@@ -218,7 +219,7 @@
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nombreDataGridViewTextBoxColumn, dniDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, membresiaPremiumDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn, alquileresDataGridViewTextBoxColumn });
             dataGridViewUsuarios.Cursor = Cursors.Hand;
             dataGridViewUsuarios.DataSource = usuarioBindingSource;
-            dataGridViewUsuarios.Location = new Point(12, 162);
+            dataGridViewUsuarios.Location = new Point(18, 162);
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.RowHeadersVisible = false;
@@ -309,7 +310,7 @@
             // 
             btnCrearUsuario.Anchor = AnchorStyles.Top;
             btnCrearUsuario.Cursor = Cursors.Hand;
-            btnCrearUsuario.Location = new Point(111, 104);
+            btnCrearUsuario.Location = new Point(117, 104);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(188, 29);
             btnCrearUsuario.TabIndex = 10;
@@ -326,7 +327,7 @@
             cmbCategorias.FlatStyle = FlatStyle.Flat;
             cmbCategorias.Font = new Font("Segoe UI", 10F);
             cmbCategorias.FormattingEnabled = true;
-            cmbCategorias.Location = new Point(681, 108);
+            cmbCategorias.Location = new Point(687, 108);
             cmbCategorias.Name = "cmbCategorias";
             cmbCategorias.Size = new Size(223, 31);
             cmbCategorias.TabIndex = 11;
@@ -341,7 +342,7 @@
             dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, estado });
             dataGridViewItems.Cursor = Cursors.Hand;
-            dataGridViewItems.Location = new Point(610, 162);
+            dataGridViewItems.Location = new Point(616, 162);
             dataGridViewItems.Name = "dataGridViewItems";
             dataGridViewItems.ReadOnly = true;
             dataGridViewItems.RowHeadersVisible = false;
@@ -385,9 +386,9 @@
             // 
             // tarifaXDia
             // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle1;
             tarifaXDia.HeaderText = "TARIFA";
             tarifaXDia.MinimumWidth = 6;
             tarifaXDia.Name = "tarifaXDia";
@@ -409,7 +410,7 @@
             btnVerAlquileres.FlatStyle = FlatStyle.Flat;
             btnVerAlquileres.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnVerAlquileres.ForeColor = Color.Blue;
-            btnVerAlquileres.Location = new Point(1136, 551);
+            btnVerAlquileres.Location = new Point(1142, 551);
             btnVerAlquileres.Name = "btnVerAlquileres";
             btnVerAlquileres.Size = new Size(163, 55);
             btnVerAlquileres.TabIndex = 12;
@@ -421,7 +422,7 @@
             // 
             btnSoftDelete.Anchor = AnchorStyles.Top;
             btnSoftDelete.Cursor = Cursors.Hand;
-            btnSoftDelete.Location = new Point(313, 104);
+            btnSoftDelete.Location = new Point(319, 104);
             btnSoftDelete.Name = "btnSoftDelete";
             btnSoftDelete.Size = new Size(162, 29);
             btnSoftDelete.TabIndex = 13;
@@ -433,7 +434,7 @@
             // 
             btnCrearItem.Anchor = AnchorStyles.Top;
             btnCrearItem.Cursor = Cursors.Hand;
-            btnCrearItem.Location = new Point(938, 110);
+            btnCrearItem.Location = new Point(944, 110);
             btnCrearItem.Name = "btnCrearItem";
             btnCrearItem.Size = new Size(111, 29);
             btnCrearItem.TabIndex = 14;
@@ -444,7 +445,7 @@
             // btnSoftDeleteItem
             // 
             btnSoftDeleteItem.Anchor = AnchorStyles.Top;
-            btnSoftDeleteItem.Location = new Point(1076, 110);
+            btnSoftDeleteItem.Location = new Point(1061, 109);
             btnSoftDeleteItem.Name = "btnSoftDeleteItem";
             btnSoftDeleteItem.Size = new Size(126, 29);
             btnSoftDeleteItem.TabIndex = 15;
@@ -452,12 +453,24 @@
             btnSoftDeleteItem.UseVisualStyleBackColor = true;
             btnSoftDeleteItem.Click += btnSoftDeleteItem_Click;
             // 
+            // btnEditarTarifa
+            // 
+            btnEditarTarifa.Anchor = AnchorStyles.Top;
+            btnEditarTarifa.Location = new Point(1193, 109);
+            btnEditarTarifa.Name = "btnEditarTarifa";
+            btnEditarTarifa.Size = new Size(122, 29);
+            btnEditarTarifa.TabIndex = 16;
+            btnEditarTarifa.Text = "Editar Tarifa";
+            btnEditarTarifa.UseVisualStyleBackColor = true;
+            btnEditarTarifa.Click += btnEditarTarifa_Click;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(1364, 645);
+            ClientSize = new Size(1376, 645);
+            Controls.Add(btnEditarTarifa);
             Controls.Add(btnSoftDeleteItem);
             Controls.Add(btnCrearItem);
             Controls.Add(btnSoftDelete);
@@ -522,13 +535,14 @@
         private DataGridView dataGridViewItems;
         private Button btnVerAlquileres;
         private Button btnSoftDelete;
+        private Button btnCrearItem;
+        private Button btnSoftDeleteItem;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn nombreItem;
         private DataGridViewTextBoxColumn marca;
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn tarifaXDia;
         private DataGridViewTextBoxColumn estado;
-        private Button btnCrearItem;
-        private Button btnSoftDeleteItem;
+        private Button btnEditarTarifa;
     }
 }
