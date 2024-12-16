@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lblTitulo = new Label();
             categoriaBindingSource = new BindingSource(components);
@@ -66,6 +66,7 @@
             btnVerAlquileres = new Button();
             btnSoftDelete = new Button();
             btnCrearItem = new Button();
+            btnSoftDeleteItem = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -321,7 +322,7 @@
             cmbCategorias.FlatStyle = FlatStyle.Flat;
             cmbCategorias.Font = new Font("Segoe UI", 10F);
             cmbCategorias.FormattingEnabled = true;
-            cmbCategorias.Location = new Point(913, 104);
+            cmbCategorias.Location = new Point(681, 108);
             cmbCategorias.Name = "cmbCategorias";
             cmbCategorias.Size = new Size(223, 31);
             cmbCategorias.TabIndex = 11;
@@ -380,9 +381,9 @@
             // 
             // tarifaXDia
             // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle1;
             tarifaXDia.HeaderText = "TARIFA";
             tarifaXDia.MinimumWidth = 6;
             tarifaXDia.Name = "tarifaXDia";
@@ -424,7 +425,7 @@
             // 
             btnCrearItem.Anchor = AnchorStyles.Top;
             btnCrearItem.Cursor = Cursors.Hand;
-            btnCrearItem.Location = new Point(1178, 104);
+            btnCrearItem.Location = new Point(938, 110);
             btnCrearItem.Name = "btnCrearItem";
             btnCrearItem.Size = new Size(111, 29);
             btnCrearItem.TabIndex = 14;
@@ -432,12 +433,24 @@
             btnCrearItem.UseVisualStyleBackColor = true;
             btnCrearItem.Click += btnCrearItem_Click;
             // 
+            // btnSoftDeleteItem
+            // 
+            btnSoftDeleteItem.Anchor = AnchorStyles.Top;
+            btnSoftDeleteItem.Location = new Point(1076, 110);
+            btnSoftDeleteItem.Name = "btnSoftDeleteItem";
+            btnSoftDeleteItem.Size = new Size(126, 29);
+            btnSoftDeleteItem.TabIndex = 15;
+            btnSoftDeleteItem.Text = "Borrar item";
+            btnSoftDeleteItem.UseVisualStyleBackColor = true;
+            btnSoftDeleteItem.Click += btnSoftDeleteItem_Click;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 645);
+            Controls.Add(btnSoftDeleteItem);
             Controls.Add(btnCrearItem);
             Controls.Add(btnSoftDelete);
             Controls.Add(btnVerAlquileres);
@@ -508,5 +521,6 @@
         private DataGridViewTextBoxColumn tarifaXDia;
         private DataGridViewTextBoxColumn estado;
         private Button btnCrearItem;
+        private Button btnSoftDeleteItem;
     }
 }

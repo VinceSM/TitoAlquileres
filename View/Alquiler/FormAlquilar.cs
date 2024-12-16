@@ -88,6 +88,51 @@ namespace TitoAlquiler.View.Alquiler
             formCreaItem.Show();
             this.Hide();
         }
+
+        private void btnSoftDeleteItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un item para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+
+            try
+            {
+                var selectedItem = itemController.ObtenerItemPorId(itemId);
+                if (selectedItem == null)
+                {
+                    MessageBox.Show("No se encontró el item seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                DialogResult result = MessageBox.Show($"¿Está seguro que desea eliminar el item {selectedItem.nombreItem}?",
+                    "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    if (itemController.EliminarItem(itemId))
+                    {
+                        MessageBox.Show("Item eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Actualizar la vista
+                        if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
+                        {
+                            CargarItems(categoriaSeleccionada.id);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar el item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Usuarios
@@ -127,6 +172,44 @@ namespace TitoAlquiler.View.Alquiler
             FormCrearUsuario formCrearUsuario = new FormCrearUsuario();
             formCrearUsuario.Show();
             this.Hide();
+        }
+
+        /// <summary>
+        /// Realiza un borrado lógico del usuario seleccionado en el DataGridView.
+        /// </summary>
+        private void btnSoftDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un usuario para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+
+            try
+            {
+                var selectedUsuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
+                if (selectedUsuario == null)
+                {
+                    MessageBox.Show("No se encontró el usuario seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                DialogResult result = MessageBox.Show($"¿Está seguro que desea eliminar al usuario {selectedUsuario.nombre}?",
+                    "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    usuarioController.EliminarUsuario(selectedUsuario);
+                    MessageBox.Show("Usuario eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarUsuarios();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -236,44 +319,6 @@ namespace TitoAlquiler.View.Alquiler
             FormAlquileres formAlquileres = new FormAlquileres();
             formAlquileres.Show();
             this.Hide();
-        }
-
-        /// <summary>
-        /// Realiza un borrado lógico del usuario seleccionado en el DataGridView.
-        /// </summary>
-        private void btnSoftDelete_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewUsuarios.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Por favor, seleccione un usuario para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
-
-            try
-            {
-                var selectedUsuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
-                if (selectedUsuario == null)
-                {
-                    MessageBox.Show("No se encontró el usuario seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                DialogResult result = MessageBox.Show($"¿Está seguro que desea eliminar al usuario {selectedUsuario.nombre}?",
-                    "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    usuarioController.EliminarUsuario(selectedUsuario);
-                    MessageBox.Show("Usuario eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarUsuarios();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al eliminar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
         #endregion
 

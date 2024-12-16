@@ -47,10 +47,24 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Elimina un ítem de manera lógica (soft delete).
         /// </summary>
-        /// <param name="item">Objeto de tipo Item que representa el ítem a eliminar.</param>
-        public void EliminarItem(Item item)
+        /// <param name="itemId">ID del ítem que se va a eliminar.</param>
+        /// <returns>True si el ítem fue eliminado con éxito, false en caso contrario.</returns>
+        public bool EliminarItem(int itemId)
         {
-            _itemDao.SoftDeleteItem(item);
+            try
+            {
+                var item = _itemDao.FindItemById(itemId);
+                if (item != null)
+                {
+                    _itemDao.SoftDeleteItem(item);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -92,6 +106,12 @@ namespace TitoAlquiler.Controller
             return _itemDao.SearchItems(busqueda);
         }
 
+        /// <summary>
+        /// Obtiene la fábrica de ítems correspondiente a una categoría específica.
+        /// </summary>
+        /// <param name="categoriaId">El ID de la categoría para la cual se requiere la fábrica.</param>
+        /// <returns>Una instancia de FabricaItems correspondiente a la categoría especificada.</returns>
+        /// <exception cref="ArgumentException">Se lanza cuando se proporciona un ID de categoría no válido.</exception>
         public FabricaItems ObtenerFabricaSegunCategoria(int categoriaId)
         {
             return categoriaId switch
