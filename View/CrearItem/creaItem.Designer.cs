@@ -37,9 +37,10 @@
             txtNombreItem = new TextBox();
             txtMarca = new TextBox();
             txtModelo = new TextBox();
-            textBox1 = new TextBox();
+            txtTarifa = new TextBox();
             btnCreaItem = new Button();
             linkVolver = new LinkLabel();
+            txtDescripcion = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             SuspendLayout();
@@ -127,23 +128,23 @@
             txtModelo.Size = new Size(220, 30);
             txtModelo.TabIndex = 5;
             // 
-            // textBox1
+            // txtTarifa
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(357, 329);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "tarifa";
-            textBox1.Size = new Size(220, 30);
-            textBox1.TabIndex = 6;
+            txtTarifa.Anchor = AnchorStyles.Top;
+            txtTarifa.Cursor = Cursors.IBeam;
+            txtTarifa.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTarifa.Location = new Point(357, 329);
+            txtTarifa.Name = "txtTarifa";
+            txtTarifa.PlaceholderText = "tarifa";
+            txtTarifa.Size = new Size(220, 30);
+            txtTarifa.TabIndex = 6;
             // 
             // btnCreaItem
             // 
             btnCreaItem.Anchor = AnchorStyles.Top;
             btnCreaItem.Cursor = Cursors.Hand;
             btnCreaItem.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCreaItem.Location = new Point(414, 380);
+            btnCreaItem.Location = new Point(413, 414);
             btnCreaItem.Name = "btnCreaItem";
             btnCreaItem.Size = new Size(94, 29);
             btnCreaItem.TabIndex = 7;
@@ -163,15 +164,27 @@
             linkVolver.Text = "Volver";
             linkVolver.LinkClicked += linkVolver_LinkClicked;
             // 
+            // txtDescripcion
+            // 
+            txtDescripcion.Anchor = AnchorStyles.Top;
+            txtDescripcion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDescripcion.Location = new Point(264, 365);
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.PlaceholderText = "descripcion";
+            txtDescripcion.Size = new Size(388, 30);
+            txtDescripcion.TabIndex = 9;
+            txtDescripcion.Visible = false;
+            // 
             // creaItem
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(923, 533);
+            Controls.Add(txtDescripcion);
             Controls.Add(linkVolver);
             Controls.Add(btnCreaItem);
-            Controls.Add(textBox1);
+            Controls.Add(txtTarifa);
             Controls.Add(txtModelo);
             Controls.Add(txtMarca);
             Controls.Add(txtNombreItem);
@@ -199,8 +212,9 @@
         private TextBox txtNombreItem;
         private TextBox txtMarca;
         private TextBox txtModelo;
-        private TextBox textBox1;
+        private TextBox txtTarifa;
         private Button btnCreaItem;
         private LinkLabel linkVolver;
+        private TextBox txtDescripcion;
     }
 }

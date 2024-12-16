@@ -23,6 +23,7 @@ namespace TitoAlquiler.View.CrearItem
         {
             InitializeComponent();
             CargarCategorias();
+            comboBoxCategoria.SelectedIndex = -1;
         }
 
 
@@ -46,25 +47,13 @@ namespace TitoAlquiler.View.CrearItem
         }
 
 
-        private FabricaItems ObtenerFabricaSegunCategoria(int categoriaId)
-        {
-            // Asumiendo que tienes definidos los IDs de categoría en algún lugar
-            return categoriaId switch
-            {
-                1 => new FabricaTransporte(),
-                2 => new FabricaElectrodomesticos(),
-                3 => new FabricaElectronica(),
-                4 => new FabricaInmuebles(),
-                _ => throw new ArgumentException("Categoría no válida")
-            };
-        }
-
         private void LimpiarFormulario()
         {
             txtNombreItem.Clear();
             txtMarca.Clear();
             txtModelo.Clear();
-            textBox1.Clear();
+            txtTarifa.Clear();
+            //txtDescripcion.Clear();
             comboBoxCategoria.SelectedIndex = -1;
         }
 
@@ -80,7 +69,7 @@ namespace TitoAlquiler.View.CrearItem
                 }
 
                 // Crear la fábrica apropiada según la categoría
-                FabricaItems fabrica = ObtenerFabricaSegunCategoria(categoriaSeleccionada.id);
+                FabricaItems fabrica = itemController.ObtenerFabricaSegunCategoria(categoriaSeleccionada.id);
 
                 // Crear el item usando el factory
                 var item = fabrica.BuildItem(
@@ -88,8 +77,25 @@ namespace TitoAlquiler.View.CrearItem
                     categoriaSeleccionada.id,
                     txtMarca.Text,
                     txtModelo.Text,
-                    double.Parse(textBox1.Text)
+                    double.Parse(txtTarifa.Text)
                 );
+
+                // Establecer la descripción según el tipo de item
+                /*switch (item)
+                {
+                    case ItemTransporte transporte:
+                        transporte.descripcion = txtDescripcion.Text;
+                        break;
+                    case ItemElectrodomesticos electrodomestico:
+                        electrodomestico.descripcion = txtDescripcion.Text;
+                        break;
+                    case ItemElectronica electronica:
+                        electronica.descripcion = txtDescripcion.Text;
+                        break;
+                    case ItemInmuebles inmueble:
+                        inmueble.descripcion = txtDescripcion.Text;
+                        break;
+                }*/
 
                 // Guardar el item usando el controller
                 itemController.CrearItem(item);

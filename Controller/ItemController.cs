@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Model.Factory;
 
 namespace TitoAlquiler.Controller
 {
@@ -89,6 +90,18 @@ namespace TitoAlquiler.Controller
         public List<Item> BuscarItems(string busqueda)
         {
             return _itemDao.SearchItems(busqueda);
+        }
+
+        public FabricaItems ObtenerFabricaSegunCategoria(int categoriaId)
+        {
+            return categoriaId switch
+            {
+                1 => new FabricaTransporte(),
+                2 => new FabricaElectrodomesticos(),
+                3 => new FabricaElectronica(),
+                4 => new FabricaInmuebles(),
+                _ => throw new ArgumentException("Categoría no válida")
+            };
         }
     }
 }
