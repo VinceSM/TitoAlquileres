@@ -38,7 +38,6 @@
             btnEntrar.Anchor = AnchorStyles.Bottom;
             btnEntrar.BackColor = Color.White;
             btnEntrar.Cursor = Cursors.Hand;
-            btnEntrar.FlatAppearance.BorderSize = 0;
             btnEntrar.FlatStyle = FlatStyle.Flat;
             btnEntrar.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEntrar.ForeColor = Color.Blue;

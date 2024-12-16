@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lblTitulo = new Label();
             categoriaBindingSource = new BindingSource(components);
@@ -181,13 +181,17 @@
             // btnCrear
             // 
             btnCrear.Anchor = AnchorStyles.Top;
+            btnCrear.BackColor = Color.White;
             btnCrear.Cursor = Cursors.Hand;
+            btnCrear.FlatStyle = FlatStyle.Flat;
+            btnCrear.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCrear.ForeColor = Color.Blue;
             btnCrear.Location = new Point(967, 551);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(96, 55);
             btnCrear.TabIndex = 6;
             btnCrear.Text = "Crear";
-            btnCrear.UseVisualStyleBackColor = true;
+            btnCrear.UseVisualStyleBackColor = false;
             btnCrear.Click += btnCrear_Click;
             // 
             // linkVolver
@@ -381,9 +385,9 @@
             // 
             // tarifaXDia
             // 
-            dataGridViewCellStyle1.Format = "C2";
-            dataGridViewCellStyle1.NullValue = null;
-            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle3;
             tarifaXDia.HeaderText = "TARIFA";
             tarifaXDia.MinimumWidth = 6;
             tarifaXDia.Name = "tarifaXDia";
@@ -401,12 +405,16 @@
             // btnVerAlquileres
             // 
             btnVerAlquileres.Anchor = AnchorStyles.Top;
+            btnVerAlquileres.BackColor = Color.White;
+            btnVerAlquileres.FlatStyle = FlatStyle.Flat;
+            btnVerAlquileres.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVerAlquileres.ForeColor = Color.Blue;
             btnVerAlquileres.Location = new Point(1136, 551);
             btnVerAlquileres.Name = "btnVerAlquileres";
             btnVerAlquileres.Size = new Size(163, 55);
             btnVerAlquileres.TabIndex = 12;
             btnVerAlquileres.Text = "Ver Alquileres";
-            btnVerAlquileres.UseVisualStyleBackColor = true;
+            btnVerAlquileres.UseVisualStyleBackColor = false;
             btnVerAlquileres.Click += btnVerAlquileres_Click;
             // 
             // btnSoftDelete

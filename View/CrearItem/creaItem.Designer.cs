@@ -142,14 +142,17 @@
             // btnCreaItem
             // 
             btnCreaItem.Anchor = AnchorStyles.Top;
+            btnCreaItem.BackColor = Color.White;
             btnCreaItem.Cursor = Cursors.Hand;
-            btnCreaItem.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCreaItem.Location = new Point(413, 414);
+            btnCreaItem.FlatStyle = FlatStyle.Flat;
+            btnCreaItem.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreaItem.ForeColor = Color.Blue;
+            btnCreaItem.Location = new Point(398, 415);
             btnCreaItem.Name = "btnCreaItem";
-            btnCreaItem.Size = new Size(94, 29);
+            btnCreaItem.Size = new Size(130, 49);
             btnCreaItem.TabIndex = 7;
             btnCreaItem.Text = "Crear";
-            btnCreaItem.UseVisualStyleBackColor = true;
+            btnCreaItem.UseVisualStyleBackColor = false;
             btnCreaItem.Click += btnCreaItem_Click;
             // 
             // linkVolver

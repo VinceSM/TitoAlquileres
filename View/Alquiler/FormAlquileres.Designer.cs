@@ -202,13 +202,17 @@
             // btnCerrarAlquiler
             // 
             btnCerrarAlquiler.Anchor = AnchorStyles.Top;
+            btnCerrarAlquiler.BackColor = Color.White;
+            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
+            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCerrarAlquiler.ForeColor = Color.Blue;
             btnCerrarAlquiler.Location = new Point(572, 482);
             btnCerrarAlquiler.Margin = new Padding(4);
             btnCerrarAlquiler.Name = "btnCerrarAlquiler";
-            btnCerrarAlquiler.Size = new Size(221, 32);
+            btnCerrarAlquiler.Size = new Size(221, 55);
             btnCerrarAlquiler.TabIndex = 2;
             btnCerrarAlquiler.Text = "Cerrar alquiler";
-            btnCerrarAlquiler.UseVisualStyleBackColor = true;
+            btnCerrarAlquiler.UseVisualStyleBackColor = false;
             btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
             // 
             // linkLabelVolver
@@ -228,7 +232,7 @@
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(1364, 527);
+            ClientSize = new Size(1364, 557);
             Controls.Add(linkLabelVolver);
             Controls.Add(btnCerrarAlquiler);
             Controls.Add(dataGridViewAlquileres);
