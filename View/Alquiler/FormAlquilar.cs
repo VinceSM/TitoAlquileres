@@ -84,8 +84,8 @@ namespace TitoAlquiler.View.Alquiler
 
         private void btnCrearItem_Click(object sender, EventArgs e)
         {
-            FormCr
-            FormcreaItem.Show();
+            creaItem formCreaItem = new creaItem();
+            formCreaItem.Show();
             this.Hide();
         }
         #endregion

@@ -39,6 +39,7 @@
             txtModelo = new TextBox();
             textBox1 = new TextBox();
             btnCreaItem = new Button();
+            linkVolver = new LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             SuspendLayout();
@@ -79,6 +80,7 @@
             // 
             comboBoxCategoria.Anchor = AnchorStyles.Top;
             comboBoxCategoria.BackColor = Color.LightBlue;
+            comboBoxCategoria.Cursor = Cursors.Hand;
             comboBoxCategoria.DataSource = categoriaBindingSource;
             comboBoxCategoria.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxCategoria.FormattingEnabled = true;
@@ -94,6 +96,7 @@
             // txtNombreItem
             // 
             txtNombreItem.Anchor = AnchorStyles.Top;
+            txtNombreItem.Cursor = Cursors.IBeam;
             txtNombreItem.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtNombreItem.Location = new Point(357, 221);
             txtNombreItem.Name = "txtNombreItem";
@@ -105,6 +108,7 @@
             // txtMarca
             // 
             txtMarca.Anchor = AnchorStyles.Top;
+            txtMarca.Cursor = Cursors.IBeam;
             txtMarca.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMarca.Location = new Point(357, 257);
             txtMarca.Name = "txtMarca";
@@ -115,6 +119,7 @@
             // txtModelo
             // 
             txtModelo.Anchor = AnchorStyles.Top;
+            txtModelo.Cursor = Cursors.IBeam;
             txtModelo.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtModelo.Location = new Point(357, 293);
             txtModelo.Name = "txtModelo";
@@ -125,6 +130,7 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.Top;
+            textBox1.Cursor = Cursors.IBeam;
             textBox1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox1.Location = new Point(357, 329);
             textBox1.Name = "textBox1";
@@ -135,6 +141,7 @@
             // btnCreaItem
             // 
             btnCreaItem.Anchor = AnchorStyles.Top;
+            btnCreaItem.Cursor = Cursors.Hand;
             btnCreaItem.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCreaItem.Location = new Point(414, 380);
             btnCreaItem.Name = "btnCreaItem";
@@ -142,6 +149,19 @@
             btnCreaItem.TabIndex = 7;
             btnCreaItem.Text = "Crear";
             btnCreaItem.UseVisualStyleBackColor = true;
+            btnCreaItem.Click += btnCreaItem_Click;
+            // 
+            // linkVolver
+            // 
+            linkVolver.AutoSize = true;
+            linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkVolver.Location = new Point(12, 120);
+            linkVolver.Name = "linkVolver";
+            linkVolver.Size = new Size(66, 24);
+            linkVolver.TabIndex = 8;
+            linkVolver.TabStop = true;
+            linkVolver.Text = "Volver";
+            linkVolver.LinkClicked += linkVolver_LinkClicked;
             // 
             // creaItem
             // 
@@ -149,6 +169,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(923, 533);
+            Controls.Add(linkVolver);
             Controls.Add(btnCreaItem);
             Controls.Add(textBox1);
             Controls.Add(txtModelo);
@@ -180,5 +201,6 @@
         private TextBox txtModelo;
         private TextBox textBox1;
         private Button btnCreaItem;
+        private LinkLabel linkVolver;
     }
 }

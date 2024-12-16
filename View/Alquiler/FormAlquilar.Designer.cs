@@ -422,6 +422,8 @@
             // 
             // btnCrearItem
             // 
+            btnCrearItem.Anchor = AnchorStyles.Top;
+            btnCrearItem.Cursor = Cursors.Hand;
             btnCrearItem.Location = new Point(1178, 104);
             btnCrearItem.Name = "btnCrearItem";
             btnCrearItem.Size = new Size(111, 29);
