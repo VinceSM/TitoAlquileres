@@ -1,5 +1,6 @@
 ﻿using TitoAlquiler.Controller;
 using TitoAlquiler.View.Usuario;
+using TitoAlquiler.View.CrearItem;
 using System;
 using System.Windows.Forms;
 using TitoAlquiler.Model.Entities;
@@ -79,6 +80,13 @@ namespace TitoAlquiler.View.Alquiler
             {
                 MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnCrearItem_Click(object sender, EventArgs e)
+        {
+            FormCr
+            FormcreaItem.Show();
+            this.Hide();
         }
         #endregion
 
@@ -268,6 +276,8 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
         #endregion
+
+
     }
 }
 

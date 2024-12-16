@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lblTitulo = new Label();
             categoriaBindingSource = new BindingSource(components);
@@ -65,6 +65,7 @@
             estado = new DataGridViewTextBoxColumn();
             btnVerAlquileres = new Button();
             btnSoftDelete = new Button();
+            btnCrearItem = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -379,9 +380,9 @@
             // 
             // tarifaXDia
             // 
-            dataGridViewCellStyle1.Format = "C2";
-            dataGridViewCellStyle1.NullValue = null;
-            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle2;
             tarifaXDia.HeaderText = "TARIFA";
             tarifaXDia.MinimumWidth = 6;
             tarifaXDia.Name = "tarifaXDia";
@@ -419,12 +420,23 @@
             btnSoftDelete.UseVisualStyleBackColor = true;
             btnSoftDelete.Click += btnSoftDelete_Click;
             // 
+            // btnCrearItem
+            // 
+            btnCrearItem.Location = new Point(1178, 104);
+            btnCrearItem.Name = "btnCrearItem";
+            btnCrearItem.Size = new Size(111, 29);
+            btnCrearItem.TabIndex = 14;
+            btnCrearItem.Text = "Crear item";
+            btnCrearItem.UseVisualStyleBackColor = true;
+            btnCrearItem.Click += btnCrearItem_Click;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 645);
+            Controls.Add(btnCrearItem);
             Controls.Add(btnSoftDelete);
             Controls.Add(btnVerAlquileres);
             Controls.Add(dataGridViewItems);
@@ -493,5 +505,6 @@
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn tarifaXDia;
         private DataGridViewTextBoxColumn estado;
+        private Button btnCrearItem;
     }
 }
