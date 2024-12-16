@@ -82,6 +82,11 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Muestra el formulario para crear un nuevo ítem y oculta la ventana actual.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
         private void btnCrearItem_Click(object sender, EventArgs e)
         {
             creaItem formCreaItem = new creaItem();
@@ -89,6 +94,15 @@ namespace TitoAlquiler.View.Alquiler
             this.Hide();
         }
 
+        /// <summary>
+        /// Elimina un ítem seleccionado de la lista. Solicita confirmación antes de proceder.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Si no hay un ítem seleccionado, se mostrará un mensaje de advertencia.
+        /// También se manejarán posibles errores durante el proceso de eliminación.
+        /// </remarks>
         private void btnSoftDeleteItem_Click(object sender, EventArgs e)
         {
             if (dataGridViewItems.SelectedRows.Count == 0)
@@ -134,6 +148,15 @@ namespace TitoAlquiler.View.Alquiler
             }
         }
 
+        /// <summary>
+        /// Edita la tarifa de un ítem seleccionado. Solicita al usuario que ingrese un nuevo valor.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Si no hay un ítem seleccionado, se mostrará un mensaje de advertencia.
+        /// Se valida que el nuevo valor ingresado sea un número válido.
+        /// </remarks>
         private void btnEditarTarifa_Click(object sender, EventArgs e)
         {
             if (dataGridViewItems.SelectedRows.Count == 0)

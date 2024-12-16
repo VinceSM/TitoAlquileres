@@ -26,9 +26,8 @@ namespace TitoAlquiler.Model.Dao
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine($"Error inserting categoria: {ex.Message}");
-                throw; // Re-throw the exception to be handled by the caller
+                throw; 
             }
         }
 

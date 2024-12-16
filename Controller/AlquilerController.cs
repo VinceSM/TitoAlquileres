@@ -95,7 +95,6 @@ namespace TitoAlquiler.Controller
             return _alquilerDao.FindAlquileresByItem(itemId);
         }
 
-
         /// <summary>
         /// Crea un nuevo alquiler con los parámetros proporcionados y calcula el precio total basado en la estrategia seleccionada.
         /// </summary>

@@ -46,7 +46,12 @@ namespace TitoAlquiler.View.CrearItem
             }
         }
 
-
+        /// <summary>
+        /// Limpia todos los campos del formulario de creación de ítems.
+        /// </summary>
+        /// <remarks>
+        /// Restablece los valores de los controles del formulario, como los cuadros de texto y el comboBox de categoría, para prepararlos para una nueva entrada.
+        /// </remarks>
         private void LimpiarFormulario()
         {
             txtNombreItem.Clear();
@@ -57,6 +62,15 @@ namespace TitoAlquiler.View.CrearItem
             comboBoxCategoria.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Crea un nuevo ítem basado en los datos ingresados en el formulario y lo guarda en el sistema.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Utiliza un patrón de fábrica para crear el ítem adecuado según la categoría seleccionada.
+        /// Si algún campo está incompleto o no se puede convertir, muestra un mensaje de error.
+        /// </remarks>
         private void btnCreaItem_Click(object sender, EventArgs e)
         {
             try
@@ -109,6 +123,11 @@ namespace TitoAlquiler.View.CrearItem
             }
         }
 
+        /// <summary>
+        /// Regresa a la pantalla principal de alquiler y oculta la ventana actual.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FormAlquilar formAlquilar = new FormAlquilar();
