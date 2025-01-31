@@ -7,9 +7,9 @@ using TitoAlquiler.Model.Entities;
 
 namespace TitoAlquiler.Model.Factory
 {
-    public abstract class FabricaItems
+    public interface IFabricable
     {
-        public abstract Item CrearItem();
+        public Item CrearItem();
 
         public Item BuildItem(string nombreItem, int categoriaId, string marca, string modelo, double tarifaDia)
         {

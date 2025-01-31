@@ -18,7 +18,6 @@ namespace TitoAlquiler.Model.Entities
         public DateTime fechaFin { get; set; }
         public double precioTotal { get; set; }
         public string? tipoEstrategia { get; set; }
-        public bool descuento { get; set; }
         public DateTime? deletedAt { get; set; }
     }
 }

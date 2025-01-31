@@ -1,6 +1,6 @@
 ﻿using TitoAlquiler.Controller;
 using TitoAlquiler.View.Usuario;
-using TitoAlquiler.View.CrearItem;
+using TitoAlquiler.View.Item;
 using System;
 using System.Windows.Forms;
 using TitoAlquiler.Model.Entities;
@@ -89,8 +89,20 @@ namespace TitoAlquiler.View.Alquiler
         /// <param name="e">Los datos del evento.</param>
         private void btnCrearItem_Click(object sender, EventArgs e)
         {
-            creaItem formCreaItem = new creaItem();
+            Crear formCreaItem = new Crear();
             formCreaItem.Show();
+            this.Hide();
+        }
+
+        /// <summary>
+        /// Muestra el formulario para modificar un ítem seleccionado y oculta la ventana actual.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        private void btnModificarItem_Click(object sender, EventArgs e)
+        {
+            Modificar formModificarItem = new Modificar();
+            formModificarItem.Show();
             this.Hide();
         }
 
@@ -384,6 +396,7 @@ namespace TitoAlquiler.View.Alquiler
         }
         #endregion
 
+        
     }
 }
 

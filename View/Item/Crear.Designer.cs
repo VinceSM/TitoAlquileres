@@ -1,6 +1,6 @@
-﻿namespace TitoAlquiler.View.CrearItem
+﻿namespace TitoAlquiler.View.Item
 {
-    partial class creaItem
+    partial class Crear
     {
         /// <summary>
         /// Required designer variable.

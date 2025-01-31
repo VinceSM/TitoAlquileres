@@ -131,3 +131,5 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Alquiler.FormAlquileres.resources
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.View.Alquiler.FormAlquileres.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.CrearItem.creaItem.resources
+C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.View.Item.Crear.resources
+C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.View.Item.Modificar.resources

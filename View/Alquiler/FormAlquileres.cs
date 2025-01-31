@@ -67,7 +67,6 @@ namespace TitoAlquiler.View.Alquiler
                 a.fechaFin,
                 a.precioTotal,
                 a.tipoEstrategia,
-                a.descuento,
                 a.deletedAt
             }).ToList();
 

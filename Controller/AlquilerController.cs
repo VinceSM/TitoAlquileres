@@ -127,7 +127,6 @@ namespace TitoAlquiler.Controller
             };
 
             alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
-            alquiler.descuento = esPremium || tipoEstrategia == "EstrategiaEstacion";
 
             CrearAlquiler(alquiler);
 

@@ -112,7 +112,7 @@ namespace TitoAlquiler.Controller
         /// <param name="categoriaId">El ID de la categoría para la cual se requiere la fábrica.</param>
         /// <returns>Una instancia de FabricaItems correspondiente a la categoría especificada.</returns>
         /// <exception cref="ArgumentException">Se lanza cuando se proporciona un ID de categoría no válido.</exception>
-        public FabricaItems ObtenerFabricaSegunCategoria(int categoriaId)
+        public IFabricable ObtenerFabricaSegunCategoria(int categoriaId)
         {
             return categoriaId switch
             {

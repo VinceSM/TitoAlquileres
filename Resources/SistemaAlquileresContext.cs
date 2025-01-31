@@ -12,8 +12,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -84,7 +84,6 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.fechaFin).HasColumnName("fechaFin");
             entity.Property(e => e.precioTotal).HasColumnName("precioTotal");
             entity.Property(e => e.tipoEstrategia).HasColumnName("tipoEstrategia");
-            entity.Property(e => e.descuento).HasColumnName("descuento");
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
         });
 

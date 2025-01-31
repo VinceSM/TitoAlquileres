@@ -7,10 +7,13 @@
     <Compile Update="View\Alquiler\FormAlquileres.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="View\CrearItem\creaItem.cs">
+    <Compile Update="View\Item\Crear.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\FormInicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="View\Item\Modificar.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\Usuario\FormCrearUsuario.cs">

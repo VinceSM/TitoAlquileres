@@ -12,14 +12,14 @@ using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Factory;
 using TitoAlquiler.View.Alquiler;
 
-namespace TitoAlquiler.View.CrearItem
+namespace TitoAlquiler.View.Item
 {
-    public partial class creaItem : Form
+    public partial class Crear : Form
     {
         ItemController itemController = ItemController.getInstance();
         CategoriaController categoriaController = CategoriaController.getInstance();
 
-        public creaItem()
+        public Crear()
         {
             InitializeComponent();
             CargarCategorias();
@@ -83,7 +83,7 @@ namespace TitoAlquiler.View.CrearItem
                 }
 
                 // Crear la fábrica apropiada según la categoría
-                FabricaItems fabrica = itemController.ObtenerFabricaSegunCategoria(categoriaSeleccionada.id);
+                IFabricable fabrica = itemController.ObtenerFabricaSegunCategoria(categoriaSeleccionada.id);
 
                 // Crear el item usando el factory
                 var item = fabrica.BuildItem(

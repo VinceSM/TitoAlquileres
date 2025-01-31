@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Factory
 {
-    public class FabricaTransporte : FabricaItems
+    public class FabricaTransporte : IFabricable
     {
-        public override Item CrearItem()
+        public Item CrearItem()
         {
             return new ItemTransporte();
         }
