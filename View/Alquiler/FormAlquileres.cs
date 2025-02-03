@@ -15,7 +15,6 @@ namespace TitoAlquiler.View.Alquiler
     public partial class FormAlquileres : Form
     {
         private AlquilerController alquilerController;
-        private List<Alquileres> listaAlquileres;
 
         public FormAlquileres()
         {

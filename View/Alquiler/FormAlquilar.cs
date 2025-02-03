@@ -12,7 +12,6 @@ namespace TitoAlquiler.View.Alquiler
     {
         UsuarioController usuarioController = UsuarioController.getInstance();
         AlquilerController alquilerController = AlquilerController.getInstance();
-        ItemController itemController = ItemController.getInstance();
         CategoriaController categoriaController = CategoriaController.getInstance();
 
         public FormAlquilar()
@@ -285,6 +284,13 @@ namespace TitoAlquiler.View.Alquiler
                 MessageBox.Show($"Error al eliminar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void bntModificarUser_Click(object sender, EventArgs e)
+        {
+            FormModificarUsuario formModificarUsuario = new FormModificarUsuario();
+            formModificarUsuario.Show();
+            this.Hide();
+        }
         #endregion
 
         #region Categorias
@@ -396,7 +402,6 @@ namespace TitoAlquiler.View.Alquiler
         }
         #endregion
 
-        
     }
 }
 

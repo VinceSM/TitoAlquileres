@@ -19,5 +19,8 @@
     <Compile Update="View\Usuario\FormCrearUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\Usuario\FormModificarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

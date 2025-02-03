@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             lblTitulo = new Label();
             categoriaBindingSource = new BindingSource(components);
@@ -97,7 +97,7 @@
             lblTitulo.Font = new Font("Times New Roman", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.Location = new Point(756, 28);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(264, 31);
+            lblTitulo.Size = new Size(332, 38);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "TITO ALQUILERES";
             // 
@@ -111,7 +111,7 @@
             lblTotal.AutoSize = true;
             lblTotal.Location = new Point(207, 566);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(0, 19);
+            lblTotal.Size = new Size(0, 22);
             lblTotal.TabIndex = 3;
             // 
             // lblPrecioPorDia
@@ -121,7 +121,7 @@
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPrecioPorDia.Location = new Point(319, 566);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
-            lblPrecioPorDia.Size = new Size(0, 16);
+            lblPrecioPorDia.Size = new Size(0, 19);
             lblPrecioPorDia.TabIndex = 4;
             // 
             // panelFecha
@@ -143,7 +143,7 @@
             dateTimePickerFechaFin.Cursor = Cursors.Hand;
             dateTimePickerFechaFin.Location = new Point(66, 66);
             dateTimePickerFechaFin.Name = "dateTimePickerFechaFin";
-            dateTimePickerFechaFin.Size = new Size(344, 26);
+            dateTimePickerFechaFin.Size = new Size(344, 30);
             dateTimePickerFechaFin.TabIndex = 4;
             // 
             // dateTimePickerFechaInicio
@@ -151,7 +151,7 @@
             dateTimePickerFechaInicio.Cursor = Cursors.Hand;
             dateTimePickerFechaInicio.Location = new Point(66, 30);
             dateTimePickerFechaInicio.Name = "dateTimePickerFechaInicio";
-            dateTimePickerFechaInicio.Size = new Size(344, 26);
+            dateTimePickerFechaInicio.Size = new Size(344, 30);
             dateTimePickerFechaInicio.TabIndex = 3;
             // 
             // lblFechaFin
@@ -159,7 +159,7 @@
             lblFechaFin.AutoSize = true;
             lblFechaFin.Location = new Point(23, 67);
             lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(31, 19);
+            lblFechaFin.Size = new Size(42, 22);
             lblFechaFin.TabIndex = 2;
             lblFechaFin.Text = "Fin:";
             // 
@@ -168,7 +168,7 @@
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Location = new Point(3, 36);
             lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(45, 19);
+            lblFechaInicio.Size = new Size(62, 22);
             lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Inicio:";
             // 
@@ -177,7 +177,7 @@
             lblFecha.AutoSize = true;
             lblFecha.Location = new Point(139, 0);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(52, 19);
+            lblFecha.Size = new Size(65, 22);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fechas";
             // 
@@ -207,7 +207,7 @@
             linkVolver.LinkColor = Color.FromArgb(0, 0, 192);
             linkVolver.Location = new Point(12, 120);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(56, 21);
+            linkVolver.Size = new Size(68, 26);
             linkVolver.TabIndex = 7;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -336,7 +336,7 @@
             cmbCategorias.FormattingEnabled = true;
             cmbCategorias.Location = new Point(664, 127);
             cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(173, 25);
+            cmbCategorias.Size = new Size(173, 31);
             cmbCategorias.TabIndex = 11;
             cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 
@@ -393,9 +393,9 @@
             // 
             // tarifaXDia
             // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            tarifaXDia.DefaultCellStyle = dataGridViewCellStyle1;
             tarifaXDia.HeaderText = "TARIFA";
             tarifaXDia.MinimumWidth = 6;
             tarifaXDia.Name = "tarifaXDia";
@@ -477,6 +477,7 @@
             // 
             // btnModificarItem
             // 
+            btnModificarItem.Anchor = AnchorStyles.Top;
             btnModificarItem.Font = new Font("Tahoma", 12F);
             btnModificarItem.Location = new Point(960, 127);
             btnModificarItem.Name = "btnModificarItem";
@@ -488,6 +489,7 @@
             // 
             // bntModificarUser
             // 
+            bntModificarUser.Anchor = AnchorStyles.Top;
             bntModificarUser.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bntModificarUser.Location = new Point(442, 120);
             bntModificarUser.Name = "bntModificarUser";
@@ -495,10 +497,11 @@
             bntModificarUser.TabIndex = 18;
             bntModificarUser.Text = "Modificar Usuario";
             bntModificarUser.UseVisualStyleBackColor = true;
+            bntModificarUser.Click += bntModificarUser_Click;
             // 
             // FormAlquilar
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 645);

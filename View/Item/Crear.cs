@@ -16,7 +16,6 @@ namespace TitoAlquiler.View.Item
 {
     public partial class Crear : Form
     {
-        ItemController itemController = ItemController.getInstance();
         CategoriaController categoriaController = CategoriaController.getInstance();
 
         public Crear()
@@ -71,56 +70,9 @@ namespace TitoAlquiler.View.Item
         /// Utiliza un patrón de fábrica para crear el ítem adecuado según la categoría seleccionada.
         /// Si algún campo está incompleto o no se puede convertir, muestra un mensaje de error.
         /// </remarks>
-        private void btnCreaItem_Click(object sender, EventArgs e)
+       private void btnCreaItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Obtener la categoría seleccionada
-                if (!(comboBoxCategoria.SelectedItem is Categoria categoriaSeleccionada))
-                {
-                    MessageBox.Show("Por favor seleccione una categoría");
-                    return;
-                }
-
-                // Crear la fábrica apropiada según la categoría
-                IFabricable fabrica = itemController.ObtenerFabricaSegunCategoria(categoriaSeleccionada.id);
-
-                // Crear el item usando el factory
-                var item = fabrica.BuildItem(
-                    txtNombreItem.Text,
-                    categoriaSeleccionada.id,
-                    txtMarca.Text,
-                    txtModelo.Text,
-                    double.Parse(txtTarifa.Text)
-                );
-
-                // Establecer la descripción según el tipo de item
-                /*switch (item)
-                {
-                    case ItemTransporte transporte:
-                        transporte.descripcion = txtDescripcion.Text;
-                        break;
-                    case ItemElectrodomesticos electrodomestico:
-                        electrodomestico.descripcion = txtDescripcion.Text;
-                        break;
-                    case ItemElectronica electronica:
-                        electronica.descripcion = txtDescripcion.Text;
-                        break;
-                    case ItemInmuebles inmueble:
-                        inmueble.descripcion = txtDescripcion.Text;
-                        break;
-                }*/
-
-                // Guardar el item usando el controller
-                itemController.CrearItem(item);
-
-                MessageBox.Show("Item creado exitosamente!");
-                LimpiarFormulario();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al crear el item: {ex.Message}");
-            }
+            
         }
 
         /// <summary>

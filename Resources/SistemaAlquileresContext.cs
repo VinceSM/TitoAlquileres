@@ -4,8 +4,12 @@ using TitoAlquiler.Model.Entities;
 public class SistemaAlquilerContext : DbContext
 {
     public DbSet<Usuarios> Usuarios { get; set; }
-    public DbSet<Item> Items { get; set; }
-    public DbSet<Alquileres> Alquileres { get; set; }
+    public DbSet<Transporte> Transportes { get; set; }
+    public DbSet<Indumentaria> Indumentarias { get; set; }
+    public DbSet<Inmueble> Inmuebles { get; set; }
+    public DbSet<Electrodomestico> Electrodomesticos { get; set; }
+    public DbSet<Electronica> Electronicas { get; set; }
+    public DbSet<Alquiler> Alquileres { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -19,46 +23,26 @@ public class SistemaAlquilerContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configuración de Item
-        modelBuilder.Entity<Item>(entity =>
-        {
-            entity.ToTable("Items");
-            entity.HasKey(e => e.id);
-            entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.nombreItem).HasColumnName("nombreItem");
-            entity.Property(e => e.marca).HasColumnName("marca");
-            entity.Property(e => e.modelo).HasColumnName("modelo");
-            entity.Property(e => e.tarifaDia).HasColumnName("tarifaDia");
-            entity.Property(e => e.categoriaId).HasColumnName("categoriaId");
-            entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
+        modelBuilder.Entity<AlquilableBase>().UseTptMappingStrategy();
 
-            entity.HasOne(i => i.categoria)
-                  .WithMany(c => c.items)
-                  .HasForeignKey(i => i.categoriaId)
-                  .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Transporte>().ToTable("Transportes");
+        modelBuilder.Entity<Electrodomestico>().ToTable("Electrodomesticos");
+        modelBuilder.Entity<Indumentaria>().ToTable("Indumentarias");
+        modelBuilder.Entity<Inmueble>().ToTable("Inmuebles");
+        modelBuilder.Entity<Electronica>().ToTable("Electronicas");
 
-            entity.HasMany(i => i.Alquileres)
-                  .WithOne(a => a.item)
-                  .HasForeignKey(a => a.ItemID)
-                  .OnDelete(DeleteBehavior.Restrict);
-        });
-
-        // Configuración de Categoria
         modelBuilder.Entity<Categoria>(entity =>
         {
             entity.ToTable("Categorias");
             entity.HasKey(e => e.id);
-            entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.nombre).HasColumnName("nombre");
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
         });
 
-        // Configuración de Usuarios
         modelBuilder.Entity<Usuarios>(entity =>
         {
             entity.ToTable("Usuarios");
             entity.HasKey(e => e.id);
-            entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.nombre).HasColumnName("nombre");
             entity.Property(e => e.dni).HasColumnName("dni");
             entity.Property(e => e.email).HasColumnName("email");
@@ -71,12 +55,10 @@ public class SistemaAlquilerContext : DbContext
                   .OnDelete(DeleteBehavior.Restrict);
         });
 
-        // Configuración de Alquiler
-        modelBuilder.Entity<Alquileres>(entity =>
+        modelBuilder.Entity<Alquiler>(entity =>
         {
             entity.ToTable("Alquileres");
             entity.HasKey(e => e.id);
-            entity.Property(e => e.id).HasColumnName("id");
             entity.Property(e => e.ItemID).HasColumnName("itemId");
             entity.Property(e => e.UsuarioID).HasColumnName("usuarioId");
             entity.Property(e => e.tiempoDias).HasColumnName("tiempoDias");
@@ -87,11 +69,15 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
         });
 
-        // Configuración de filtros globales para el borrado lógico
         modelBuilder.Entity<Usuarios>().HasQueryFilter(u => u.deletedAt == null);
-        modelBuilder.Entity<Alquileres>().HasQueryFilter(a => a.deletedAt == null);
-        modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
+        modelBuilder.Entity<Alquiler>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
+        modelBuilder.Entity<Transporte>().HasQueryFilter(t => t.deletedAt == null);
+        modelBuilder.Entity<Electrodomestico>().HasQueryFilter(e => e.deletedAt == null);
+        modelBuilder.Entity<Indumentaria>().HasQueryFilter(i => i.deletedAt == null);
+        modelBuilder.Entity<Inmueble>().HasQueryFilter(i => i.deletedAt == null);
+        modelBuilder.Entity<Electronica>().HasQueryFilter(e => e.deletedAt == null);
+
     }
 }
 

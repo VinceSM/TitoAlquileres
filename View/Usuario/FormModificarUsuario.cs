@@ -9,21 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TitoAlquiler.View.Alquiler;
 
-namespace TitoAlquiler.View.Item
+namespace TitoAlquiler.View.Usuario
 {
-    public partial class Modificar : Form
+    public partial class FormModificarUsuario : Form
     {
-        public Modificar()
+        public FormModificarUsuario()
         {
             InitializeComponent();
         }
 
-
-        /// <summary>
-        /// Regresa a la pantalla principal de alquiler y oculta la ventana actual.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FormAlquilar formAlquilar = new FormAlquilar();

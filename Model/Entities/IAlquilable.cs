@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
+    //Interfaz general que maneja el comprotamiento de Alquilar
     public interface IAlquilable
     {
         void Alquilar();

@@ -6,21 +6,13 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Transporte : IAlquilable
+    public class Transporte : AlquilableBase
     {
-
-        public int id { get; set; }
-        public string? nombreItem { get; set; }
-        public string? marca { get; set; }
-        public string? modelo { get; set; }
-        public double tarifaDia { get; set; }
-        public int categoriaId { get; set; }
-        public DateTime? deletedAt { get; set; }
-        public Transporte() { }
-
-        public void Alquilar()
+        public int capacidadPasajeros { get; set; }
+        public string? tipoCombustible { get; set; }
+        public override void Alquilar()
         {
-            Console.WriteLine("Se ha alquilado un transporte.");
+            Console.WriteLine($"Se ha alquilado un transporte: {nombreItem}, Capacidad: {capacidadPasajeros} pasajeros");
         }
     }
 }

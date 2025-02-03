@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Inmueble : IAlquilable
+    public class Inmueble : AlquilableBase
     {
-        public int id { get; set; }
-        public string? nombreItem { get; set; }
-        public string? marca { get; set; }
-        public string? modelo { get; set; }
-        public double tarifaDia { get; set; }
-        public int categoriaId { get; set; }
-        public DateTime? deletedAt { get; set; }
-        public void Alquilar()
+        public int metrosCuadrados { get; set; }
+        public string? ubicacion { get; set; }
+        public override void Alquilar()
         {
-            Console.WriteLine("Se ha alquilado un inmueble.");
+            Console.WriteLine($"Se ha alquilado un inmueble: {nombreItem}, Ubicación: {ubicacion}");
         }
     }
 }

@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Electronica : IAlquilable
+    public class Electronica : AlquilableBase
     {
-        public int id { get; set; }
-        public string? nombreItem { get; set; }
-        public string? marca { get; set; }
-        public string? modelo { get; set; }
-        public double tarifaDia { get; set; }
-        public int categoriaId { get; set; }
-        public DateTime? deletedAt { get; set; }
-        public void Alquilar()
+        public string? resolucionPantalla { get; set; }
+        public int almacenamientoGB { get; set; }
+        public override void Alquilar()
         {
-            Console.WriteLine("Se ha alquilado un electronico.");
+            Console.WriteLine($"Se ha alquilado un dispositivo electrónico: {nombreItem}, Resolución: {resolucionPantalla}");
         }
     }
 }
