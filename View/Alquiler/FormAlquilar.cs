@@ -12,6 +12,7 @@ namespace TitoAlquiler.View.Alquiler
     {
         UsuarioController usuarioController = UsuarioController.getInstance();
         AlquilerController alquilerController = AlquilerController.getInstance();
+        ItemController itemController = ItemController.getInstance();
         CategoriaController categoriaController = CategoriaController.getInstance();
 
         public FormAlquilar()

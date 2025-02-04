@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Electrodomestico : AlquilableBase
+    public class Electrodomestico : ItemAlquilable
     {
         public int potenciaWatts { get; set; }
         public string? tipoElectrodomestico { get; set; }

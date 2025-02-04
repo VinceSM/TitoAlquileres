@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Model.Strategy;
 
 namespace TitoAlquiler.Controller
 {
@@ -10,6 +11,7 @@ namespace TitoAlquiler.Controller
     {
         AlquilerDao _alquilerDao = new AlquilerDao();
         UsuarioController usuarioController = UsuarioController.getInstance();
+        ItemController itemController = ItemController.getInstance();
 
         #region Singletone
 
@@ -31,7 +33,7 @@ namespace TitoAlquiler.Controller
         /// Crea un nuevo alquiler en la base de datos.
         /// </summary>
         /// <param name="alquiler">Objeto de tipo Alquileres que contiene la información del alquiler a crear.</param>
-        public void CrearAlquiler(Alquiler alquiler)
+        public void CrearAlquiler(Alquileres alquiler)
         {
             _alquilerDao.InsertAlquiler(alquiler);
         }
@@ -40,7 +42,7 @@ namespace TitoAlquiler.Controller
         /// Actualiza un alquiler existente en la base de datos.
         /// </summary>
         /// <param name="alquiler">Objeto de tipo Alquileres con los datos actualizados.</param>
-        public void ActualizarAlquiler(Alquiler alquiler)
+        public void ActualizarAlquiler(Alquileres alquiler)
         {
             _alquilerDao.UpdateAlquiler(alquiler);
         }
@@ -49,7 +51,7 @@ namespace TitoAlquiler.Controller
         /// Elimina un alquiler de manera lógica (soft delete).
         /// </summary>
         /// <param name="alquiler">Objeto de tipo Alquileres que representa el alquiler a eliminar.</param>
-        public void EliminarAlquiler(Alquiler alquiler)
+        public void EliminarAlquiler(Alquileres alquiler)
         {
             _alquilerDao.SoftDeleteAlquiler(alquiler);
         }
@@ -58,7 +60,7 @@ namespace TitoAlquiler.Controller
         /// Obtiene todos los alquileres registrados.
         /// </summary>
         /// <returns>Lista de objetos Alquileres.</returns>
-        public List<Alquiler> ObtenerTodosLosAlquileres()
+        public List<Alquileres> ObtenerTodosLosAlquileres()
         {
             return _alquilerDao.LoadAllAlquileres();
         }
@@ -68,7 +70,7 @@ namespace TitoAlquiler.Controller
         /// </summary>
         /// <param name="id">ID del alquiler.</param>
         /// <returns>Objeto de tipo Alquileres con los detalles del alquiler.</returns>
-        public Alquiler ObtenerAlquilerPorId(int id)
+        public Alquileres ObtenerAlquilerPorId(int id)
         {
             return _alquilerDao.FindAlquilerById(id);
         }
@@ -78,7 +80,7 @@ namespace TitoAlquiler.Controller
         /// </summary>
         /// <param name="usuarioId">ID del usuario.</param>
         /// <returns>Lista de objetos Alquileres asociados al usuario.</returns>
-        public List<Alquiler> ObtenerAlquileresPorUsuario(int usuarioId)
+        public List<Alquileres> ObtenerAlquileresPorUsuario(int usuarioId)
         {
             return _alquilerDao.FindAlquileresByUsuario(usuarioId);
         }
@@ -88,7 +90,7 @@ namespace TitoAlquiler.Controller
         /// </summary>
         /// <param name="itemId">ID del item.</param>
         /// <returns>Lista de objetos Alquileres que contienen el item.</returns>
-        public List<Alquiler> ObtenerAlquileresPorItem(int itemId)
+        public List<Alquileres> ObtenerAlquileresPorItem(int itemId)
         {
             return _alquilerDao.FindAlquileresByItem(itemId);
         }
@@ -102,13 +104,19 @@ namespace TitoAlquiler.Controller
         /// <param name="fechaFin">Fecha de fin del alquiler.</param>
         /// <param name="tipoEstrategia">Tipo de estrategia a aplicar (por ejemplo, "EstrategiaEstacion").</param>
         /// <returns>Objeto Alquileres con el alquiler creado y su precio calculado.</returns>
-        public Alquiler CrearNuevoAlquiler(int itemId, int usuarioId, DateTime fechaInicio, DateTime fechaFin, string tipoEstrategia)
+        public Alquileres CrearNuevoAlquiler(int itemId, int usuarioId, DateTime fechaInicio, DateTime fechaFin, string tipoEstrategia)
         {
+            var item = itemController.ObtenerItemPorId(itemId);
             var usuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
+
+            if (item == null || usuario == null)
+            {
+                throw new ArgumentException("Item o Usuario no encontrado");
+            }
 
             bool esPremium = usuario.membresiaPremium;
 
-            var alquiler = new Alquiler
+            var alquiler = new Alquileres
             {
                 ItemID = itemId,
                 UsuarioID = usuarioId,
@@ -118,11 +126,29 @@ namespace TitoAlquiler.Controller
                 tipoEstrategia = esPremium ? "EstrategiaPremium" : tipoEstrategia
             };
 
-            //alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
+            alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
 
             CrearAlquiler(alquiler);
 
             return alquiler;
+        }
+
+        /// <summary>
+        /// Calcula el precio total de un alquiler basándose en la estrategia seleccionada.
+        /// </summary>
+        /// <param name="alquiler">Objeto Alquileres que contiene la información del alquiler.</param>
+        /// <param name="item">Objeto Item que representa el artículo alquilado.</param>
+        /// <returns>El precio total calculado para el alquiler.</returns>
+        public double CalcularPrecioTotal(Alquileres alquiler, ItemAlquilable item)
+        {
+            var usuario = usuarioController.ObtenerUsuarioPorId(alquiler.UsuarioID);
+            bool esPremium = usuario?.membresiaPremium ?? false;
+
+            IEstrategiaAlquiler estrategia = esPremium ?
+                new EstrategiaPremium() :
+                new EstrategiaEstacion();
+
+            return estrategia.CalcularPrecio(alquiler, item);
         }
 
         /// <summary>
@@ -169,7 +195,8 @@ namespace TitoAlquiler.Controller
             {
                 MessageBox.Show("Alquiler no encontrado");
             }
-            return null;
+            var item = itemController.ObtenerItemPorId(alquiler.ItemID);
+            return item?.nombreItem ?? "Item no encontrado";
         }
 
         /// <summary>
@@ -177,7 +204,7 @@ namespace TitoAlquiler.Controller
         /// </summary>
         /// <param name="alquilerId">ID del alquiler.</param>
         /// <returns>Tupla con el nombre del item y el nombre del usuario.</returns>
-        /*public (string nombreItem, string nombreUsuario) ObtenerNombreItemYUsuarioPorAlquiler(int alquilerId)
+        public (string nombreItem, string nombreUsuario) ObtenerNombreItemYUsuarioPorAlquiler(int alquilerId)
         {
             var alquiler = ObtenerAlquilerPorId(alquilerId);
             if (alquiler == null)
@@ -187,7 +214,7 @@ namespace TitoAlquiler.Controller
             var item = itemController.ObtenerItemPorId(alquiler.ItemID);
             var usuario = usuarioController.ObtenerUsuarioPorId(alquiler.UsuarioID);
             return (item?.nombreItem ?? "Item no encontrado", usuario?.nombre ?? "Usuario no encontrado");
-        }*/
+        }
     }
 }
 

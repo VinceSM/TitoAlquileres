@@ -9,7 +9,7 @@ namespace TitoAlquiler.Model.Factory
 {
     public class ElectrodomesticoFactory : AlquilerFactory
     {
-        public override IAlquilable CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia)
+        public override ItemAlquilable CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia)
         {
             return new Electrodomestico { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia };
         }

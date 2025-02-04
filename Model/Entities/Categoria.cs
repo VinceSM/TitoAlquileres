@@ -10,7 +10,7 @@ namespace TitoAlquiler.Model.Entities
     {
         public int id { get; set; }
         public string? nombre { get; set; }
-        public virtual ICollection<IAlquilable>? items { get; set; }
+        public virtual ICollection<ItemAlquilable>? items { get; set; }
         public DateTime? deletedAt { get; set; }
     }
 }

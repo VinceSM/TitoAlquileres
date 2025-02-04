@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Transporte : AlquilableBase
+    public class Transporte : ItemAlquilable
     {
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }

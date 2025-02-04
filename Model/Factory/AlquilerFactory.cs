@@ -9,6 +9,6 @@ namespace TitoAlquiler.Model.Factory
 {
     public abstract class AlquilerFactory
     {
-        public abstract IAlquilable CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia);
+        public abstract ItemAlquilable CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia);
     }
 }

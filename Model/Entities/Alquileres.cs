@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Alquiler
+    public class Alquileres
     {
         public int id { get; set; }
         public int ItemID { get; set; }
-        public virtual AlquilableBase? item { get; set; }
+        public virtual ItemAlquilable? item { get; set; }
         public int UsuarioID { get; set; }
         public virtual Usuarios? usuario { get; set; }
         public int tiempoDias { get; set; }

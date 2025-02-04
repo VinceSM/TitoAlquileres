@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    //Clase Abstracta que controla las caracteristicas de un Item Alquilable
-    public abstract class AlquilableBase : IAlquilable
+    //Clase Abstracta que gestiona los atributos de un Item Alquilable
+    public abstract class ItemAlquilable : IAlquilable
     {
         public int id { get; set; }
         public string? nombreItem { get; set; }
@@ -16,7 +16,7 @@ namespace TitoAlquiler.Model.Entities
         public double tarifaDia { get; set; }
         public int categoriaId { get; set; }
         public virtual Categoria? categoria { get; set; }
-        public virtual ICollection<Alquiler>? Alquileres { get; set; }
+        public virtual ICollection<Alquileres>? Alquileres { get; set; }
         public DateTime? deletedAt { get; set; }
 
         public abstract void Alquilar();

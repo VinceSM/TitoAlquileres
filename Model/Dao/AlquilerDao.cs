@@ -14,7 +14,7 @@ namespace TitoAlquiler.Model.Dao
         /// Inserta un nuevo alquiler en la base de datos.
         /// </summary>
         /// <param name="alquiler">Objeto de tipo <see cref="Alquileres"/> que contiene los datos del alquiler a insertar.</param>
-        public void InsertAlquiler(Alquiler alquiler)
+        public void InsertAlquiler(Alquileres alquiler)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace TitoAlquiler.Model.Dao
         /// Actualiza un alquiler existente en la base de datos.
         /// </summary>
         /// <param name="alquiler">Objeto de tipo <see cref="Alquileres"/> que contiene los datos actualizados del alquiler.</param>
-        public void UpdateAlquiler(Alquiler alquiler)
+        public void UpdateAlquiler(Alquileres alquiler)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace TitoAlquiler.Model.Dao
         /// Elimina un alquiler de manera lógica (soft delete), marcando la fecha de eliminación.
         /// </summary>
         /// <param name="alquiler">Objeto de tipo <see cref="Alquileres"/> que representa el alquiler a eliminar.</param>
-        public void SoftDeleteAlquiler(Alquiler alquiler)
+        public void SoftDeleteAlquiler(Alquileres alquiler)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace TitoAlquiler.Model.Dao
         /// Obtiene todos los alquileres que no han sido eliminados de la base de datos.
         /// </summary>
         /// <returns>Lista de objetos <see cref="Alquileres"/> que representan los alquileres activos.</returns>
-        public List<Alquiler> LoadAllAlquileres()
+        public List<Alquileres> LoadAllAlquileres()
         {
             try
             {
@@ -103,7 +103,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="id">ID del alquiler a buscar.</param>
         /// <returns>Objeto <see cref="Alquileres"/> con los detalles del alquiler encontrado, o null si no se encuentra.</returns>
-        public Alquiler FindAlquilerById(int id)
+        public Alquileres FindAlquilerById(int id)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="usuarioId">ID del usuario cuyas rentas se desean consultar.</param>
         /// <returns>Lista de objetos <see cref="Alquileres"/> asociados con el usuario especificado.</returns>
-        public List<Alquiler> FindAlquileresByUsuario(int usuarioId)
+        public List<Alquileres> FindAlquileresByUsuario(int usuarioId)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="itemId">ID del ítem cuya renta se desea consultar.</param>
         /// <returns>Lista de objetos <see cref="Alquileres"/> asociados con el ítem especificado.</returns>
-        public List<Alquiler> FindAlquileresByItem(int itemId)
+        public List<Alquileres> FindAlquileresByItem(int itemId)
         {
             try
             {

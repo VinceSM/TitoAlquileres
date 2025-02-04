@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TitoAlquiler.Model.Entities
 {
-    public class Electronica : AlquilableBase
+    public class Electronica : ItemAlquilable
     {
         public string? resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
