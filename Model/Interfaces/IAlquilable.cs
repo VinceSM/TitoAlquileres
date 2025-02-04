@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TitoAlquiler.Model.Entities
+namespace TitoAlquiler.Model.Interfaces
 {
     //Interfaz general que maneja el comportamiento de Alquilar
     public interface IAlquilable

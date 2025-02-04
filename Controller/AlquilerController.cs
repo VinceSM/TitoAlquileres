@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.Model.Strategy;
 
 namespace TitoAlquiler.Controller
@@ -114,41 +115,40 @@ namespace TitoAlquiler.Controller
                 throw new ArgumentException("Item o Usuario no encontrado");
             }
 
-            bool esPremium = usuario.membresiaPremium;
+            int dias = (int)(fechaFin - fechaInicio).TotalDays + 1;
+            IEstrategiaPrecio estrategia = usuario.membresiaPremium ?
+                new EstrategiaMembresia() :
+                tipoEstrategia == "Estacion" ? new EstrategiaEstacion(ObtenerEstacionDelAño(fechaInicio)) :
+                new EstrategiaNormal();
 
-            var alquiler = new Alquileres
+            var alquiler = new Alquileres(estrategia)
             {
                 ItemID = itemId,
+                item = item,
                 UsuarioID = usuarioId,
+                usuario = usuario,
+                tiempoDias = dias,
                 fechaInicio = fechaInicio,
                 fechaFin = fechaFin,
-                tiempoDias = (int)(fechaFin - fechaInicio).TotalDays + 1,
-                tipoEstrategia = esPremium ? "EstrategiaPremium" : tipoEstrategia
+                tipoEstrategia = tipoEstrategia
             };
 
-            alquiler.precioTotal = CalcularPrecioTotal(alquiler, item);
-
+            alquiler.CalcularPrecio();
             CrearAlquiler(alquiler);
-
             return alquiler;
         }
 
-        /// <summary>
-        /// Calcula el precio total de un alquiler basándose en la estrategia seleccionada.
-        /// </summary>
-        /// <param name="alquiler">Objeto Alquileres que contiene la información del alquiler.</param>
-        /// <param name="item">Objeto Item que representa el artículo alquilado.</param>
-        /// <returns>El precio total calculado para el alquiler.</returns>
-        public double CalcularPrecioTotal(Alquileres alquiler, ItemAlquilable item)
+        private Estacion ObtenerEstacionDelAño(DateTime fecha)
         {
-            var usuario = usuarioController.ObtenerUsuarioPorId(alquiler.UsuarioID);
-            bool esPremium = usuario?.membresiaPremium ?? false;
-
-            IEstrategiaAlquiler estrategia = esPremium ?
-                new EstrategiaPremium() :
-                new EstrategiaEstacion();
-
-            return estrategia.CalcularPrecio(alquiler, item);
+            int mes = fecha.Month;
+            return mes switch
+            {
+                12 or 1 or 2 => Estacion.Verano,
+                3 or 4 or 5 => Estacion.Otoño,
+                6 or 7 or 8 => Estacion.Invierno,
+                9 or 10 or 11 => Estacion.Primavera,
+                _ => throw new ArgumentOutOfRangeException("Mes no válido")
+            };
         }
 
         /// <summary>
