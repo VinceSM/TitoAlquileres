@@ -21,9 +21,12 @@ namespace TitoAlquiler.Model.Entities
         public string? tipoEstrategia { get; set; }
         public DateTime? deletedAt { get; set; }
 
-        private IEstrategiaPrecio _estrategiaPrecio;
+        private IEstrategiaPrecio? _estrategiaPrecio;
 
-        // Constructor con estrategia por defecto
+        // Constructor vacío para EF Core
+        public Alquileres() { }
+
+        // Constructor con estrategia (uso opcional)
         public Alquileres(IEstrategiaPrecio estrategia)
         {
             _estrategiaPrecio = estrategia;
@@ -39,7 +42,10 @@ namespace TitoAlquiler.Model.Entities
         public void CalcularPrecio()
         {
             if (item == null) throw new Exception("No se ha asignado un ítem al alquiler.");
+            if (_estrategiaPrecio == null) throw new Exception("No se ha asignado una estrategia de precio.");
+
             precioTotal = _estrategiaPrecio.CalcularPrecioAlquiler(item.tarifaDia, tiempoDias);
         }
     }
+
 }

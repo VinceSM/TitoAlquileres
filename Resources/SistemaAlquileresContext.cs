@@ -17,8 +17,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -97,11 +97,7 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<Usuarios>().HasQueryFilter(u => u.deletedAt == null);
         modelBuilder.Entity<Alquileres>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
-        modelBuilder.Entity<Transporte>().HasQueryFilter(t => t.deletedAt == null);
-        modelBuilder.Entity<Electrodomestico>().HasQueryFilter(e => e.deletedAt == null);
-        modelBuilder.Entity<Indumentaria>().HasQueryFilter(i => i.deletedAt == null);
-        modelBuilder.Entity<Inmueble>().HasQueryFilter(i => i.deletedAt == null);
-        modelBuilder.Entity<Electronica>().HasQueryFilter(e => e.deletedAt == null);
+        modelBuilder.Entity<ItemAlquilable>().HasQueryFilter(i => i.deletedAt == null);
 
     }
 }
