@@ -18,7 +18,7 @@ namespace TitoAlquiler.View.Alquiler
         public FormAlquilar()
         {
             InitializeComponent();
-            CargarUsuarios();
+            this.Activated += FormAlquilar_Activated;
             CargarCategorias();
         }
 
@@ -210,6 +210,10 @@ namespace TitoAlquiler.View.Alquiler
         #endregion
 
         #region Usuarios
+        private void FormAlquilar_Activated(object sender, EventArgs e)
+        {
+            CargarUsuarios(); // Recarga la tabla cada vez que el formulario se activa
+        }
 
         /// <summary>
         /// Carga todos los usuarios en un DataGridView con información relevante.
@@ -288,10 +292,27 @@ namespace TitoAlquiler.View.Alquiler
 
         private void bntModificarUser_Click(object sender, EventArgs e)
         {
-            FormModificarUsuario formModificarUsuario = new FormModificarUsuario();
-            formModificarUsuario.Show();
-            this.Hide();
+            if (dataGridViewUsuarios.SelectedRows.Count > 0) 
+            {
+                int idUsuario = Convert.ToInt32(dataGridViewUsuarios.SelectedRows[0].Cells[0].Value);
+                var usuario = usuarioController.ObtenerUsuarioPorId(idUsuario);
+
+                if (usuario != null)
+                {
+                    FormModificarUsuario formModificarUsuario = new FormModificarUsuario(usuario);
+                    formModificarUsuario.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un usuario para modificar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
         #endregion
 
         #region Categorias

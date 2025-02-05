@@ -32,7 +32,6 @@
             panel1 = new Panel();
             lblTitle = new Label();
             lblCategoria = new Label();
-            comboBoxCategoria = new ComboBox();
             categoriaBindingSource = new BindingSource(components);
             txtNombreItem = new TextBox();
             txtMarca = new TextBox();
@@ -41,6 +40,7 @@
             btnCreaItem = new Button();
             linkVolver = new LinkLabel();
             txtDescripcion = new TextBox();
+            comboBoxCategoria = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             SuspendLayout();
@@ -76,19 +76,6 @@
             lblCategoria.Size = new Size(179, 22);
             lblCategoria.TabIndex = 1;
             lblCategoria.Text = "Seleccione Categoria";
-            // 
-            // comboBoxCategoria
-            // 
-            comboBoxCategoria.Anchor = AnchorStyles.Top;
-            comboBoxCategoria.BackColor = Color.LightBlue;
-            comboBoxCategoria.Cursor = Cursors.Hand;
-            comboBoxCategoria.DataSource = categoriaBindingSource;
-            comboBoxCategoria.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxCategoria.FormattingEnabled = true;
-            comboBoxCategoria.Location = new Point(357, 162);
-            comboBoxCategoria.Name = "comboBoxCategoria";
-            comboBoxCategoria.Size = new Size(220, 30);
-            comboBoxCategoria.TabIndex = 2;
             // 
             // categoriaBindingSource
             // 
@@ -178,12 +165,23 @@
             txtDescripcion.TabIndex = 9;
             txtDescripcion.Visible = false;
             // 
-            // creaItem
+            // comboBoxCategoria
+            // 
+            comboBoxCategoria.Anchor = AnchorStyles.Top;
+            comboBoxCategoria.DataSource = categoriaBindingSource;
+            comboBoxCategoria.FormattingEnabled = true;
+            comboBoxCategoria.Location = new Point(334, 162);
+            comboBoxCategoria.Name = "comboBoxCategoria";
+            comboBoxCategoria.Size = new Size(260, 25);
+            comboBoxCategoria.TabIndex = 10;
+            // 
+            // Crear
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(923, 533);
+            Controls.Add(comboBoxCategoria);
             Controls.Add(txtDescripcion);
             Controls.Add(linkVolver);
             Controls.Add(btnCreaItem);
@@ -191,11 +189,10 @@
             Controls.Add(txtModelo);
             Controls.Add(txtMarca);
             Controls.Add(txtNombreItem);
-            Controls.Add(comboBoxCategoria);
             Controls.Add(lblCategoria);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Name = "creaItem";
+            Name = "Crear";
             Text = "creaItem";
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
@@ -210,7 +207,6 @@
         private Panel panel1;
         private Label lblTitle;
         private Label lblCategoria;
-        private ComboBox comboBoxCategoria;
         private BindingSource categoriaBindingSource;
         private TextBox txtNombreItem;
         private TextBox txtMarca;
@@ -219,5 +215,6 @@
         private Button btnCreaItem;
         private LinkLabel linkVolver;
         private TextBox txtDescripcion;
+        private ComboBox comboBoxCategoria;
     }
 }

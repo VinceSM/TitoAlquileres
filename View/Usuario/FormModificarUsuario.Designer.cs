@@ -32,13 +32,13 @@
             panel1 = new Panel();
             lblTitle = new Label();
             groupBox1 = new GroupBox();
-            checkBoxMembresia = new CheckBox();
-            lblCreado = new Label();
-            textBoxCrearNombre = new TextBox();
-            btnCrearUsuario = new Button();
-            textBoxCrearDNI = new TextBox();
-            textBoxCrearEmail = new TextBox();
             btnModificar = new Button();
+            checkBoxMembresia = new CheckBox();
+            lblModificado = new Label();
+            textBoxNombre = new TextBox();
+            btnCrearUsuario = new Button();
+            textBoxDNI = new TextBox();
+            textBoxEmail = new TextBox();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -81,17 +81,34 @@
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(btnModificar);
             groupBox1.Controls.Add(checkBoxMembresia);
-            groupBox1.Controls.Add(lblCreado);
-            groupBox1.Controls.Add(textBoxCrearNombre);
+            groupBox1.Controls.Add(lblModificado);
+            groupBox1.Controls.Add(textBoxNombre);
             groupBox1.Controls.Add(btnCrearUsuario);
-            groupBox1.Controls.Add(textBoxCrearDNI);
-            groupBox1.Controls.Add(textBoxCrearEmail);
+            groupBox1.Controls.Add(textBoxDNI);
+            groupBox1.Controls.Add(textBoxEmail);
             groupBox1.Location = new Point(382, 111);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(360, 370);
             groupBox1.TabIndex = 14;
             groupBox1.TabStop = false;
             groupBox1.Text = "MODIFIQUE DATOS";
+            // 
+            // btnModificar
+            // 
+            btnModificar.Anchor = AnchorStyles.Bottom;
+            btnModificar.BackColor = Color.White;
+            btnModificar.Cursor = Cursors.Hand;
+            btnModificar.FlatStyle = FlatStyle.Flat;
+            btnModificar.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnModificar.ForeColor = Color.Blue;
+            btnModificar.Location = new Point(111, 311);
+            btnModificar.Margin = new Padding(3, 4, 3, 4);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(130, 49);
+            btnModificar.TabIndex = 13;
+            btnModificar.Text = "Modificar";
+            btnModificar.UseVisualStyleBackColor = false;
+            btnModificar.Click += btnModificar_Click;
             // 
             // checkBoxMembresia
             // 
@@ -106,29 +123,29 @@
             checkBoxMembresia.Text = "Membresia";
             checkBoxMembresia.UseVisualStyleBackColor = true;
             // 
-            // lblCreado
+            // lblModificado
             // 
-            lblCreado.Anchor = AnchorStyles.Top;
-            lblCreado.AutoSize = true;
-            lblCreado.Font = new Font("Times New Roman", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblCreado.Location = new Point(111, 205);
-            lblCreado.Name = "lblCreado";
-            lblCreado.Size = new Size(101, 22);
-            lblCreado.TabIndex = 8;
-            lblCreado.Text = "-------------";
+            lblModificado.Anchor = AnchorStyles.Top;
+            lblModificado.AutoSize = true;
+            lblModificado.Font = new Font("Times New Roman", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblModificado.Location = new Point(111, 205);
+            lblModificado.Name = "lblModificado";
+            lblModificado.Size = new Size(101, 22);
+            lblModificado.TabIndex = 8;
+            lblModificado.Text = "-------------";
             // 
-            // textBoxCrearNombre
+            // textBoxNombre
             // 
-            textBoxCrearNombre.Anchor = AnchorStyles.Top;
-            textBoxCrearNombre.BorderStyle = BorderStyle.FixedSingle;
-            textBoxCrearNombre.Cursor = Cursors.IBeam;
-            textBoxCrearNombre.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCrearNombre.Location = new Point(68, 58);
-            textBoxCrearNombre.Margin = new Padding(3, 4, 3, 4);
-            textBoxCrearNombre.Name = "textBoxCrearNombre";
-            textBoxCrearNombre.PlaceholderText = "Nombre";
-            textBoxCrearNombre.Size = new Size(231, 28);
-            textBoxCrearNombre.TabIndex = 5;
+            textBoxNombre.Anchor = AnchorStyles.Top;
+            textBoxNombre.BorderStyle = BorderStyle.FixedSingle;
+            textBoxNombre.Cursor = Cursors.IBeam;
+            textBoxNombre.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxNombre.Location = new Point(68, 58);
+            textBoxNombre.Margin = new Padding(3, 4, 3, 4);
+            textBoxNombre.Name = "textBoxNombre";
+            textBoxNombre.PlaceholderText = "Nombre";
+            textBoxNombre.Size = new Size(231, 28);
+            textBoxNombre.TabIndex = 5;
             // 
             // btnCrearUsuario
             // 
@@ -146,47 +163,31 @@
             btnCrearUsuario.Text = "Crear";
             btnCrearUsuario.UseVisualStyleBackColor = false;
             // 
-            // textBoxCrearDNI
+            // textBoxDNI
             // 
-            textBoxCrearDNI.Anchor = AnchorStyles.Top;
-            textBoxCrearDNI.BorderStyle = BorderStyle.FixedSingle;
-            textBoxCrearDNI.Cursor = Cursors.IBeam;
-            textBoxCrearDNI.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCrearDNI.Location = new Point(68, 129);
-            textBoxCrearDNI.Margin = new Padding(3, 4, 3, 4);
-            textBoxCrearDNI.Name = "textBoxCrearDNI";
-            textBoxCrearDNI.PlaceholderText = "DNI";
-            textBoxCrearDNI.Size = new Size(231, 28);
-            textBoxCrearDNI.TabIndex = 11;
+            textBoxDNI.Anchor = AnchorStyles.Top;
+            textBoxDNI.BorderStyle = BorderStyle.FixedSingle;
+            textBoxDNI.Cursor = Cursors.IBeam;
+            textBoxDNI.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxDNI.Location = new Point(68, 129);
+            textBoxDNI.Margin = new Padding(3, 4, 3, 4);
+            textBoxDNI.Name = "textBoxDNI";
+            textBoxDNI.PlaceholderText = "DNI";
+            textBoxDNI.Size = new Size(231, 28);
+            textBoxDNI.TabIndex = 11;
             // 
-            // textBoxCrearEmail
+            // textBoxEmail
             // 
-            textBoxCrearEmail.Anchor = AnchorStyles.Top;
-            textBoxCrearEmail.BorderStyle = BorderStyle.FixedSingle;
-            textBoxCrearEmail.Cursor = Cursors.IBeam;
-            textBoxCrearEmail.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCrearEmail.Location = new Point(68, 93);
-            textBoxCrearEmail.Margin = new Padding(3, 4, 3, 4);
-            textBoxCrearEmail.Name = "textBoxCrearEmail";
-            textBoxCrearEmail.PlaceholderText = "Email";
-            textBoxCrearEmail.Size = new Size(231, 28);
-            textBoxCrearEmail.TabIndex = 6;
-            // 
-            // btnModificar
-            // 
-            btnModificar.Anchor = AnchorStyles.Bottom;
-            btnModificar.BackColor = Color.White;
-            btnModificar.Cursor = Cursors.Hand;
-            btnModificar.FlatStyle = FlatStyle.Flat;
-            btnModificar.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnModificar.ForeColor = Color.Blue;
-            btnModificar.Location = new Point(111, 311);
-            btnModificar.Margin = new Padding(3, 4, 3, 4);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(130, 49);
-            btnModificar.TabIndex = 13;
-            btnModificar.Text = "Modificar";
-            btnModificar.UseVisualStyleBackColor = false;
+            textBoxEmail.Anchor = AnchorStyles.Top;
+            textBoxEmail.BorderStyle = BorderStyle.FixedSingle;
+            textBoxEmail.Cursor = Cursors.IBeam;
+            textBoxEmail.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxEmail.Location = new Point(68, 93);
+            textBoxEmail.Margin = new Padding(3, 4, 3, 4);
+            textBoxEmail.Name = "textBoxEmail";
+            textBoxEmail.PlaceholderText = "Email";
+            textBoxEmail.Size = new Size(231, 28);
+            textBoxEmail.TabIndex = 6;
             // 
             // FormModificarUsuario
             // 
@@ -215,11 +216,11 @@
         private Label lblTitle;
         private GroupBox groupBox1;
         private CheckBox checkBoxMembresia;
-        private Label lblCreado;
-        private TextBox textBoxCrearNombre;
+        private Label lblModificado;
+        private TextBox textBoxNombre;
         private Button btnCrearUsuario;
-        private TextBox textBoxCrearDNI;
-        private TextBox textBoxCrearEmail;
+        private TextBox textBoxDNI;
+        private TextBox textBoxEmail;
         private Button btnModificar;
     }
 }
