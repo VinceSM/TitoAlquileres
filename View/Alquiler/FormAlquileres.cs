@@ -61,6 +61,8 @@ namespace TitoAlquiler.View.Alquiler
                 a.id,
                 usuario = a.usuario?.nombre,
                 item = a.item?.nombreItem,
+                marca = a.item?.marca,
+                modelo = a.item?.modelo,
                 a.tiempoDias,
                 a.fechaInicio,
                 a.fechaFin,
