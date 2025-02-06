@@ -34,7 +34,6 @@
             groupBox1 = new GroupBox();
             btnModificar = new Button();
             checkBoxMembresia = new CheckBox();
-            lblModificado = new Label();
             textBoxNombre = new TextBox();
             btnCrearUsuario = new Button();
             textBoxDNI = new TextBox();
@@ -81,7 +80,6 @@
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(btnModificar);
             groupBox1.Controls.Add(checkBoxMembresia);
-            groupBox1.Controls.Add(lblModificado);
             groupBox1.Controls.Add(textBoxNombre);
             groupBox1.Controls.Add(btnCrearUsuario);
             groupBox1.Controls.Add(textBoxDNI);
@@ -122,17 +120,6 @@
             checkBoxMembresia.TabIndex = 12;
             checkBoxMembresia.Text = "Membresia";
             checkBoxMembresia.UseVisualStyleBackColor = true;
-            // 
-            // lblModificado
-            // 
-            lblModificado.Anchor = AnchorStyles.Top;
-            lblModificado.AutoSize = true;
-            lblModificado.Font = new Font("Times New Roman", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblModificado.Location = new Point(111, 205);
-            lblModificado.Name = "lblModificado";
-            lblModificado.Size = new Size(101, 22);
-            lblModificado.TabIndex = 8;
-            lblModificado.Text = "-------------";
             // 
             // textBoxNombre
             // 
@@ -216,7 +203,6 @@
         private Label lblTitle;
         private GroupBox groupBox1;
         private CheckBox checkBoxMembresia;
-        private Label lblModificado;
         private TextBox textBoxNombre;
         private Button btnCrearUsuario;
         private TextBox textBoxDNI;
