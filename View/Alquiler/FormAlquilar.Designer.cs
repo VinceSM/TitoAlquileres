@@ -317,7 +317,7 @@
             btnCrearUsuario.Anchor = AnchorStyles.Top;
             btnCrearUsuario.Cursor = Cursors.Hand;
             btnCrearUsuario.Font = new Font("Tahoma", 12F);
-            btnCrearUsuario.Location = new Point(102, 120);
+            btnCrearUsuario.Location = new Point(86, 127);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(140, 29);
             btnCrearUsuario.TabIndex = 10;
@@ -430,7 +430,7 @@
             btnSoftDelete.Anchor = AnchorStyles.Top;
             btnSoftDelete.Cursor = Cursors.Hand;
             btnSoftDelete.Font = new Font("Tahoma", 12F);
-            btnSoftDelete.Location = new Point(274, 120);
+            btnSoftDelete.Location = new Point(232, 127);
             btnSoftDelete.Name = "btnSoftDelete";
             btnSoftDelete.Size = new Size(134, 29);
             btnSoftDelete.TabIndex = 13;
@@ -491,7 +491,7 @@
             // 
             bntModificarUser.Anchor = AnchorStyles.Top;
             bntModificarUser.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bntModificarUser.Location = new Point(442, 120);
+            bntModificarUser.Location = new Point(372, 127);
             bntModificarUser.Name = "bntModificarUser";
             bntModificarUser.Size = new Size(143, 29);
             bntModificarUser.TabIndex = 18;

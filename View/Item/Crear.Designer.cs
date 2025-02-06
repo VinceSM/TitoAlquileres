@@ -39,8 +39,22 @@
             txtTarifa = new TextBox();
             btnCreaItem = new Button();
             linkVolver = new LinkLabel();
-            txtDescripcion = new TextBox();
             comboBoxCategoria = new ComboBox();
+            lblTransporte = new Label();
+            lblInmuebles = new Label();
+            lblIndumentaria = new Label();
+            lblElectronicas = new Label();
+            lblElectrodomesticos = new Label();
+            txtWatss = new TextBox();
+            txtTipoElec = new TextBox();
+            txtResolucion = new TextBox();
+            txtAlmacenamiento = new TextBox();
+            txtTalla = new TextBox();
+            txtMaterial = new TextBox();
+            txtMetros = new TextBox();
+            txtUbicacion = new TextBox();
+            txtCapacidad = new TextBox();
+            txtCombustible = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             SuspendLayout();
@@ -154,26 +168,209 @@
             linkVolver.Text = "Volver";
             linkVolver.LinkClicked += linkVolver_LinkClicked;
             // 
-            // txtDescripcion
-            // 
-            txtDescripcion.Anchor = AnchorStyles.Top;
-            txtDescripcion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDescripcion.Location = new Point(264, 365);
-            txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.PlaceholderText = "descripcion";
-            txtDescripcion.Size = new Size(388, 30);
-            txtDescripcion.TabIndex = 9;
-            txtDescripcion.Visible = false;
-            // 
             // comboBoxCategoria
             // 
             comboBoxCategoria.Anchor = AnchorStyles.Top;
+            comboBoxCategoria.BackColor = Color.LightBlue;
+            comboBoxCategoria.Cursor = Cursors.Hand;
             comboBoxCategoria.DataSource = categoriaBindingSource;
+            comboBoxCategoria.FlatStyle = FlatStyle.Flat;
+            comboBoxCategoria.Font = new Font("Segoe UI", 10F);
             comboBoxCategoria.FormattingEnabled = true;
-            comboBoxCategoria.Location = new Point(334, 162);
+            comboBoxCategoria.Location = new Point(357, 162);
             comboBoxCategoria.Name = "comboBoxCategoria";
-            comboBoxCategoria.Size = new Size(260, 25);
-            comboBoxCategoria.TabIndex = 10;
+            comboBoxCategoria.Size = new Size(220, 31);
+            comboBoxCategoria.TabIndex = 12;
+            // 
+            // lblTransporte
+            // 
+            lblTransporte.Anchor = AnchorStyles.Top;
+            lblTransporte.AutoSize = true;
+            lblTransporte.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTransporte.Location = new Point(709, 171);
+            lblTransporte.Name = "lblTransporte";
+            lblTransporte.Size = new Size(95, 22);
+            lblTransporte.TabIndex = 13;
+            lblTransporte.Text = "Transporte";
+            lblTransporte.Visible = false;
+            // 
+            // lblInmuebles
+            // 
+            lblInmuebles.Anchor = AnchorStyles.Top;
+            lblInmuebles.AutoSize = true;
+            lblInmuebles.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblInmuebles.Location = new Point(714, 171);
+            lblInmuebles.Name = "lblInmuebles";
+            lblInmuebles.Size = new Size(90, 22);
+            lblInmuebles.TabIndex = 14;
+            lblInmuebles.Text = "Inmuebles";
+            lblInmuebles.Visible = false;
+            // 
+            // lblIndumentaria
+            // 
+            lblIndumentaria.Anchor = AnchorStyles.Top;
+            lblIndumentaria.AutoSize = true;
+            lblIndumentaria.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIndumentaria.Location = new Point(709, 171);
+            lblIndumentaria.Name = "lblIndumentaria";
+            lblIndumentaria.Size = new Size(112, 22);
+            lblIndumentaria.TabIndex = 15;
+            lblIndumentaria.Text = "Indumentaria";
+            lblIndumentaria.Visible = false;
+            // 
+            // lblElectronicas
+            // 
+            lblElectronicas.Anchor = AnchorStyles.Top;
+            lblElectronicas.AutoSize = true;
+            lblElectronicas.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblElectronicas.Location = new Point(712, 171);
+            lblElectronicas.Name = "lblElectronicas";
+            lblElectronicas.Size = new Size(109, 22);
+            lblElectronicas.TabIndex = 16;
+            lblElectronicas.Text = "Electronicas";
+            lblElectronicas.Visible = false;
+            // 
+            // lblElectrodomesticos
+            // 
+            lblElectrodomesticos.Anchor = AnchorStyles.Top;
+            lblElectrodomesticos.AutoSize = true;
+            lblElectrodomesticos.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblElectrodomesticos.Location = new Point(690, 166);
+            lblElectrodomesticos.Name = "lblElectrodomesticos";
+            lblElectrodomesticos.Size = new Size(157, 22);
+            lblElectrodomesticos.TabIndex = 17;
+            lblElectrodomesticos.Text = "Electrodomesticos";
+            lblElectrodomesticos.Visible = false;
+            // 
+            // txtWatss
+            // 
+            txtWatss.Anchor = AnchorStyles.Top;
+            txtWatss.Cursor = Cursors.IBeam;
+            txtWatss.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtWatss.Location = new Point(649, 221);
+            txtWatss.Name = "txtWatss";
+            txtWatss.PlaceholderText = "potencia-watts";
+            txtWatss.Size = new Size(220, 30);
+            txtWatss.TabIndex = 18;
+            txtWatss.Tag = "";
+            txtWatss.Visible = false;
+            // 
+            // txtTipoElec
+            // 
+            txtTipoElec.Anchor = AnchorStyles.Top;
+            txtTipoElec.Cursor = Cursors.IBeam;
+            txtTipoElec.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTipoElec.Location = new Point(649, 257);
+            txtTipoElec.Name = "txtTipoElec";
+            txtTipoElec.PlaceholderText = "tipo";
+            txtTipoElec.Size = new Size(220, 30);
+            txtTipoElec.TabIndex = 19;
+            txtTipoElec.Tag = "";
+            txtTipoElec.Visible = false;
+            // 
+            // txtResolucion
+            // 
+            txtResolucion.Anchor = AnchorStyles.Top;
+            txtResolucion.Cursor = Cursors.IBeam;
+            txtResolucion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtResolucion.Location = new Point(649, 221);
+            txtResolucion.Name = "txtResolucion";
+            txtResolucion.PlaceholderText = "resolucion";
+            txtResolucion.Size = new Size(220, 30);
+            txtResolucion.TabIndex = 20;
+            txtResolucion.Tag = "";
+            txtResolucion.Visible = false;
+            // 
+            // txtAlmacenamiento
+            // 
+            txtAlmacenamiento.Anchor = AnchorStyles.Top;
+            txtAlmacenamiento.Cursor = Cursors.IBeam;
+            txtAlmacenamiento.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtAlmacenamiento.Location = new Point(649, 257);
+            txtAlmacenamiento.Name = "txtAlmacenamiento";
+            txtAlmacenamiento.PlaceholderText = "almacenamiento-GB";
+            txtAlmacenamiento.Size = new Size(220, 30);
+            txtAlmacenamiento.TabIndex = 21;
+            txtAlmacenamiento.Tag = "";
+            txtAlmacenamiento.Visible = false;
+            // 
+            // txtTalla
+            // 
+            txtTalla.Anchor = AnchorStyles.Top;
+            txtTalla.Cursor = Cursors.IBeam;
+            txtTalla.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTalla.Location = new Point(649, 221);
+            txtTalla.Name = "txtTalla";
+            txtTalla.PlaceholderText = "talle";
+            txtTalla.Size = new Size(220, 30);
+            txtTalla.TabIndex = 22;
+            txtTalla.Tag = "";
+            txtTalla.Visible = false;
+            // 
+            // txtMaterial
+            // 
+            txtMaterial.Anchor = AnchorStyles.Top;
+            txtMaterial.Cursor = Cursors.IBeam;
+            txtMaterial.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMaterial.Location = new Point(649, 257);
+            txtMaterial.Name = "txtMaterial";
+            txtMaterial.PlaceholderText = "material-tela";
+            txtMaterial.Size = new Size(220, 30);
+            txtMaterial.TabIndex = 23;
+            txtMaterial.Tag = "";
+            txtMaterial.Visible = false;
+            // 
+            // txtMetros
+            // 
+            txtMetros.Anchor = AnchorStyles.Top;
+            txtMetros.Cursor = Cursors.IBeam;
+            txtMetros.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMetros.Location = new Point(649, 221);
+            txtMetros.Name = "txtMetros";
+            txtMetros.PlaceholderText = "metros-cuadrados";
+            txtMetros.Size = new Size(220, 30);
+            txtMetros.TabIndex = 24;
+            txtMetros.Tag = "";
+            txtMetros.Visible = false;
+            // 
+            // txtUbicacion
+            // 
+            txtUbicacion.Anchor = AnchorStyles.Top;
+            txtUbicacion.Cursor = Cursors.IBeam;
+            txtUbicacion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUbicacion.Location = new Point(649, 257);
+            txtUbicacion.Name = "txtUbicacion";
+            txtUbicacion.PlaceholderText = "ubicacion";
+            txtUbicacion.Size = new Size(220, 30);
+            txtUbicacion.TabIndex = 25;
+            txtUbicacion.Tag = "";
+            txtUbicacion.Visible = false;
+            // 
+            // txtCapacidad
+            // 
+            txtCapacidad.Anchor = AnchorStyles.Top;
+            txtCapacidad.Cursor = Cursors.IBeam;
+            txtCapacidad.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtCapacidad.Location = new Point(649, 221);
+            txtCapacidad.Name = "txtCapacidad";
+            txtCapacidad.PlaceholderText = "cant-pasajeros";
+            txtCapacidad.Size = new Size(220, 30);
+            txtCapacidad.TabIndex = 26;
+            txtCapacidad.Tag = "";
+            txtCapacidad.Visible = false;
+            // 
+            // txtCombustible
+            // 
+            txtCombustible.Anchor = AnchorStyles.Top;
+            txtCombustible.Cursor = Cursors.IBeam;
+            txtCombustible.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtCombustible.Location = new Point(649, 257);
+            txtCombustible.Name = "txtCombustible";
+            txtCombustible.PlaceholderText = "tipo-combustible";
+            txtCombustible.Size = new Size(220, 30);
+            txtCombustible.TabIndex = 27;
+            txtCombustible.Tag = "";
+            txtCombustible.Visible = false;
             // 
             // Crear
             // 
@@ -181,8 +378,22 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(923, 533);
+            Controls.Add(txtCombustible);
+            Controls.Add(txtCapacidad);
+            Controls.Add(txtUbicacion);
+            Controls.Add(txtMetros);
+            Controls.Add(txtMaterial);
+            Controls.Add(txtTalla);
+            Controls.Add(txtAlmacenamiento);
+            Controls.Add(txtResolucion);
+            Controls.Add(txtTipoElec);
+            Controls.Add(txtWatss);
+            Controls.Add(lblElectrodomesticos);
+            Controls.Add(lblElectronicas);
+            Controls.Add(lblIndumentaria);
+            Controls.Add(lblInmuebles);
+            Controls.Add(lblTransporte);
             Controls.Add(comboBoxCategoria);
-            Controls.Add(txtDescripcion);
             Controls.Add(linkVolver);
             Controls.Add(btnCreaItem);
             Controls.Add(txtTarifa);
@@ -214,7 +425,21 @@
         private TextBox txtTarifa;
         private Button btnCreaItem;
         private LinkLabel linkVolver;
-        private TextBox txtDescripcion;
         private ComboBox comboBoxCategoria;
+        private Label lblTransporte;
+        private Label lblInmuebles;
+        private Label lblIndumentaria;
+        private Label lblElectronicas;
+        private Label lblElectrodomesticos;
+        private TextBox txtWatss;
+        private TextBox txtTipoElec;
+        private TextBox txtResolucion;
+        private TextBox txtAlmacenamiento;
+        private TextBox txtTalla;
+        private TextBox txtMaterial;
+        private TextBox txtMetros;
+        private TextBox txtUbicacion;
+        private TextBox txtCapacidad;
+        private TextBox txtCombustible;
     }
 }
