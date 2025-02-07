@@ -80,21 +80,12 @@ namespace TitoAlquiler.Model.Dao
         /// <returns>Lista de objetos <see cref="Alquileres"/> que representan los alquileres activos.</returns>
         public List<Alquileres> LoadAllAlquileres()
         {
-            try
+            using (var db = new SistemaAlquilerContext())
             {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    return db.Alquileres
-                        .Where(x => x.deletedAt == null)
-                        .Include(x => x.item)
-                        .Include(x => x.usuario)
-                        .ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading all alquileres: {ex.Message}");
-                throw;
+                return db.Alquileres
+                         .Include(a => a.usuario) // Cargar usuario
+                         .Include(a => a.item)    // Cargar ítem asociado
+                         .ToList();
             }
         }
 

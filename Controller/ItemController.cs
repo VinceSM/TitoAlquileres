@@ -148,6 +148,16 @@ namespace TitoAlquiler.Controller
                 return false;
             }
         }
+
+        public string getMarca(string marca)
+        {
+            return _itemDao.getMarca(marca);
+        }
+
+        public string getModelo(string modelo)
+        {
+            return _itemDao.getModelo(modelo);
+        }
     }
 }
 

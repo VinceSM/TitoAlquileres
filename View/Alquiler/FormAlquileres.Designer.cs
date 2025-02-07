@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             labelTitulo = new Label();
             dataGridViewAlquileres = new DataGridView();
@@ -37,17 +36,15 @@
             sistemaAlquilerContextBindingSource = new BindingSource(components);
             btnCerrarAlquiler = new Button();
             linkLabelVolver = new LinkLabel();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             item = new DataGridViewTextBoxColumn();
             usuario = new DataGridViewTextBoxColumn();
-            tiempoDiasDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fechaInicioDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fechaFinDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            precioTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            tipoEstrategiaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            deletedAtDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dias = new DataGridViewTextBoxColumn();
+            inicio = new DataGridViewTextBoxColumn();
+            fin = new DataGridViewTextBoxColumn();
+            total = new DataGridViewTextBoxColumn();
+            estrategia = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlquileres).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alquileresBindingSource).BeginInit();
@@ -72,7 +69,7 @@
             labelTitulo.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelTitulo.Location = new Point(643, 42);
             labelTitulo.Name = "labelTitulo";
-            labelTitulo.Size = new Size(163, 38);
+            labelTitulo.Size = new Size(134, 31);
             labelTitulo.TabIndex = 0;
             labelTitulo.Text = "Alquileres";
             // 
@@ -81,12 +78,10 @@
             dataGridViewAlquileres.AllowUserToAddRows = false;
             dataGridViewAlquileres.AllowUserToDeleteRows = false;
             dataGridViewAlquileres.Anchor = AnchorStyles.Top;
-            dataGridViewAlquileres.AutoGenerateColumns = false;
             dataGridViewAlquileres.BackgroundColor = Color.LightBlue;
             dataGridViewAlquileres.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, marca, modelo, item, usuario, tiempoDiasDataGridViewTextBoxColumn, fechaInicioDataGridViewTextBoxColumn, fechaFinDataGridViewTextBoxColumn, precioTotalDataGridViewTextBoxColumn, tipoEstrategiaDataGridViewTextBoxColumn, deletedAtDataGridViewTextBoxColumn });
+            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { marca, modelo, item, usuario, dias, inicio, fin, total, estrategia });
             dataGridViewAlquileres.Cursor = Cursors.Hand;
-            dataGridViewAlquileres.DataSource = alquileresBindingSource;
             dataGridViewAlquileres.Location = new Point(58, 170);
             dataGridViewAlquileres.Margin = new Padding(4);
             dataGridViewAlquileres.Name = "dataGridViewAlquileres";
@@ -127,21 +122,11 @@
             linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkLabelVolver.Location = new Point(12, 124);
             linkLabelVolver.Name = "linkLabelVolver";
-            linkLabelVolver.Size = new Size(66, 24);
+            linkLabelVolver.Size = new Size(54, 19);
             linkLabelVolver.TabIndex = 3;
             linkLabelVolver.TabStop = true;
             linkLabelVolver.Text = "Volver";
             linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            idDataGridViewTextBoxColumn.HeaderText = "id";
-            idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            idDataGridViewTextBoxColumn.Visible = false;
-            idDataGridViewTextBoxColumn.Width = 125;
             // 
             // marca
             // 
@@ -177,67 +162,39 @@
             usuario.ReadOnly = true;
             usuario.Width = 125;
             // 
-            // tiempoDiasDataGridViewTextBoxColumn
+            // dias
             // 
-            tiempoDiasDataGridViewTextBoxColumn.DataPropertyName = "tiempoDias";
-            tiempoDiasDataGridViewTextBoxColumn.HeaderText = "DIAS";
-            tiempoDiasDataGridViewTextBoxColumn.MinimumWidth = 6;
-            tiempoDiasDataGridViewTextBoxColumn.Name = "tiempoDiasDataGridViewTextBoxColumn";
-            tiempoDiasDataGridViewTextBoxColumn.ReadOnly = true;
-            tiempoDiasDataGridViewTextBoxColumn.Width = 125;
+            dias.HeaderText = "DIAS";
+            dias.Name = "dias";
+            dias.ReadOnly = true;
             // 
-            // fechaInicioDataGridViewTextBoxColumn
+            // inicio
             // 
-            fechaInicioDataGridViewTextBoxColumn.DataPropertyName = "fechaInicio";
-            fechaInicioDataGridViewTextBoxColumn.HeaderText = "INICIO";
-            fechaInicioDataGridViewTextBoxColumn.MinimumWidth = 6;
-            fechaInicioDataGridViewTextBoxColumn.Name = "fechaInicioDataGridViewTextBoxColumn";
-            fechaInicioDataGridViewTextBoxColumn.ReadOnly = true;
-            fechaInicioDataGridViewTextBoxColumn.Width = 125;
+            inicio.HeaderText = "INICIO";
+            inicio.Name = "inicio";
+            inicio.ReadOnly = true;
             // 
-            // fechaFinDataGridViewTextBoxColumn
+            // fin
             // 
-            fechaFinDataGridViewTextBoxColumn.DataPropertyName = "fechaFin";
-            fechaFinDataGridViewTextBoxColumn.HeaderText = "FIN";
-            fechaFinDataGridViewTextBoxColumn.MinimumWidth = 6;
-            fechaFinDataGridViewTextBoxColumn.Name = "fechaFinDataGridViewTextBoxColumn";
-            fechaFinDataGridViewTextBoxColumn.ReadOnly = true;
-            fechaFinDataGridViewTextBoxColumn.Width = 125;
+            fin.HeaderText = "FIN";
+            fin.Name = "fin";
+            fin.ReadOnly = true;
             // 
-            // precioTotalDataGridViewTextBoxColumn
+            // total
             // 
-            precioTotalDataGridViewTextBoxColumn.DataPropertyName = "precioTotal";
-            dataGridViewCellStyle1.Format = "C2";
-            dataGridViewCellStyle1.NullValue = null;
-            precioTotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            precioTotalDataGridViewTextBoxColumn.HeaderText = "TOTAL";
-            precioTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
-            precioTotalDataGridViewTextBoxColumn.Name = "precioTotalDataGridViewTextBoxColumn";
-            precioTotalDataGridViewTextBoxColumn.ReadOnly = true;
-            precioTotalDataGridViewTextBoxColumn.Width = 125;
+            total.HeaderText = "TOTAL";
+            total.Name = "total";
+            total.ReadOnly = true;
             // 
-            // tipoEstrategiaDataGridViewTextBoxColumn
+            // estrategia
             // 
-            tipoEstrategiaDataGridViewTextBoxColumn.DataPropertyName = "tipoEstrategia";
-            tipoEstrategiaDataGridViewTextBoxColumn.HeaderText = "ESTRATEGIA";
-            tipoEstrategiaDataGridViewTextBoxColumn.MinimumWidth = 6;
-            tipoEstrategiaDataGridViewTextBoxColumn.Name = "tipoEstrategiaDataGridViewTextBoxColumn";
-            tipoEstrategiaDataGridViewTextBoxColumn.ReadOnly = true;
-            tipoEstrategiaDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // deletedAtDataGridViewTextBoxColumn
-            // 
-            deletedAtDataGridViewTextBoxColumn.DataPropertyName = "deletedAt";
-            deletedAtDataGridViewTextBoxColumn.HeaderText = "deletedAt";
-            deletedAtDataGridViewTextBoxColumn.MinimumWidth = 6;
-            deletedAtDataGridViewTextBoxColumn.Name = "deletedAtDataGridViewTextBoxColumn";
-            deletedAtDataGridViewTextBoxColumn.ReadOnly = true;
-            deletedAtDataGridViewTextBoxColumn.Visible = false;
-            deletedAtDataGridViewTextBoxColumn.Width = 125;
+            estrategia.HeaderText = "ESTRATEGIA";
+            estrategia.Name = "estrategia";
+            estrategia.ReadOnly = true;
             // 
             // FormAlquileres
             // 
-            AutoScaleDimensions = new SizeF(11F, 22F);
+            AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 557);
@@ -271,16 +228,14 @@
         private DataGridViewTextBoxColumn itemIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn usuarioIDDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn descuentoDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn marca;
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn item;
         private DataGridViewTextBoxColumn usuario;
-        private DataGridViewTextBoxColumn tiempoDiasDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fechaInicioDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fechaFinDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn precioTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn tipoEstrategiaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn deletedAtDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dias;
+        private DataGridViewTextBoxColumn inicio;
+        private DataGridViewTextBoxColumn fin;
+        private DataGridViewTextBoxColumn total;
+        private DataGridViewTextBoxColumn estrategia;
     }
 }

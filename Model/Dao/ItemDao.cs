@@ -168,6 +168,28 @@ namespace TitoAlquiler.Model.Dao
                 throw;
             }
         }
+
+        public string getMarca(string nombre)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.Items
+                         .Where(i => i.nombreItem == nombre)
+                         .Select(i => i.marca)
+                         .FirstOrDefault() ?? "Marca no encontrada";
+            }
+        }
+
+        public string getModelo(string nombre)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.Items
+                         .Where(i => i.nombreItem == nombre)
+                         .Select(i => i.modelo)
+                         .FirstOrDefault() ?? "Modelo no encontrado";
+            }
+        }
     }
 }
 

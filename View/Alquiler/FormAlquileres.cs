@@ -15,6 +15,7 @@ namespace TitoAlquiler.View.Alquiler
     public partial class FormAlquileres : Form
     {
         private AlquilerController alquilerController;
+        private ItemController itemController;
 
         public FormAlquileres()
         {
@@ -55,24 +56,40 @@ namespace TitoAlquiler.View.Alquiler
         /// </summary>
         private void LoadAlquileres()
         {
-            var alquileres = alquilerController.ObtenerTodosLosAlquileres();
-            var alquileresView = alquileres.Select(a => new
+            try
             {
-                a.id,
-                usuario = a.usuario?.nombre,
-                item = a.item?.nombreItem,
-                marca = a.item?.marca,
-                modelo = a.item?.modelo,
-                a.tiempoDias,
-                a.fechaInicio,
-                a.fechaFin,
-                a.precioTotal,
-                a.tipoEstrategia,
-                a.deletedAt
-            }).ToList();
+                var alquileres = alquilerController.ObtenerTodosLosAlquileres();
 
-            dataGridViewAlquileres.DataSource = alquileresView;
+                if (alquileres == null || !alquileres.Any())
+                {
+                    dataGridViewAlquileres.Rows.Clear();
+                    MessageBox.Show("No se encontraron alquileres.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                dataGridViewAlquileres.Rows.Clear();
+
+                foreach (var alquiler in alquileres)
+                {
+                    dataGridViewAlquileres.Rows.Add(
+                        alquiler.item?.marca ?? "Sin marca",
+                        alquiler.item?.modelo ?? "Sin modelo",
+                        alquiler.usuario?.nombre ?? "Sin usuario",
+                        alquiler.item?.nombreItem ?? "Sin nombre",
+                        alquiler.tiempoDias,
+                        alquiler.fechaInicio.ToString("yyyy-MM-dd"),
+                        alquiler.fechaFin.ToString("yyyy-MM-dd"),
+                        alquiler.precioTotal,
+                        alquiler.tipoEstrategia
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar alquileres: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         /// <summary>
         /// Cierra el alquiler seleccionado en el DataGridView.
