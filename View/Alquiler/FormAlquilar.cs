@@ -292,7 +292,7 @@ namespace TitoAlquiler.View.Alquiler
 
         private void bntModificarUser_Click(object sender, EventArgs e)
         {
-            if (dataGridViewUsuarios.SelectedRows.Count > 0) 
+            if (dataGridViewUsuarios.SelectedRows.Count > 0)
             {
                 int idUsuario = Convert.ToInt32(dataGridViewUsuarios.SelectedRows[0].Cells[0].Value);
                 var usuario = usuarioController.ObtenerUsuarioPorId(idUsuario);
@@ -424,6 +424,61 @@ namespace TitoAlquiler.View.Alquiler
         }
         #endregion
 
+        private void btnVerDetalle_Click_1(object sender, EventArgs e)
+        {
+            // Verifica si hay una fila seleccionada
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un ítem para ver su detalle.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Obtiene el ID del ítem seleccionado
+            int itemId = Convert.ToInt32(dataGridViewItems.SelectedRows[0].Cells["ID"].Value);
+
+            // Obtiene los detalles del ítem desde el controlador
+            var item = itemController.ObtenerItemPorId(itemId);
+
+            if (item == null)
+            {
+                MessageBox.Show("No se encontraron detalles para el ítem seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Comienza a construir el mensaje con los detalles comunes
+            string mensajeDetalle = $"ID: {item.id}\n" +
+                                    $"Nombre: {item.nombreItem}\n";
+
+            // Agrega los detalles específicos según el tipo de ítem
+            if (item is Transporte transporte)
+            {
+                mensajeDetalle += $"Capacidad de Pasajeros: {transporte.capacidadPasajeros}\n" +
+                                  $"Tipo de Combustible: {transporte.tipoCombustible}\n";
+            }
+            else if (item is Electrodomestico electrodomestico)
+            {
+                mensajeDetalle += $"Potencia (Watts): {electrodomestico.potenciaWatts}\n" +
+                                  $"Tipo de Electrodoméstico: {electrodomestico.tipoElectrodomestico}\n";
+            }
+            else if (item is Indumentaria indumentaria)
+            {
+                mensajeDetalle += $"Talla: {indumentaria.talla}\n" +
+                                  $"Material: {indumentaria.material}\n";
+            }
+            else if (item is Inmueble inmueble)
+            {
+                mensajeDetalle += $"Metros Cuadrados: {inmueble.metrosCuadrados}\n" +
+                                  $"Ubicación: {inmueble.ubicacion}\n";
+            }
+            else if (item is Electronica electronica)
+            {
+                mensajeDetalle += $"Resolución de Pantalla: {electronica.resolucionPantalla}\n" +
+                                  $"Almacenamiento (GB): {electronica.almacenamientoGB}\n";
+            }
+
+            // Muestra el detalle en un MessageBox
+            MessageBox.Show(mensajeDetalle, "Detalle del Ítem", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
 

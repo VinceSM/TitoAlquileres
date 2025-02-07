@@ -70,6 +70,7 @@
             btnEditarTarifa = new Button();
             btnModificarItem = new Button();
             bntModificarUser = new Button();
+            btnVerDetalle = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             panelFecha.SuspendLayout();
@@ -87,7 +88,7 @@
             panel1.Controls.Add(lblTitulo);
             panel1.Location = new Point(-4, -2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1657, 102);
+            panel1.Size = new Size(2101, 102);
             panel1.TabIndex = 0;
             // 
             // lblTitulo
@@ -109,7 +110,7 @@
             // 
             lblTotal.Anchor = AnchorStyles.Top;
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(207, 566);
+            lblTotal.Location = new Point(429, 566);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(0, 22);
             lblTotal.TabIndex = 3;
@@ -119,7 +120,7 @@
             lblPrecioPorDia.Anchor = AnchorStyles.Top;
             lblPrecioPorDia.AutoSize = true;
             lblPrecioPorDia.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPrecioPorDia.Location = new Point(319, 566);
+            lblPrecioPorDia.Location = new Point(541, 566);
             lblPrecioPorDia.Name = "lblPrecioPorDia";
             lblPrecioPorDia.Size = new Size(0, 19);
             lblPrecioPorDia.TabIndex = 4;
@@ -133,7 +134,7 @@
             panelFecha.Controls.Add(lblFechaFin);
             panelFecha.Controls.Add(lblFechaInicio);
             panelFecha.Controls.Add(lblFecha);
-            panelFecha.Location = new Point(470, 520);
+            panelFecha.Location = new Point(692, 520);
             panelFecha.Name = "panelFecha";
             panelFecha.Size = new Size(418, 114);
             panelFecha.TabIndex = 5;
@@ -189,7 +190,7 @@
             btnCrear.FlatStyle = FlatStyle.Flat;
             btnCrear.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCrear.ForeColor = Color.Blue;
-            btnCrear.Location = new Point(973, 551);
+            btnCrear.Location = new Point(1195, 551);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(96, 55);
             btnCrear.TabIndex = 6;
@@ -225,7 +226,7 @@
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nombreDataGridViewTextBoxColumn, dniDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, membresiaPremiumDataGridViewCheckBoxColumn, deletedAtDataGridViewTextBoxColumn, alquileresDataGridViewTextBoxColumn });
             dataGridViewUsuarios.Cursor = Cursors.Hand;
             dataGridViewUsuarios.DataSource = usuarioBindingSource;
-            dataGridViewUsuarios.Location = new Point(12, 162);
+            dataGridViewUsuarios.Location = new Point(234, 162);
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.RowHeadersVisible = false;
@@ -317,7 +318,7 @@
             btnCrearUsuario.Anchor = AnchorStyles.Top;
             btnCrearUsuario.Cursor = Cursors.Hand;
             btnCrearUsuario.Font = new Font("Tahoma", 12F);
-            btnCrearUsuario.Location = new Point(86, 127);
+            btnCrearUsuario.Location = new Point(308, 127);
             btnCrearUsuario.Name = "btnCrearUsuario";
             btnCrearUsuario.Size = new Size(140, 29);
             btnCrearUsuario.TabIndex = 10;
@@ -334,9 +335,9 @@
             cmbCategorias.FlatStyle = FlatStyle.Flat;
             cmbCategorias.Font = new Font("Segoe UI", 10F);
             cmbCategorias.FormattingEnabled = true;
-            cmbCategorias.Location = new Point(664, 127);
+            cmbCategorias.Location = new Point(1126, 125);
             cmbCategorias.Name = "cmbCategorias";
-            cmbCategorias.Size = new Size(173, 31);
+            cmbCategorias.Size = new Size(253, 31);
             cmbCategorias.TabIndex = 11;
             cmbCategorias.SelectedIndexChanged += cmbCategorias_SelectedIndexChanged;
             // 
@@ -349,7 +350,7 @@
             dataGridViewItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewItems.Columns.AddRange(new DataGridViewColumn[] { ID, nombreItem, marca, modelo, tarifaXDia, estado });
             dataGridViewItems.Cursor = Cursors.Hand;
-            dataGridViewItems.Location = new Point(635, 162);
+            dataGridViewItems.Location = new Point(857, 162);
             dataGridViewItems.Name = "dataGridViewItems";
             dataGridViewItems.ReadOnly = true;
             dataGridViewItems.RowHeadersVisible = false;
@@ -417,7 +418,7 @@
             btnVerAlquileres.FlatStyle = FlatStyle.Flat;
             btnVerAlquileres.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnVerAlquileres.ForeColor = Color.Blue;
-            btnVerAlquileres.Location = new Point(1142, 551);
+            btnVerAlquileres.Location = new Point(1364, 551);
             btnVerAlquileres.Name = "btnVerAlquileres";
             btnVerAlquileres.Size = new Size(163, 55);
             btnVerAlquileres.TabIndex = 12;
@@ -430,7 +431,7 @@
             btnSoftDelete.Anchor = AnchorStyles.Top;
             btnSoftDelete.Cursor = Cursors.Hand;
             btnSoftDelete.Font = new Font("Tahoma", 12F);
-            btnSoftDelete.Location = new Point(232, 127);
+            btnSoftDelete.Location = new Point(454, 127);
             btnSoftDelete.Name = "btnSoftDelete";
             btnSoftDelete.Size = new Size(134, 29);
             btnSoftDelete.TabIndex = 13;
@@ -443,9 +444,9 @@
             btnCrearItem.Anchor = AnchorStyles.Top;
             btnCrearItem.Cursor = Cursors.Hand;
             btnCrearItem.Font = new Font("Tahoma", 12F);
-            btnCrearItem.Location = new Point(843, 127);
+            btnCrearItem.Location = new Point(1652, 162);
             btnCrearItem.Name = "btnCrearItem";
-            btnCrearItem.Size = new Size(111, 29);
+            btnCrearItem.Size = new Size(144, 29);
             btnCrearItem.TabIndex = 14;
             btnCrearItem.Text = "Crear Item";
             btnCrearItem.UseVisualStyleBackColor = true;
@@ -455,9 +456,9 @@
             // 
             btnSoftDeleteItem.Anchor = AnchorStyles.Top;
             btnSoftDeleteItem.Font = new Font("Tahoma", 12F);
-            btnSoftDeleteItem.Location = new Point(1084, 127);
+            btnSoftDeleteItem.Location = new Point(1652, 232);
             btnSoftDeleteItem.Name = "btnSoftDeleteItem";
-            btnSoftDeleteItem.Size = new Size(126, 29);
+            btnSoftDeleteItem.Size = new Size(144, 29);
             btnSoftDeleteItem.TabIndex = 15;
             btnSoftDeleteItem.Text = "Borrar Item";
             btnSoftDeleteItem.UseVisualStyleBackColor = true;
@@ -467,9 +468,9 @@
             // 
             btnEditarTarifa.Anchor = AnchorStyles.Top;
             btnEditarTarifa.Font = new Font("Tahoma", 12F);
-            btnEditarTarifa.Location = new Point(1216, 127);
+            btnEditarTarifa.Location = new Point(1652, 267);
             btnEditarTarifa.Name = "btnEditarTarifa";
-            btnEditarTarifa.Size = new Size(122, 29);
+            btnEditarTarifa.Size = new Size(144, 29);
             btnEditarTarifa.TabIndex = 16;
             btnEditarTarifa.Text = "Editar Tarifa";
             btnEditarTarifa.UseVisualStyleBackColor = true;
@@ -479,9 +480,9 @@
             // 
             btnModificarItem.Anchor = AnchorStyles.Top;
             btnModificarItem.Font = new Font("Tahoma", 12F);
-            btnModificarItem.Location = new Point(960, 127);
+            btnModificarItem.Location = new Point(1652, 197);
             btnModificarItem.Name = "btnModificarItem";
-            btnModificarItem.Size = new Size(118, 29);
+            btnModificarItem.Size = new Size(144, 29);
             btnModificarItem.TabIndex = 17;
             btnModificarItem.Text = "Modifcar Item";
             btnModificarItem.UseVisualStyleBackColor = true;
@@ -491,7 +492,7 @@
             // 
             bntModificarUser.Anchor = AnchorStyles.Top;
             bntModificarUser.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bntModificarUser.Location = new Point(372, 127);
+            bntModificarUser.Location = new Point(594, 127);
             bntModificarUser.Name = "bntModificarUser";
             bntModificarUser.Size = new Size(143, 29);
             bntModificarUser.TabIndex = 18;
@@ -499,12 +500,25 @@
             bntModificarUser.UseVisualStyleBackColor = true;
             bntModificarUser.Click += bntModificarUser_Click;
             // 
+            // btnVerDetalle
+            // 
+            btnVerDetalle.Anchor = AnchorStyles.Top;
+            btnVerDetalle.Font = new Font("Tahoma", 12F);
+            btnVerDetalle.Location = new Point(1652, 302);
+            btnVerDetalle.Name = "btnVerDetalle";
+            btnVerDetalle.Size = new Size(144, 29);
+            btnVerDetalle.TabIndex = 19;
+            btnVerDetalle.Text = "Detalle item";
+            btnVerDetalle.UseVisualStyleBackColor = true;
+            btnVerDetalle.Click += btnVerDetalle_Click_1;
+            // 
             // FormAlquilar
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(1364, 645);
+            ClientSize = new Size(1808, 645);
+            Controls.Add(btnVerDetalle);
             Controls.Add(bntModificarUser);
             Controls.Add(btnModificarItem);
             Controls.Add(btnEditarTarifa);
@@ -583,5 +597,6 @@
         private Button btnEditarTarifa;
         private Button btnModificarItem;
         private Button bntModificarUser;
+        private Button btnVerDetalle;
     }
 }
