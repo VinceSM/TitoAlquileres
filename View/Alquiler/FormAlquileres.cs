@@ -74,8 +74,8 @@ namespace TitoAlquiler.View.Alquiler
                     dataGridViewAlquileres.Rows.Add(
                         alquiler.item?.marca ?? "Sin marca",
                         alquiler.item?.modelo ?? "Sin modelo",
-                        alquiler.usuario?.nombre ?? "Sin usuario",
                         alquiler.item?.nombreItem ?? "Sin nombre",
+                        alquiler.usuario?.nombre ?? "Sin usuario", 
                         alquiler.tiempoDias,
                         alquiler.fechaInicio.ToString("yyyy-MM-dd"),
                         alquiler.fechaFin.ToString("yyyy-MM-dd"),
