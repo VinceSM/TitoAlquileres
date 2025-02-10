@@ -16,19 +16,21 @@ namespace TitoAlquiler.Model.Dao
         /// <param name="alquiler">Objeto de tipo <see cref="Alquileres"/> que contiene los datos del alquiler a insertar.</param>
         public void InsertAlquiler(Alquileres alquiler)
         {
-            try
+            using (var db = new SistemaAlquilerContext())
             {
-                using (var db = new SistemaAlquilerContext())
+                try
                 {
+                    alquiler.tipoEstrategia = "default_value";
                     db.Alquileres.Add(alquiler);
-                    db.SaveChanges();
+                    int cambios = db.SaveChanges(); // Aquí ocurre el error
+                    MessageBox.Show($"Cambios guardados: {cambios}");
+
                 }
-            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error inserting alquiler: {ex.Message}");
-                throw;
+                MessageBox.Show($"Error al guardar: {ex.Message}\n{ex.InnerException?.Message}");
             }
+        }
         }
 
         /// <summary>

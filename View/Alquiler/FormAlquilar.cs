@@ -371,45 +371,57 @@ namespace TitoAlquiler.View.Alquiler
         {
             try
             {
-                VerificarSeleccionFilaDataGrid();
+                // Verificar que haya un usuario seleccionado
+                if (dataGridViewUsuarios.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, seleccione un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                // Obtener ID del usuario seleccionado
                 int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+
+                // Verificar que haya al menos un ítem seleccionado
+                if (dataGridViewItems.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, seleccione al menos un ítem para alquilar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Establecer la fecha de inicio y fin del alquiler
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
-                string tipoEstrategia = "EstrategiaEstacion";
 
-                if (fechaInicio > fechaFin)
+                if (fechaFin <= fechaInicio)
                 {
-                    MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("La fecha de fin debe ser posterior a la fecha de inicio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                if (fechaInicio < DateTime.Now.Date)
+                // Crear y guardar un alquiler por cada ítem seleccionado
+                foreach (DataGridViewRow row in dataGridViewItems.SelectedRows)
                 {
-                    MessageBox.Show("La fecha de inicio debe ser mayor o igual a la fecha de hoy", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    int itemId = (int)row.Cells["ID"].Value;
+
+                    // Crear objeto Alquiler
+                    Alquileres nuevoAlquiler = new Alquileres
+                    {
+                        UsuarioID = usuarioId,
+                        fechaInicio = fechaInicio,
+                        fechaFin = fechaFin,
+                        ItemID = itemId
+                    };
+
+                    // Llamar al método sin intentar asignar su retorno si devuelve void
+                    alquilerController.CrearAlquiler(nuevoAlquiler);
                 }
 
-                if (!alquilerController.VerificarDisponibilidad(itemId, fechaInicio, fechaFin))
-                {
-                    MessageBox.Show("El item no está disponible para las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                var nuevoAlquiler = alquilerController.CrearNuevoAlquiler(itemId, usuarioId, fechaInicio, fechaFin, tipoEstrategia);
-
-                MessageBox.Show($"Alquiler creado con éxito. Precio total: {nuevoAlquiler.precioTotal:C}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                CargarUsuarios();
-                if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
-                {
-                    CargarItems(categoriaSeleccionada.id);
-                }
+                MessageBox.Show("Alquiler creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarUsuarios(); 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al crear alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
