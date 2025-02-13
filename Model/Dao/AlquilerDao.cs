@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using TitoAlquiler.Controller;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Model.Interfaces;
+using TitoAlquiler.Model.Strategy;
+using System.Windows.Forms;
 
 namespace TitoAlquiler.Model.Dao
 {
     public class AlquilerDao
     {
+        private UsuarioController usuarioController = UsuarioController.getInstance();
+        private IEstrategiaPrecio estrategias;
+
         public AlquilerDao() { }
 
         /// <summary>
@@ -20,18 +28,68 @@ namespace TitoAlquiler.Model.Dao
             {
                 try
                 {
-                    alquiler.tipoEstrategia = "default_value";
-                    db.Alquileres.Add(alquiler);
-                    int cambios = db.SaveChanges(); // Aquí ocurre el error
-                    MessageBox.Show($"Cambios guardados: {cambios}");
+                    // Asegurarse de que el ítem esté cargado
+                    if (alquiler.item == null)
+                    {
+                        alquiler.item = db.Items.Find(alquiler.ItemID);
+                        if (alquiler.item == null)
+                        {
+                            throw new Exception("No se pudo encontrar el ítem asociado al alquiler.");
+                        }
+                    }
 
+                    // Determinar estrategia
+                    bool tieneMembresia = usuarioController.getMembresiaUsuario(alquiler.UsuarioID);
+
+                    if (tieneMembresia)
+                    {
+                        alquiler.tipoEstrategia = "EstrategiaMembresia";
+                        estrategias = new EstrategiaMembresia();
+                    }
+                    else if (AplicarEstrategiaEstacional())
+                    {
+                        alquiler.tipoEstrategia = "EstrategiaEstacion";
+                        estrategias = new EstrategiaEstacion(ObtenerEstacionActual());
+                    }
+                    else
+                    {
+                        alquiler.tipoEstrategia = "EstrategiaNormal";
+                        estrategias = new EstrategiaNormal();
+                    }
+
+                    // Calcular el precio del alquiler
+                    int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays;
+
+                    // Usar precioBase en lugar de tarifaDia
+                    if (alquiler.item.tarifaDia <= 0)
+                    {
+                        throw new Exception("El precio base del ítem no es válido.");
+                    }
+
+                    alquiler.precioTotal = estrategias.CalcularPrecioAlquiler(alquiler.item.tarifaDia, diasAlquiler);
+
+                    db.Alquileres.Add(alquiler);
+                    int cambios = db.SaveChanges();
+                    MessageBox.Show($"Alquiler guardado exitosamente. Precio total: {alquiler.precioTotal:C}. Cambios: {cambios}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al guardar: {ex.Message}\n{ex.InnerException?.Message}");
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al guardar el alquiler: {ex.Message}\n{ex.InnerException?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
+
+
+        public static bool AplicarEstrategiaEstacional()
+        {
+            var mes = DateTime.Now.Month;
+
+            return mes is >= 12 or <= 2  // Invierno (Diciembre, Enero, Febrero)
+                || mes is >= 6 and <= 8; // Verano (Junio, Julio, Agosto)
         }
+
+
 
         /// <summary>
         /// Actualiza un alquiler existente en la base de datos.
@@ -162,6 +220,18 @@ namespace TitoAlquiler.Model.Dao
                 Console.WriteLine($"Error finding alquileres by item: {ex.Message}");
                 throw;
             }
+        }
+
+        private Estacion ObtenerEstacionActual()
+        {
+            int mes = DateTime.Now.Month;
+            return mes switch
+            {
+                >= 3 and <= 5 => Estacion.Primavera,
+                >= 6 and <= 8 => Estacion.Verano,
+                >= 9 and <= 11 => Estacion.Otoño,
+                _ => Estacion.Invierno
+            };
         }
     }
 }

@@ -198,6 +198,17 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        public bool getMembresiaUsuario(int usuarioId)
+        {
+            using (var db = new SistemaAlquilerContext())
+            {
+                return db.Usuarios
+                         .Where(u => u.id == usuarioId)
+                         .Select(u => u.membresiaPremium)
+                         .FirstOrDefault();
+            }
+        }
+
     }
 }
 

@@ -1,38 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\",
+  "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\view\\alquiler\\formalquilar.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\view\\alquiler\\formalquileres.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquileres.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\resources\\sistemaalquilerescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\entities\\itemalquilable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\itemalquilable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategiaestacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategiaestacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\interfaces\\iestrategiaprecio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\interfaces\\iestrategiaprecio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategianormal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategianormal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategiamembresia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategiamembresia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\controller\\alquilercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:controller\\alquilercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\controller\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:controller\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\resources\\sistemaalquilerescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:resources\\sistemaalquilerescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\gabri\\desktop\\itec\\3er a\u00F1o\\edi-iii\\titoalquileres\\view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\alquiler\\formalquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,12 +50,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 11,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -57,105 +61,138 @@
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FormAlquilar.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquilar.Designer.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquilar.Designer.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquilar.Designer.cs",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquilar.Designer.cs",
-              "ViewState": "AgIAAFkBAAAAAAAAAAAYwPUAAAA0AAAAAAAAAA==",
+              "Title": "Alquileres.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Alquileres.cs",
+              "RelativeDocumentMoniker": "Model\\Entities\\Alquileres.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Alquileres.cs",
+              "RelativeToolTip": "Model\\Entities\\Alquileres.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T16:27:54.948Z",
+              "WhenOpened": "2025-02-13T21:17:59.254Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "FormAlquileres.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.Designer.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquileres.Designer.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.Designer.cs",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquileres.Designer.cs",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAYwAcAAABDAAAAAAAAAA==",
+              "Title": "ItemAlquilable.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\ItemAlquilable.cs",
+              "RelativeDocumentMoniker": "Model\\Entities\\ItemAlquilable.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\ItemAlquilable.cs",
+              "RelativeToolTip": "Model\\Entities\\ItemAlquilable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T16:21:21.747Z",
+              "WhenOpened": "2025-02-13T21:17:49.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EstrategiaNormal.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaNormal.cs",
+              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaNormal.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaNormal.cs",
+              "RelativeToolTip": "Model\\Strategy\\EstrategiaNormal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T20:48:32.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EstrategiaMembresia.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaMembresia.cs",
+              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaMembresia.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaMembresia.cs",
+              "RelativeToolTip": "Model\\Strategy\\EstrategiaMembresia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T20:47:56.522Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Alquileres.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Entities\\Alquileres.cs",
-              "RelativeDocumentMoniker": "Model\\Entities\\Alquileres.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Entities\\Alquileres.cs",
-              "RelativeToolTip": "Model\\Entities\\Alquileres.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAAACkAAAAkAAAAAAAAAA==",
+              "Title": "EstrategiaEstacion.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaEstacion.cs",
+              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaEstacion.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaEstacion.cs",
+              "RelativeToolTip": "Model\\Strategy\\EstrategiaEstacion.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAADwvy0AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T16:17:09.457Z",
+              "WhenOpened": "2025-02-13T20:46:48.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IEstrategiaPrecio.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "RelativeDocumentMoniker": "Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "RelativeToolTip": "Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T20:46:28.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AlquilerController.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
+              "RelativeDocumentMoniker": "Controller\\AlquilerController.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
+              "RelativeToolTip": "Controller\\AlquilerController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHkAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T20:39:55.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\UsuarioController.cs",
+              "RelativeDocumentMoniker": "Controller\\UsuarioController.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\UsuarioController.cs",
+              "RelativeToolTip": "Controller\\UsuarioController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T20:35:51.466Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "AlquilerDao.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Dao\\AlquilerDao.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\AlquilerDao.cs",
               "RelativeDocumentMoniker": "Model\\Dao\\AlquilerDao.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Model\\Dao\\AlquilerDao.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\AlquilerDao.cs",
               "RelativeToolTip": "Model\\Dao\\AlquilerDao.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAiwBUAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAAEQAAAB1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-10T15:53:40.629Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "SistemaAlquileresContext.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Resources\\SistemaAlquileresContext.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Resources\\SistemaAlquileresContext.cs",
               "RelativeDocumentMoniker": "Resources\\SistemaAlquileresContext.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\Resources\\SistemaAlquileresContext.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Resources\\SistemaAlquileresContext.cs",
               "RelativeToolTip": "Resources\\SistemaAlquileresContext.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAgwGgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-10T15:56:53.742Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FormAlquilar.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquilar.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquilar.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquilar.cs [Dise\u00F1o]",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquilar.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T13:57:32.638Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FormAlquileres.cs",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquileres.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.cs",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquileres.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAMwFQAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T13:44:48.882Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "FormAlquileres.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.cs",
-              "RelativeDocumentMoniker": "View\\Alquiler\\FormAlquileres.cs",
-              "ToolTip": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\View\\Alquiler\\FormAlquileres.cs [Dise\u00F1o]",
-              "RelativeToolTip": "View\\Alquiler\\FormAlquileres.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T13:33:22.928Z"
             }
           ]
         }

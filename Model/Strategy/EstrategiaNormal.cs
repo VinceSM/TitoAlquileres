@@ -13,5 +13,9 @@ namespace TitoAlquiler.Model.Strategy
         {
             return tarifaBase * dias;
         }
+        public string getEstrategia(string nombre)
+        {
+            return nombre = "EstrategiaNormal";
+        }
     }
 }

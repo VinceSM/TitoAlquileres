@@ -110,6 +110,11 @@ namespace TitoAlquiler.Controller
         {
             return _usuarioDao.CompararEmail(email);
         }
+
+        public bool getMembresiaUsuario(int id)
+        {
+            return _usuarioDao.getMembresiaUsuario(id);
+        }
     }
 }
 

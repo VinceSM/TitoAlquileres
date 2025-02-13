@@ -14,5 +14,9 @@ namespace TitoAlquiler.Model.Strategy
             double total = tarifaBase * dias;
             return total * 0.9; // 10% de descuento
         }
+        public string getEstrategia(string nombre)
+        {
+            return nombre = "EstrategiaMembresia";
+        }
     }
 }

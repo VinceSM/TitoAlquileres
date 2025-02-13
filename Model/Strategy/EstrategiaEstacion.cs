@@ -37,5 +37,13 @@ namespace TitoAlquiler.Model.Strategy
                 _ => total
             };
         }
+
+        public string getEstrategia(string nombre)
+        {
+            return nombre = "EstrategiaEstacion" ;
+        }
+
+        
+
     }
 }

@@ -9,5 +9,6 @@ namespace TitoAlquiler.Model.Interfaces
     public interface IEstrategiaPrecio
     {
         double CalcularPrecioAlquiler(double tarifaBase, int dias);
+        string getEstrategia(string nombre);
     }
 }
