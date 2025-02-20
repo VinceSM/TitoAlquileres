@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Interfaces;
 
-namespace TitoAlquiler.Model.Entities
+namespace TitoAlquiler.Model.Entities.Items
 {
     //Clase Abstracta que gestiona los atributos de un Item Alquilable
     public abstract class ItemAlquilable : IAlquilable

@@ -1,6 +1,6 @@
 ﻿namespace TitoAlquiler.View.Usuario
 {
-    partial class FormModificarUsuario
+    partial class ModificarUsuario
     {
         /// <summary>
         /// Required designer variable.

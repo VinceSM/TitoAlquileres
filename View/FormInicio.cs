@@ -22,7 +22,7 @@ namespace TitoAlquiler
         /// </remarks>
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            FormAlquilar form = new FormAlquilar();
+            CrearAlquiler form = new CrearAlquiler();
             form.Show();
             this.Hide();
         }

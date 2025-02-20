@@ -5,17 +5,18 @@ using System;
 using System.Windows.Forms;
 using TitoAlquiler.Model.Entities;
 using System.Linq;
+using TitoAlquiler.Model.Entities.Categorias;
 
 namespace TitoAlquiler.View.Alquiler
 {
-    public partial class FormAlquilar : Form
+    public partial class CrearAlquiler : Form
     {
         UsuarioController usuarioController = UsuarioController.getInstance();
         AlquilerController alquilerController = AlquilerController.getInstance();
         ItemController itemController = ItemController.getInstance();
         CategoriaController categoriaController = CategoriaController.getInstance();
 
-        public FormAlquilar()
+        public CrearAlquiler()
         {
             InitializeComponent();
             this.Activated += FormAlquilar_Activated;
@@ -89,7 +90,7 @@ namespace TitoAlquiler.View.Alquiler
         /// <param name="e">Los datos del evento.</param>
         private void btnCrearItem_Click(object sender, EventArgs e)
         {
-            Crear formCreaItem = new Crear();
+            CrearItem formCreaItem = new CrearItem();
             formCreaItem.Show();
             this.Hide();
         }
@@ -101,7 +102,7 @@ namespace TitoAlquiler.View.Alquiler
         /// <param name="e">Los datos del evento.</param>
         private void btnModificarItem_Click(object sender, EventArgs e)
         {
-            Modificar formModificarItem = new Modificar();
+            ModificarItem formModificarItem = new ModificarItem();
             formModificarItem.Show();
             this.Hide();
         }
@@ -247,7 +248,7 @@ namespace TitoAlquiler.View.Alquiler
         /// </summary>
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
-            FormCrearUsuario formCrearUsuario = new FormCrearUsuario();
+            CrearUsuario formCrearUsuario = new CrearUsuario();
             formCrearUsuario.Show();
             this.Hide();
         }
@@ -299,7 +300,7 @@ namespace TitoAlquiler.View.Alquiler
 
                 if (usuario != null)
                 {
-                    FormModificarUsuario formModificarUsuario = new FormModificarUsuario(usuario);
+                    ModificarUsuario formModificarUsuario = new ModificarUsuario(usuario);
                     formModificarUsuario.ShowDialog();
                 }
                 else
@@ -430,7 +431,7 @@ namespace TitoAlquiler.View.Alquiler
         /// </summary>
         private void btnVerAlquileres_Click(object sender, EventArgs e)
         {
-            FormAlquileres formAlquileres = new FormAlquileres();
+            VerAlquileres formAlquileres = new VerAlquileres();
             formAlquileres.Show();
             this.Hide();
         }

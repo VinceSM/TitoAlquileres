@@ -1,6 +1,6 @@
 ﻿namespace TitoAlquiler.View.Alquiler
 {
-    partial class FormAlquileres
+    partial class VerAlquileres
     {
         /// <summary>
         /// Required designer variable.
@@ -32,6 +32,11 @@
             panel1 = new Panel();
             labelTitulo = new Label();
             dataGridViewAlquileres = new DataGridView();
+            alquileresBindingSource = new BindingSource(components);
+            sistemaAlquilerContextBindingSource = new BindingSource(components);
+            btnCerrarAlquiler = new Button();
+            linkLabelVolver = new LinkLabel();
+            id = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             item = new DataGridViewTextBoxColumn();
@@ -41,10 +46,6 @@
             fin = new DataGridViewTextBoxColumn();
             total = new DataGridViewTextBoxColumn();
             estrategia = new DataGridViewTextBoxColumn();
-            alquileresBindingSource = new BindingSource(components);
-            sistemaAlquilerContextBindingSource = new BindingSource(components);
-            btnCerrarAlquiler = new Button();
-            linkLabelVolver = new LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlquileres).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alquileresBindingSource).BeginInit();
@@ -69,7 +70,7 @@
             labelTitulo.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelTitulo.Location = new Point(769, 42);
             labelTitulo.Name = "labelTitulo";
-            labelTitulo.Size = new Size(163, 38);
+            labelTitulo.Size = new Size(134, 31);
             labelTitulo.TabIndex = 0;
             labelTitulo.Text = "Alquileres";
             // 
@@ -81,7 +82,7 @@
             dataGridViewAlquileres.Anchor = AnchorStyles.Top;
             dataGridViewAlquileres.BackgroundColor = Color.LightBlue;
             dataGridViewAlquileres.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { marca, modelo, item, usuario, dias, inicio, fin, total, estrategia });
+            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { id, marca, modelo, item, usuario, dias, inicio, fin, total, estrategia });
             dataGridViewAlquileres.Cursor = Cursors.Hand;
             dataGridViewAlquileres.Location = new Point(138, 170);
             dataGridViewAlquileres.Margin = new Padding(4);
@@ -92,6 +93,49 @@
             dataGridViewAlquileres.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAlquileres.Size = new Size(1379, 280);
             dataGridViewAlquileres.TabIndex = 1;
+            // 
+            // alquileresBindingSource
+            // 
+            alquileresBindingSource.DataSource = typeof(Model.Entities.Alquileres);
+            // 
+            // sistemaAlquilerContextBindingSource
+            // 
+            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
+            // 
+            // btnCerrarAlquiler
+            // 
+            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
+            btnCerrarAlquiler.BackColor = Color.White;
+            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
+            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCerrarAlquiler.ForeColor = Color.Blue;
+            btnCerrarAlquiler.Location = new Point(698, 482);
+            btnCerrarAlquiler.Margin = new Padding(4);
+            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
+            btnCerrarAlquiler.Size = new Size(221, 55);
+            btnCerrarAlquiler.TabIndex = 2;
+            btnCerrarAlquiler.Text = "Cerrar alquiler";
+            btnCerrarAlquiler.UseVisualStyleBackColor = false;
+            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
+            // 
+            // linkLabelVolver
+            // 
+            linkLabelVolver.AutoSize = true;
+            linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabelVolver.Location = new Point(12, 124);
+            linkLabelVolver.Name = "linkLabelVolver";
+            linkLabelVolver.Size = new Size(54, 19);
+            linkLabelVolver.TabIndex = 3;
+            linkLabelVolver.TabStop = true;
+            linkLabelVolver.Text = "Volver";
+            linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
+            // 
+            // id
+            // 
+            id.HeaderText = "ID";
+            id.Name = "id";
+            id.ReadOnly = true;
+            id.Visible = false;
             // 
             // marca
             // 
@@ -167,55 +211,19 @@
             estrategia.ReadOnly = true;
             estrategia.Width = 125;
             // 
-            // alquileresBindingSource
+            // VerAlquileres
             // 
-            alquileresBindingSource.DataSource = typeof(Model.Entities.Alquileres);
-            // 
-            // sistemaAlquilerContextBindingSource
-            // 
-            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
-            // 
-            // btnCerrarAlquiler
-            // 
-            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
-            btnCerrarAlquiler.BackColor = Color.White;
-            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
-            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCerrarAlquiler.ForeColor = Color.Blue;
-            btnCerrarAlquiler.Location = new Point(698, 482);
-            btnCerrarAlquiler.Margin = new Padding(4);
-            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
-            btnCerrarAlquiler.Size = new Size(221, 55);
-            btnCerrarAlquiler.TabIndex = 2;
-            btnCerrarAlquiler.Text = "Cerrar alquiler";
-            btnCerrarAlquiler.UseVisualStyleBackColor = false;
-            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
-            // 
-            // linkLabelVolver
-            // 
-            linkLabelVolver.AutoSize = true;
-            linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabelVolver.Location = new Point(12, 124);
-            linkLabelVolver.Name = "linkLabelVolver";
-            linkLabelVolver.Size = new Size(66, 24);
-            linkLabelVolver.TabIndex = 3;
-            linkLabelVolver.TabStop = true;
-            linkLabelVolver.Text = "Volver";
-            linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
-            // 
-            // FormAlquileres
-            // 
-            AutoScaleDimensions = new SizeF(11F, 22F);
+            AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(1616, 557);
+            ClientSize = new Size(1364, 557);
             Controls.Add(linkLabelVolver);
             Controls.Add(btnCerrarAlquiler);
             Controls.Add(dataGridViewAlquileres);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
-            Name = "FormAlquileres";
+            Name = "VerAlquileres";
             Text = "FormAlquileres";
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
@@ -239,6 +247,7 @@
         private DataGridViewTextBoxColumn itemIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn usuarioIDDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn descuentoDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn marca;
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn item;

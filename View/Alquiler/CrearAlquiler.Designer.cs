@@ -1,6 +1,6 @@
 ﻿namespace TitoAlquiler.View.Alquiler
 {
-    partial class FormAlquilar
+    partial class CrearAlquiler
     {
         /// <summary>
         /// Required designer variable.

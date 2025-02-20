@@ -6,13 +6,13 @@ using TitoAlquiler.View.Alquiler;
 
 namespace TitoAlquiler.View.Usuario
 {
-    public partial class FormModificarUsuario : Form
+    public partial class ModificarUsuario : Form
     {
         private readonly UsuarioController usuarioController = UsuarioController.getInstance();
         private Usuarios usuarioActual; // Almacena el usuario actual
 
         // Constructor que recibe el usuario a modificar
-        public FormModificarUsuario(Usuarios usuario)
+        public ModificarUsuario(Usuarios usuario)
         {
             InitializeComponent();
             usuarioActual = usuario;
@@ -92,7 +92,7 @@ namespace TitoAlquiler.View.Usuario
         }
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormAlquilar formAlquilar = new FormAlquilar();
+            CrearAlquiler formAlquilar = new CrearAlquiler();
             formAlquilar.Show();
             this.Hide();
         }

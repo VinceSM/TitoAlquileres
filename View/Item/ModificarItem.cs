@@ -11,9 +11,9 @@ using TitoAlquiler.View.Alquiler;
 
 namespace TitoAlquiler.View.Item
 {
-    public partial class Modificar : Form
+    public partial class ModificarItem : Form
     {
-        public Modificar()
+        public ModificarItem()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace TitoAlquiler.View.Item
         /// <param name="e">Los datos del evento.</param>
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormAlquilar formAlquilar = new FormAlquilar();
+            CrearAlquiler formAlquilar = new CrearAlquiler();
             formAlquilar.Show();
             this.Hide();
         }

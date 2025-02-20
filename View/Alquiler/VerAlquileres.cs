@@ -12,12 +12,12 @@ using TitoAlquiler.Model.Entities;
 
 namespace TitoAlquiler.View.Alquiler
 {
-    public partial class FormAlquileres : Form
+    public partial class VerAlquileres : Form
     {
         private AlquilerController alquilerController;
         private ItemController itemController;
 
-        public FormAlquileres()
+        public VerAlquileres()
         {
             InitializeComponent();
             alquilerController = AlquilerController.getInstance();
@@ -44,7 +44,7 @@ namespace TitoAlquiler.View.Alquiler
         /// <param name="e">Argumentos del evento del enlace.</param>
         private void linkLabelVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormAlquilar formAlquilar = new FormAlquilar();
+            CrearAlquiler formAlquilar = new CrearAlquiler();
             formAlquilar.Show();
             this.Hide();
         }
@@ -98,43 +98,6 @@ namespace TitoAlquiler.View.Alquiler
         /// <param name="e">Argumentos del evento del botón.</param>
         private void btnCerrarAlquiler_Click(object sender, EventArgs e)
         {
-            if (dataGridViewAlquileres.SelectedRows.Count > 0)
-            {
-                // Obtener el ID del alquiler seleccionado
-                int selectedId = Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value);
-
-                // Buscar el alquiler correspondiente
-                var alquiler = alquilerController.ObtenerAlquilerPorId(selectedId);
-
-                if (alquiler != null)
-                {
-                    // Confirmar acción con el usuario
-                    var confirmResult = MessageBox.Show(
-                        "¿Está seguro de que desea cerrar este alquiler?",
-                        "Confirmar cierre de alquiler",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
-
-                    if (confirmResult == DialogResult.Yes)
-                    {
-                        // Marcar como eliminado
-                        alquilerController.EliminarAlquiler(alquiler);
-
-                        // Recargar la lista de alquileres
-                        LoadAlquileres();
-
-                        MessageBox.Show("El alquiler se ha cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No se encontró el alquiler seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, seleccione un alquiler para cerrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
 
         }
 

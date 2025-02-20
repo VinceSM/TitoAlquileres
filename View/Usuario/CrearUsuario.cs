@@ -10,11 +10,11 @@ using System.Net;
 
 namespace TitoAlquiler.View.Usuario
 {
-    public partial class FormCrearUsuario : Form
+    public partial class CrearUsuario : Form
     {
         private readonly UsuarioController usuarioController = UsuarioController.getInstance();
 
-        public FormCrearUsuario()
+        public CrearUsuario()
         {
             InitializeComponent();
         }
@@ -36,7 +36,7 @@ namespace TitoAlquiler.View.Usuario
         /// <param name="e">Datos del evento.</param>
         private void linkVolverInicioSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormAlquilar formAlquilar = new FormAlquilar();
+            CrearAlquiler formAlquilar = new CrearAlquiler();
             formAlquilar.Show();
             this.Hide();
         }
