@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Entities.Items;
+using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Transporte : ItemAlquilable
+    public class Transporte : IAlquilable
     {
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }
-        public override void Alquilar()
+        public void Alquilar(Item item)
         {
-            Console.WriteLine($"Se ha alquilado un transporte: {nombreItem}, Capacidad: {capacidadPasajeros} pasajeros");
+            Console.WriteLine($"Se ha alquilado un transporte: {item.nombreItem}, Capacidad: {capacidadPasajeros} pasajeros");
         }
     }
 }

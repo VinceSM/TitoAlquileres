@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Interfaces;
 
-namespace TitoAlquiler.Model.Strategy
+namespace TitoAlquiler.Model.Strategy.Precios
 {
     public enum Estacion
     {

@@ -8,11 +8,14 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Factory
 {
-    public class IndumentariaFactory : AlquilerFactory
+    public class IndumentariaFactory : IAlquilerFactory
     {
-        public override ItemAlquilable CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia)
+        public Item CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
         {
-            return new Indumentaria { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia };
+            string talla = (string)adicionales[0];
+            string material = (string)adicionales[1];
+
+            return new Indumentaria (nombre, marca, modelo, tarifaDia, talla, material);
         }
     }
 }

@@ -5,6 +5,7 @@ using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.Model.Strategy;
+using TitoAlquiler.Model.Strategy.Precios;
 
 namespace TitoAlquiler.Controller
 {

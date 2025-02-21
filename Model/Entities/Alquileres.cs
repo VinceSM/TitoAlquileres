@@ -12,7 +12,7 @@ namespace TitoAlquiler.Model.Entities
     {
         public int id { get; set; }
         public int ItemID { get; set; }
-        public virtual ItemAlquilable? item { get; set; }
+        public virtual Item? item { get; set; }
         public int UsuarioID { get; set; }
         public virtual Usuarios? usuario { get; set; }
         public int tiempoDias { get; set; }
@@ -23,20 +23,27 @@ namespace TitoAlquiler.Model.Entities
         public DateTime? deletedAt { get; set; }
 
         private IEstrategiaPrecio? _estrategiaPrecio;
+        private IEstrategiaAlquiler? _estrategiaAlquiler;
 
-        // Constructor vacío para EF Core
         public Alquileres() { }
 
-        // Constructor con estrategia (uso opcional)
-        public Alquileres(IEstrategiaPrecio estrategia)
+        public Alquileres(IEstrategiaPrecio estrategiaPrecio)
         {
-            _estrategiaPrecio = estrategia;
+            _estrategiaPrecio = estrategiaPrecio;
+        }
+        public void SetEstrategiaPrecio(IEstrategiaPrecio estrategiaPrecio)
+        {
+            _estrategiaPrecio = estrategiaPrecio;
         }
 
-        // Método para cambiar la estrategia en tiempo de ejecución
-        public void SetEstrategia(IEstrategiaPrecio estrategia)
+        public Alquileres(IEstrategiaAlquiler estrategiaAlquiler)
         {
-            _estrategiaPrecio = estrategia;
+            _estrategiaAlquiler = estrategiaAlquiler;
+        }
+
+        public void SetEstrategiaAlquiler(IEstrategiaAlquiler estrategiaAlquiler)
+        {
+            _estrategiaAlquiler = estrategiaAlquiler;
         }
 
         // Método para calcular el precio total basado en la estrategia seleccionada

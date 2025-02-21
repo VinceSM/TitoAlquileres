@@ -13,7 +13,7 @@ public class SistemaAlquilerContext : DbContext
     public DbSet<Electronica> Electronicas { get; set; }
     public DbSet<Alquileres> Alquileres { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
-    public DbSet<ItemAlquilable> Items { get; set; }
+    public DbSet<Item> Items { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -26,7 +26,7 @@ public class SistemaAlquilerContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ItemAlquilable>().UseTptMappingStrategy();
+        modelBuilder.Entity<Item>().UseTptMappingStrategy();
 
         modelBuilder.Entity<Transporte>().ToTable("Transportes");
         modelBuilder.Entity<Electrodomestico>().ToTable("Electrodomesticos");
@@ -35,7 +35,7 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<Electronica>().ToTable("Electronicas");
 
         // Configuración de Item
-        modelBuilder.Entity<ItemAlquilable>(entity =>
+        modelBuilder.Entity<Item>(entity =>
         {
             entity.ToTable("Items");
             entity.HasKey(e => e.id);
@@ -99,7 +99,7 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<Usuarios>().HasQueryFilter(u => u.deletedAt == null);
         modelBuilder.Entity<Alquileres>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
-        modelBuilder.Entity<ItemAlquilable>().HasQueryFilter(i => i.deletedAt == null);
+        modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
 
     }
 }

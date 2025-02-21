@@ -7,8 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Interfaces
 {
-    //Interfaz general que maneja el comportamiento de Alquilar
-    public interface IAlquilable
+    public interface IEstrategiaAlquiler
     {
         void Alquilar(Item item);
     }

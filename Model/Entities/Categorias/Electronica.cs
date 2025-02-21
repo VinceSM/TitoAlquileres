@@ -4,16 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Entities.Items;
+using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Electronica : ItemAlquilable
+    public class Electronica : IAlquilable
     {
         public string? resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
-        public override void Alquilar()
+
+        public Electronica(string nombre, string marca, string modelo, double tarifaDia, string resolucion, int almacenamiento)
         {
-            Console.WriteLine($"Se ha alquilado un dispositivo electrónico: {nombreItem}, Resolución: {resolucionPantalla}");
+            //Hacer Constructor
+            
+        }
+        public void Alquilar(Item item)
+        {
+            Console.WriteLine($"Se ha alquilado un dispositivo electrónico: {item.nombreItem}, Resolución: {resolucionPantalla}");
         }
     }
 }

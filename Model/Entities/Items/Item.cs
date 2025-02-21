@@ -8,7 +8,8 @@ using TitoAlquiler.Model.Interfaces;
 namespace TitoAlquiler.Model.Entities.Items
 {
     //Clase Abstracta que gestiona los atributos de un Item Alquilable
-    public abstract class ItemAlquilable : IAlquilable
+    //Las clases Transporte, Indumentaria, Electrodomesticos, Electronica e Inmueble ES UN Item, en este caso, Alquilable
+    public abstract class Item : IAlquilable
     {
         public int id { get; set; }
         public string? nombreItem { get; set; }
@@ -20,6 +21,6 @@ namespace TitoAlquiler.Model.Entities.Items
         public virtual ICollection<Alquileres>? Alquileres { get; set; }
         public DateTime? deletedAt { get; set; }
 
-        public abstract void Alquilar();
+        public abstract void Alquilar(Item item);
     }
 }
