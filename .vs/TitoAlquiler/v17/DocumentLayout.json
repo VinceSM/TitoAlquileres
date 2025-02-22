@@ -3,12 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\entities\\items\\itemalquilable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\items\\itemalquilable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategiamembresia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategiamembresia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\alquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategianormal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategianormal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\strategy\\estrategiaestacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\strategy\\estrategiaestacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\interfaces\\iestrategiaprecio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\interfaces\\iestrategiaprecio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\factory\\transportefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\transportefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\factory\\inmueblefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\inmueblefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\factory\\electronicafactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\electronicafactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\factory\\indumentariafactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\indumentariafactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\factory\\electrodomesticofactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\electrodomesticofactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\factory\\alquilerfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\factory\\alquilerfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,27 +67,131 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ItemAlquilable.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Items\\ItemAlquilable.cs",
-              "RelativeDocumentMoniker": "Model\\Entities\\Items\\ItemAlquilable.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Items\\ItemAlquilable.cs",
-              "RelativeToolTip": "Model\\Entities\\Items\\ItemAlquilable.cs",
+              "Title": "EstrategiaMembresia.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaMembresia.cs",
+              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaMembresia.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaMembresia.cs",
+              "RelativeToolTip": "Model\\Strategy\\EstrategiaMembresia.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T22:19:59.228Z",
+              "WhenOpened": "2025-02-22T15:08:17.535Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Alquileres.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Alquileres.cs",
-              "RelativeDocumentMoniker": "Model\\Entities\\Alquileres.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Entities\\Alquileres.cs",
-              "RelativeToolTip": "Model\\Entities\\Alquileres.cs",
+              "Title": "EstrategiaNormal.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaNormal.cs",
+              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaNormal.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaNormal.cs",
+              "RelativeToolTip": "Model\\Strategy\\EstrategiaNormal.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T22:10:18.697Z",
+              "WhenOpened": "2025-02-22T15:08:15.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EstrategiaEstacion.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaEstacion.cs",
+              "RelativeDocumentMoniker": "Model\\Strategy\\EstrategiaEstacion.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Strategy\\EstrategiaEstacion.cs",
+              "RelativeToolTip": "Model\\Strategy\\EstrategiaEstacion.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA5wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:07:47.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IEstrategiaPrecio.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "RelativeDocumentMoniker": "Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "RelativeToolTip": "Model\\Interfaces\\IEstrategiaPrecio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:07:30.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TransporteFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\TransporteFactory.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\TransporteFactory.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\TransporteFactory.cs",
+              "RelativeToolTip": "Model\\Factory\\TransporteFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:07:24.396Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InmuebleFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\InmuebleFactory.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\InmuebleFactory.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\InmuebleFactory.cs",
+              "RelativeToolTip": "Model\\Factory\\InmuebleFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:07:23.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ElectronicaFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\ElectronicaFactory.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\ElectronicaFactory.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\ElectronicaFactory.cs",
+              "RelativeToolTip": "Model\\Factory\\ElectronicaFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:07:22.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IndumentariaFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\IndumentariaFactory.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\IndumentariaFactory.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\IndumentariaFactory.cs",
+              "RelativeToolTip": "Model\\Factory\\IndumentariaFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:07:20.464Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ElectrodomesticoFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\ElectrodomesticoFactory.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\ElectrodomesticoFactory.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\ElectrodomesticoFactory.cs",
+              "RelativeToolTip": "Model\\Factory\\ElectrodomesticoFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:06:45.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AlquilerFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\AlquilerFactory.cs",
+              "RelativeDocumentMoniker": "Model\\Factory\\AlquilerFactory.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Factory\\AlquilerFactory.cs",
+              "RelativeToolTip": "Model\\Factory\\AlquilerFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T15:06:41.588Z",
               "EditorCaption": ""
             }
           ]
