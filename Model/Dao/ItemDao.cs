@@ -14,7 +14,7 @@ namespace TitoAlquiler.Model.Dao
         /// Inserta un nuevo ítem en la base de datos.
         /// </summary>
         /// <param name="item">Objeto de tipo <see cref="Item"/> que contiene los datos del ítem a insertar.</param>
-        public void InsertItem(ItemAlquilable item)
+        public void InsertItem(Item item)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace TitoAlquiler.Model.Dao
         /// Actualiza un ítem existente en la base de datos.
         /// </summary>
         /// <param name="item">Objeto de tipo <see cref="Item"/> que contiene los datos actualizados del ítem.</param>
-        public void UpdateItem(ItemAlquilable item)
+        public void UpdateItem(Item item)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace TitoAlquiler.Model.Dao
         /// Elimina un ítem de manera lógica (soft delete), marcando la fecha de eliminación.
         /// </summary>
         /// <param name="item">Objeto de tipo <see cref="Item"/> que representa el ítem a eliminar.</param>
-        public void SoftDeleteItem(ItemAlquilable item)
+        public void SoftDeleteItem(Item item)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace TitoAlquiler.Model.Dao
         /// Obtiene todos los ítems que no han sido eliminados de la base de datos.
         /// </summary>
         /// <returns>Lista de objetos <see cref="Item"/> que representan los ítems activos.</returns>
-        public List<ItemAlquilable> LoadAllItems()
+        public List<Item> LoadAllItems()
         {
             try
             {
@@ -102,7 +102,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="id">ID del ítem a buscar.</param>
         /// <returns>Objeto <see cref="Item"/> con los detalles del ítem encontrado, o null si no se encuentra.</returns>
-        public ItemAlquilable FindItemById(int id)
+        public Item FindItemById(int id)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="categoriaId">ID de la categoría cuyos ítems se desean buscar.</param>
         /// <returns>Lista de objetos <see cref="Item"/> asociados a la categoría proporcionada.</returns>
-        public List<ItemAlquilable> FindItemsByCategoria(int categoriaId)
+        public List<Item> FindItemsByCategoria(int categoriaId)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="search">Término de búsqueda que se debe encontrar en el nombre, marca o modelo de los ítems.</param>
         /// <returns>Lista de objetos <see cref="Item"/> que coinciden con el término de búsqueda.</returns>
-        public List<ItemAlquilable> SearchItems(string search)
+        public List<Item> SearchItems(string search)
         {
             try
             {

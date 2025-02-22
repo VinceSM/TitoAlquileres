@@ -7,7 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Electrodomestico : ItemAlquilable
+    public class Electrodomestico : Item
     {
         public int potenciaWatts { get; set; }
         public string? tipoElectrodomestico { get; set; }

@@ -7,7 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Indumentaria : ItemAlquilable
+    public class Indumentaria : Item
     {
         public string? talla { get; set; }
         public string? material { get; set; }

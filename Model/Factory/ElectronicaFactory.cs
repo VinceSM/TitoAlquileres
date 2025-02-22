@@ -10,7 +10,7 @@ namespace TitoAlquiler.Model.Factory
 {
     public class ElectronicaFactory : AlquilerFactory
     {
-        public override ItemAlquilable CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia)
+        public override Item CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia)
         {
             return new Electronica { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia };
         }

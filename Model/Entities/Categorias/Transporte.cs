@@ -7,7 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Transporte : ItemAlquilable
+    public class Transporte : Item
     {
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }

@@ -7,7 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Inmueble : ItemAlquilable
+    public class Inmueble : Item
     {
         public int metrosCuadrados { get; set; }
         public string? ubicacion { get; set; }

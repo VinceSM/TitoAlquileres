@@ -12,7 +12,7 @@ namespace TitoAlquiler.Model.Entities
     {
         public int id { get; set; }
         public int ItemID { get; set; }
-        public virtual ItemAlquilable? item { get; set; }
+        public virtual Item? item { get; set; }
         public int UsuarioID { get; set; }
         public virtual Usuarios? usuario { get; set; }
         public int tiempoDias { get; set; }

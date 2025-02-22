@@ -7,7 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
-    public class Electronica : ItemAlquilable
+    public class Electronica : Item
     {
         public string? resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
