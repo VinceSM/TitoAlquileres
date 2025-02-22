@@ -24,7 +24,6 @@ namespace TitoAlquiler.Model.Entities
 
         private IEstrategiaPrecio? _estrategiaPrecio;
 
-        // Constructor vacío para EF Core
         public Alquileres() { }
 
         // Constructor con estrategia (uso opcional)

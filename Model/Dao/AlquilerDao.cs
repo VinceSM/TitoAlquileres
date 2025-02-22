@@ -233,6 +233,33 @@ namespace TitoAlquiler.Model.Dao
                 _ => Estacion.Invierno
             };
         }
+        /// <summary>
+        /// Obtiene un alquiler activo por el nombre del ítem y el nombre del usuario.
+        /// </summary>
+        /// <param name="nombreItem">Nombre del ítem alquilado.</param>
+        /// <param name="nombreUsuario">Nombre del usuario que realizó el alquiler.</param>
+        /// <returns>Objeto <see cref="Alquileres"/> si se encuentra el alquiler; de lo contrario, null.</returns>
+        public Alquileres ObtenerAlquilerPorItemYUsuario(string nombreItem, string nombreUsuario)
+        {
+            try
+            {
+                using (var db = new SistemaAlquilerContext())
+                {
+                    return db.Alquileres
+                             .Include(a => a.item)
+                             .Include(a => a.usuario)
+                             .FirstOrDefault(a => a.item.nombreItem == nombreItem
+                                                  && a.usuario.nombre == nombreUsuario
+                                                  && a.deletedAt == null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener el alquiler: {ex.Message}");
+                throw;
+            }
+        }
+
     }
 }
 

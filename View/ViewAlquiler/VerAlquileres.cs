@@ -98,8 +98,44 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="e">Argumentos del evento del botón.</param>
         private void btnCerrarAlquiler_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (dataGridViewAlquileres.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, selecciona un alquiler para cerrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                var filaSeleccionada = dataGridViewAlquileres.SelectedRows[0];
+                string nombreItem = filaSeleccionada.Cells["nombreItem"].Value.ToString();
+                string nombreUsuario = filaSeleccionada.Cells["nombreUsuario"].Value.ToString();
+
+                var alquiler = alquilerController.ObtenerAlquilerPorItemYUsuario(nombreItem, nombreUsuario);
+
+                if (alquiler == null)
+                {
+                    MessageBox.Show("No se pudo encontrar el alquiler seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var confirmacion = MessageBox.Show($"¿Estás seguro de que quieres cerrar el alquiler de {alquiler?.item?.nombreItem} para {alquiler?.usuario?.nombre}?",
+                                                   "Confirmar cierre",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question);
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    alquilerController.EliminarAlquiler(alquiler);
+                    MessageBox.Show("Alquiler cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadAlquileres(); // Refrescar la lista
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cerrar el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         #endregion
     }

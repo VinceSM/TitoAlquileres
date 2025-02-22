@@ -10,9 +10,12 @@ namespace TitoAlquiler.Model.Factory
 {
     public class InmuebleFactory : AlquilerFactory
     {
-        public override Item CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia)
+        public override Item CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
         {
-            return new Inmueble { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia };
+            return new Inmueble { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia,
+                metrosCuadrados = (int)adicionales[0],
+                ubicacion = (string)adicionales[1]
+            };
         }
     }
 }

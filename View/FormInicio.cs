@@ -1,5 +1,5 @@
-﻿using TitoAlquiler.View.Alquiler;
-using TitoAlquiler.View.Usuario;
+﻿using TitoAlquiler.View.ViewAlquiler;
+using TitoAlquiler.View.ViewUsuario;
 using System;
 using System.Windows.Forms;
 

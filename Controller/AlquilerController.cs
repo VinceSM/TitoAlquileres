@@ -96,6 +96,11 @@ namespace TitoAlquiler.Controller
             return _alquilerDao.FindAlquileresByItem(itemId);
         }
 
+        public Alquileres ObtenerAlquilerPorItemYUsuario(string item, string usuario)
+        {
+            return _alquilerDao.ObtenerAlquilerPorItemYUsuario(item, usuario);
+        }
+
         /// <summary>
         /// Crea un nuevo alquiler con los parámetros proporcionados y calcula el precio total basado en la estrategia seleccionada.
         /// </summary>
