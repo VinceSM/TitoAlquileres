@@ -19,21 +19,22 @@ namespace TitoAlquiler.Model.Entities
         public DateTime fechaInicio { get; set; }
         public DateTime fechaFin { get; set; }
         public double precioTotal { get; set; }
+        private IEstrategiaPrecio? _estrategiaPrecio {  get; set; }
         public string? tipoEstrategia { get; set; }
         public DateTime? deletedAt { get; set; }
 
-        private IEstrategiaPrecio? _estrategiaPrecio;
+        public Alquileres()
+        {
+        }
 
-        public Alquileres() { }
+        public Alquileres(Item item) 
+        {
+            this.item = item;
+            this.ItemID = item.id;
+        }
 
         // Constructor con estrategia (uso opcional)
         public Alquileres(IEstrategiaPrecio estrategia)
-        {
-            _estrategiaPrecio = estrategia;
-        }
-
-        // Método para cambiar la estrategia en tiempo de ejecución
-        public void SetEstrategia(IEstrategiaPrecio estrategia)
         {
             _estrategiaPrecio = estrategia;
         }

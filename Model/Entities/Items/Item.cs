@@ -7,8 +7,8 @@ using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Model.Entities.Items
 {
-    //Clase Abstracta que gestiona los atributos de un Item Alquilable
-    public abstract class Item : IAlquilable
+    //Clase Concreta que gestiona los atributos de un Item Alquilable
+    public class Item : IAlquilable
     {
         public int id { get; set; }
         public string? nombreItem { get; set; }
@@ -20,6 +20,9 @@ namespace TitoAlquiler.Model.Entities.Items
         public virtual ICollection<Alquileres>? Alquileres { get; set; }
         public DateTime? deletedAt { get; set; }
 
-        public abstract void Alquilar();
+        public void Alquilar()
+        {
+            Console.WriteLine($"Se ha alquilado un item: {nombreItem}");
+        }
     }
 }

@@ -28,13 +28,61 @@ public class SistemaAlquilerContext : DbContext
     {
         modelBuilder.Entity<Item>().UseTptMappingStrategy();
 
-        modelBuilder.Entity<Transporte>().ToTable("Transportes");
-        modelBuilder.Entity<Electrodomestico>().ToTable("Electrodomesticos");
-        modelBuilder.Entity<Indumentaria>().ToTable("Indumentarias");
-        modelBuilder.Entity<Inmueble>().ToTable("Inmuebles");
-        modelBuilder.Entity<Electronica>().ToTable("Electronicas");
+        modelBuilder.Entity<Transporte>(entity =>
+        {
+            entity.ToTable("Transportes");
+            entity.HasKey(e => e.id);
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.capacidadPasajeros).HasColumnName("capacidadPasajeros");
+            entity.Property(e => e.tipoCombustible).HasColumnName("tipoCombustible");
+            entity.HasOne<Item>().WithOne().HasForeignKey<Transporte>(t => t.item_id);
+        });
 
-        // Configuración de Item
+        modelBuilder.Entity<Electrodomestico>(entity =>
+        {
+            entity.ToTable("Electrodomesticos");
+            entity.HasKey(e => e.id);
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.potenciaWatts).HasColumnName("potenciaWatts");
+            entity.Property(e => e.tipoElectrodomestico).HasColumnName("tipoElectrodomestico");
+            entity.HasOne<Item>().WithOne().HasForeignKey<Electrodomestico>(e => e.item_id);
+        });
+
+        modelBuilder.Entity<Indumentaria>(entity =>
+        {
+            entity.ToTable("Indumentarias");
+            entity.HasKey(e => e.id);
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.talla).HasColumnName("talla");
+            entity.Property(e => e.material).HasColumnName("material");
+            entity.HasOne<Item>().WithOne().HasForeignKey<Indumentaria>(i => i.item_id);
+        });
+
+        modelBuilder.Entity<Inmueble>(entity =>
+        {
+            entity.ToTable("Inmuebles");
+            entity.HasKey(e => e.id);
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.metrosCuadrados).HasColumnName("metrosCuadrados");
+            entity.Property(e => e.ubicacion).HasColumnName("ubicacion");
+            entity.HasOne<Item>().WithOne().HasForeignKey<Inmueble>(i => i.item_id);
+        });
+
+        modelBuilder.Entity<Electronica>(entity =>
+        {
+            entity.ToTable("Electronicas");
+            entity.HasKey(e => e.id);
+            entity.Property(e => e.id).HasColumnName("id");
+            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.resolucionPantalla).HasColumnName("resolucionPantalla");
+            entity.Property(e => e.almacenamientoGB).HasColumnName("almacenamientoGB");
+            entity.HasOne<Item>().WithOne().HasForeignKey<Electronica>(e => e.item_id);
+        });
+
         modelBuilder.Entity<Item>(entity =>
         {
             entity.ToTable("Items");
@@ -100,7 +148,6 @@ public class SistemaAlquilerContext : DbContext
         modelBuilder.Entity<Alquileres>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);
         modelBuilder.Entity<Item>().HasQueryFilter(i => i.deletedAt == null);
-
     }
 }
 
