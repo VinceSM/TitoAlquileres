@@ -10,10 +10,29 @@ namespace TitoAlquiler.Model.Factory
 {
     public class ElectronicaFactory : AlquilerFactory
     {
-        public override Item CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
+        public override (Item item, object categoria) CrearAlquilable(
+            string nombre,
+            string marca,
+            string modelo,
+            double tarifaDia,
+            params object[] adicionales)
         {
-            return new Electronica { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia, 
-                almacenamientoGB = (int)adicionales[0], resolucionPantalla = (string)adicionales[1] };
+            var item = new Item
+            {
+                nombreItem = nombre,
+                marca = marca,
+                modelo = modelo,
+                tarifaDia = tarifaDia,
+                categoriaId = 3 // ID para Electronica
+            };
+
+            var electronica = new Electronica(item)
+            {
+                almacenamientoGB = (int)adicionales[0],
+                resolucionPantalla = (string)adicionales[1]
+            };
+
+            return (item, electronica);
         }
     }
 }

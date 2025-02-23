@@ -20,7 +20,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         public VerAlquileres()
         {
             InitializeComponent();
-            alquilerController = AlquilerController.getInstance();
+            alquilerController = AlquilerController.Instance;
             LoadAlquileres();
         }
 
@@ -125,9 +125,9 @@ namespace TitoAlquiler.View.ViewAlquiler
 
                 if (confirmacion == DialogResult.Yes)
                 {
-                    alquilerController.EliminarAlquiler(alquiler);
+                    alquilerController.EliminarAlquiler(alquiler.id);
                     MessageBox.Show("Alquiler cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadAlquileres(); // Refrescar la lista
+                    LoadAlquileres();
                 }
             }
             catch (Exception ex)

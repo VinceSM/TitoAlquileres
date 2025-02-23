@@ -510,7 +510,7 @@
             btnVerDetalle.TabIndex = 19;
             btnVerDetalle.Text = "Detalle item";
             btnVerDetalle.UseVisualStyleBackColor = true;
-            btnVerDetalle.Click += btnVerDetalle_Click_1;
+            btnVerDetalle.Click += btnVerDetalle_Click;
             // 
             // FormAlquilar
             // 

@@ -12,7 +12,7 @@ namespace TitoAlquiler.View.ViewAlquiler
     public partial class CrearAlquiler : Form
     {
         UsuarioController usuarioController = UsuarioController.getInstance();
-        AlquilerController alquilerController = AlquilerController.getInstance();
+        AlquilerController alquilerController = AlquilerController.Instance;
         ItemController itemController = ItemController.getInstance();
         CategoriaController categoriaController = CategoriaController.getInstance();
 
@@ -57,15 +57,16 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 var items = itemController.ObtenerItemsPorCategoria(categoriaId);
 
-                if (items == null || !items.Any())
+                if (!items.Any())
                 {
                     dataGridViewItems.Rows.Clear();
-                    MessageBox.Show("No se encontraron items para esta categoría.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se encontraron items para esta categoría.", "Información",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 dataGridViewItems.Rows.Clear();
-                foreach (var item in items)
+                foreach (var (item, categoria) in items)
                 {
                     dataGridViewItems.Rows.Add(
                         item.id,
@@ -79,7 +80,8 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -118,46 +120,84 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// </remarks>
         private void btnSoftDeleteItem_Click(object sender, EventArgs e)
         {
-            if (dataGridViewItems.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Por favor, seleccione un item para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-
             try
             {
-                var selectedItem = itemController.ObtenerItemPorId(itemId);
-                if (selectedItem == null)
+                // Verificar selección
+                if (dataGridViewItems.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("No se encontró el item seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Por favor, seleccione un item para eliminar.",
+                                  "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                DialogResult result = MessageBox.Show($"¿Está seguro que desea eliminar el item {selectedItem.nombreItem}?",
+                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+
+                // Obtener el item y su categoría
+                var (item, categoria) = itemController.ObtenerItemPorId(itemId);
+
+                if (item == null)
+                {
+                    MessageBox.Show("No se encontró el item seleccionado.",
+                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Verificar si el item tiene alquileres activos
+                if (item.Alquileres?.Any(a => a.deletedAt == null &&
+                    a.fechaFin > DateTime.Now) == true)
+                {
+                    MessageBox.Show("No se puede eliminar el item porque tiene alquileres activos.",
+                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Construir mensaje de confirmación con detalles
+                string mensajeConfirmacion = $"¿Está seguro que desea eliminar el siguiente item?\n\n" +
+                                           $"Nombre: {item.nombreItem}\n" +
+                                           $"Marca: {item.marca}\n" +
+                                           $"Modelo: {item.modelo}\n";
+
+                // Agregar detalles específicos según la categoría
+                switch (categoria)
+                {
+                    case Transporte t:
+                        mensajeConfirmacion += $"Tipo: Transporte\n" +
+                                             $"Capacidad: {t.capacidadPasajeros} pasajeros";
+                        break;
+                    case Electrodomestico ele:
+                        mensajeConfirmacion += $"Tipo: Electrodoméstico\n" +
+                                             $"Potencia: {ele.potenciaWatts}W";
+                        break;
+                    case Indumentaria i:
+                        mensajeConfirmacion += $"Tipo: Indumentaria\n" +
+                                             $"Talla: {i.talla}";
+                        break;
+                    case Inmueble inm:
+                        mensajeConfirmacion += $"Tipo: Inmueble\n" +
+                                             $"Ubicación: {inm.ubicacion}";
+                        break;
+                    case Electronica el:
+                        mensajeConfirmacion += $"Tipo: Electrónica\n" +
+                                             $"Almacenamiento: {el.almacenamientoGB}GB";
+                        break;
+                }
+
+                DialogResult result = MessageBox.Show(mensajeConfirmacion,
                     "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    if (itemController.EliminarItem(itemId))
-                    {
-                        MessageBox.Show("Item eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Actualizar la vista
-                        if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
-                        {
-                            CargarItems(categoriaSeleccionada.id);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se pudo eliminar el item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    // Intentar eliminar el item
+                    itemController.EliminarItem(itemId);
+
+                    MessageBox.Show("Item eliminado exitosamente.",
+                                  "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar el item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al eliminar el item: {ex.Message}",
+                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -437,60 +477,109 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
         #endregion
 
-        private void btnVerDetalle_Click_1(object sender, EventArgs e)
+        private void btnVerDetalle_Click(object sender, EventArgs e)
         {
-            // Verifica si hay una fila seleccionada
-            if (dataGridViewItems.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Por favor, seleccione un ítem para ver su detalle.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (dataGridViewItems.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, seleccione un ítem para ver su detalle.", "Advertencia",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            // Obtiene el ID del ítem seleccionado
-            int itemId = Convert.ToInt32(dataGridViewItems.SelectedRows[0].Cells["ID"].Value);
+                int itemId = Convert.ToInt32(dataGridViewItems.SelectedRows[0].Cells["ID"].Value);
+                var (item, categoria) = itemController.ObtenerItemPorId(itemId);
 
-            // Obtiene los detalles del ítem desde el controlador
-            var item = itemController.ObtenerItemPorId(itemId);
+                if (item == null)
+                {
+                    MessageBox.Show("No se encontraron detalles para el ítem seleccionado.", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            if (item == null)
-            {
-                MessageBox.Show("No se encontraron detalles para el ítem seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                string mensajeDetalle = $"ID: {item.id}\n" +
+                                      $"Nombre: {item.nombreItem}\n" +
+                                      $"Marca: {item.marca}\n" +
+                                      $"Modelo: {item.modelo}\n" +
+                                      $"Tarifa por día: ${item.tarifaDia}\n\n";
 
-            // Comienza a construir el mensaje con los detalles comunes
-            string mensajeDetalle = $"ID: {item.id}\n" +
-                                    $"Nombre: {item.nombreItem}\n";
+                // Agregar detalles específicos según la categoría
+                switch (categoria)
+                {
+                    case Transporte t:
+                        mensajeDetalle += $"Tipo: Transporte\n" +
+                                        $"Capacidad de Pasajeros: {t.capacidadPasajeros}\n" +
+                                        $"Tipo de Combustible: {t.tipoCombustible}";
+                        break;
+                    case Electrodomestico ele:
+                        mensajeDetalle += $"Tipo: Electrodoméstico\n" +
+                                        $"Potencia (Watts): {ele.potenciaWatts}\n" +
+                                        $"Tipo: {ele.tipoElectrodomestico}";
+                        break;
+                    case Indumentaria i:
+                        mensajeDetalle += $"Tipo: Indumentaria\n" +
+                                        $"Talla: {i.talla}\n" +
+                                        $"Material: {i.material}";
+                        break;
+                    case Inmueble inm:
+                        mensajeDetalle += $"Tipo: Inmueble\n" +
+                                        $"Metros Cuadrados: {inm.metrosCuadrados}\n" +
+                                        $"Ubicación: {inm.ubicacion}";
+                        break;
+                    case Electronica el:
+                        mensajeDetalle += $"Tipo: Electrónica\n" +
+                                        $"Resolución: {el.resolucionPantalla}\n" +
+                                        $"Almacenamiento: {el.almacenamientoGB}GB";
+                        break;
+                }
 
-            // Agrega los detalles específicos según el tipo de ítem
-            if (item is Transporte transporte)
-            {
-                mensajeDetalle += $"Capacidad de Pasajeros: {transporte.capacidadPasajeros}\n" +
-                                  $"Tipo de Combustible: {transporte.tipoCombustible}\n";
+                MessageBox.Show(mensajeDetalle, "Detalle del Ítem",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (item is Electrodomestico electrodomestico)
+            catch (Exception ex)
             {
-                mensajeDetalle += $"Potencia (Watts): {electrodomestico.potenciaWatts}\n" +
-                                  $"Tipo de Electrodoméstico: {electrodomestico.tipoElectrodomestico}\n";
+                MessageBox.Show($"Error al mostrar detalles: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (item is Indumentaria indumentaria)
-            {
-                mensajeDetalle += $"Talla: {indumentaria.talla}\n" +
-                                  $"Material: {indumentaria.material}\n";
-            }
-            else if (item is Inmueble inmueble)
-            {
-                mensajeDetalle += $"Metros Cuadrados: {inmueble.metrosCuadrados}\n" +
-                                  $"Ubicación: {inmueble.ubicacion}\n";
-            }
-            else if (item is Electronica electronica)
-            {
-                mensajeDetalle += $"Resolución de Pantalla: {electronica.resolucionPantalla}\n" +
-                                  $"Almacenamiento (GB): {electronica.almacenamientoGB}\n";
-            }
+        }
 
-            // Muestra el detalle en un MessageBox
-            MessageBox.Show(mensajeDetalle, "Detalle del Ítem", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        // Método para calcular y mostrar el precio estimado
+        private void MostrarPrecioEstimado()
+        {
+            try
+            {
+                if (dataGridViewItems.SelectedRows.Count == 0 || dataGridViewUsuarios.SelectedRows.Count == 0)
+                    return;
+
+                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+
+                DateTime fechaInicio = dateTimePickerFechaInicio.Value;
+                DateTime fechaFin = dateTimePickerFechaFin.Value;
+                int dias = (int)(fechaFin - fechaInicio).TotalDays + 1;
+
+                double precioEstimado = alquilerController.CalcularPrecioEstimado(itemId, usuarioId, dias);
+
+                lblPrecioPorDia.Text = $"Precio Estimado: ${precioEstimado:F2}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al calcular precio estimado: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Agregar este manejador de eventos para los DateTimePicker
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            MostrarPrecioEstimado();
+        }
+
+        // Agregar este manejador para la selección de items o usuarios
+        private void dataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            MostrarPrecioEstimado();
         }
     }
 }

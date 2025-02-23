@@ -1,14 +1,16 @@
-﻿using TitoAlquiler.Model.Dao;
+﻿// ItemController.cs
 using System;
 using System.Collections.Generic;
-using TitoAlquiler.Model.Factory;
+using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities.Items;
+using TitoAlquiler.Model.Factory;
+using System.Windows.Forms;
 
 namespace TitoAlquiler.Controller
 {
     public class ItemController
     {
-        ItemDao _itemDao = new ItemDao();
+        private readonly ItemDao _itemDao;
 
         #region Singletone
 
@@ -27,92 +29,130 @@ namespace TitoAlquiler.Controller
         #endregion
 
         /// <summary>
-        /// Crea un nuevo ítem en la base de datos.
+        /// Crea un nuevo ítem usando el patrón Factory.
         /// </summary>
-        /// <param name="item">Objeto de tipo Item que contiene la información del ítem a crear.</param>
-        public void CrearItem(Item item)
-        {
-            _itemDao.InsertItem(item);
-        }
-
-        /// <summary>
-        /// Actualiza un ítem existente en la base de datos.
-        /// </summary>
-        /// <param name="item">Objeto de tipo Item con los datos actualizados del ítem.</param>
-        public void ActualizarItem(Item item)
-        {
-            _itemDao.UpdateItem(item);
-        }
-
-        /// <summary>
-        /// Elimina un ítem de manera lógica (soft delete).
-        /// </summary>
-        /// <param name="itemId">ID del ítem que se va a eliminar.</param>
-        /// <returns>True si el ítem fue eliminado con éxito, false en caso contrario.</returns>
-        public bool EliminarItem(int itemId)
+        public void CrearItem(AlquilerFactory factory, string nombre, string marca, string modelo,
+                            double tarifaDia, params object[] adicionales)
         {
             try
             {
-                var item = _itemDao.FindItemById(itemId);
-                if (item != null)
-                {
-                    _itemDao.SoftDeleteItem(item);
-                    return true;
-                }
-                return false;
+                var (item, categoria) = factory.CrearAlquilable(nombre, marca, modelo, tarifaDia, adicionales);
+                _itemDao.InsertItem(item, categoria);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
 
         /// <summary>
-        /// Obtiene todos los ítems registrados en la base de datos.
+        /// Actualiza un ítem existente y su categoría.
         /// </summary>
-        /// <returns>Lista de objetos Item.</returns>
-        public List<Item> ObtenerTodosLosItems()
+        public void ActualizarItem(Item item, object categoria)
         {
-            return _itemDao.LoadAllItems();
+            try
+            {
+                _itemDao.UpdateItem(item, categoria);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar el item: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Obtiene un ítem por su identificador único.
+        /// Elimina lógicamente un ítem por su ID.
         /// </summary>
-        /// <param name="id">ID del ítem a obtener.</param>
-        /// <returns>Objeto Item con los detalles del ítem solicitado.</returns>
-        public Item ObtenerItemPorId(int id)
+        public void EliminarItem(int itemId)
         {
-            return _itemDao.FindItemById(id);
+            try
+            {
+                _itemDao.SoftDeleteItem(itemId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar el item: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Obtiene una lista de ítems que pertenecen a una categoría específica.
+        /// Obtiene un ítem y su categoría por ID.
         /// </summary>
-        /// <param name="categoriaId">ID de la categoría a la que pertenecen los ítems.</param>
-        /// <returns>Lista de objetos Item pertenecientes a la categoría especificada.</returns>
-        public List<Item> ObtenerItemsPorCategoria(int categoriaId)
+        public (Item item, object categoria) ObtenerItemPorId(int id)
         {
-            return _itemDao.FindItemsByCategoria(categoriaId);
+            try
+            {
+                return _itemDao.FindItemById(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener el item: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Busca ítems que coincidan con el término de búsqueda proporcionado.
+        /// Obtiene todos los ítems activos con sus categorías.
         /// </summary>
-        /// <param name="busqueda">Cadena de texto para realizar la búsqueda de ítems.</param>
-        /// <returns>Lista de objetos Item que coinciden con el término de búsqueda.</returns>
-        public List<Item> BuscarItems(string busqueda)
+        public List<(Item item, object categoria)> ObtenerTodosLosItems()
         {
-            return _itemDao.SearchItems(busqueda);
+            try
+            {
+                return _itemDao.LoadAllItems();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener los items: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Obtiene la fábrica de ítems correspondiente a una categoría específica.
+        /// Obtiene ítems por categoría.
         /// </summary>
-        /// <param name="categoriaId">El ID de la categoría para la cual se requiere la fábrica.</param>
-        /// <returns>Una instancia de FabricaItems correspondiente a la categoría especificada.</returns>
-        /// <exception cref="ArgumentException">Se lanza cuando se proporciona un ID de categoría no válido.</exception>
-        public AlquilerFactory ObtenerFabricaSegunCategoria(int categoriaId)
+        public List<(Item item, object categoria)> ObtenerItemsPorCategoria(int categoriaId)
+        {
+            try
+            {
+                return _itemDao.FindItemsByCategoria(categoriaId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener los items por categoría: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Busca ítems por término de búsqueda.
+        /// </summary>
+        public List<(Item item, object categoria)> BuscarItems(string searchTerm)
+        {
+            try
+            {
+                return _itemDao.SearchItems(searchTerm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar items: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene la fábrica correspondiente según la categoría.
+        /// </summary>
+        public AlquilerFactory ObtenerFactory(int categoriaId)
         {
             return categoriaId switch
             {
@@ -120,8 +160,27 @@ namespace TitoAlquiler.Controller
                 2 => new ElectrodomesticoFactory(),
                 3 => new ElectronicaFactory(),
                 4 => new InmuebleFactory(),
+                5 => new IndumentariaFactory(),
                 _ => throw new ArgumentException("Categoría no válida")
             };
+        }
+
+        /// <summary>
+        /// Valida si un ítem puede ser eliminado (no tiene alquileres activos).
+        /// </summary>
+        public bool PuedeEliminarItem(int itemId)
+        {
+            try
+            {
+                var (item, _) = _itemDao.FindItemById(itemId);
+                return item?.Alquileres == null || item.Alquileres.Count == 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al validar el item: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         /// <summary>
@@ -129,35 +188,52 @@ namespace TitoAlquiler.Controller
         /// </summary>
         /// <param name="itemId">ID del ítem a actualizar.</param>
         /// <param name="nuevaTarifa">Nueva tarifa para el ítem.</param>
-        /// <returns>True si la actualización fue exitosa, false en caso contrario.</returns>
+        /// <exception cref="ArgumentException">Se lanza cuando el itemId no existe o la tarifa es inválida.</exception>
+        /// <exception cref="InvalidOperationException">Se lanza cuando hay un error al actualizar el item.</exception>
         public bool ActualizarTarifaItem(int itemId, double nuevaTarifa)
         {
             try
             {
-                var item = _itemDao.FindItemById(itemId);
-                if (item != null)
+                // Validar la nueva tarifa
+                if (nuevaTarifa <= 0)
                 {
-                    item.tarifaDia = nuevaTarifa;
-                    _itemDao.UpdateItem(item);
-                    return true;
+                    throw new ArgumentException("La tarifa debe ser mayor que cero.");
                 }
-                return false;
+
+                // Obtener el item y su categoría
+                var (item, categoria) = _itemDao.FindItemById(itemId);
+
+                if (item == null)
+                {
+                    throw new ArgumentException($"No se encontró el item con ID {itemId}.");
+                }
+
+                // Verificar si tiene alquileres activos (opcional, según requerimientos)
+                if (item.Alquileres?.Any(a => a.deletedAt == null && a.fechaFin > DateTime.Now) == true)
+                {
+                    // Podrías lanzar una excepción aquí si no se permite actualizar items con alquileres activos
+                    // O simplemente registrar una advertencia en el log
+                    Console.WriteLine($"Advertencia: El item {itemId} tiene alquileres activos al actualizar su tarifa.");
+                }
+
+                // Actualizar la tarifa
+                item.tarifaDia = nuevaTarifa;
+
+                // Actualizar en la base de datos
+                _itemDao.UpdateItem(item, categoria);
+
+                return true;
             }
-            catch (Exception)
+            catch (ArgumentException)
             {
-                return false;
+                // Relanzar excepciones de validación
+                throw;
             }
-        }
-
-        public string getMarca(string marca)
-        {
-            return _itemDao.getMarca(marca);
-        }
-
-        public string getModelo(string modelo)
-        {
-            return _itemDao.getModelo(modelo);
+            catch (Exception ex)
+            {
+                // Envolver otras excepciones en una InvalidOperationException
+                throw new InvalidOperationException($"Error al actualizar la tarifa del item: {ex.Message}", ex);
+            }
         }
     }
 }
-

@@ -1,195 +1,295 @@
-﻿using System;
+﻿// ItemDao.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities.Items;
+using TitoAlquiler.Model.Entities.Categorias;
 
 namespace TitoAlquiler.Model.Dao
 {
     public class ItemDao
     {
-        public ItemDao() { }
-
         /// <summary>
-        /// Inserta un nuevo ítem en la base de datos.
+        /// Inserta un nuevo ítem y su categoría específica en la base de datos.
         /// </summary>
-        /// <param name="item">Objeto de tipo <see cref="Item"/> que contiene los datos del ítem a insertar.</param>
-        public void InsertItem(Item item)
+        /// <param name="item">Item base a insertar</param>
+        /// <param name="categoria">Objeto de categoría específica (Transporte, Electrodomestico, etc.)</param>
+        public void InsertItem(Item item, object categoria)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    db.Items.Add(item);
-                    db.SaveChanges();
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Primero insertamos el Item base
+                            db.Items.Add(item);
+                            db.SaveChanges();
+
+                            // Ahora manejamos la categoría específica
+                            switch (categoria)
+                            {
+                                case Transporte transporte:
+                                    transporte.item_id = item.id;
+                                    db.Transportes.Add(transporte);
+                                    break;
+                                case Electrodomestico electrodomestico:
+                                    electrodomestico.item_id = item.id;
+                                    db.Electrodomesticos.Add(electrodomestico);
+                                    break;
+                                case Inmueble inmueble:
+                                    inmueble.item_id = item.id;
+                                    db.Inmuebles.Add(inmueble);
+                                    break;
+                                case Electronica electronica:
+                                    electronica.item_id = item.id;
+                                    db.Electronicas.Add(electronica);
+                                    break;
+                                case Indumentaria indumentaria:
+                                    indumentaria.item_id = item.id;
+                                    db.Indumentarias.Add(indumentaria);
+                                    break;
+                            }
+
+                            db.SaveChanges();
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error inserting item: {ex.Message}");
-                throw;
+                throw new Exception($"Error al insertar el item: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Actualiza un ítem existente en la base de datos.
+        /// Actualiza un ítem y su categoría específica en la base de datos.
         /// </summary>
-        /// <param name="item">Objeto de tipo <see cref="Item"/> que contiene los datos actualizados del ítem.</param>
-        public void UpdateItem(Item item)
+        /// <param name="item">Item base a actualizar</param>
+        /// <param name="categoria">Objeto de categoría específica actualizado</param>
+        public void UpdateItem(Item item, object categoria)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    db.Update(item);
-                    db.SaveChanges();
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            db.Update(item);
+
+                            switch (categoria)
+                            {
+                                case Transporte transporte:
+                                    db.Transportes.Update(transporte);
+                                    break;
+                                case Electrodomestico electrodomestico:
+                                    db.Electrodomesticos.Update(electrodomestico);
+                                    break;
+                                case Inmueble inmueble:
+                                    db.Inmuebles.Update(inmueble);
+                                    break;
+                                case Electronica electronica:
+                                    db.Electronicas.Update(electronica);
+                                    break;
+                                case Indumentaria indumentaria:
+                                    db.Indumentarias.Update(indumentaria);
+                                    break;
+                            }
+
+                            db.SaveChanges();
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
-                throw;
+                throw new Exception($"Error al actualizar el item: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Elimina un ítem de manera lógica (soft delete), marcando la fecha de eliminación.
+        /// Realiza un borrado lógico del ítem y su categoría.
         /// </summary>
-        /// <param name="item">Objeto de tipo <see cref="Item"/> que representa el ítem a eliminar.</param>
-        public void SoftDeleteItem(Item item)
+        /// <param name="itemId">ID del ítem a eliminar</param>
+        public void SoftDeleteItem(int itemId)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    item.deletedAt = DateTime.Now;
-                    db.Update(item);
-                    db.SaveChanges();
+                    var item = db.Items.Find(itemId);
+                    if (item != null)
+                    {
+                        item.deletedAt = DateTime.Now;
+                        db.Update(item);
+                        db.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error soft deleting item: {ex.Message}");
-                throw;
+                throw new Exception($"Error al eliminar el item: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Obtiene todos los ítems que no han sido eliminados de la base de datos.
+        /// Busca un ítem y su categoría específica por ID.
         /// </summary>
-        /// <returns>Lista de objetos <see cref="Item"/> que representan los ítems activos.</returns>
-        public List<Item> LoadAllItems()
+        /// <param name="id">ID del ítem</param>
+        /// <returns>Tupla con el item y su categoría específica</returns>
+        public (Item item, object categoria) FindItemById(int id)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    return db.Items
-                        .Where(x => x.deletedAt == null)
-                        .Include(x => x.categoria)
+                    var item = db.Items
+                        .Include(i => i.categoria)
+                        .FirstOrDefault(i => i.id == id && i.deletedAt == null);
+
+                    if (item == null) return (null, null);
+
+                    object categoria = item.categoriaId switch
+                    {
+                        1 => db.Transportes.FirstOrDefault(t => t.item_id == id),
+                        2 => db.Electrodomesticos.FirstOrDefault(e => e.item_id == id),
+                        3 => db.Electronicas.FirstOrDefault(e => e.item_id == id),
+                        4 => db.Inmuebles.FirstOrDefault(i => i.item_id == id),
+                        5 => db.Indumentarias.FirstOrDefault(i => i.item_id == id),
+                        _ => null
+                    };
+
+                    return (item, categoria);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al buscar el item: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Carga todos los ítems activos con sus categorías específicas.
+        /// </summary>
+        /// <returns>Lista de tuplas con items y sus categorías</returns>
+        public List<(Item item, object categoria)> LoadAllItems()
+        {
+            try
+            {
+                using (var db = new SistemaAlquilerContext())
+                {
+                    var items = db.Items
+                        .Where(i => i.deletedAt == null)
+                        .Include(i => i.categoria)
                         .ToList();
+
+                    var result = new List<(Item item, object categoria)>();
+
+                    foreach (var item in items)
+                    {
+                        object categoria = item.categoriaId switch
+                        {
+                            1 => db.Transportes.FirstOrDefault(t => t.item_id == item.id),
+                            2 => db.Electrodomesticos.FirstOrDefault(e => e.item_id == item.id),
+                            3 => db.Electronicas.FirstOrDefault(e => e.item_id == item.id),
+                            4 => db.Inmuebles.FirstOrDefault(i => i.item_id == item.id),
+                            5 => db.Indumentarias.FirstOrDefault(i => i.item_id == item.id),
+                            _ => null
+                        };
+
+                        result.Add((item, categoria));
+                    }
+
+                    return result;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading all items: {ex.Message}");
-                throw;
+                throw new Exception($"Error al cargar los items: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Busca un ítem por su identificador único.
+        /// Busca ítems por categoría.
         /// </summary>
-        /// <param name="id">ID del ítem a buscar.</param>
-        /// <returns>Objeto <see cref="Item"/> con los detalles del ítem encontrado, o null si no se encuentra.</returns>
-        public Item FindItemById(int id)
+        /// <param name="categoriaId">ID de la categoría</param>
+        /// <returns>Lista de tuplas con items y sus categorías</returns>
+        public List<(Item item, object categoria)> FindItemsByCategoria(int categoriaId)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    return db.Items
-                        .Where(x => x.id == id && x.deletedAt == null)
-                        .Include(x => x.categoria)
-                        .Include(x => x.Alquileres)
-                        .FirstOrDefault();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error finding item by id: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Busca ítems asociados a una categoría específica.
-        /// </summary>
-        /// <param name="categoriaId">ID de la categoría cuyos ítems se desean buscar.</param>
-        /// <returns>Lista de objetos <see cref="Item"/> asociados a la categoría proporcionada.</returns>
-        public List<Item> FindItemsByCategoria(int categoriaId)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    return db.Items
-                        .Where(x => x.categoriaId == categoriaId && x.deletedAt == null)
+                    var items = db.Items
+                        .Where(i => i.categoriaId == categoriaId && i.deletedAt == null)
+                        .Include(i => i.categoria)
                         .ToList();
+
+                    return items.Select(item => (item, GetCategoriaForItem(db, item))).ToList();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error finding items by categoria: {ex.Message}");
-                throw;
+                throw new Exception($"Error al buscar items por categoría: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Busca ítems cuyo nombre, marca o modelo coincidan con el término de búsqueda.
+        /// Busca ítems por término de búsqueda en nombre, marca o modelo.
         /// </summary>
-        /// <param name="search">Término de búsqueda que se debe encontrar en el nombre, marca o modelo de los ítems.</param>
-        /// <returns>Lista de objetos <see cref="Item"/> que coinciden con el término de búsqueda.</returns>
-        public List<Item> SearchItems(string search)
+        /// <param name="searchTerm">Término de búsqueda</param>
+        /// <returns>Lista de tuplas con items y sus categorías</returns>
+        public List<(Item item, object categoria)> SearchItems(string searchTerm)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    return db.Items
-                        .Where(x => (x.nombreItem.Contains(search) || x.marca.Contains(search) || x.modelo.Contains(search)) && x.deletedAt == null)
-                        .Include(x => x.categoria)
+                    var items = db.Items
+                        .Where(i => (i.nombreItem.Contains(searchTerm) ||
+                                   i.marca.Contains(searchTerm) ||
+                                   i.modelo.Contains(searchTerm)) &&
+                                   i.deletedAt == null)
+                        .Include(i => i.categoria)
                         .ToList();
+
+                    return items.Select(item => (item, GetCategoriaForItem(db, item))).ToList();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error searching items: {ex.Message}");
-                throw;
+                throw new Exception($"Error al buscar items: {ex.Message}", ex);
             }
         }
 
-        public string getMarca(string nombre)
+        private object GetCategoriaForItem(SistemaAlquilerContext db, Item item)
         {
-            using (var db = new SistemaAlquilerContext())
+            return item.categoriaId switch
             {
-                return db.Items
-                         .Where(i => i.nombreItem == nombre)
-                         .Select(i => i.marca)
-                         .FirstOrDefault() ?? "Marca no encontrada";
-            }
-        }
-
-        public string getModelo(string nombre)
-        {
-            using (var db = new SistemaAlquilerContext())
-            {
-                return db.Items
-                         .Where(i => i.nombreItem == nombre)
-                         .Select(i => i.modelo)
-                         .FirstOrDefault() ?? "Modelo no encontrado";
-            }
+                1 => db.Transportes.FirstOrDefault(t => t.item_id == item.id),
+                2 => db.Electrodomesticos.FirstOrDefault(e => e.item_id == item.id),
+                3 => db.Electronicas.FirstOrDefault(e => e.item_id == item.id),
+                4 => db.Inmuebles.FirstOrDefault(i => i.item_id == item.id),
+                5 => db.Indumentarias.FirstOrDefault(i => i.item_id == item.id),
+                _ => null
+            };
         }
     }
 }
-

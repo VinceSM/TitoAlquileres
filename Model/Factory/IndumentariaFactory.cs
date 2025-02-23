@@ -10,11 +10,29 @@ namespace TitoAlquiler.Model.Factory
 {
     public class IndumentariaFactory : AlquilerFactory
     {
-        public override Item CrearAlquilable(string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
+        public override (Item item, object categoria) CrearAlquilable(
+            string nombre,
+            string marca,
+            string modelo,
+            double tarifaDia,
+            params object[] adicionales)
         {
-            return new Indumentaria { nombreItem = nombre, marca = marca, modelo = modelo, tarifaDia = tarifaDia,
-                talla = (string)adicionales[0], material = (string)adicionales[1]
+            var item = new Item
+            {
+                nombreItem = nombre,
+                marca = marca,
+                modelo = modelo,
+                tarifaDia = tarifaDia,
+                categoriaId = 5 // ID para Indumentaria
             };
+
+            var indumentaria = new Indumentaria(item)
+            {
+                talla = (string)adicionales[0],
+                material = (string)adicionales[1]
+            };
+
+            return (item, indumentaria);
         }
     }
 }
