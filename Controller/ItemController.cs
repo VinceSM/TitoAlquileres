@@ -10,7 +10,7 @@ namespace TitoAlquiler.Controller
 {
     public class ItemController
     {
-        private readonly ItemDao _itemDao;
+        private ItemDao _itemDao;
 
         #region Singletone
 
@@ -28,11 +28,24 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
+        public AlquilerFactory ObtenerFactory(string categoria)
+        {
+            return categoria switch
+            {
+                "Transporte" => new TransporteFactory(),
+                "Electrodomestico" => new ElectrodomesticoFactory(),
+                "Electronica" => new ElectronicaFactory(),
+                "Inmueble" => new InmuebleFactory(),
+                "Indumentaria" => new IndumentariaFactory(),
+                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
+            };
+        }
+
         /// <summary>
         /// Crea un nuevo ítem usando el patrón Factory.
         /// </summary>
         public void CrearItem(AlquilerFactory factory, string nombre, string marca, string modelo,
-                            double tarifaDia, params object[] adicionales)
+                      double tarifaDia, params object[] adicionales)
         {
             try
             {
@@ -42,7 +55,7 @@ namespace TitoAlquiler.Controller
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
         }

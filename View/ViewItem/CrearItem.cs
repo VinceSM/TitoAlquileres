@@ -75,6 +75,7 @@ namespace TitoAlquiler.View.ViewItem
         /// Utiliza un patrón de fábrica para crear el ítem adecuado según la categoría seleccionada.
         /// Si algún campo está incompleto o no se puede convertir, muestra un mensaje de error.
         /// </remarks>
+        /// 
         private void btnCreaItem_Click(object sender, EventArgs e)
         {
             try
@@ -104,7 +105,7 @@ namespace TitoAlquiler.View.ViewItem
                 switch (comboBoxCategoria.SelectedItem?.ToString())
                 {
                     case "Electrodomestico":
-                        if (!int.TryParse(txtPotencia.Text, out int potencia))
+                        if (!int.TryParse(txtWatss.Text, out int potencia))
                         {
                             MessageBox.Show("La potencia debe ser un valor numérico", "Error");
                             return;
@@ -112,12 +113,12 @@ namespace TitoAlquiler.View.ViewItem
                         nuevoItem = new Electrodomestico
                         {
                             potenciaWatts = potencia,
-                            tipoElectrodomestico = txtTipoElectro.Text
+                            tipoElectrodomestico = txtTipoElec.Text
                         };
                         break;
 
                     case "Inmueble":
-                        if (!int.TryParse(txtMetrosCuadrados.Text, out int metros))
+                        if (!int.TryParse(txtMetros.Text, out int metros))
                         {
                             MessageBox.Show("Los metros cuadrados deben ser un valor numérico", "Error");
                             return;
@@ -190,29 +191,32 @@ namespace TitoAlquiler.View.ViewItem
 
         private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Mostrar/ocultar campos específicos según la categoría seleccionada
-            panelElectrodomestico.Visible = false;
-            panelInmueble.Visible = false;
-            panelTransporte.Visible = false;
-            panelElectronica.Visible = false;
-            panelIndumentaria.Visible = false;
-
             switch (comboBoxCategoria.SelectedItem?.ToString())
             {
                 case "Electrodomestico":
-                    panelElectrodomestico.Visible = true;
+                    lblElectrodomesticos.Visible = true;
+                    txtWatss.Visible = true;
+                    txtTipoElec.Visible = true;
                     break;
                 case "Inmueble":
-                    panelInmueble.Visible = true;
+                    lblInmuebles.Visible = true;
+                    txtUbicacion.Visible = true;
+                    txtMetros.Visible = true;
                     break;
                 case "Transporte":
-                    panelTransporte.Visible = true;
+                    lblTransporte.Visible = true;
+                    txtCapacidad.Visible = true;
+                    txtCombustible.Visible = true;
                     break;
                 case "Electronica":
-                    panelElectronica.Visible = true;
+                    lblElectronicas.Visible = true;
+                    txtAlmacenamiento.Visible = true;
+                    txtResolucion.Visible = true;
                     break;
                 case "Indumentaria":
-                    panelIndumentaria.Visible = true;
+                    lblIndumentaria.Visible = true;
+                    txtTalla.Visible = true;
+                    txtMaterial.Visible = true;
                     break;
             }
         }

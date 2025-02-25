@@ -7,18 +7,29 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Entities.Categorias
 {
+    // Clase Electrodomestico
     public class Electrodomestico
     {
         public int id { get; set; }
         public int item_id { get; set; }
         public Item item { get; set; }
 
-        public Electrodomestico(Item item)
+        public int potenciaWatts { get; set; }
+        public string tipoElectrodomestico { get; set; }
+
+        public Electrodomestico(Item item, int potenciaWatts, string tipoElectrodomestico)
         {
             this.item = item;
-            this.item_id = item.id; // Asignar el ID del ítem
+            this.item_id = item.id;
+            this.potenciaWatts = potenciaWatts;
+            this.tipoElectrodomestico = tipoElectrodomestico;
         }
-        public int potenciaWatts { get; set; }
-        public string? tipoElectrodomestico { get; set; }
+
+        public Electrodomestico (Item item)
+        {
+            this.item = item;
+            this.item_id = item.id;
+        }
     }
+    
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +14,20 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int item_id { get; set; }
         public Item item { get; set; }
 
-        public Indumentaria(Item item)
+        public Indumentaria(Item item, string Talla, string Material)
         {
             this.item = item;
-            this.item_id = item.id; // Asignar el ID del ítem
+            this.item_id = item.id;
+            this.talla = Talla;
+            this.material = Material;
         }
         public string? talla { get; set; }
         public string? material { get; set; }
+
+        public Indumentaria(Item item)
+        {
+            this.item = item;
+            this.item_id = item.id;
+        }
     }
 }
