@@ -18,6 +18,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public string? tipoCombustible { get; set; }
 
 
+        public Transporte() { }
         public Transporte(Item item, int capacidadPasajeros, string tipoCombustible)
         {
             this.item = item;

@@ -105,63 +105,53 @@ namespace TitoAlquiler.View.ViewItem
                 switch (comboBoxCategoria.SelectedItem?.ToString())
                 {
                     case "Electrodomestico":
-                        if (!int.TryParse(txtWatss.Text, out int potencia))
-                        {
-                            MessageBox.Show("La potencia debe ser un valor numérico", "Error");
-                            return;
-                        }
-                        nuevoItem = new Electrodomestico
-                        {
-                            potenciaWatts = potencia,
-                            tipoElectrodomestico = txtTipoElec.Text
-                        };
+                        nuevoItem = new ElectrodomesticoFactory().CrearAlquilable(
+                            txtNombreItem.Text.Trim(),
+                            txtMarca.Text.Trim(),
+                            txtModelo.Text.Trim(),
+                            tarifaDia,
+                            int.Parse(txtWatss.Text),
+                            txtTipoElec.Text).item;
                         break;
 
                     case "Inmueble":
-                        if (!int.TryParse(txtMetros.Text, out int metros))
-                        {
-                            MessageBox.Show("Los metros cuadrados deben ser un valor numérico", "Error");
-                            return;
-                        }
-                        nuevoItem = new Inmueble
-                        {
-                            metrosCuadrados = metros,
-                            ubicacion = txtUbicacion.Text
-                        };
+                        nuevoItem = new InmuebleFactory().CrearAlquilable(
+                            txtNombreItem.Text.Trim(),
+                            txtMarca.Text.Trim(),
+                            txtModelo.Text.Trim(),
+                            tarifaDia,
+                            txtMetros,
+                            txtUbicacion.Text).item;
                         break;
 
                     case "Transporte":
-                        if (!int.TryParse(txtCapacidad.Text, out int capacidad))
-                        {
-                            MessageBox.Show("La capacidad debe ser un valor numérico", "Error");
-                            return;
-                        }
-                        nuevoItem = new Transporte
-                        {
-                            capacidadPasajeros = capacidad,
-                            tipoCombustible = txtCombustible.Text
-                        };
+                        nuevoItem = new TransporteFactory().CrearAlquilable(
+                            txtNombreItem.Text.Trim(),
+                            txtMarca.Text.Trim(),
+                            txtModelo.Text.Trim(),
+                            tarifaDia,
+                            txtCapacidad,
+                            txtCombustible.Text).item;
                         break;
 
                     case "Electronica":
-                        if (!int.TryParse(txtAlmacenamiento.Text, out int almacenamiento))
-                        {
-                            MessageBox.Show("El almacenamiento debe ser un valor numérico", "Error");
-                            return;
-                        }
-                        nuevoItem = new Electronica
-                        {
-                            resolucionPantalla = txtResolucion.Text,
-                            almacenamientoGB = almacenamiento
-                        };
+                        nuevoItem = new ElectronicaFactory().CrearAlquilable(
+                            txtNombreItem.Text.Trim(),
+                            txtMarca.Text.Trim(),
+                            txtModelo.Text.Trim(),
+                            tarifaDia,
+                            txtResolucion.Text,
+                            txtAlmacenamiento).item;
                         break;
 
                     case "Indumentaria":
-                        nuevoItem = new Indumentaria
-                        {
-                            talla = txtTalla.Text,
-                            material = txtMaterial.Text
-                        };
+                        nuevoItem = new IndumentariaFactory().CrearAlquilable(
+                            txtNombreItem.Text.Trim(),
+                            txtMarca.Text.Trim(),
+                            txtModelo.Text.Trim(),
+                            tarifaDia,
+                            txtTalla.Text,
+                            txtMaterial.Text).item;
                         break;
                 }
 
@@ -174,7 +164,13 @@ namespace TitoAlquiler.View.ViewItem
                     nuevoItem.tarifaDia = tarifaDia;
                     nuevoItem.categoriaId = comboBoxCategoria.SelectedIndex + 1;
 
-                    itemController.CrearItem(nuevoItem);
+                    itemController.CrearItem(
+                    itemController.ObtenerFactory(comboBoxCategoria.SelectedItem.ToString()),
+                    nuevoItem.nombreItem,
+                    nuevoItem.marca,
+                    nuevoItem.modelo,
+                    nuevoItem.tarifaDia
+                    );
 
                     MessageBox.Show("Item creado exitosamente", "Éxito",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -189,7 +185,7 @@ namespace TitoAlquiler.View.ViewItem
             }
         }
 
-        private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBoxCategoria.SelectedItem?.ToString())
             {

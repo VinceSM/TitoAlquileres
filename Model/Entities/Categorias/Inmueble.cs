@@ -16,6 +16,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int metrosCuadrados { get; set; }
         public string ubicacion { get; set; }
 
+        public Inmueble() { }
         public Inmueble(Item item, int metrosCuadrados, string ubicacion)
         {
             this.item = item;

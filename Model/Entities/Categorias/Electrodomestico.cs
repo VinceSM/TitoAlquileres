@@ -17,6 +17,8 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int potenciaWatts { get; set; }
         public string tipoElectrodomestico { get; set; }
 
+        public Electrodomestico() { }
+
         public Electrodomestico(Item item, int potenciaWatts, string tipoElectrodomestico)
         {
             this.item = item;

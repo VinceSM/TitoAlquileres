@@ -14,6 +14,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int item_id { get; set; }
         public Item item { get; set; }
 
+        public Indumentaria() { }
         public Indumentaria(Item item, string Talla, string Material)
         {
             this.item = item;

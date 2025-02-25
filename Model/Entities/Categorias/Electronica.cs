@@ -17,6 +17,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public string resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
 
+        public Electronica() { }
         public Electronica(Item item, string resolucionPantalla, int almacenamientoGB)
         {
             this.item = item;
