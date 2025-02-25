@@ -39,23 +39,16 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.SqlServer.Server.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Memory.Data.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Runtime.Caching.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlqu.52134F2B.Up2Date
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\refint\TitoAlquiler.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.pdb
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Alquiler.FormAlquilar.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.FormInicio.resources
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Usuario.FormCrearUsuario.resources
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.ClientModel.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Formats.Asn1.dll
@@ -63,10 +56,6 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Text.Encodings.Web.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Text.Json.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Alquiler.FormAlquileres.resources
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Item.Crear.resources
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Item.Modificar.resources
-C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.Usuario.FormModificarUsuario.resources
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.csproj.AssemblyReference.cache
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.Properties.Resources.resources
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.FormInicio.resources
@@ -158,3 +147,36 @@ C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\refint\TitoAlqu
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.pdb
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
 C:\Users\Vicente\Documents\TitoAlquiler\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\Microsoft.Bcl.Cryptography.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\cs\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\de\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\es\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\fr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\it\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\ja\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\ko\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\pl\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\pt-BR\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\ru\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\tr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.CrearAlquiler.resources
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.VerAlquileres.resources
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewItem.CrearItem.resources
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewItem.ModificarItem.resources
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewUsuario.CrearUsuario.resources
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewUsuario.ModificarUsuario.resources

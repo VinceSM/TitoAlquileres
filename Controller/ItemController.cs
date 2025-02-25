@@ -16,7 +16,10 @@ namespace TitoAlquiler.Controller
 
         private static ItemController? Instance;
 
-        private ItemController() { }
+        private ItemController() 
+        {
+           // _itemDao = new ItemDao();
+        }
 
         public static ItemController getInstance()
         {
@@ -135,7 +138,8 @@ namespace TitoAlquiler.Controller
         {
             try
             {
-                return _itemDao.FindItemsByCategoria(categoriaId);
+                return _itemDao?.FindItemsByCategoria(categoriaId) ?? new List<(Item, object)>();
+
             }
             catch (Exception ex)
             {
