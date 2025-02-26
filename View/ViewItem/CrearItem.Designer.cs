@@ -181,6 +181,7 @@
             comboBoxCategoria.Name = "comboBoxCategoria";
             comboBoxCategoria.Size = new Size(220, 31);
             comboBoxCategoria.TabIndex = 12;
+            comboBoxCategoria.SelectedIndexChanged += comboBoxCategoria_SelectedIndexChanged_1;
             // 
             // lblTransporte
             // 
@@ -235,7 +236,7 @@
             lblElectrodomesticos.Anchor = AnchorStyles.Top;
             lblElectrodomesticos.AutoSize = true;
             lblElectrodomesticos.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblElectrodomesticos.Location = new Point(690, 166);
+            lblElectrodomesticos.Location = new Point(675, 171);
             lblElectrodomesticos.Name = "lblElectrodomesticos";
             lblElectrodomesticos.Size = new Size(157, 22);
             lblElectrodomesticos.TabIndex = 17;
@@ -372,7 +373,7 @@
             txtCombustible.Tag = "";
             txtCombustible.Visible = false;
             // 
-            // Crear
+            // CrearItem
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -403,7 +404,7 @@
             Controls.Add(lblCategoria);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Name = "Crear";
+            Name = "CrearItem";
             Text = "creaItem";
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);

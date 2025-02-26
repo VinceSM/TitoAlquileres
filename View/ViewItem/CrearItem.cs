@@ -185,38 +185,6 @@ namespace TitoAlquiler.View.ViewItem
             }
         }
 
-        private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (comboBoxCategoria.SelectedItem?.ToString())
-            {
-                case "Electrodomestico":
-                    lblElectrodomesticos.Visible = true;
-                    txtWatss.Visible = true;
-                    txtTipoElec.Visible = true;
-                    break;
-                case "Inmueble":
-                    lblInmuebles.Visible = true;
-                    txtUbicacion.Visible = true;
-                    txtMetros.Visible = true;
-                    break;
-                case "Transporte":
-                    lblTransporte.Visible = true;
-                    txtCapacidad.Visible = true;
-                    txtCombustible.Visible = true;
-                    break;
-                case "Electronica":
-                    lblElectronicas.Visible = true;
-                    txtAlmacenamiento.Visible = true;
-                    txtResolucion.Visible = true;
-                    break;
-                case "Indumentaria":
-                    lblIndumentaria.Visible = true;
-                    txtTalla.Visible = true;
-                    txtMaterial.Visible = true;
-                    break;
-            }
-        }
-
         /// <summary>
         /// Regresa a la pantalla principal de alquiler y oculta la ventana actual.
         /// </summary>
@@ -239,6 +207,69 @@ namespace TitoAlquiler.View.ViewItem
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 Application.Exit();
+            }
+        }
+
+        /// <summary>
+        /// Oculta todos los campos específicos de cada categoría.
+        /// </summary>
+        private void OcultarTodosLosCampos()
+        {
+            lblElectrodomesticos.Visible = false;
+            txtWatss.Visible = false;
+            txtTipoElec.Visible = false;
+
+            lblInmuebles.Visible = false;
+            txtUbicacion.Visible = false;
+            txtMetros.Visible = false;
+
+            lblTransporte.Visible = false;
+            txtCapacidad.Visible = false;
+            txtCombustible.Visible = false;
+
+            lblElectronicas.Visible = false;
+            txtAlmacenamiento.Visible = false;
+            txtResolucion.Visible = false;
+
+            lblIndumentaria.Visible = false;
+            txtTalla.Visible = false;
+            txtMaterial.Visible = false;
+        }
+
+        private void comboBoxCategoria_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            OcultarTodosLosCampos();
+
+            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
+            if (categoriaSeleccionada == null) return;
+
+            switch (categoriaSeleccionada.nombre)
+            {
+                case "Electrodoméstico":
+                    lblElectrodomesticos.Visible = true;
+                    txtWatss.Visible = true;
+                    txtTipoElec.Visible = true;
+                    break;
+                case "Inmueble":
+                    lblInmuebles.Visible = true;
+                    txtUbicacion.Visible = true;
+                    txtMetros.Visible = true;
+                    break;
+                case "Transporte":
+                    lblTransporte.Visible = true;
+                    txtCapacidad.Visible = true;
+                    txtCombustible.Visible = true;
+                    break;
+                case "Electrónica":
+                    lblElectronicas.Visible = true;
+                    txtAlmacenamiento.Visible = true;
+                    txtResolucion.Visible = true;
+                    break;
+                case "Indumentaria":
+                    lblIndumentaria.Visible = true;
+                    txtTalla.Visible = true;
+                    txtMaterial.Visible = true;
+                    break;
             }
         }
     }
