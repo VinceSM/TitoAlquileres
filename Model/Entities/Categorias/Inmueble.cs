@@ -12,19 +12,10 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int id { get; set; }
         public int item_id { get; set; }
         public Item item { get; set; }
-
         public int metrosCuadrados { get; set; }
         public string ubicacion { get; set; }
 
         public Inmueble() { }
-        public Inmueble(Item item, int metrosCuadrados, string ubicacion)
-        {
-            this.item = item;
-            this.item_id = item.id;
-            this.metrosCuadrados = metrosCuadrados;
-            this.ubicacion = ubicacion;
-        }
-
         public Inmueble(Item item)
         {
             this.item = item;

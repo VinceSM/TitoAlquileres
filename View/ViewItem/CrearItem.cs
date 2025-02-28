@@ -30,7 +30,65 @@ namespace TitoAlquiler.View.ViewItem
             comboBoxCategoria.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Crea un nuevo ítem basado en los datos ingresados en el formulario y lo guarda en el sistema.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Utiliza un patrón de fábrica para crear el ítem adecuado según la categoría seleccionada.
+        /// Si algún campo está incompleto o no se puede convertir, muestra un mensaje de error.
+        /// </remarks>
+        /// 
+        private void btnCreaItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
+                string? categoria = categoriaSeleccionada?.nombre?.Trim();
 
+                if (string.IsNullOrEmpty(categoria))
+                {
+                    MessageBox.Show("Seleccione una categoría", "Error",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                ItemFactory factory = itemController.ObtenerFactory(categoria);
+
+                itemController.CrearItem(factory,
+                                         txtNombreItem.Text.Trim(),
+                                         txtMarca.Text.Trim(),
+                                         txtModelo.Text.Trim(),
+                                         double.Parse(txtTarifa.Text),
+                                         ObtenerParametrosAdicionales(categoria));
+
+                MessageBox.Show("Item creado exitosamente", "Éxito",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LimpiarFormulario();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private object[] ObtenerParametrosAdicionales(string categoria)
+        {
+            return categoria switch
+            {
+                "Electrodomestico" => new object[] { int.Parse(txtWatss.Text), txtTipoElec.Text },
+                "Inmueble" => new object[] { int.Parse(txtMetros.Text), txtUbicacion.Text },
+                "Transporte" => new object[] { int.Parse(txtCapacidad.Text), txtCombustible.Text },
+                "Electronica" => new object[] { txtResolucion.Text, int.Parse(txtAlmacenamiento.Text) },
+                "Indumentaria" => new object[] { txtTalla.Text, txtMaterial.Text },
+                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
+            };
+        }
+
+        #region Categorias
         /// <summary>
         /// Carga todas las categorías en un ComboBox.
         /// </summary>
@@ -50,140 +108,100 @@ namespace TitoAlquiler.View.ViewItem
             }
         }
 
-        /// <summary>
-        /// Limpia todos los campos del formulario de creación de ítems.
-        /// </summary>
-        /// <remarks>
-        /// Restablece los valores de los controles del formulario, como los cuadros de texto y el comboBox de categoría, para prepararlos para una nueva entrada.
-        /// </remarks>
-        private void LimpiarFormulario()
+        private void comboBoxCategoria_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            txtNombreItem.Clear();
-            txtMarca.Clear();
-            txtModelo.Clear();
-            txtTarifa.Clear();
-            //txtDescripcion.Clear();
-            comboBoxCategoria.SelectedIndex = -1;
-        }
+            OcultarTodosLosCampos();
 
-        /// <summary>
-        /// Crea un nuevo ítem basado en los datos ingresados en el formulario y lo guarda en el sistema.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        /// <remarks>
-        /// Utiliza un patrón de fábrica para crear el ítem adecuado según la categoría seleccionada.
-        /// Si algún campo está incompleto o no se puede convertir, muestra un mensaje de error.
-        /// </remarks>
-        /// 
-        private void btnCreaItem_Click(object sender, EventArgs e)
-        {
-            try
+            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
+            if (categoriaSeleccionada == null) return;
+
+            switch (categoriaSeleccionada.nombre)
             {
-                // Validar campos comunes
-                if (string.IsNullOrEmpty(txtNombreItem.Text) ||
-                    string.IsNullOrEmpty(txtMarca.Text) ||
-                    string.IsNullOrEmpty(txtModelo.Text) ||
-                    string.IsNullOrEmpty(txtTarifa.Text) ||
-                    comboBoxCategoria.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Todos los campos son obligatorios", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Validar que la tarifa sea un número válido
-                if (!double.TryParse(txtTarifa.Text, out double tarifaDia))
-                {
-                    MessageBox.Show("La tarifa debe ser un valor numérico válido", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Crear el item según la categoría seleccionada
-                Item nuevoItem = null;
-                switch (comboBoxCategoria.SelectedItem?.ToString())
-                {
-                    case "Electrodomestico":
-                        nuevoItem = new ElectrodomesticoFactory().CrearAlquilable(
-                            txtNombreItem.Text.Trim(),
-                            txtMarca.Text.Trim(),
-                            txtModelo.Text.Trim(),
-                            tarifaDia,
-                            int.Parse(txtWatss.Text),
-                            txtTipoElec.Text).item;
-                        break;
-
-                    case "Inmueble":
-                        nuevoItem = new InmuebleFactory().CrearAlquilable(
-                            txtNombreItem.Text.Trim(),
-                            txtMarca.Text.Trim(),
-                            txtModelo.Text.Trim(),
-                            tarifaDia,
-                            txtMetros,
-                            txtUbicacion.Text).item;
-                        break;
-
-                    case "Transporte":
-                        nuevoItem = new TransporteFactory().CrearAlquilable(
-                            txtNombreItem.Text.Trim(),
-                            txtMarca.Text.Trim(),
-                            txtModelo.Text.Trim(),
-                            tarifaDia,
-                            txtCapacidad,
-                            txtCombustible.Text).item;
-                        break;
-
-                    case "Electronica":
-                        nuevoItem = new ElectronicaFactory().CrearAlquilable(
-                            txtNombreItem.Text.Trim(),
-                            txtMarca.Text.Trim(),
-                            txtModelo.Text.Trim(),
-                            tarifaDia,
-                            txtResolucion.Text,
-                            txtAlmacenamiento).item;
-                        break;
-
-                    case "Indumentaria":
-                        nuevoItem = new IndumentariaFactory().CrearAlquilable(
-                            txtNombreItem.Text.Trim(),
-                            txtMarca.Text.Trim(),
-                            txtModelo.Text.Trim(),
-                            tarifaDia,
-                            txtTalla.Text,
-                            txtMaterial.Text).item;
-                        break;
-                }
-
-                // Asignar propiedades comunes
-                if (nuevoItem != null)
-                {
-                    nuevoItem.nombreItem = txtNombreItem.Text.Trim();
-                    nuevoItem.marca = txtMarca.Text.Trim();
-                    nuevoItem.modelo = txtModelo.Text.Trim();
-                    nuevoItem.tarifaDia = tarifaDia;
-                    nuevoItem.categoriaId = comboBoxCategoria.SelectedIndex + 1;
-
-                    itemController.CrearItem(
-                    itemController.ObtenerFactory(comboBoxCategoria.SelectedItem.ToString()),
-                    nuevoItem.nombreItem,
-                    nuevoItem.marca,
-                    nuevoItem.modelo,
-                    nuevoItem.tarifaDia
-                    );
-
-                    MessageBox.Show("Item creado exitosamente", "Éxito",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    LimpiarFormulario();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case "Transporte":
+                    LimpiarInputs();
+                    mostrarLosCamposTransporte();
+                    break;
+                case "Electrodomestico":
+                    LimpiarInputs();
+                    mostrarLosCamposElectrodomestico();
+                    break;
+                case "Electronica":
+                    LimpiarInputs();
+                    mostrarLosCamposElectronica();
+                    break;
+                case "Inmueble":
+                    LimpiarInputs();
+                    mostrarLosCamposInmuebles();
+                    break;
+                case "Indumentaria":
+                    LimpiarInputs();
+                    mostrarLosCamposIndumentaria();
+                    break;
             }
         }
+        #endregion
+
+        #region Mostrar y Ocultar Campos
+
+        /// <summary>
+        /// Oculta todos los campos específicos de cada categoría.
+        /// </summary>
+        private void OcultarTodosLosCampos()
+        {
+            lblElectrodomesticos.Visible = false;
+            txtWatss.Visible = false;
+            txtTipoElec.Visible = false;
+
+            lblInmuebles.Visible = false;
+            txtUbicacion.Visible = false;
+            txtMetros.Visible = false;
+
+            lblTransporte.Visible = false;
+            txtCapacidad.Visible = false;
+            txtCombustible.Visible = false;
+
+            lblElectronicas.Visible = false;
+            txtAlmacenamiento.Visible = false;
+            txtResolucion.Visible = false;
+
+            lblIndumentaria.Visible = false;
+            txtTalla.Visible = false;
+            txtMaterial.Visible = false;
+        }
+        private void mostrarLosCamposTransporte()
+        {
+            lblTransporte.Visible = true;
+            txtCapacidad.Visible = true;
+            txtCombustible.Visible = true;
+        }
+        private void mostrarLosCamposElectrodomestico()
+        {
+            lblElectrodomesticos.Visible = true;
+            txtWatss.Visible = true;
+            txtTipoElec.Visible = true;
+        }
+        private void mostrarLosCamposElectronica()
+        {
+            lblElectronicas.Visible = true;
+            txtAlmacenamiento.Visible = true;
+            txtResolucion.Visible = true;
+        }
+        private void mostrarLosCamposInmuebles()
+        {
+            lblInmuebles.Visible = true;
+            txtUbicacion.Visible = true;
+            txtMetros.Visible = true;
+        }
+        private void mostrarLosCamposIndumentaria()
+        {
+            lblIndumentaria.Visible = true;
+            txtTalla.Visible = true;
+            txtMaterial.Visible = true;
+        }
+
+        #endregion
+
+        #region Form
 
         /// <summary>
         /// Regresa a la pantalla principal de alquiler y oculta la ventana actual.
@@ -211,66 +229,29 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Oculta todos los campos específicos de cada categoría.
+        /// Limpia todos los campos del formulario de creación de ítems.
         /// </summary>
-        private void OcultarTodosLosCampos()
+        /// <remarks>
+        /// Restablece los valores de los controles del formulario, como los cuadros de texto y el comboBox de categoría, para prepararlos para una nueva entrada.
+        /// </remarks>
+        private void LimpiarFormulario()
         {
-            lblElectrodomesticos.Visible = false;
-            txtWatss.Visible = false;
-            txtTipoElec.Visible = false;
-
-            lblInmuebles.Visible = false;
-            txtUbicacion.Visible = false;
-            txtMetros.Visible = false;
-
-            lblTransporte.Visible = false;
-            txtCapacidad.Visible = false;
-            txtCombustible.Visible = false;
-
-            lblElectronicas.Visible = false;
-            txtAlmacenamiento.Visible = false;
-            txtResolucion.Visible = false;
-
-            lblIndumentaria.Visible = false;
-            txtTalla.Visible = false;
-            txtMaterial.Visible = false;
+            txtNombreItem.Clear();
+            txtMarca.Clear();
+            txtModelo.Clear();
+            txtTarifa.Clear();
+            comboBoxCategoria.SelectedIndex = -1;
         }
 
-        private void comboBoxCategoria_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void LimpiarInputs()
         {
-            OcultarTodosLosCampos();
-
-            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
-            if (categoriaSeleccionada == null) return;
-
-            switch (categoriaSeleccionada.nombre)
-            {
-                case "Electrodoméstico":
-                    lblElectrodomesticos.Visible = true;
-                    txtWatss.Visible = true;
-                    txtTipoElec.Visible = true;
-                    break;
-                case "Inmueble":
-                    lblInmuebles.Visible = true;
-                    txtUbicacion.Visible = true;
-                    txtMetros.Visible = true;
-                    break;
-                case "Transporte":
-                    lblTransporte.Visible = true;
-                    txtCapacidad.Visible = true;
-                    txtCombustible.Visible = true;
-                    break;
-                case "Electrónica":
-                    lblElectronicas.Visible = true;
-                    txtAlmacenamiento.Visible = true;
-                    txtResolucion.Visible = true;
-                    break;
-                case "Indumentaria":
-                    lblIndumentaria.Visible = true;
-                    txtTalla.Visible = true;
-                    txtMaterial.Visible = true;
-                    break;
-            }
+            txtNombreItem.Clear();
+            txtMarca.Clear();
+            txtModelo.Clear();
+            txtTarifa.Clear();
         }
+
+        #endregion
+
     }
 }

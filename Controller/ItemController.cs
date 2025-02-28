@@ -10,7 +10,8 @@ namespace TitoAlquiler.Controller
 {
     public class ItemController
     {
-        private ItemDao _itemDao;
+        private readonly ItemDao _itemDao;
+
 
         #region Singletone
 
@@ -31,7 +32,7 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
-        public AlquilerFactory ObtenerFactory(string categoria)
+        public ItemFactory ObtenerFactory(string categoria)
         {
             return categoria switch
             {
@@ -47,9 +48,10 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Crea un nuevo ítem usando el patrón Factory.
         /// </summary>
-        public void CrearItem(AlquilerFactory factory, string nombre, string marca, string modelo,
+        public void CrearItem(ItemFactory factory, string nombre, string marca, string modelo,
                       double tarifaDia, params object[] adicionales)
         {
+            ItemDao _itemDao = new ItemDao();
             try
             {
                 var (item, categoria) = factory.CrearAlquilable(nombre, marca, modelo, tarifaDia, adicionales);
@@ -169,7 +171,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Obtiene la fábrica correspondiente según la categoría.
         /// </summary>
-        public AlquilerFactory ObtenerFactory(int categoriaId)
+        public ItemFactory ObtenerFactory(int categoriaId)
         {
             return categoriaId switch
             {

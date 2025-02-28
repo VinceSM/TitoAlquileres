@@ -7,7 +7,7 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Factory
 {
-    public abstract class AlquilerFactory
+    public abstract class ItemFactory
     {
         public abstract (Item item, object categoria) CrearAlquilable(
             string nombre,

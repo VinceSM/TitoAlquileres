@@ -13,19 +13,10 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int id { get; set; }
         public int item_id { get; set; }
         public Item item { get; set; }
-
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }
 
-
         public Transporte() { }
-        public Transporte(Item item, int capacidadPasajeros, string tipoCombustible)
-        {
-            this.item = item;
-            this.item_id = item.id;
-            this.capacidadPasajeros = capacidadPasajeros;
-            this.tipoCombustible = tipoCombustible;
-        }
 
         public Transporte(Item item)
         {

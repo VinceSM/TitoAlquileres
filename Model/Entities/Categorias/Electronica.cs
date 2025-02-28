@@ -13,18 +13,10 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int id { get; set; }
         public int item_id { get; set; }
         public Item item { get; set; }
-
         public string resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
 
         public Electronica() { }
-        public Electronica(Item item, string resolucionPantalla, int almacenamientoGB)
-        {
-            this.item = item;
-            this.item_id = item.id;
-            this.resolucionPantalla = resolucionPantalla;
-            this.almacenamientoGB = almacenamientoGB;
-        }
 
         public Electronica(Item item)
         {

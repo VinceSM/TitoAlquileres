@@ -13,18 +13,10 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int id { get; set; }
         public int item_id { get; set; }
         public Item item { get; set; }
-
-        public Indumentaria() { }
-        public Indumentaria(Item item, string Talla, string Material)
-        {
-            this.item = item;
-            this.item_id = item.id;
-            this.talla = Talla;
-            this.material = Material;
-        }
         public string? talla { get; set; }
         public string? material { get; set; }
 
+        public Indumentaria() { }
         public Indumentaria(Item item)
         {
             this.item = item;
