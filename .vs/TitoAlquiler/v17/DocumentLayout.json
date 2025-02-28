@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\controller\\alquilercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:controller\\alquilercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\viewalquiler\\veralquileres.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|C:\\Users\\Vicente\\Documents\\TitoAlquiler\\view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\viewalquiler\\crearalquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\crearalquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\dao\\alquilerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\controller\\itemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\dao\\itemdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\dao\\itemdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquiler\\model\\dao\\categoriadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,21 +54,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AlquilerDao.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\AlquilerDao.cs",
-              "RelativeDocumentMoniker": "Model\\Dao\\AlquilerDao.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\AlquilerDao.cs",
-              "RelativeToolTip": "Model\\Dao\\AlquilerDao.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAewCwAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T22:03:48.681Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -75,7 +70,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "AlquilerController.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
+              "RelativeDocumentMoniker": "Controller\\AlquilerController.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
+              "RelativeToolTip": "Controller\\AlquilerController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAQwEUAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T23:10:44.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VerAlquileres.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\VerAlquileres.Designer.cs",
+              "RelativeDocumentMoniker": "View\\ViewAlquiler\\VerAlquileres.Designer.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\VerAlquileres.Designer.cs",
+              "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.Designer.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwPUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T23:06:02.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AlquilerDao.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\AlquilerDao.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\AlquilerDao.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\AlquilerDao.cs",
+              "RelativeToolTip": "Model\\Dao\\AlquilerDao.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAewCwAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T22:03:48.681Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "ItemDao.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\ItemDao.cs",
               "RelativeDocumentMoniker": "Model\\Dao\\ItemDao.cs",
@@ -83,12 +117,11 @@
               "RelativeToolTip": "Model\\Dao\\ItemDao.cs",
               "ViewState": "AgIAAL8AAAAAAAAAAIAwwNcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:57:52.165Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T21:57:52.165Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "ItemController.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\ItemController.cs",
               "RelativeDocumentMoniker": "Controller\\ItemController.cs",
@@ -96,12 +129,11 @@
               "RelativeToolTip": "Controller\\ItemController.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAACsAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:57:06.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T21:57:06.749Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "VerAlquileres.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\VerAlquileres.cs",
               "RelativeDocumentMoniker": "View\\ViewAlquiler\\VerAlquileres.cs",
@@ -113,20 +145,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "VerAlquileres.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\VerAlquileres.cs",
               "RelativeDocumentMoniker": "View\\ViewAlquiler\\VerAlquileres.cs",
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\VerAlquileres.cs",
               "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAGcAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAAAGgAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T21:50:15.964Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "CrearItem.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewItem\\CrearItem.cs",
               "RelativeDocumentMoniker": "View\\ViewItem\\CrearItem.cs",
@@ -138,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "CategoriaDao.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Model\\Dao\\CategoriaDao.cs",
               "RelativeDocumentMoniker": "Model\\Dao\\CategoriaDao.cs",
@@ -150,7 +182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "CategoriaController.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\CategoriaController.cs",
               "RelativeDocumentMoniker": "Controller\\CategoriaController.cs",
@@ -162,13 +194,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "CrearAlquiler.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\CrearAlquiler.cs",
               "RelativeDocumentMoniker": "View\\ViewAlquiler\\CrearAlquiler.cs",
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\CrearAlquiler.cs",
               "RelativeToolTip": "View\\ViewAlquiler\\CrearAlquiler.cs",
-              "ViewState": "AgIAAKsBAAAAAAAAAAAswLsBAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAHcAAAAAAAAAAAA8wLsBAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T21:10:50.956Z",
               "EditorCaption": ""

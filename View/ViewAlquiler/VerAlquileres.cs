@@ -72,6 +72,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 foreach (var alquiler in alquileres)
                 {
                     dataGridViewAlquileres.Rows.Add(
+                        alquiler.id,
                         alquiler.item?.marca ?? "Sin marca",
                         alquiler.item?.modelo ?? "Sin modelo",
                         alquiler.item?.nombreItem ?? "Sin nombre",
@@ -101,7 +102,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             if (dataGridViewAlquileres.SelectedRows.Count > 0)
             {
                 // Obtener el ID del alquiler seleccionado
-                int selectedId = Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value);
+                int selectedId = Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["id"].Value);
 
                 // Buscar el alquiler correspondiente
                 var alquiler = alquilerController.ObtenerAlquilerPorId(selectedId);

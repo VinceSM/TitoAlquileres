@@ -36,6 +36,7 @@
             sistemaAlquilerContextBindingSource = new BindingSource(components);
             btnCerrarAlquiler = new Button();
             linkLabelVolver = new LinkLabel();
+            id = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
             item = new DataGridViewTextBoxColumn();
@@ -81,7 +82,7 @@
             dataGridViewAlquileres.Anchor = AnchorStyles.Top;
             dataGridViewAlquileres.BackgroundColor = Color.LightBlue;
             dataGridViewAlquileres.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { marca, modelo, item, usuario, dias, inicio, fin, total, estrategia });
+            dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { id, marca, modelo, item, usuario, dias, inicio, fin, total, estrategia });
             dataGridViewAlquileres.Cursor = Cursors.Hand;
             dataGridViewAlquileres.Location = new Point(138, 170);
             dataGridViewAlquileres.Margin = new Padding(4);
@@ -128,6 +129,13 @@
             linkLabelVolver.TabStop = true;
             linkLabelVolver.Text = "Volver";
             linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
+            // 
+            // id
+            // 
+            id.HeaderText = "ID";
+            id.Name = "id";
+            id.ReadOnly = true;
+            id.Visible = false;
             // 
             // marca
             // 
@@ -238,7 +246,7 @@
         private Label labelTitulo;
         private DataGridViewTextBoxColumn itemIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn usuarioIDDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn descuentoDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn marca;
         private DataGridViewTextBoxColumn modelo;
         private DataGridViewTextBoxColumn item;
