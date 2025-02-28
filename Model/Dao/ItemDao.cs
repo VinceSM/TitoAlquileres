@@ -197,23 +197,21 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="categoriaId">ID de la categoría</param>
         /// <returns>Lista de tuplas con items y sus categorías</returns>
-        public List<(Item item, object categoria)> FindItemsByCategoria(int categoriaId)
+        public List<Item> FindItemsByCategoria(int categoriaId)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    var items = db.Items
-                        .Where(i => i.categoriaId == categoriaId && i.deletedAt == null)
-                        .Include(i => i.categoria)
+                    return db.Items
+                        .Where(x => x.categoriaId == categoriaId && x.deletedAt == null)
                         .ToList();
-
-                    return items.Select(item => (item, GetCategoriaForItem(db, item))).ToList();
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al buscar items por categoría: {ex.Message}", ex);
+                Console.WriteLine($"Error finding items by categoria: {ex.Message}");
+                throw;
             }
         }
 

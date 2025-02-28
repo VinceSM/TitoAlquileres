@@ -74,16 +74,6 @@ namespace TitoAlquiler.Controller
         }
 
         /// <summary>
-        /// Busca categorías que coincidan con el término de búsqueda proporcionado.
-        /// </summary>
-        /// <param name="busqueda">Cadena de texto para realizar la búsqueda de categorías.</param>
-        /// <returns>Lista de objetos Categoria que coinciden con el término de búsqueda.</returns>
-        public List<Categoria> BuscarCategorias(string busqueda)
-        {
-            return _categoriaDao.SearchCategorias(busqueda);
-        }
-
-        /// <summary>
         /// Obtiene todas las categorías registradas en la base de datos.
         /// </summary>
         /// <returns>Lista de objetos Categoria.</returns>

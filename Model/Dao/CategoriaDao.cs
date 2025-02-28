@@ -143,29 +143,6 @@ namespace TitoAlquiler.Model.Dao
                 throw;
             }
         }
-
-        /// <summary>
-        /// Busca categorías que contienen el término de búsqueda en su nombre.
-        /// </summary>
-        /// <param name="search">Término de búsqueda que se debe encontrar en el nombre de las categorías.</param>
-        /// <returns>Lista de objetos <see cref="Categoria"/> que coinciden con el término de búsqueda.</returns>
-        public List<Categoria> SearchCategorias(string search)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    return db.Categorias
-                        .Where(x => x.nombre.Contains(search) && x.deletedAt == null)
-                        .ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error searching categorias: {ex.Message}");
-                throw;
-            }
-        }
     }
 }
 

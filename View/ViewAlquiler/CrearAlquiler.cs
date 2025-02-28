@@ -20,6 +20,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             InitializeComponent();
             this.Activated += FormAlquilar_Activated;
+            cmbCategorias.SelectedIndex = -1;
             CargarCategorias();
         }
 
@@ -57,16 +58,15 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 var items = itemController.ObtenerItemsPorCategoria(categoriaId);
 
-                if (!items.Any())
+                if (items == null || !items.Any())
                 {
                     dataGridViewItems.Rows.Clear();
-                    MessageBox.Show("No se encontraron items para esta categoría.", "Información",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se encontraron items para esta categoría.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 dataGridViewItems.Rows.Clear();
-                foreach (var (item, categoria) in items)
+                foreach (var item in items)
                 {
                     dataGridViewItems.Rows.Add(
                         item.id,
@@ -80,8 +80,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -392,18 +391,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         #endregion
 
         #region FormAlquilar
-
-        /// <summary>
-        /// Verifica si hay filas seleccionadas en los DataGridView de usuarios e items.
-        /// </summary>
-        private void VerificarSeleccionFilaDataGrid()
-        {
-            if (dataGridViewUsuarios.SelectedRows.Count == 0 || dataGridViewItems.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Por favor, seleccione un usuario y un item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
 
         /// <summary>
         /// Crea un nuevo alquiler basado en las entradas seleccionadas y muestra el precio total.

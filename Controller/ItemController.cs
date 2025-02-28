@@ -10,7 +10,7 @@ namespace TitoAlquiler.Controller
 {
     public class ItemController
     {
-        private readonly ItemDao _itemDao;
+        private ItemDao _itemDao = new ItemDao();
 
 
         #region Singletone
@@ -136,19 +136,9 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Obtiene ítems por categoría.
         /// </summary>
-        public List<(Item item, object categoria)> ObtenerItemsPorCategoria(int categoriaId)
+        public List<Item> ObtenerItemsPorCategoria(int categoriaId)
         {
-            try
-            {
-                return _itemDao?.FindItemsByCategoria(categoriaId) ?? new List<(Item, object)>();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al obtener los items por categoría: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
+            return _itemDao.FindItemsByCategoria(categoriaId);
         }
 
         /// <summary>
