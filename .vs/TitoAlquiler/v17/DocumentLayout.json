@@ -76,7 +76,7 @@
               "RelativeDocumentMoniker": "Controller\\AlquilerController.cs",
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\Controller\\AlquilerController.cs",
               "RelativeToolTip": "Controller\\AlquilerController.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAQwEUAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAQwEEAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T23:10:44.272Z",
               "EditorCaption": ""
@@ -91,8 +91,7 @@
               "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.Designer.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAgwPUAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T23:06:02.838Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T23:06:02.838Z"
             },
             {
               "$type": "Document",
@@ -104,8 +103,7 @@
               "RelativeToolTip": "Model\\Dao\\AlquilerDao.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAewCwAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T22:03:48.681Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T22:03:48.681Z"
             },
             {
               "$type": "Document",
@@ -140,8 +138,7 @@
               "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquiler\\View\\ViewAlquiler\\VerAlquileres.cs [Dise\u00F1o]",
               "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:51:16.512Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-02-28T21:51:16.512Z"
             },
             {
               "$type": "Document",
@@ -153,8 +150,7 @@
               "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.cs",
               "ViewState": "AgIAAFwAAAAAAAAAAAAAAGgAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:50:15.964Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T21:50:15.964Z"
             },
             {
               "$type": "Document",
@@ -202,8 +198,7 @@
               "RelativeToolTip": "View\\ViewAlquiler\\CrearAlquiler.cs",
               "ViewState": "AgIAAHcAAAAAAAAAAAA8wLsBAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T21:10:50.956Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T21:10:50.956Z"
             }
           ]
         }

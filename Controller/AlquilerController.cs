@@ -64,11 +64,12 @@ namespace TitoAlquiler.Controller
             try
             {
                 var alquiler = _alquilerDao.FindAlquilerById(alquilerId);
-                if (alquiler == null)
-                    throw new Exception("Alquiler no encontrado.");
 
                 if (alquiler.fechaInicio <= DateTime.Now)
-                    MessageBox.Show($"No se pueden cancelar alquileres que ya han comenzado.","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    MessageBox.Show($"No se pueden cancelar alquileres que ya han comenzado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 _alquilerDao.SoftDeleteAlquiler(alquilerId);
             }
