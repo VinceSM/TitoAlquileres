@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
+using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Model.Factory
 {

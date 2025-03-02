@@ -5,6 +5,7 @@ using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Factory;
 using System.Windows.Forms;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Controller
 {

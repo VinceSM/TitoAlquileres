@@ -16,8 +16,8 @@ namespace TitoAlquiler.Model.Entities
         public string? modelo { get; set; }
         public double tarifaDia { get; set; }
         public int categoriaId { get; set; }
-        public virtual Categoria? categoria { get; set; }
-        public virtual ICollection<Alquileres>? Alquileres { get; set; }
+        public Categoria? categoria { get; set; }
+        public ICollection<Alquileres>? Alquileres { get; set; }
         public DateTime? deletedAt { get; set; }
 
         public void Alquilar()

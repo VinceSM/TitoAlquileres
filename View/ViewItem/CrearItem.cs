@@ -12,7 +12,7 @@ using TitoAlquiler.Controller;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
-using TitoAlquiler.Model.Factory;
+using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.View.ViewAlquiler;
 
 namespace TitoAlquiler.View.ViewItem
@@ -28,7 +28,7 @@ namespace TitoAlquiler.View.ViewItem
             CargarCategorias();
             comboBoxCategoria.SelectedIndex = -1;
         }
-
+        #region Item
         /// <summary>
         /// Crea un nuevo ítem basado en los datos ingresados en el formulario y lo guarda en el sistema.
         /// </summary>
@@ -86,6 +86,7 @@ namespace TitoAlquiler.View.ViewItem
                 _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
             };
         }
+        #endregion
 
         #region Categorias
         /// <summary>

@@ -11,9 +11,9 @@ namespace TitoAlquiler.Model.Entities
     {
         public int id { get; set; }
         public int ItemID { get; set; }
-        public virtual Item? item { get; set; }
+        public Item? item { get; set; }
         public int UsuarioID { get; set; }
-        public virtual Usuarios? usuario { get; set; }
+        public Usuarios? usuario { get; set; }
         public int tiempoDias { get; set; }
         public DateTime fechaInicio { get; set; }
         public DateTime fechaFin { get; set; }

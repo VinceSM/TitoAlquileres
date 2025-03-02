@@ -14,7 +14,7 @@ namespace TitoAlquiler.Model.Entities
         public string? email { get; set; }
         public bool membresiaPremium { get; set; }
         public DateTime? deletedAt { get; set; }
-        public virtual ICollection<Alquileres>? Alquileres { get; set; }
+        public ICollection<Alquileres>? Alquileres { get; set; }
 
     }
 }
