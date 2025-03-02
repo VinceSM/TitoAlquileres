@@ -191,6 +191,9 @@ namespace TitoAlquiler.View.ViewAlquiler
 
                     MessageBox.Show("Item eliminado exitosamente.",
                                   "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    cmbCategorias.SelectedIndex = -1;
+                    CargarCategorias();
                 }
             }
             catch (Exception ex)
