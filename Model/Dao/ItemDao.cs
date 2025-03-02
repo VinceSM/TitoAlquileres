@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Entities;
+using Microsoft.Data.SqlClient;
 
 namespace TitoAlquiler.Model.Dao
 {
@@ -55,7 +56,7 @@ namespace TitoAlquiler.Model.Dao
                             db.SaveChanges();
                             transaction.Commit();
                         }
-                        catch (Exception)
+                        catch (SqlException)
                         {
                             transaction.Rollback();
                             throw;
@@ -63,7 +64,7 @@ namespace TitoAlquiler.Model.Dao
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception($"Error al insertar el item: {ex.Message}", ex);
             }
@@ -108,7 +109,7 @@ namespace TitoAlquiler.Model.Dao
                             db.SaveChanges();
                             transaction.Commit();
                         }
-                        catch (Exception)
+                        catch (SqlException)
                         {
                             transaction.Rollback();
                             throw;
@@ -116,7 +117,7 @@ namespace TitoAlquiler.Model.Dao
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception($"Error al actualizar el item: {ex.Message}", ex);
             }
@@ -141,7 +142,7 @@ namespace TitoAlquiler.Model.Dao
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception($"Error al eliminar el item: {ex.Message}", ex);
             }
@@ -177,7 +178,7 @@ namespace TitoAlquiler.Model.Dao
                     return (item, categoria);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception($"Error al buscar el item: {ex.Message}", ex);
             }
@@ -218,7 +219,7 @@ namespace TitoAlquiler.Model.Dao
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception($"Error al cargar los items: {ex.Message}", ex);
             }
@@ -240,7 +241,7 @@ namespace TitoAlquiler.Model.Dao
                         .ToList();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 Console.WriteLine($"Error finding items by categoria: {ex.Message}");
                 throw;
@@ -269,7 +270,7 @@ namespace TitoAlquiler.Model.Dao
                     return items.Select(item => (item, GetCategoriaForItem(db, item))).ToList();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception($"Error al buscar items: {ex.Message}", ex);
             }
