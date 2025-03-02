@@ -10,7 +10,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
     public class Indumentaria
     {
         public int id { get; set; }
-        public int itemid { get; set; }
+        public int itemId { get; set; }
         public Item item { get; set; }
         public string? talla { get; set; }
         public string? material { get; set; }
@@ -19,7 +19,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public Indumentaria(Item item)
         {
             this.item = item;
-            this.itemid = item.id;
+            this.itemId = item.id;
         }
     }
 }

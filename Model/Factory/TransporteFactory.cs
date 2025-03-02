@@ -6,34 +6,30 @@ using System.Threading.Tasks;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Interfaces;
-
-namespace TitoAlquiler.Model.Factory
+public class TransporteFactory : IItemFactory
 {
-    public class TransporteFactory : IItemFactory
+    public (Item item, object categoria) CrearAlquilable(
+        string nombre,
+        string marca,
+        string modelo,
+        double tarifaDia,
+        params object[] adicionales)
     {
-        public (Item item, object categoria) CrearAlquilable(
-            string nombre,
-            string marca,
-            string modelo,
-            double tarifaDia,
-            params object[] adicionales)
+        var item = new Item
         {
-            var item = new Item
-            {
-                nombreItem = nombre,
-                marca = marca,
-                modelo = modelo,
-                tarifaDia = tarifaDia,
-                categoriaId = 1 // ID para Transporte
-            };
+            nombreItem = nombre,
+            marca = marca,
+            modelo = modelo,
+            tarifaDia = tarifaDia,
+            categoriaId = 1 // ID para Transporte
+        };
 
-            var transporte = new Transporte(item)
-            {
-                capacidadPasajeros = (int)adicionales[0],
-                tipoCombustible = (string)adicionales[1]
-            };
+        var transporte = new Transporte
+        {
+            capacidadPasajeros = (int)adicionales[0],
+            tipoCombustible = (string)adicionales[1]
+        };
 
-            return (item, transporte);
-        }
+        return (item, transporte);
     }
 }

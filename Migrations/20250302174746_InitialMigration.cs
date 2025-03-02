@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace TitoAlquiler.Migrations
 {
     /// <inheritdoc />
-    public partial class initDB : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +65,7 @@ namespace TitoAlquiler.Migrations
                         column: x => x.categoriaId,
                         principalTable: "Categorias",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,8 +74,8 @@ namespace TitoAlquiler.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemID = table.Column<int>(type: "int", nullable: false),
-                    UsuarioID = table.Column<int>(type: "int", nullable: false),
+                    itemId = table.Column<int>(type: "int", nullable: false),
+                    usuarioId = table.Column<int>(type: "int", nullable: false),
                     tiempoDias = table.Column<int>(type: "int", nullable: false),
                     fechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     fechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -85,37 +87,17 @@ namespace TitoAlquiler.Migrations
                 {
                     table.PrimaryKey("PK_Alquileres", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Alquileres_Items_ItemID",
-                        column: x => x.ItemID,
-                        principalTable: "Items",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Alquileres_Usuarios_UsuarioID",
-                        column: x => x.UsuarioID,
-                        principalTable: "Usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-            migrationBuilder.CreateTable(
-                name: "Transportes",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    itemID = table.Column<int>(type: "int", nullable: false),
-                    capacidadPasajeros = table.Column<int>(type: "int", nullable: false),
-                    tipoCombustible = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Transportes", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Transportes_Items_itemID",
-                        column: x => x.itemID,
+                        name: "FK_Alquileres_Items_itemId",
+                        column: x => x.itemId,
                         principalTable: "Items",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Alquileres_Usuarios_usuarioId",
+                        column: x => x.usuarioId,
+                        principalTable: "Usuarios",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +106,7 @@ namespace TitoAlquiler.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    itemID = table.Column<int>(type: "int", nullable: false),
+                    itemId = table.Column<int>(type: "int", nullable: false),
                     potenciaWatts = table.Column<int>(type: "int", nullable: false),
                     tipoElectrodomestico = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -132,8 +114,8 @@ namespace TitoAlquiler.Migrations
                 {
                     table.PrimaryKey("PK_Electrodomesticos", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Electrodomesticos_Items_itemID",
-                        column: x => x.itemID,
+                        name: "FK_Electrodomesticos_Items_itemId",
+                        column: x => x.itemId,
                         principalTable: "Items",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -145,7 +127,7 @@ namespace TitoAlquiler.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    itemID = table.Column<int>(type: "int", nullable: false),
+                    itemId = table.Column<int>(type: "int", nullable: false),
                     resolucionPantalla = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     almacenamientoGB = table.Column<int>(type: "int", nullable: false)
                 },
@@ -153,29 +135,8 @@ namespace TitoAlquiler.Migrations
                 {
                     table.PrimaryKey("PK_Electronicas", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Electronicas__Items_itemID",
-                        column: x => x.itemID,
-                        principalTable: "Items",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inmuebles",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    itemID = table.Column<int>(type: "int", nullable: false),
-                    metrosCuadrados = table.Column<int>(type: "int", nullable: false),
-                    ubicacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inmuebles", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Inmuebles_Items_itemID",
-                        column: x => x.itemID,
+                        name: "FK_Electronicas_Items_itemId",
+                        column: x => x.itemId,
                         principalTable: "Items",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -187,7 +148,7 @@ namespace TitoAlquiler.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    itemID = table.Column<int>(type: "int", nullable: false),
+                    itemId = table.Column<int>(type: "int", nullable: false),
                     talla = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     material = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -195,12 +156,71 @@ namespace TitoAlquiler.Migrations
                 {
                     table.PrimaryKey("PK_Indumentarias", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Indumentarias_Items_itemID",
-                        column: x => x.itemID,
+                        name: "FK_Indumentarias_Items_itemId",
+                        column: x => x.itemId,
                         principalTable: "Items",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Inmuebles",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    itemId = table.Column<int>(type: "int", nullable: false),
+                    metrosCuadrados = table.Column<int>(type: "int", nullable: false),
+                    ubicacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inmuebles", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Inmuebles_Items_itemId",
+                        column: x => x.itemId,
+                        principalTable: "Items",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transportes",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    itemId = table.Column<int>(type: "int", nullable: false),
+                    capacidadPasajeros = table.Column<int>(type: "int", nullable: false),
+                    tipoCombustible = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transportes", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Transportes_Items_itemId",
+                        column: x => x.itemId,
+                        principalTable: "Items",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categorias",
+                columns: new[] { "id", "deletedAt", "nombre" },
+                values: new object[,]
+                {
+                    { 1, null, "Transporte" },
+                    { 2, null, "Electrodomestico" },
+                    { 3, null, "Electronica" },
+                    { 4, null, "Inmueble" },
+                    { 5, null, "Indumentaria" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Alquileres_itemId",
+                table: "Alquileres",
+                column: "itemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Alquileres_usuarioId",
@@ -208,39 +228,39 @@ namespace TitoAlquiler.Migrations
                 column: "usuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transportes_itemID",
-                table: "Transportes",
-                column: "itemID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Electrodomesticos_itemID",
+                name: "IX_Electrodomesticos_itemId",
                 table: "Electrodomesticos",
-                column: "itemID",
+                column: "itemId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Electronicas_itemID",
+                name: "IX_Electronicas_itemId",
                 table: "Electronicas",
-                column: "itemID",
+                column: "itemId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inmuebles_itemID",
-                table: "Inmuebles",
-                column: "itemID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Indumentarias_itemID",
+                name: "IX_Indumentarias_itemId",
                 table: "Indumentarias",
-                column: "itemID",
+                column: "itemId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inmuebles_itemId",
+                table: "Inmuebles",
+                column: "itemId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_categoriaId",
                 table: "Items",
                 column: "categoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transportes_itemId",
+                table: "Transportes",
+                column: "itemId",
+                unique: true);
         }
 
         /// <inheritdoc />

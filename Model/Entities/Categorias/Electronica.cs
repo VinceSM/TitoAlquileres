@@ -10,7 +10,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
     public class Electronica
     {
         public int id { get; set; }
-        public int itemid { get; set; }
+        public int itemId { get; set; }
         public Item item { get; set; }
         public string resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
@@ -20,7 +20,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public Electronica(Item item)
         {
             this.item = item;
-            this.itemid = item.id;
+            this.itemId = item.id;
         }
     }
 }

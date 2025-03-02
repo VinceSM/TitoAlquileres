@@ -10,18 +10,12 @@ namespace TitoAlquiler.Model.Entities.Categorias
     public class Transporte
     {
         public int id { get; set; }
-        public int itemid{ get; set; }
-        public Item item { get; set; }
+        public int itemId { get; set; }
+        public virtual Item item { get; set; } = null!;
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }
 
         public Transporte() { }
-
-        public Transporte(Item item)
-        {
-            this.item = item;
-            this.itemid = item.id;
-        }
     }
 
-}
+    }

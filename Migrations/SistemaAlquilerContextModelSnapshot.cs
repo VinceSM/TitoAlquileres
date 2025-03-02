@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TitoAlquiler.Model.Entities.Categorias;
 
 #nullable disable
 
@@ -32,11 +31,11 @@ namespace TitoAlquiler.Migrations
 
                     b.Property<int>("ItemID")
                         .HasColumnType("int")
-                        .HasColumnName("ItemID");
+                        .HasColumnName("itemId");
 
                     b.Property<int>("UsuarioID")
                         .HasColumnType("int")
-                        .HasColumnName("UsuarioID");
+                        .HasColumnName("usuarioId");
 
                     b.Property<DateTime?>("deletedAt")
                         .HasColumnType("datetime2")
@@ -90,157 +89,36 @@ namespace TitoAlquiler.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Categorias", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            nombre = "Transporte"
+                        },
+                        new
+                        {
+                            id = 2,
+                            nombre = "Electrodomestico"
+                        },
+                        new
+                        {
+                            id = 3,
+                            nombre = "Electronica"
+                        },
+                        new
+                        {
+                            id = 4,
+                            nombre = "Inmueble"
+                        },
+                        new
+                        {
+                            id = 5,
+                            nombre = "Indumentaria"
+                        });
                 });
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", b =>
-            {
-                b.Property<int>("id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasColumnName("id");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                b.Property<int>("itemID")
-                    .HasColumnType("int")
-                    .HasColumnName("itemID");
-
-                b.Property<int>("potenciaWatts")
-                    .HasColumnType("int")
-                    .HasColumnName("potenciaWatts");
-
-                b.Property<string>("tipoElectrodomestico")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)")
-                    .HasColumnName("tipoElectrodomestico");
-
-                b.HasKey("id");
-
-                b.HasIndex("itemID")
-                    .IsUnique();
-
-                b.ToTable("Electrodomesticos", (string)null);
-            });
-
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electronica", b =>
-            {
-                b.Property<int>("id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasColumnName("id");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                b.Property<int>("almacenamientoGB")
-                    .HasColumnType("int")
-                    .HasColumnName("almacenamientoGB");
-
-                b.Property<int>("itemID")
-                    .HasColumnType("int")
-                    .HasColumnName("itemID");
-
-                b.Property<string>("resolucionPantalla")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)")
-                    .HasColumnName("resolucionPantalla");
-
-                b.HasKey("id");
-
-                b.HasIndex("itemID")
-                    .IsUnique();
-
-                b.ToTable("Electronicas", (string)null);
-            });
-
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Indumentaria", b =>
-            {
-                b.Property<int>("id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasColumnName("id");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                b.Property<int>("itemID")
-                    .HasColumnType("int")
-                    .HasColumnName("itemID");
-
-                b.Property<string>("material")
-                    .HasColumnType("nvarchar(max)")
-                    .HasColumnName("material");
-
-                b.Property<string>("talla")
-                    .HasColumnType("nvarchar(max)")
-                    .HasColumnName("talla");
-
-                b.HasKey("id");
-
-                b.HasIndex("itemID")
-                    .IsUnique();
-
-                b.ToTable("Indumentarias", (string)null);
-            });
-
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Inmueble", b =>
-            {
-                b.Property<int>("id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasColumnName("id");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                b.Property<int>("itemID")
-                    .HasColumnType("int")
-                    .HasColumnName("itemID");
-
-                b.Property<int>("metrosCuadrados")
-                    .HasColumnType("int")
-                    .HasColumnName("metrosCuadrados");
-
-                b.Property<string>("ubicacion")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)")
-                    .HasColumnName("ubicacion");
-
-                b.HasKey("id");
-
-                b.HasIndex("itemID")
-                    .IsUnique();
-
-                b.ToTable("Inmuebles", (string)null);
-            });
-
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Transporte", b =>
-            {
-                b.Property<int>("id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasColumnName("id");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                b.Property<int>("capacidadPasajeros")
-                    .HasColumnType("int")
-                    .HasColumnName("capacidadPasajeros");
-
-                b.Property<int>("itemID")
-                    .HasColumnType("int")
-                    .HasColumnName("itemID");
-
-                b.Property<string>("tipoCombustible")
-                    .HasColumnType("nvarchar(max)")
-                    .HasColumnName("tipoCombustible");
-
-                b.HasKey("id");
-
-                b.HasIndex("itemID")
-                    .IsUnique();
-
-                b.ToTable("Transportes", (string)null);
-            });
-
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Item", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -249,35 +127,176 @@ namespace TitoAlquiler.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("categoriaId")
+                    b.Property<int>("itemId")
                         .HasColumnType("int")
-                        .HasColumnName("categoriaId");
+                        .HasColumnName("itemId");
+
+                    b.Property<int>("potenciaWatts")
+                        .HasColumnType("int")
+                        .HasColumnName("potenciaWatts");
+
+                    b.Property<string>("tipoElectrodomestico")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("tipoElectrodomestico");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("itemId")
+                        .IsUnique();
+
+                    b.ToTable("Electrodomesticos", (string)null);
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electronica", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("almacenamientoGB")
+                        .HasColumnType("int")
+                        .HasColumnName("almacenamientoGB");
+
+                    b.Property<int>("itemId")
+                        .HasColumnType("int")
+                        .HasColumnName("itemId");
+
+                    b.Property<string>("resolucionPantalla")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("resolucionPantalla");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("itemId")
+                        .IsUnique();
+
+                    b.ToTable("Electronicas", (string)null);
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Indumentaria", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("itemId")
+                        .HasColumnType("int")
+                        .HasColumnName("itemId");
+
+                    b.Property<string>("material")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("material");
+
+                    b.Property<string>("talla")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("talla");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("itemId")
+                        .IsUnique();
+
+                    b.ToTable("Indumentarias", (string)null);
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Inmueble", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("itemId")
+                        .HasColumnType("int")
+                        .HasColumnName("itemId");
+
+                    b.Property<int>("metrosCuadrados")
+                        .HasColumnType("int")
+                        .HasColumnName("metrosCuadrados");
+
+                    b.Property<string>("ubicacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ubicacion");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("itemId")
+                        .IsUnique();
+
+                    b.ToTable("Inmuebles", (string)null);
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Transporte", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("capacidadPasajeros")
+                        .HasColumnType("int")
+                        .HasColumnName("capacidadPasajeros");
+
+                    b.Property<int>("itemId")
+                        .HasColumnType("int")
+                        .HasColumnName("itemId");
+
+                    b.Property<string>("tipoCombustible")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("tipoCombustible");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("itemId")
+                        .IsUnique();
+
+                    b.ToTable("Transportes", (string)null);
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Item", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("categoriaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("deletedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("deletedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("marca")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("marca");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("modelo")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("modelo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombreItem")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("nombreItem");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("tarifaDia")
-                        .HasColumnType("float")
-                        .HasColumnName("tarifaDia");
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
                     b.HasIndex("categoriaId");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
 
                     b.UseTptMappingStrategy();
                 });
@@ -320,7 +339,7 @@ namespace TitoAlquiler.Migrations
                     b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
                         .WithMany("Alquileres")
                         .HasForeignKey("ItemID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TitoAlquiler.Model.Entities.Usuarios", "usuario")
@@ -334,39 +353,71 @@ namespace TitoAlquiler.Migrations
                     b.Navigation("usuario");
                 });
 
-            modelBuilder.Entity<Transporte>().OwnsOne(t => t.item, item =>
-            {
-                item.Property(i => i.id).HasColumnName("itemID");
-            });
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", b =>
+                {
+                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                        .WithOne()
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", "itemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity<Electrodomestico>().OwnsOne(e => e.item, item =>
-            {
-                item.Property(i => i.id).HasColumnName("itemID");
-            });
+                    b.Navigation("item");
+                });
 
-            modelBuilder.Entity<Electronica>().OwnsOne(e => e.item, item =>
-            {
-                item.Property(i => i.id).HasColumnName("itemID");
-            });
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electronica", b =>
+                {
+                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                        .WithOne()
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electronica", "itemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity<Inmueble>().OwnsOne(i => i.item, item =>
-            {
-                item.Property(i => i.id).HasColumnName("itemID");
-            });
+                    b.Navigation("item");
+                });
 
-            modelBuilder.Entity<Indumentaria>().OwnsOne(i => i.item, item =>
-            {
-                item.Property(i => i.id).HasColumnName("itemID");
-            });
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Indumentaria", b =>
+                {
+                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                        .WithOne()
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Indumentaria", "itemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("item");
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Inmueble", b =>
+                {
+                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                        .WithOne()
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Inmueble", "itemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("item");
+                });
+
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Transporte", b =>
+                {
+                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                        .WithOne()
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Transporte", "itemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("item");
+                });
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Item", b =>
-            {
-                b.HasOne("TitoAlquiler.Model.Entities.Categoria", "categoria")
-                    .WithMany("items")
-                    .HasForeignKey("categoriaId")
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
-            });
+                {
+                    b.HasOne("TitoAlquiler.Model.Entities.Categoria", "categoria")
+                        .WithMany("items")
+                        .HasForeignKey("categoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("categoria");
+                });
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categoria", b =>
                 {

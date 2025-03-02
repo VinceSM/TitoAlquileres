@@ -25,39 +25,54 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
+        // Modificación en ItemController.cs
         public void CrearItem(IItemFactory factory, string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
         {
+            using var db = new SistemaAlquilerContext();
+            using var transaction = db.Database.BeginTransaction();
+
             try
             {
                 var (item, categoria) = factory.CrearAlquilable(nombre, marca, modelo, tarifaDia, adicionales);
-                _itemDao.InsertItem(item); // Solo insertamos el Item base aquí
 
-                // Delegamos la creación de la categoría al DAO correspondiente
+                // Primero insertamos el Item base
+                db.Items.Add(item);
+                db.SaveChanges(); // Esto generará el ID del item
+
+                // Ahora manejamos la categoría específica
                 switch (categoria)
                 {
                     case Transporte transporte:
-                        TransporteController.Instance.Agregar(transporte);
+                        transporte.itemId = item.id; // Asignamos el ID generado
+                        db.Transportes.Add(transporte);
                         break;
                     case Electrodomestico electrodomestico:
-                        ElectrodomesticoController.Instance.Agregar(electrodomestico);
+                        electrodomestico.itemId = item.id;
+                        db.Electrodomesticos.Add(electrodomestico);
                         break;
                     case Inmueble inmueble:
-                        InmuebleController.Instance.Agregar(inmueble);
+                        inmueble.itemId = item.id;
+                        db.Inmuebles.Add(inmueble);
                         break;
                     case Electronica electronica:
-                        ElectronicaController.Instance.Agregar(electronica);
+                        electronica.itemId = item.id;
+                        db.Electronicas.Add(electronica);
                         break;
                     case Indumentaria indumentaria:
-                        IndumentariaController.Instance.Agregar(indumentaria);
+                        indumentaria.itemId = item.id;
+                        db.Indumentarias.Add(indumentaria);
                         break;
                     default:
                         throw new ArgumentException("Categoría no reconocida.");
                 }
+
+                db.SaveChanges();
+                transaction.Commit();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
+                transaction.Rollback();
+                throw new Exception($"Error al crear el item: {ex.Message}", ex);
             }
         }
 
