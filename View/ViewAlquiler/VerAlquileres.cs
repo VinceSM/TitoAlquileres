@@ -120,9 +120,9 @@ namespace TitoAlquiler.View.ViewAlquiler
                     {
                         alquilerController.EliminarAlquiler(alquiler.id);
                         LoadAlquileres();
-
-                        MessageBox.Show("El alquiler se ha cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
+                    MessageBox.Show("El alquiler se ha cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

@@ -7,9 +7,9 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Factory
 {
-    public abstract class ItemFactory
+    public interface IItemFactory
     {
-        public abstract (Item item, object categoria) CrearAlquilable(
+        (Item item, object categoria) CrearAlquilable(
             string nombre,
             string marca,
             string modelo,

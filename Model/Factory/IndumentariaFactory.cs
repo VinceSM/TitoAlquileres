@@ -8,9 +8,9 @@ using TitoAlquiler.Model.Entities.Items;
 
 namespace TitoAlquiler.Model.Factory
 {
-    public class IndumentariaFactory : ItemFactory
+    public class IndumentariaFactory : IItemFactory
     {
-        public override (Item item, object categoria) CrearAlquilable(
+        public (Item item, object categoria) CrearAlquilable(
             string nombre,
             string marca,
             string modelo,
