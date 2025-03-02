@@ -10,7 +10,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
     public class Transporte
     {
         public int id { get; set; }
-        public int item_id { get; set; }
+        public int itemid{ get; set; }
         public Item item { get; set; }
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }
@@ -20,7 +20,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public Transporte(Item item)
         {
             this.item = item;
-            this.item_id = item.id;
+            this.itemid = item.id;
         }
     }
 

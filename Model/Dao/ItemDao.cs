@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Entities;
 using Microsoft.Data.SqlClient;
+using TitoAlquiler.Controller.CategoriasController;
 
 namespace TitoAlquiler.Model.Dao
 {
@@ -16,55 +17,17 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="item">Item base a insertar</param>
         /// <param name="categoria">Objeto de categoría específica (Transporte, Electrodomestico, etc.)</param>
-        public void InsertItem(Item item, object categoria)
+        public void InsertItem(Item item)
         {
             try
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    using (var transaction = db.Database.BeginTransaction())
-                    {
-                        try
-                        {
-                            db.Items.Add(item);
-                            db.SaveChanges();
-
-                            switch (categoria)
-                            {
-                                case Transporte transporte:
-                                    transporte.item_id = item.id;
-                                    db.Transportes.Add(transporte);
-                                    break;
-                                case Electrodomestico electrodomestico:
-                                    electrodomestico.item_id = item.id;
-                                    db.Electrodomesticos.Add(electrodomestico);
-                                    break;
-                                case Inmueble inmueble:
-                                    inmueble.item_id = item.id;
-                                    db.Inmuebles.Add(inmueble);
-                                    break;
-                                case Electronica electronica:
-                                    electronica.item_id = item.id;
-                                    db.Electronicas.Add(electronica);
-                                    break;
-                                case Indumentaria indumentaria:
-                                    indumentaria.item_id = item.id;
-                                    db.Indumentarias.Add(indumentaria);
-                                    break;
-                            }
-
-                            db.SaveChanges();
-                            transaction.Commit();
-                        }
-                        catch (SqlException)
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
-                    }
+                    db.Items.Add(item);
+                    db.SaveChanges();
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Error al insertar el item: {ex.Message}", ex);
             }
@@ -167,11 +130,11 @@ namespace TitoAlquiler.Model.Dao
 
                     object categoria = item.categoriaId switch
                     {
-                        1 => db.Transportes.FirstOrDefault(t => t.item_id == id),
-                        2 => db.Electrodomesticos.FirstOrDefault(e => e.item_id == id),
-                        3 => db.Electronicas.FirstOrDefault(e => e.item_id == id),
-                        4 => db.Inmuebles.FirstOrDefault(i => i.item_id == id),
-                        5 => db.Indumentarias.FirstOrDefault(i => i.item_id == id),
+                        1 => db.Transportes.FirstOrDefault(t => t.itemid == id),
+                        2 => db.Electrodomesticos.FirstOrDefault(e => e.itemid == id),
+                        3 => db.Electronicas.FirstOrDefault(e => e.itemid == id),
+                        4 => db.Inmuebles.FirstOrDefault(i => i.itemid == id),
+                        5 => db.Indumentarias.FirstOrDefault(i => i.itemid == id),
                         _ => null
                     };
 
@@ -205,11 +168,11 @@ namespace TitoAlquiler.Model.Dao
                     {
                         object categoria = item.categoriaId switch
                         {
-                            1 => db.Transportes.FirstOrDefault(t => t.item_id == item.id),
-                            2 => db.Electrodomesticos.FirstOrDefault(e => e.item_id == item.id),
-                            3 => db.Electronicas.FirstOrDefault(e => e.item_id == item.id),
-                            4 => db.Inmuebles.FirstOrDefault(i => i.item_id == item.id),
-                            5 => db.Indumentarias.FirstOrDefault(i => i.item_id == item.id),
+                            1 => db.Transportes.FirstOrDefault(t => t.itemid == item.id),
+                            2 => db.Electrodomesticos.FirstOrDefault(e => e.itemid == item.id),
+                            3 => db.Electronicas.FirstOrDefault(e => e.itemid == item.id),
+                            4 => db.Inmuebles.FirstOrDefault(i => i.itemid == item.id),
+                            5 => db.Indumentarias.FirstOrDefault(i => i.itemid == item.id),
                             _ => null
                         };
 
@@ -280,11 +243,11 @@ namespace TitoAlquiler.Model.Dao
         {
             return item.categoriaId switch
             {
-                1 => db.Transportes.FirstOrDefault(t => t.item_id == item.id),
-                2 => db.Electrodomesticos.FirstOrDefault(e => e.item_id == item.id),
-                3 => db.Electronicas.FirstOrDefault(e => e.item_id == item.id),
-                4 => db.Inmuebles.FirstOrDefault(i => i.item_id == item.id),
-                5 => db.Indumentarias.FirstOrDefault(i => i.item_id == item.id),
+                1 => db.Transportes.FirstOrDefault(t => t.itemid == item.id),
+                2 => db.Electrodomesticos.FirstOrDefault(e => e.itemid == item.id),
+                3 => db.Electronicas.FirstOrDefault(e => e.itemid == item.id),
+                4 => db.Inmuebles.FirstOrDefault(i => i.itemid == item.id),
+                5 => db.Indumentarias.FirstOrDefault(i => i.itemid == item.id),
                 _ => null
             };
         }

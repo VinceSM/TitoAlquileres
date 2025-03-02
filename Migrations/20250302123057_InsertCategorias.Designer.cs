@@ -103,9 +103,9 @@ namespace TitoAlquiler.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("item_id")
+                    b.Property<int>("itemid")
                         .HasColumnType("int")
-                        .HasColumnName("item_id");
+                        .HasColumnName("itemid");
 
                     b.Property<int>("itemid")
                         .HasColumnType("int");
@@ -121,7 +121,7 @@ namespace TitoAlquiler.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("item_id")
+                    b.HasIndex("itemid")
                         .IsUnique();
 
                     b.HasIndex("itemid");
@@ -142,9 +142,9 @@ namespace TitoAlquiler.Migrations
                         .HasColumnType("int")
                         .HasColumnName("almacenamientoGB");
 
-                    b.Property<int>("item_id")
+                    b.Property<int>("itemid")
                         .HasColumnType("int")
-                        .HasColumnName("item_id");
+                        .HasColumnName("itemid");
 
                     b.Property<int>("itemid")
                         .HasColumnType("int");
@@ -156,7 +156,7 @@ namespace TitoAlquiler.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("item_id")
+                    b.HasIndex("itemid")
                         .IsUnique();
 
                     b.HasIndex("itemid");
@@ -173,9 +173,9 @@ namespace TitoAlquiler.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("item_id")
+                    b.Property<int>("itemid")
                         .HasColumnType("int")
-                        .HasColumnName("item_id");
+                        .HasColumnName("itemid");
 
                     b.Property<int>("itemid")
                         .HasColumnType("int");
@@ -190,7 +190,7 @@ namespace TitoAlquiler.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("item_id")
+                    b.HasIndex("itemid")
                         .IsUnique();
 
                     b.HasIndex("itemid");
@@ -207,9 +207,9 @@ namespace TitoAlquiler.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("item_id")
+                    b.Property<int>("itemid")
                         .HasColumnType("int")
-                        .HasColumnName("item_id");
+                        .HasColumnName("itemid");
 
                     b.Property<int>("itemid")
                         .HasColumnType("int");
@@ -225,7 +225,7 @@ namespace TitoAlquiler.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("item_id")
+                    b.HasIndex("itemid")
                         .IsUnique();
 
                     b.HasIndex("itemid");
@@ -246,9 +246,9 @@ namespace TitoAlquiler.Migrations
                         .HasColumnType("int")
                         .HasColumnName("capacidadPasajeros");
 
-                    b.Property<int>("item_id")
+                    b.Property<int>("itemid")
                         .HasColumnType("int")
-                        .HasColumnName("item_id");
+                        .HasColumnName("itemid");
 
                     b.Property<int>("itemid")
                         .HasColumnType("int");
@@ -259,7 +259,7 @@ namespace TitoAlquiler.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("item_id")
+                    b.HasIndex("itemid")
                         .IsUnique();
 
                     b.HasIndex("itemid");
@@ -365,7 +365,7 @@ namespace TitoAlquiler.Migrations
                 {
                     b.HasOne("TitoAlquiler.Model.Entities.Item", null)
                         .WithOne()
-                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", "item_id")
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", "itemid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -382,7 +382,7 @@ namespace TitoAlquiler.Migrations
                 {
                     b.HasOne("TitoAlquiler.Model.Entities.Item", null)
                         .WithOne()
-                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electronica", "item_id")
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electronica", "itemid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -399,7 +399,7 @@ namespace TitoAlquiler.Migrations
                 {
                     b.HasOne("TitoAlquiler.Model.Entities.Item", null)
                         .WithOne()
-                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Indumentaria", "item_id")
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Indumentaria", "itemid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -416,7 +416,7 @@ namespace TitoAlquiler.Migrations
                 {
                     b.HasOne("TitoAlquiler.Model.Entities.Item", null)
                         .WithOne()
-                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Inmueble", "item_id")
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Inmueble", "itemid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -433,7 +433,7 @@ namespace TitoAlquiler.Migrations
                 {
                     b.HasOne("TitoAlquiler.Model.Entities.Item", null)
                         .WithOne()
-                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Transporte", "item_id")
+                        .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Transporte", "itemid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

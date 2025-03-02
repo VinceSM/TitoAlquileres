@@ -6,6 +6,8 @@ using TitoAlquiler.Model.Factory;
 using System.Windows.Forms;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Interfaces;
+using TitoAlquiler.Controller.CategoriasController;
+using TitoAlquiler.Model.Entities.Categorias;
 
 namespace TitoAlquiler.Controller
 {
@@ -23,21 +25,42 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
-        public void CrearItem(IItemFactory factory, string nombre, string marca, string modelo,
-                              double tarifaDia, params object[] adicionales)
+        public void CrearItem(IItemFactory factory, string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
         {
             try
             {
                 var (item, categoria) = factory.CrearAlquilable(nombre, marca, modelo, tarifaDia, adicionales);
-                _itemDao.InsertItem(item, categoria);
+                _itemDao.InsertItem(item); // Solo insertamos el Item base aquí
+
+                // Delegamos la creación de la categoría al DAO correspondiente
+                switch (categoria)
+                {
+                    case Transporte transporte:
+                        TransporteController.Instance.Agregar(transporte);
+                        break;
+                    case Electrodomestico electrodomestico:
+                        ElectrodomesticoController.Instance.Agregar(electrodomestico);
+                        break;
+                    case Inmueble inmueble:
+                        InmuebleController.Instance.Agregar(inmueble);
+                        break;
+                    case Electronica electronica:
+                        ElectronicaController.Instance.Agregar(electronica);
+                        break;
+                    case Indumentaria indumentaria:
+                        IndumentariaController.Instance.Agregar(indumentaria);
+                        break;
+                    default:
+                        throw new ArgumentException("Categoría no reconocida.");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
         }
+
 
         public IItemFactory ObtenerFactory(string categoria)
         {

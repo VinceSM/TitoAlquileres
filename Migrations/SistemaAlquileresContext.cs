@@ -32,10 +32,13 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Transportes");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.itemid).HasColumnName("itemid");
             entity.Property(e => e.capacidadPasajeros).HasColumnName("capacidadPasajeros");
             entity.Property(e => e.tipoCombustible).HasColumnName("tipoCombustible");
-            entity.HasOne<Item>().WithOne().HasForeignKey<Transporte>(t => t.item_id);
+            entity.HasOne(e => e.item)
+                  .WithOne()
+                  .HasForeignKey<Transporte>(t => t.itemid)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Electrodomestico>(entity =>
@@ -43,10 +46,13 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Electrodomesticos");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.itemid).HasColumnName("itemid");
             entity.Property(e => e.potenciaWatts).HasColumnName("potenciaWatts");
             entity.Property(e => e.tipoElectrodomestico).HasColumnName("tipoElectrodomestico");
-            entity.HasOne<Item>().WithOne().HasForeignKey<Electrodomestico>(e => e.item_id);
+            entity.HasOne(e => e.item)
+                  .WithOne()
+                  .HasForeignKey<Electrodomestico>(e => e.itemid)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Indumentaria>(entity =>
@@ -54,10 +60,13 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Indumentarias");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.itemid).HasColumnName("itemid");
             entity.Property(e => e.talla).HasColumnName("talla");
             entity.Property(e => e.material).HasColumnName("material");
-            entity.HasOne<Item>().WithOne().HasForeignKey<Indumentaria>(i => i.item_id);
+            entity.HasOne(e => e.item)
+                  .WithOne()
+                  .HasForeignKey<Indumentaria>(i => i.itemid)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Inmueble>(entity =>
@@ -65,10 +74,13 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Inmuebles");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.itemid).HasColumnName("itemid");
             entity.Property(e => e.metrosCuadrados).HasColumnName("metrosCuadrados");
             entity.Property(e => e.ubicacion).HasColumnName("ubicacion");
-            entity.HasOne<Item>().WithOne().HasForeignKey<Inmueble>(i => i.item_id);
+            entity.HasOne(e => e.item)
+                  .WithOne()
+                  .HasForeignKey<Inmueble>(i => i.itemid)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Electronica>(entity =>
@@ -76,33 +88,13 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Electronicas");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.item_id).HasColumnName("item_id");
+            entity.Property(e => e.itemid).HasColumnName("itemid");
             entity.Property(e => e.resolucionPantalla).HasColumnName("resolucionPantalla");
             entity.Property(e => e.almacenamientoGB).HasColumnName("almacenamientoGB");
-            entity.HasOne<Item>().WithOne().HasForeignKey<Electronica>(e => e.item_id);
-        });
-
-        modelBuilder.Entity<Item>(entity =>
-        {
-            entity.ToTable("Items");
-            entity.HasKey(e => e.id);
-            entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.nombreItem).HasColumnName("nombreItem");
-            entity.Property(e => e.marca).HasColumnName("marca");
-            entity.Property(e => e.modelo).HasColumnName("modelo");
-            entity.Property(e => e.tarifaDia).HasColumnName("tarifaDia");
-            entity.Property(e => e.categoriaId).HasColumnName("categoriaId");
-            entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
-
-            entity.HasOne(i => i.categoria)
-                  .WithMany(c => c.items)
-                  .HasForeignKey(i => i.categoriaId)
-                  .OnDelete(DeleteBehavior.Restrict);
-
-            entity.HasMany(i => i.Alquileres)
-                  .WithOne(a => a.item)
-                  .HasForeignKey(a => a.ItemID)
-                  .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.item)
+                  .WithOne()
+                  .HasForeignKey<Electronica>(e => e.itemid)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Categoria>(entity =>

@@ -9,7 +9,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
     public class Inmueble
     {
         public int id { get; set; }
-        public int item_id { get; set; }
+        public int itemid { get; set; }
         public Item item { get; set; }
         public int metrosCuadrados { get; set; }
         public string ubicacion { get; set; }
@@ -18,7 +18,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public Inmueble(Item item)
         {
             this.item = item;
-            this.item_id = item.id;
+            this.itemid = item.id;
         }
     }
 }

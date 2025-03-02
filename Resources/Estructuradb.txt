@@ -23,46 +23,46 @@ CREATE TABLE Categorias (
 -- Tabla Transportes
 CREATE TABLE Transportes (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT UNIQUE,
+    itemid INT UNIQUE,
     capacidadPasajeros INT,
     tipoCombustible VARCHAR(50),
-    FOREIGN KEY (item_id) REFERENCES Items(id)
+    FOREIGN KEY (itemid) REFERENCES Items(id)
 );
 
 -- Tabla Electronicas
 CREATE TABLE Electronicas (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT UNIQUE,
+    itemid INT UNIQUE,
     resolucionPantalla VARCHAR(50),
     almacenamientoGB INT,
-    FOREIGN KEY (item_id) REFERENCES Items(id)
+    FOREIGN KEY (itemid) REFERENCES Items(id)
 );
 
 -- Tabla Electrodomesticos
 CREATE TABLE Electrodomesticos (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT UNIQUE,
+    itemid INT UNIQUE,
     potenciaWatts INT,
     tipoElectrodomestico VARCHAR(50),
-    FOREIGN KEY (item_id) REFERENCES Items(id)
+    FOREIGN KEY (itemid) REFERENCES Items(id)
 );
 
 -- Tabla Inmuebles
 CREATE TABLE Inmuebles (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT UNIQUE,
+    itemid INT UNIQUE,
     metrosCuadrados INT,
     ubicacion VARCHAR(100),
-    FOREIGN KEY (item_id) REFERENCES Items(id)
+    FOREIGN KEY (itemid) REFERENCES Items(id)
 );
 
 -- Tabla Indumentarias
 CREATE TABLE Indumentarias (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT UNIQUE,
+    itemid INT UNIQUE,
     talla VARCHAR(10),
     material VARCHAR(50),
-    FOREIGN KEY (item_id) REFERENCES Items(id)
+    FOREIGN KEY (itemid) REFERENCES Items(id)
 );
 
 -- Tabla Usuarios
@@ -113,23 +113,23 @@ INSERT INTO Items (nombreItem, marca, modelo, tarifaDia, categoriaId, deletedAt)
 ('Camisa', 'Zara', 'Slim Fit', 20.00, 5, NULL);
 
 -- Inserción de Transportes
-INSERT INTO Transportes (item_id, capacidadPasajeros, tipoCombustible) VALUES
+INSERT INTO Transportes (itemid, capacidadPasajeros, tipoCombustible) VALUES
 (1, 2, 'Nafta Premium');
 
 -- Inserción de Electronicas
-INSERT INTO Electronicas (item_id, resolucionPantalla, almacenamientoGB) VALUES
+INSERT INTO Electronicas (itemid, resolucionPantalla, almacenamientoGB) VALUES
 (2, '2532x1170', 128);
 
 -- Inserción de Electrodomesticos
-INSERT INTO Electrodomesticos (item_id, potenciaWatts, tipoElectrodomestico) VALUES
+INSERT INTO Electrodomesticos (itemid, potenciaWatts, tipoElectrodomestico) VALUES
 (3, 2000, 'Lavarropas');
 
 -- Inserción de Inmuebles
-INSERT INTO Inmuebles (item_id, metrosCuadrados, ubicacion) VALUES
+INSERT INTO Inmuebles (itemid, metrosCuadrados, ubicacion) VALUES
 (4, 60, 'Buenos Aires, Argentina');
 
 -- Inserción de Indumentarias
-INSERT INTO Indumentarias (item_id, talla, material) VALUES
+INSERT INTO Indumentarias (itemid, talla, material) VALUES
 (5, 'M', 'Algodón');
 
 -- Inserción de Usuarios
