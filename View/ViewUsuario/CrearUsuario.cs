@@ -10,7 +10,7 @@ namespace TitoAlquiler.View.ViewUsuario
 {
     public partial class CrearUsuario : Form
     {
-        private readonly UsuarioController usuarioController = UsuarioController.getInstance();
+        private readonly UsuarioController usuarioController = UsuarioController.Instance;
 
         public CrearUsuario()
         {

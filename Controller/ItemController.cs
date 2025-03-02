@@ -2,54 +2,28 @@
 using System;
 using System.Collections.Generic;
 using TitoAlquiler.Model.Dao;
-using TitoAlquiler.Model.Entities.Items;
 using TitoAlquiler.Model.Factory;
 using System.Windows.Forms;
+using TitoAlquiler.Model.Entities;
 
 namespace TitoAlquiler.Controller
 {
     public class ItemController
     {
-        private ItemDao _itemDao = new ItemDao();
+        private readonly ItemDao _itemDao;
 
+        #region Singleton
+        private static ItemController? _instance;
+        public static ItemController Instance => _instance ??= new ItemController();
 
-        #region Singletone
-
-        private static ItemController? Instance;
-
-        private ItemController() 
+        private ItemController()
         {
-           // _itemDao = new ItemDao();
-        }
-
-        public static ItemController getInstance()
-        {
-            if (Instance == null)
-            {
-                Instance = new ItemController();
-            }
-            return Instance;
+            _itemDao = new ItemDao();
         }
         #endregion
 
-        public IItemFactory ObtenerFactory(string categoria)
-        {
-            return categoria switch
-            {
-                "Transporte" => new TransporteFactory(),
-                "Electrodomestico" => new ElectrodomesticoFactory(),
-                "Electronica" => new ElectronicaFactory(),
-                "Inmueble" => new InmuebleFactory(),
-                "Indumentaria" => new IndumentariaFactory(),
-                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
-            };
-        }
-
-        /// <summary>
-        /// Crea un nuevo ítem usando el patrón Factory.
-        /// </summary>
         public void CrearItem(IItemFactory factory, string nombre, string marca, string modelo,
-                      double tarifaDia, params object[] adicionales)
+                              double tarifaDia, params object[] adicionales)
         {
             try
             {
@@ -62,6 +36,19 @@ namespace TitoAlquiler.Controller
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
+        }
+
+        public IItemFactory ObtenerFactory(string categoria)
+        {
+            return categoria switch
+            {
+                "Transporte" => new TransporteFactory(),
+                "Electrodomestico" => new ElectrodomesticoFactory(),
+                "Electronica" => new ElectronicaFactory(),
+                "Inmueble" => new InmuebleFactory(),
+                "Indumentaria" => new IndumentariaFactory(),
+                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
+            };
         }
 
 

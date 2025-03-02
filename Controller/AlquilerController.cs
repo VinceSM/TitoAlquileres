@@ -23,8 +23,8 @@ namespace TitoAlquiler.Controller
         private AlquilerController()
         {
             _alquilerDao = new AlquilerDao();
-            _usuarioController = UsuarioController.getInstance();
-            _itemController = ItemController.getInstance();
+            _usuarioController = UsuarioController.Instance;
+            _itemController = ItemController.Instance;
         }
         #endregion
 

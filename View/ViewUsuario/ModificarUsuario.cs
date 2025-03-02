@@ -8,8 +8,8 @@ namespace TitoAlquiler.View.ViewUsuario
 {
     public partial class ModificarUsuario : Form
     {
-        private readonly UsuarioController usuarioController = UsuarioController.getInstance();
-        private Usuarios usuarioActual; // Almacena el usuario actual
+        private readonly UsuarioController usuarioController = UsuarioController.Instance;
+        private Usuarios usuarioActual;
 
         // Constructor que recibe el usuario a modificar
         public ModificarUsuario(Usuarios usuario)

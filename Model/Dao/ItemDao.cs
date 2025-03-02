@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using TitoAlquiler.Model.Entities.Items;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Entities;
 
@@ -22,19 +21,52 @@ namespace TitoAlquiler.Model.Dao
             {
                 using (var db = new SistemaAlquilerContext())
                 {
-                    db.Items.Add(item);
-                    db.SaveChanges();
-                    db.Add(categoria);
-                    db.SaveChanges();
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            db.Items.Add(item);
+                            db.SaveChanges();
+
+                            switch (categoria)
+                            {
+                                case Transporte transporte:
+                                    transporte.item_id = item.id;
+                                    db.Transportes.Add(transporte);
+                                    break;
+                                case Electrodomestico electrodomestico:
+                                    electrodomestico.item_id = item.id;
+                                    db.Electrodomesticos.Add(electrodomestico);
+                                    break;
+                                case Inmueble inmueble:
+                                    inmueble.item_id = item.id;
+                                    db.Inmuebles.Add(inmueble);
+                                    break;
+                                case Electronica electronica:
+                                    electronica.item_id = item.id;
+                                    db.Electronicas.Add(electronica);
+                                    break;
+                                case Indumentaria indumentaria:
+                                    indumentaria.item_id = item.id;
+                                    db.Indumentarias.Add(indumentaria);
+                                    break;
+                            }
+
+                            db.SaveChanges();
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al insertar el item: {ex.Message}\n{ex.InnerException?.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
+                throw new Exception($"Error al insertar el item: {ex.Message}", ex);
             }
-
         }
 
         /// <summary>

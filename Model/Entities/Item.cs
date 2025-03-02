@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Interfaces;
 
-namespace TitoAlquiler.Model.Entities.Items
+namespace TitoAlquiler.Model.Entities
 {
     //Clase Concreta que gestiona los atributos de un Item Alquilable
     public class Item : IAlquilable

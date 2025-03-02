@@ -11,18 +11,11 @@ namespace TitoAlquiler.Controller
 
         #region Singletone
 
-        private static UsuarioController? Instance;
+        private static UsuarioController? _instance;
+        public static UsuarioController Instance => _instance ??= new UsuarioController();
 
         private UsuarioController() { }
 
-        public static UsuarioController getInstance()
-        {
-            if (Instance == null)
-            {
-                Instance = new UsuarioController();
-            }
-            return Instance;
-        }
         #endregion
 
         /// <summary>

@@ -12,7 +12,6 @@ using TitoAlquiler.Controller;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
-using TitoAlquiler.Model.Entities.Items;
 using TitoAlquiler.Model.Factory;
 using TitoAlquiler.View.ViewAlquiler;
 
@@ -20,8 +19,8 @@ namespace TitoAlquiler.View.ViewItem
 {
     public partial class CrearItem : Form
     {
-        CategoriaController categoriaController = CategoriaController.getInstance();
-        ItemController itemController = ItemController.getInstance();
+        private readonly CategoriaController categoriaController = CategoriaController.Instance;
+        private readonly ItemController itemController = ItemController.Instance;
 
         public CrearItem()
         {
@@ -49,22 +48,8 @@ namespace TitoAlquiler.View.ViewItem
 
                 if (string.IsNullOrEmpty(categoria))
                 {
-                    MessageBox.Show("Seleccione una categoría", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtNombreItem.Text) ||
-                    string.IsNullOrEmpty(txtMarca.Text) ||
-                    string.IsNullOrEmpty(txtModelo.Text) ||
-                    string.IsNullOrEmpty(txtTarifa.Text))
-                {
-                    MessageBox.Show("Complete todos los campos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (!double.TryParse(txtTarifa.Text, out double tarifaDia))
-                {
-                    MessageBox.Show("La tarifa debe ser un valor numérico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Seleccione una categoría", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -74,62 +59,32 @@ namespace TitoAlquiler.View.ViewItem
                                          txtNombreItem.Text.Trim(),
                                          txtMarca.Text.Trim(),
                                          txtModelo.Text.Trim(),
-                                         tarifaDia,
+                                         double.Parse(txtTarifa.Text),
                                          ObtenerParametrosAdicionales(categoria));
 
-                MessageBox.Show("Item creado exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Item creado exitosamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 LimpiarFormulario();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
         private object[] ObtenerParametrosAdicionales(string categoria)
         {
-            try
+            return categoria switch
             {
-                return categoria switch
-                {
-                    "Electrodomestico" => new object[]
-                    {
-                        int.Parse(txtWatss.Text),
-                        txtTipoElec.Text.Trim()
-                    },
-                    "Inmueble" => new object[]
-                    {
-                        int.Parse(txtMetros.Text),
-                        txtUbicacion.Text.Trim()
-                    },
-                    "Transporte" => new object[]
-                    {
-                        int.Parse(txtCapacidad.Text),
-                        txtCombustible.Text.Trim()
-                    },
-                    "Electronica" => new object[]
-                    {
-                        txtResolucion.Text.Trim(),
-                        int.Parse(txtAlmacenamiento.Text)
-                    },
-                    "Indumentaria" => new object[]
-                    {
-                        txtTalla.Text.Trim(),
-                        txtMaterial.Text.Trim()
-                    },
-                    _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
-                };
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Asegúrese de ingresar valores numéricos válidos en los campos correspondientes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
+                "Electrodomestico" => new object[] { int.Parse(txtWatss.Text), txtTipoElec.Text },
+                "Inmueble" => new object[] { int.Parse(txtMetros.Text), txtUbicacion.Text },
+                "Transporte" => new object[] { int.Parse(txtCapacidad.Text), txtCombustible.Text },
+                "Electronica" => new object[] { txtResolucion.Text, int.Parse(txtAlmacenamiento.Text) },
+                "Indumentaria" => new object[] { txtTalla.Text, txtMaterial.Text },
+                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
+            };
         }
 
         #region Categorias

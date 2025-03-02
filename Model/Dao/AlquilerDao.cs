@@ -13,7 +13,7 @@ namespace TitoAlquiler.Model.Dao
 {
     public class AlquilerDao
     {
-        private readonly UsuarioController _usuarioController = UsuarioController.getInstance();
+        private readonly UsuarioController _usuarioController = UsuarioController.Instance;
 
         /// <summary>
         /// Inserta un nuevo alquiler en la base de datos.

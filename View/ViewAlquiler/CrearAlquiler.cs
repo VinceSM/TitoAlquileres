@@ -11,10 +11,10 @@ namespace TitoAlquiler.View.ViewAlquiler
 {
     public partial class CrearAlquiler : Form
     {
-        UsuarioController usuarioController = UsuarioController.getInstance();
+        UsuarioController usuarioController = UsuarioController.Instance;
         AlquilerController alquilerController = AlquilerController.Instance;
-        ItemController itemController = ItemController.getInstance();
-        CategoriaController categoriaController = CategoriaController.getInstance();
+        ItemController itemController = ItemController.Instance;
+        CategoriaController categoriaController = CategoriaController.Instance;
 
         public CrearAlquiler()
         {

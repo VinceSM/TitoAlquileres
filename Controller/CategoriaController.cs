@@ -11,18 +11,11 @@ namespace TitoAlquiler.Controller
 
         #region Singletone
 
-        private static CategoriaController? Instance;
+        private static CategoriaController? _instance;
+        public static CategoriaController Instance => _instance ??= new CategoriaController();
 
         private CategoriaController() { }
 
-        public static CategoriaController getInstance()
-        {
-            if (Instance == null)
-            {
-                Instance = new CategoriaController();
-            }
-            return Instance;
-        }
         #endregion
 
 
