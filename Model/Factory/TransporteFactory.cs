@@ -8,14 +8,14 @@ using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Interfaces;
 public class TransporteFactory : IItemFactory
 {
-    public (Item item, object categoria) CrearAlquilable(
+    public (ItemAlquilable item, object categoria) CrearAlquilable(
         string nombre,
         string marca,
         string modelo,
         double tarifaDia,
         params object[] adicionales)
     {
-        var item = new Item
+        var item = new ItemAlquilable
         {
             nombreItem = nombre,
             marca = marca,
@@ -24,7 +24,7 @@ public class TransporteFactory : IItemFactory
             categoriaId = 1 // ID para Transporte
         };
 
-        var transporte = new Transporte
+        var transporte = new Transporte(item)
         {
             capacidadPasajeros = (int)adicionales[0],
             tipoCombustible = (string)adicionales[1]

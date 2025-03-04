@@ -21,7 +21,7 @@ namespace TitoAlquiler.View.ViewItem
         private readonly ItemController itemController = ItemController.Instance;
 
         // Variables para almacenar el ítem seleccionado y su categoría específica
-        private Item itemSeleccionado;
+        private ItemAlquilable itemSeleccionado;
         private object categoriaEspecifica;
         private int itemId = -1;
 

@@ -16,7 +16,7 @@ namespace TitoAlquiler.Model.Dao
         /// Inserta un nuevo ítem y su categoría específica en la base de datos.
         /// </summary>
         /// <param name="item">Item base a insertar</param>
-        public void InsertItem(Item item)
+        public void InsertItem(ItemAlquilable item)
         {
             ArgumentNullException.ThrowIfNull(item);
 
@@ -37,7 +37,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="item">Item base a actualizar</param>
         /// <param name="categoria">Objeto de categoría específica actualizado</param>
-        public void UpdateItem(Item item, object categoria)
+        public void UpdateItem(ItemAlquilable item, object categoria)
         {
             ArgumentNullException.ThrowIfNull(item);
             ArgumentNullException.ThrowIfNull(categoria);
@@ -117,7 +117,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="id">ID del ítem</param>
         /// <returns>Tupla con el item y su categoría específica</returns>
-        public (Item? item, object? categoria) FindItemById(int id)
+        public (ItemAlquilable? item, object? categoria) FindItemById(int id)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace TitoAlquiler.Model.Dao
         /// Carga todos los ítems activos con sus categorías específicas.
         /// </summary>
         /// <returns>Lista de tuplas con items y sus categorías</returns>
-        public List<(Item item, object? categoria)> LoadAllItems()
+        public List<(ItemAlquilable item, object? categoria)> LoadAllItems()
         {
             try
             {
@@ -160,7 +160,7 @@ namespace TitoAlquiler.Model.Dao
                     .Include(i => i.categoria)
                     .ToList();
 
-                var result = new List<(Item item, object? categoria)>();
+                var result = new List<(ItemAlquilable item, object? categoria)>();
 
                 foreach (var item in items)
                 {
@@ -192,7 +192,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="categoriaId">ID de la categoría</param>
         /// <returns>Lista de items de una categoría específica</returns>
-        public List<Item> FindItemsByCategoria(int categoriaId)
+        public List<ItemAlquilable> FindItemsByCategoria(int categoriaId)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="searchTerm">Término de búsqueda</param>
         /// <returns>Lista de tuplas con items y sus categorías</returns>
-        public List<(Item item, object? categoria)> SearchItems(string searchTerm)
+        public List<(ItemAlquilable item, object? categoria)> SearchItems(string searchTerm)
         {
             ArgumentNullException.ThrowIfNull(searchTerm);
 
@@ -242,7 +242,7 @@ namespace TitoAlquiler.Model.Dao
         /// <param name="db">Contexto de la base de datos</param>
         /// <param name="item">Item del cual obtener la categoría</param>
         /// <returns>Objeto de categoría específica o null si no se encuentra</returns>
-        private object? GetCategoriaForItem(SistemaAlquilerContext db, Item item)
+        private object? GetCategoriaForItem(SistemaAlquilerContext db, ItemAlquilable item)
         {
             ArgumentNullException.ThrowIfNull(db);
             ArgumentNullException.ThrowIfNull(item);

@@ -94,7 +94,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Actualiza un ítem existente y su categoría.
         /// </summary>
-        public void ActualizarItem(Item item, object categoria)
+        public void ActualizarItem(ItemAlquilable item, object categoria)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Obtiene un ítem y su categoría por ID.
         /// </summary>
-        public (Item item, object categoria) ObtenerItemPorId(int id)
+        public (ItemAlquilable item, object categoria) ObtenerItemPorId(int id)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Obtiene todos los ítems activos con sus categorías.
         /// </summary>
-        public List<(Item item, object categoria)> ObtenerTodosLosItems()
+        public List<(ItemAlquilable item, object categoria)> ObtenerTodosLosItems()
         {
             try
             {
@@ -162,7 +162,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Obtiene ítems por categoría.
         /// </summary>
-        public List<Item> ObtenerItemsPorCategoria(int categoriaId)
+        public List<ItemAlquilable> ObtenerItemsPorCategoria(int categoriaId)
         {
             return _itemDao.FindItemsByCategoria(categoriaId);
         }
@@ -170,7 +170,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Busca ítems por término de búsqueda.
         /// </summary>
-        public List<(Item item, object categoria)> BuscarItems(string searchTerm)
+        public List<(ItemAlquilable item, object categoria)> BuscarItems(string searchTerm)
         {
             try
             {

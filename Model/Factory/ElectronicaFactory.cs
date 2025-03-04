@@ -11,14 +11,14 @@ namespace TitoAlquiler.Model.Factory
 {
     public class ElectronicaFactory : IItemFactory
     {
-        public (Item item, object categoria) CrearAlquilable(
+        public (ItemAlquilable item, object categoria) CrearAlquilable(
             string nombre,
             string marca,
             string modelo,
             double tarifaDia,
             params object[] adicionales)
         {
-            var item = new Item
+            var item = new ItemAlquilable
             {
                 nombreItem = nombre,
                 marca = marca,

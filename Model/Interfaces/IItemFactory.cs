@@ -9,7 +9,7 @@ namespace TitoAlquiler.Model.Interfaces
 {
     public interface IItemFactory
     {
-        (Item item, object categoria) CrearAlquilable(
+        (ItemAlquilable item, object categoria) CrearAlquilable(
             string nombre,
             string marca,
             string modelo,

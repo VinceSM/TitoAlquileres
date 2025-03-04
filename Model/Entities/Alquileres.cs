@@ -11,7 +11,7 @@ namespace TitoAlquiler.Model.Entities
     {
         public int id { get; set; }
         public int ItemID { get; set; }
-        public Item? item { get; set; }
+        public ItemAlquilable? item { get; set; }
         public int UsuarioID { get; set; }
         public Usuarios? usuario { get; set; }
         public int tiempoDias { get; set; }
@@ -26,25 +26,10 @@ namespace TitoAlquiler.Model.Entities
         {
         }
 
-        public Alquileres(Item item) 
+        public Alquileres(ItemAlquilable item) 
         {
             this.item = item;
             this.ItemID = item.id;
-        }
-
-        // Constructor con estrategia (uso opcional)
-        public Alquileres(IEstrategiaPrecio estrategia)
-        {
-            _estrategiaPrecio = estrategia;
-        }
-
-        // Método para calcular el precio total basado en la estrategia seleccionada
-        public void CalcularPrecio()
-        {
-            if (item == null) throw new Exception("No se ha asignado un ítem al alquiler.");
-            if (_estrategiaPrecio == null) throw new Exception("No se ha asignado una estrategia de precio.");
-
-            precioTotal = _estrategiaPrecio.CalcularPrecioAlquiler(item.tarifaDia, tiempoDias);
         }
     }
 

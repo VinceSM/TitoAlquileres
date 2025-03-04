@@ -11,11 +11,16 @@ namespace TitoAlquiler.Model.Entities.Categorias
     {
         public int id { get; set; }
         public int itemId { get; set; }
-        public virtual Item item { get; set; } = null!;
+        public virtual ItemAlquilable item { get; set; } = null!;
         public int capacidadPasajeros { get; set; }
         public string? tipoCombustible { get; set; }
 
         public Transporte() { }
-    }
 
+        public Transporte(ItemAlquilable item) 
+        {
+            this.item = item;
+            this.itemId = item.id;
+        }
     }
+}

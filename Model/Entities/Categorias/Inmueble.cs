@@ -10,12 +10,12 @@ namespace TitoAlquiler.Model.Entities.Categorias
     {
         public int id { get; set; }
         public int itemId { get; set; }
-        public Item item { get; set; }
+        public ItemAlquilable item { get; set; }
         public int metrosCuadrados { get; set; }
         public string ubicacion { get; set; }
 
         public Inmueble() { }
-        public Inmueble(Item item)
+        public Inmueble(ItemAlquilable item)
         {
             this.item = item;
             this.itemId = item.id;
