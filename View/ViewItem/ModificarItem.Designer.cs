@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             linkVolver = new LinkLabel();
             panel1 = new Panel();
             lblTitle = new Label();
@@ -35,10 +36,31 @@
             txtMarca = new TextBox();
             txtModelo = new TextBox();
             txtTarifa = new TextBox();
-            txtDescripcion = new TextBox();
-            comboBoxCategoria = new ComboBox();
             lblCategoria = new Label();
+            lblElectrodomestico = new Label();
+            txtWatss = new TextBox();
+            txtTipo = new TextBox();
+            lblElectronica = new Label();
+            txtResolucion = new TextBox();
+            txtAlmacenamiento = new TextBox();
+            lblIndumentaria = new Label();
+            txtTalla = new TextBox();
+            txtMaterial = new TextBox();
+            lblInmueble = new Label();
+            txtMetros = new TextBox();
+            txtUbicacion = new TextBox();
+            lblTransporte = new Label();
+            txtCantidad = new TextBox();
+            txtCombustible = new TextBox();
+            btnModificaItem = new Button();
+            sistemaAlquilerContextBindingSource = new BindingSource(components);
+            categoriaDaoBindingSource = new BindingSource(components);
+            categoriaBindingSource = new BindingSource(components);
+            comboBoxCategoria = new ComboBox();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoriaDaoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).BeginInit();
             SuspendLayout();
             // 
             // linkVolver
@@ -119,29 +141,6 @@
             txtTarifa.Size = new Size(220, 30);
             txtTarifa.TabIndex = 14;
             // 
-            // txtDescripcion
-            // 
-            txtDescripcion.Anchor = AnchorStyles.Top;
-            txtDescripcion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDescripcion.Location = new Point(256, 339);
-            txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.PlaceholderText = "descripcion";
-            txtDescripcion.Size = new Size(388, 30);
-            txtDescripcion.TabIndex = 15;
-            txtDescripcion.Visible = false;
-            // 
-            // comboBoxCategoria
-            // 
-            comboBoxCategoria.Anchor = AnchorStyles.Top;
-            comboBoxCategoria.BackColor = Color.LightBlue;
-            comboBoxCategoria.Cursor = Cursors.Hand;
-            comboBoxCategoria.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxCategoria.FormattingEnabled = true;
-            comboBoxCategoria.Location = new Point(330, 159);
-            comboBoxCategoria.Name = "comboBoxCategoria";
-            comboBoxCategoria.Size = new Size(220, 30);
-            comboBoxCategoria.TabIndex = 17;
-            // 
             // lblCategoria
             // 
             lblCategoria.Anchor = AnchorStyles.Top;
@@ -153,15 +152,255 @@
             lblCategoria.TabIndex = 16;
             lblCategoria.Text = "Seleccione Categoria";
             // 
-            // Modificar
+            // lblElectrodomestico
+            // 
+            lblElectrodomestico.Anchor = AnchorStyles.Top;
+            lblElectrodomestico.AutoSize = true;
+            lblElectrodomestico.Location = new Point(700, 169);
+            lblElectrodomestico.Name = "lblElectrodomestico";
+            lblElectrodomestico.Size = new Size(125, 20);
+            lblElectrodomestico.TabIndex = 18;
+            lblElectrodomestico.Text = "Electrodomestico";
+            lblElectrodomestico.Visible = false;
+            // 
+            // txtWatss
+            // 
+            txtWatss.Anchor = AnchorStyles.Top;
+            txtWatss.Cursor = Cursors.IBeam;
+            txtWatss.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtWatss.Location = new Point(648, 195);
+            txtWatss.Name = "txtWatss";
+            txtWatss.PlaceholderText = "potenciaWatts";
+            txtWatss.Size = new Size(220, 30);
+            txtWatss.TabIndex = 19;
+            txtWatss.Tag = "";
+            txtWatss.WordWrap = false;
+            // 
+            // txtTipo
+            // 
+            txtTipo.Anchor = AnchorStyles.Top;
+            txtTipo.Cursor = Cursors.IBeam;
+            txtTipo.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTipo.Location = new Point(648, 231);
+            txtTipo.Name = "txtTipo";
+            txtTipo.PlaceholderText = "tipoElectrodomestico";
+            txtTipo.Size = new Size(220, 30);
+            txtTipo.TabIndex = 20;
+            txtTipo.Tag = "";
+            txtTipo.WordWrap = false;
+            // 
+            // lblElectronica
+            // 
+            lblElectronica.Anchor = AnchorStyles.Top;
+            lblElectronica.AutoSize = true;
+            lblElectronica.Location = new Point(725, 169);
+            lblElectronica.Name = "lblElectronica";
+            lblElectronica.Size = new Size(82, 20);
+            lblElectronica.TabIndex = 21;
+            lblElectronica.Text = "Electronica";
+            lblElectronica.Visible = false;
+            // 
+            // txtResolucion
+            // 
+            txtResolucion.Anchor = AnchorStyles.Top;
+            txtResolucion.Cursor = Cursors.IBeam;
+            txtResolucion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtResolucion.Location = new Point(648, 195);
+            txtResolucion.Name = "txtResolucion";
+            txtResolucion.PlaceholderText = "resolucion";
+            txtResolucion.Size = new Size(220, 30);
+            txtResolucion.TabIndex = 22;
+            txtResolucion.Tag = "";
+            txtResolucion.Visible = false;
+            // 
+            // txtAlmacenamiento
+            // 
+            txtAlmacenamiento.Anchor = AnchorStyles.Top;
+            txtAlmacenamiento.Cursor = Cursors.IBeam;
+            txtAlmacenamiento.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtAlmacenamiento.Location = new Point(648, 231);
+            txtAlmacenamiento.Name = "txtAlmacenamiento";
+            txtAlmacenamiento.PlaceholderText = "almacenamientoGB";
+            txtAlmacenamiento.Size = new Size(220, 30);
+            txtAlmacenamiento.TabIndex = 23;
+            txtAlmacenamiento.Tag = "";
+            txtAlmacenamiento.Visible = false;
+            // 
+            // lblIndumentaria
+            // 
+            lblIndumentaria.Anchor = AnchorStyles.Top;
+            lblIndumentaria.AutoSize = true;
+            lblIndumentaria.Location = new Point(710, 169);
+            lblIndumentaria.Name = "lblIndumentaria";
+            lblIndumentaria.Size = new Size(97, 20);
+            lblIndumentaria.TabIndex = 24;
+            lblIndumentaria.Text = "Indumentaria";
+            lblIndumentaria.Visible = false;
+            // 
+            // txtTalla
+            // 
+            txtTalla.Anchor = AnchorStyles.Top;
+            txtTalla.Cursor = Cursors.IBeam;
+            txtTalla.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTalla.Location = new Point(648, 195);
+            txtTalla.Name = "txtTalla";
+            txtTalla.PlaceholderText = "talla";
+            txtTalla.Size = new Size(220, 30);
+            txtTalla.TabIndex = 25;
+            txtTalla.Tag = "";
+            txtTalla.Visible = false;
+            // 
+            // txtMaterial
+            // 
+            txtMaterial.Anchor = AnchorStyles.Top;
+            txtMaterial.Cursor = Cursors.IBeam;
+            txtMaterial.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMaterial.Location = new Point(648, 231);
+            txtMaterial.Name = "txtMaterial";
+            txtMaterial.PlaceholderText = "material";
+            txtMaterial.Size = new Size(220, 30);
+            txtMaterial.TabIndex = 26;
+            txtMaterial.Tag = "";
+            txtMaterial.Visible = false;
+            // 
+            // lblInmueble
+            // 
+            lblInmueble.Anchor = AnchorStyles.Top;
+            lblInmueble.AutoSize = true;
+            lblInmueble.Location = new Point(725, 169);
+            lblInmueble.Name = "lblInmueble";
+            lblInmueble.Size = new Size(71, 20);
+            lblInmueble.TabIndex = 27;
+            lblInmueble.Text = "Inmueble";
+            lblInmueble.Visible = false;
+            // 
+            // txtMetros
+            // 
+            txtMetros.Anchor = AnchorStyles.Top;
+            txtMetros.Cursor = Cursors.IBeam;
+            txtMetros.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMetros.Location = new Point(648, 195);
+            txtMetros.Name = "txtMetros";
+            txtMetros.PlaceholderText = "metrosCuadrados";
+            txtMetros.Size = new Size(220, 30);
+            txtMetros.TabIndex = 28;
+            txtMetros.Tag = "";
+            txtMetros.Visible = false;
+            // 
+            // txtUbicacion
+            // 
+            txtUbicacion.Anchor = AnchorStyles.Top;
+            txtUbicacion.Cursor = Cursors.IBeam;
+            txtUbicacion.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUbicacion.Location = new Point(648, 231);
+            txtUbicacion.Name = "txtUbicacion";
+            txtUbicacion.PlaceholderText = "ubicacion";
+            txtUbicacion.Size = new Size(220, 30);
+            txtUbicacion.TabIndex = 29;
+            txtUbicacion.Tag = "";
+            txtUbicacion.Visible = false;
+            // 
+            // lblTransporte
+            // 
+            lblTransporte.Anchor = AnchorStyles.Top;
+            lblTransporte.AutoSize = true;
+            lblTransporte.Location = new Point(725, 169);
+            lblTransporte.Name = "lblTransporte";
+            lblTransporte.Size = new Size(79, 20);
+            lblTransporte.TabIndex = 30;
+            lblTransporte.Text = "Transporte";
+            lblTransporte.Visible = false;
+            // 
+            // txtCantidad
+            // 
+            txtCantidad.Anchor = AnchorStyles.Top;
+            txtCantidad.Cursor = Cursors.IBeam;
+            txtCantidad.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtCantidad.Location = new Point(648, 231);
+            txtCantidad.Name = "txtCantidad";
+            txtCantidad.PlaceholderText = "capasidadPasajeros";
+            txtCantidad.Size = new Size(220, 30);
+            txtCantidad.TabIndex = 31;
+            txtCantidad.Tag = "";
+            txtCantidad.Visible = false;
+            // 
+            // txtCombustible
+            // 
+            txtCombustible.Anchor = AnchorStyles.Top;
+            txtCombustible.Cursor = Cursors.IBeam;
+            txtCombustible.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtCombustible.Location = new Point(648, 195);
+            txtCombustible.Name = "txtCombustible";
+            txtCombustible.PlaceholderText = "combustible";
+            txtCombustible.Size = new Size(220, 30);
+            txtCombustible.TabIndex = 32;
+            txtCombustible.Tag = "";
+            txtCombustible.Visible = false;
+            // 
+            // btnModificaItem
+            // 
+            btnModificaItem.Anchor = AnchorStyles.Top;
+            btnModificaItem.BackColor = Color.White;
+            btnModificaItem.Cursor = Cursors.Hand;
+            btnModificaItem.FlatStyle = FlatStyle.Flat;
+            btnModificaItem.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnModificaItem.ForeColor = Color.Blue;
+            btnModificaItem.Location = new Point(383, 394);
+            btnModificaItem.Name = "btnModificaItem";
+            btnModificaItem.Size = new Size(130, 49);
+            btnModificaItem.TabIndex = 33;
+            btnModificaItem.Text = "Modificar";
+            btnModificaItem.UseVisualStyleBackColor = false;
+            // 
+            // sistemaAlquilerContextBindingSource
+            // 
+            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
+            // 
+            // categoriaDaoBindingSource
+            // 
+            categoriaDaoBindingSource.DataSource = typeof(Model.Dao.CategoriaDao);
+            // 
+            // categoriaBindingSource
+            // 
+            categoriaBindingSource.DataSource = typeof(Model.Entities.Categoria);
+            // 
+            // comboBoxCategoria
+            // 
+            comboBoxCategoria.Anchor = AnchorStyles.Top;
+            comboBoxCategoria.BackColor = Color.LightBlue;
+            comboBoxCategoria.Cursor = Cursors.Hand;
+            comboBoxCategoria.FlatStyle = FlatStyle.Flat;
+            comboBoxCategoria.Font = new Font("Segoe UI", 10F);
+            comboBoxCategoria.FormattingEnabled = true;
+            comboBoxCategoria.Location = new Point(330, 158);
+            comboBoxCategoria.Name = "comboBoxCategoria";
+            comboBoxCategoria.Size = new Size(220, 31);
+            comboBoxCategoria.TabIndex = 34;
+            // 
+            // ModificarItem
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(914, 600);
             Controls.Add(comboBoxCategoria);
+            Controls.Add(btnModificaItem);
+            Controls.Add(txtCombustible);
+            Controls.Add(txtCantidad);
+            Controls.Add(lblTransporte);
+            Controls.Add(txtUbicacion);
+            Controls.Add(txtMetros);
+            Controls.Add(lblInmueble);
+            Controls.Add(txtMaterial);
+            Controls.Add(txtTalla);
+            Controls.Add(lblIndumentaria);
+            Controls.Add(txtAlmacenamiento);
+            Controls.Add(txtResolucion);
+            Controls.Add(lblElectronica);
+            Controls.Add(txtTipo);
+            Controls.Add(txtWatss);
+            Controls.Add(lblElectrodomestico);
             Controls.Add(lblCategoria);
-            Controls.Add(txtDescripcion);
             Controls.Add(txtTarifa);
             Controls.Add(txtModelo);
             Controls.Add(txtMarca);
@@ -169,11 +408,14 @@
             Controls.Add(panel1);
             Controls.Add(linkVolver);
             Margin = new Padding(3, 4, 3, 4);
-            Name = "Modificar";
+            Name = "ModificarItem";
             Text = "Modificar";
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)sistemaAlquilerContextBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoriaDaoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoriaBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -187,8 +429,26 @@
         private TextBox txtMarca;
         private TextBox txtModelo;
         private TextBox txtTarifa;
-        private TextBox txtDescripcion;
-        private ComboBox comboBoxCategoria;
         private Label lblCategoria;
+        private Label lblElectrodomestico;
+        private TextBox txtWatss;
+        private TextBox txtTipo;
+        private Label lblElectronica;
+        private TextBox txtResolucion;
+        private TextBox txtAlmacenamiento;
+        private Label lblIndumentaria;
+        private TextBox txtTalla;
+        private TextBox txtMaterial;
+        private Label lblInmueble;
+        private TextBox txtMetros;
+        private TextBox txtUbicacion;
+        private Label lblTransporte;
+        private TextBox txtCantidad;
+        private TextBox txtCombustible;
+        private Button btnModificaItem;
+        private BindingSource sistemaAlquilerContextBindingSource;
+        private BindingSource categoriaDaoBindingSource;
+        private BindingSource categoriaBindingSource;
+        private ComboBox comboBoxCategoria;
     }
 }

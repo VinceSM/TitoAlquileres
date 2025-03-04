@@ -103,10 +103,28 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="e">Los datos del evento.</param>
         private void btnModificarItem_Click(object sender, EventArgs e)
         {
-            ModificarItem formModificarItem = new ModificarItem();
-            formModificarItem.Show();
-            this.Hide();
-        }
+        try
+            {
+                if (dataGridViewItems.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, seleccione un ítem para modificar.", 
+                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+        
+                // Crear y mostrar el formulario de modificación con el ID del ítem seleccionado
+                ModificarItem formModificarItem = new ModificarItem(itemId);
+                formModificarItem.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el formulario de modificación: {ex.Message}", 
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            }
 
         /// <summary>
         /// Elimina un ítem seleccionado de la lista. Solicita confirmación antes de proceder.
@@ -532,44 +550,6 @@ namespace TitoAlquiler.View.ViewAlquiler
                 MessageBox.Show($"Error al mostrar detalles: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        // Método para calcular y mostrar el precio estimado
-        private void MostrarPrecioEstimado()
-        {
-            try
-            {
-                if (dataGridViewItems.SelectedRows.Count == 0 || dataGridViewUsuarios.SelectedRows.Count == 0)
-                    return;
-
-                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
-
-                DateTime fechaInicio = dateTimePickerFechaInicio.Value;
-                DateTime fechaFin = dateTimePickerFechaFin.Value;
-                int dias = (int)(fechaFin - fechaInicio).TotalDays + 1;
-
-                double precioEstimado = alquilerController.CalcularPrecioEstimado(itemId, usuarioId, dias);
-
-                lblPrecioPorDia.Text = $"Precio Estimado: ${precioEstimado:F2}";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al calcular precio estimado: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Agregar este manejador de eventos para los DateTimePicker
-        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            MostrarPrecioEstimado();
-        }
-
-        // Agregar este manejador para la selección de items o usuarios
-        private void dataGridView_SelectionChanged(object sender, EventArgs e)
-        {
-            MostrarPrecioEstimado();
         }
     }
 }
