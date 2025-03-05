@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TitoAlquiler.Model.Entities;
 using System.Linq;
 using TitoAlquiler.Model.Entities.Categorias;
+using Microsoft.Data.SqlClient;
 
 namespace TitoAlquiler.View.ViewAlquiler
 {
@@ -16,6 +17,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         ItemController itemController = ItemController.Instance;
         CategoriaController categoriaController = CategoriaController.Instance;
 
+        #region FormAlquiler
         public CrearAlquiler()
         {
             InitializeComponent();
@@ -46,6 +48,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 Application.Exit();
             }
         }
+#endregion
 
         #region Items
         /// <summary>
@@ -268,6 +271,74 @@ namespace TitoAlquiler.View.ViewAlquiler
                 MessageBox.Show("Por favor, ingrese un valor numérico válido para la tarifa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewItems.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Por favor, seleccione un ítem para ver su detalle.", "Advertencia",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int itemId = Convert.ToInt32(dataGridViewItems.SelectedRows[0].Cells["ID"].Value);
+                var (item, categoria) = itemController.ObtenerItemPorId(itemId);
+
+                if (item == null)
+                {
+                    MessageBox.Show("No se encontraron detalles para el ítem seleccionado.", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string mensajeDetalle = $"ID: {item.id}\n" +
+                                      $"Nombre: {item.nombreItem}\n" +
+                                      $"Marca: {item.marca}\n" +
+                                      $"Modelo: {item.modelo}\n" +
+                                      $"Tarifa por día: ${item.tarifaDia}\n\n";
+
+                // Agregar detalles específicos según la categoría
+                switch (categoria)
+                {
+                    case Transporte t:
+                        mensajeDetalle += $"Tipo: Transporte\n" +
+                                        $"Capacidad de Pasajeros: {t.capacidadPasajeros}\n" +
+                                        $"Tipo de Combustible: {t.tipoCombustible}";
+                        break;
+                    case Electrodomestico ele:
+                        mensajeDetalle += $"Tipo: Electrodoméstico\n" +
+                                        $"Potencia (Watts): {ele.potenciaWatts}\n" +
+                                        $"Tipo: {ele.tipoElectrodomestico}";
+                        break;
+                    case Indumentaria i:
+                        mensajeDetalle += $"Tipo: Indumentaria\n" +
+                                        $"Talla: {i.talla}\n" +
+                                        $"Material: {i.material}";
+                        break;
+                    case Inmueble inm:
+                        mensajeDetalle += $"Tipo: Inmueble\n" +
+                                        $"Metros Cuadrados: {inm.metrosCuadrados}\n" +
+                                        $"Ubicación: {inm.ubicacion}";
+                        break;
+                    case Electronica el:
+                        mensajeDetalle += $"Tipo: Electrónica\n" +
+                                        $"Resolución: {el.resolucionPantalla}\n" +
+                                        $"Almacenamiento: {el.almacenamientoGB}GB";
+                        break;
+                }
+
+                MessageBox.Show(mensajeDetalle, "Detalle del Ítem",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al mostrar detalles: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #endregion
 
         #region Usuarios
@@ -411,7 +482,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
         #endregion
 
-        #region FormAlquilar
+        #region Alquiler
 
         /// <summary>
         /// Crea un nuevo alquiler basado en las entradas seleccionadas y muestra el precio total.
@@ -420,39 +491,16 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             try
             {
-                // Verificar que haya un usuario seleccionado
-                if (dataGridViewUsuarios.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Por favor, seleccione un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                MostrarMensajeAdvertencia();
 
-                // Obtener ID del usuario seleccionado
                 int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
-
-                // Verificar que haya al menos un ítem seleccionado
-                if (dataGridViewItems.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Por favor, seleccione al menos un ítem para alquilar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Establecer la fecha de inicio y fin del alquiler
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
 
-                if (fechaFin <= fechaInicio)
-                {
-                    MessageBox.Show("La fecha de fin debe ser posterior a la fecha de inicio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Crear y guardar un alquiler por cada ítem seleccionado
                 foreach (DataGridViewRow row in dataGridViewItems.SelectedRows)
                 {
                     int itemId = (int)row.Cells["ID"].Value;
 
-                    // Crear objeto Alquiler
                     Alquileres nuevoAlquiler = new Alquileres
                     {
                         UsuarioID = usuarioId,
@@ -461,14 +509,13 @@ namespace TitoAlquiler.View.ViewAlquiler
                         ItemID = itemId
                     };
 
-                    // Llamar al método sin intentar asignar su retorno si devuelve void
                     alquilerController.CrearAlquiler(nuevoAlquiler);
                 }
 
                 MessageBox.Show("Alquiler creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarUsuarios(); 
+                CargarUsuarios();
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show($"Error al crear alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -483,74 +530,52 @@ namespace TitoAlquiler.View.ViewAlquiler
             formAlquileres.Show();
             this.Hide();
         }
+        
         #endregion
 
-        private void btnVerDetalle_Click(object sender, EventArgs e)
+        #region Advertencias
+        private void MostrarMensajeAdvertencia()
         {
-            try
+            string mensaje = string.Empty;
+
+            AdvertenciaDgvUser();
+
+            AdvertenciaDgvItems();
+
+            AdvertenciaFechas();
+
+            if (!string.IsNullOrEmpty(mensaje))
             {
-                if (dataGridViewItems.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Por favor, seleccione un ítem para ver su detalle.", "Advertencia",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                int itemId = Convert.ToInt32(dataGridViewItems.SelectedRows[0].Cells["ID"].Value);
-                var (item, categoria) = itemController.ObtenerItemPorId(itemId);
-
-                if (item == null)
-                {
-                    MessageBox.Show("No se encontraron detalles para el ítem seleccionado.", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                string mensajeDetalle = $"ID: {item.id}\n" +
-                                      $"Nombre: {item.nombreItem}\n" +
-                                      $"Marca: {item.marca}\n" +
-                                      $"Modelo: {item.modelo}\n" +
-                                      $"Tarifa por día: ${item.tarifaDia}\n\n";
-
-                // Agregar detalles específicos según la categoría
-                switch (categoria)
-                {
-                    case Transporte t:
-                        mensajeDetalle += $"Tipo: Transporte\n" +
-                                        $"Capacidad de Pasajeros: {t.capacidadPasajeros}\n" +
-                                        $"Tipo de Combustible: {t.tipoCombustible}";
-                        break;
-                    case Electrodomestico ele:
-                        mensajeDetalle += $"Tipo: Electrodoméstico\n" +
-                                        $"Potencia (Watts): {ele.potenciaWatts}\n" +
-                                        $"Tipo: {ele.tipoElectrodomestico}";
-                        break;
-                    case Indumentaria i:
-                        mensajeDetalle += $"Tipo: Indumentaria\n" +
-                                        $"Talla: {i.talla}\n" +
-                                        $"Material: {i.material}";
-                        break;
-                    case Inmueble inm:
-                        mensajeDetalle += $"Tipo: Inmueble\n" +
-                                        $"Metros Cuadrados: {inm.metrosCuadrados}\n" +
-                                        $"Ubicación: {inm.ubicacion}";
-                        break;
-                    case Electronica el:
-                        mensajeDetalle += $"Tipo: Electrónica\n" +
-                                        $"Resolución: {el.resolucionPantalla}\n" +
-                                        $"Almacenamiento: {el.almacenamientoGB}GB";
-                        break;
-                }
-
-                MessageBox.Show(mensajeDetalle, "Detalle del Ítem",
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+        }
+
+        private void AdvertenciaDgvUser()
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
             {
-                MessageBox.Show($"Error al mostrar detalles: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Por favor, seleccione un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void AdvertenciaDgvItems()
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione al menos un ítem para alquilar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AdvertenciaFechas()
+        {
+            if (dateTimePickerFechaFin.Value <= dateTimePickerFechaInicio.Value)
+            {
+                MessageBox.Show("La fecha de fin debe ser posterior a la fecha de inicio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }
 

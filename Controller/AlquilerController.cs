@@ -27,6 +27,53 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
+        #region Verificacion
+        private bool VerificarCreacionAlquiler(Alquileres alquiler)
+        {
+            string mensaje = string.Empty;
+
+            // Verificar disponibilidad
+            if (!VerificarDisponibilidad(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
+            {
+                mensaje = "El ítem no está disponible para las fechas seleccionadas.";
+            }
+
+            // Obtener el ítem
+            var (item, _) = _itemController.ObtenerItemPorId(alquiler.ItemID);
+            if (item == null)
+            {
+                throw new Exception("Item no encontrado");
+            }
+
+            // Calcular días de alquiler
+            int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
+            if (diasAlquiler <= 0)
+            {
+                mensaje = "Las fechas seleccionadas no son válidas.";
+            }
+
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            alquiler.tiempoDias = diasAlquiler;
+
+            // Determinar estrategia de precio
+            bool tieneMembresia = _usuarioController.getMembresiaUsuario(alquiler.UsuarioID);
+            IEstrategiaPrecio estrategia = tieneMembresia
+                ? new EstrategiaMembresia()
+                : new EstrategiaEstacion(EstrategiaEstacion.ObtenerEstacionActual());
+
+            alquiler.tipoEstrategia = tieneMembresia ? "EstrategiaMembresia" : "EstrategiaEstacion";
+
+            alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(item.tarifaDia, diasAlquiler);
+
+            return true;
+        }
+        #endregion
+
         /// <summary>
         /// Crea un nuevo alquiler con validaciones completas.
         /// </summary>
@@ -34,54 +81,17 @@ namespace TitoAlquiler.Controller
         {
             try
             {
-                // Validar fechas
-                if (alquiler.fechaInicio > alquiler.fechaFin)
-                    throw new ArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
-
-                // Verificar disponibilidad
-                if (!VerificarDisponibilidad(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
-                    throw new ArgumentException("El ítem no está disponible para las fechas seleccionadas.");
-
-                // Obtener el ítem
-                var (item, _) = _itemController.ObtenerItemPorId(alquiler.ItemID);
-                if (item == null)
-                    throw new Exception("Item no encontrado");
-
-                // Calcular días de alquiler
-                int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
-                alquiler.tiempoDias = diasAlquiler;
-
-                // Determinar estrategia de precio
-                bool tieneMembresia = _usuarioController.getMembresiaUsuario(alquiler.UsuarioID);
-                IEstrategiaPrecio estrategia;
-
-                if (tieneMembresia)
-                {
-                    // Si tiene membresía, aplicar descuento del 10%
-                    estrategia = new EstrategiaMembresia();
-                    alquiler.tipoEstrategia = "EstrategiaMembresia";
-                }
-                else
-                {
-                    // Si no tiene membresía, aplicar estrategia según la estación
-                    var estacionActual = EstrategiaEstacion.ObtenerEstacionActual();
-                    estrategia = new EstrategiaEstacion(estacionActual);
-                    alquiler.tipoEstrategia = "EstrategiaEstacion";
-                }
-
-                // Calcular precio total
-                alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(item.tarifaDia, diasAlquiler);
+                if (!VerificarCreacionAlquiler(alquiler)) return;
 
                 // Guardar alquiler
                 _alquilerDao.InsertAlquiler(alquiler);
 
-                // Mostrar información sobre el precio aplicado
-                MostrarInformacionPrecio(alquiler.tipoEstrategia, alquiler.precioTotal, item.tarifaDia * diasAlquiler);
+                // Mostrar información sobre el precio aplicado solo si todo fue exitoso
+                MostrarInformacionPrecio(alquiler.tipoEstrategia, alquiler.precioTotal, alquiler.precioTotal / alquiler.tiempoDias);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el alquiler: {ex.Message}",
-                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al crear el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
         }
@@ -112,6 +122,7 @@ namespace TitoAlquiler.Controller
             MessageBox.Show(mensaje, "Información de Precio", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+
         /// <summary>
         /// Actualiza un alquiler existente.
         /// </summary>
@@ -135,25 +146,31 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Cancela un alquiler (eliminación lógica).
         /// </summary>
-        public void EliminarAlquiler(int alquilerId)
+        public bool EliminarAlquiler(int alquilerId)
         {
             try
             {
                 var alquiler = _alquilerDao.FindAlquilerById(alquilerId);
 
+                if (alquiler == null)
+                {
+                    MessageBox.Show("No se encontró el alquiler seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
                 if (alquiler.fechaInicio <= DateTime.Now)
                 {
-                    MessageBox.Show($"No se pueden cancelar alquileres que ya han comenzado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show("No se pueden cancelar alquileres que ya han comenzado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }
 
                 _alquilerDao.SoftDeleteAlquiler(alquilerId);
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cancelar el alquiler: {ex.Message}",
-                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
+                MessageBox.Show($"Error al cancelar el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -229,40 +246,6 @@ namespace TitoAlquiler.Controller
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al verificar disponibilidad: {ex.Message}",
-                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Calcula el precio estimado de un alquiler.
-        /// </summary>
-        public double CalcularPrecioEstimado(int itemId, int usuarioId, int dias)
-        {
-            try
-            {
-                var (item, _) = _itemController.ObtenerItemPorId(itemId);
-                if (item == null)
-                    throw new Exception("Item no encontrado");
-
-                bool tieneMembresia = _usuarioController.getMembresiaUsuario(usuarioId);
-                IEstrategiaPrecio estrategia;
-
-                if (tieneMembresia)
-                {
-                    estrategia = new EstrategiaMembresia();
-                }
-                else
-                {
-                    var estacionActual = EstrategiaEstacion.ObtenerEstacionActual();
-                    estrategia = new EstrategiaEstacion(estacionActual);
-                }
-
-                return estrategia.CalcularPrecioAlquiler(item.tarifaDia, dias);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al calcular precio estimado: {ex.Message}",
                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }

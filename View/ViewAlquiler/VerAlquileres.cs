@@ -99,41 +99,35 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="e">Argumentos del evento del botón.</param>
         private void btnCerrarAlquiler_Click(object sender, EventArgs e)
         {
-            if (dataGridViewAlquileres.SelectedRows.Count > 0)
-            {
-                // Obtener el ID del alquiler seleccionado
-                int selectedId = Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["id"].Value);
-
-                // Buscar el alquiler correspondiente
-                var alquiler = alquilerController.ObtenerAlquilerPorId(selectedId);
-
-                if (alquiler != null)
-                {
-                    // Confirmar acción con el usuario
-                    var confirmResult = MessageBox.Show(
-                        "¿Está seguro de que desea cerrar este alquiler?",
-                        "Confirmar cierre de alquiler",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
-
-                    if (confirmResult == DialogResult.Yes)
-                    {
-                        alquilerController.EliminarAlquiler(alquiler.id);
-                        LoadAlquileres();
-                    }
-
-                    MessageBox.Show("El alquiler se ha cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No se encontró el alquiler seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            if (dataGridViewAlquileres.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Por favor, seleccione un alquiler para cerrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
+            int selectedId = Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["id"].Value);
+            var alquiler = alquilerController.ObtenerAlquilerPorId(selectedId);
+
+            if (alquiler == null)
+            {
+                MessageBox.Show("No se encontró el alquiler seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var confirmResult = MessageBox.Show(
+                "¿Está seguro de que desea cerrar este alquiler?",
+                "Confirmar cierre de alquiler",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                if (alquilerController.EliminarAlquiler(alquiler.id))
+                {
+                    MessageBox.Show("El alquiler se ha cerrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadAlquileres();
+                }
+            }
         }
         #endregion
     }
