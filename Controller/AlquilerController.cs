@@ -1,5 +1,4 @@
-﻿// AlquilerController.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TitoAlquiler.Model.Dao;
@@ -33,7 +32,84 @@ namespace TitoAlquiler.Controller
         /// </summary>
         public void CrearAlquiler(Alquileres alquiler)
         {
-            _alquilerDao.InsertAlquiler(alquiler);
+            try
+            {
+                // Validar fechas
+                if (alquiler.fechaInicio > alquiler.fechaFin)
+                    throw new ArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+
+                // Verificar disponibilidad
+                if (!VerificarDisponibilidad(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
+                    throw new ArgumentException("El ítem no está disponible para las fechas seleccionadas.");
+
+                // Obtener el ítem
+                var (item, _) = _itemController.ObtenerItemPorId(alquiler.ItemID);
+                if (item == null)
+                    throw new Exception("Item no encontrado");
+
+                // Calcular días de alquiler
+                int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
+                alquiler.tiempoDias = diasAlquiler;
+
+                // Determinar estrategia de precio
+                bool tieneMembresia = _usuarioController.getMembresiaUsuario(alquiler.UsuarioID);
+                IEstrategiaPrecio estrategia;
+
+                if (tieneMembresia)
+                {
+                    // Si tiene membresía, aplicar descuento del 10%
+                    estrategia = new EstrategiaMembresia();
+                    alquiler.tipoEstrategia = "EstrategiaMembresia";
+                }
+                else
+                {
+                    // Si no tiene membresía, aplicar estrategia según la estación
+                    var estacionActual = EstrategiaEstacion.ObtenerEstacionActual();
+                    estrategia = new EstrategiaEstacion(estacionActual);
+                    alquiler.tipoEstrategia = "EstrategiaEstacion";
+                }
+
+                // Calcular precio total
+                alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(item.tarifaDia, diasAlquiler);
+
+                // Guardar alquiler
+                _alquilerDao.InsertAlquiler(alquiler);
+
+                // Mostrar información sobre el precio aplicado
+                MostrarInformacionPrecio(alquiler.tipoEstrategia, alquiler.precioTotal, item.tarifaDia * diasAlquiler);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al crear el alquiler: {ex.Message}",
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Muestra información sobre el precio aplicado y el tipo de estrategia
+        /// </summary>
+        private void MostrarInformacionPrecio(string tipoEstrategia, double precioFinal, double precioBase)
+        {
+            string mensaje = "";
+
+            switch (tipoEstrategia)
+            {
+                case "EstrategiaMembresia":
+                    mensaje = $"Se aplicó un descuento del 10% por membresía.\nPrecio base: {precioBase:C}\nPrecio final: {precioFinal:C}";
+                    break;
+                case "EstrategiaEstacion":
+                    var estacion = EstrategiaEstacion.ObtenerEstacionActual();
+                    string porcentaje = estacion == Estacion.Verano ? "15%" : estacion == Estacion.Invierno ? "10%" :
+                                        estacion == Estacion.Otoño ? "5% de descuento" : "0%";
+                    mensaje = $"Se aplicó un ajuste de {porcentaje} por temporada ({estacion}).\nPrecio base: {precioBase:C}\nPrecio final: {precioFinal:C}";
+                    break;
+                default:
+                    mensaje = $"Se aplicó el precio estándar.\nPrecio final: {precioFinal:C}";
+                    break;
+            }
+
+            MessageBox.Show(mensaje, "Información de Precio", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -173,11 +249,14 @@ namespace TitoAlquiler.Controller
                 IEstrategiaPrecio estrategia;
 
                 if (tieneMembresia)
+                {
                     estrategia = new EstrategiaMembresia();
-                else if (EsTemporadaAlta())
-                    estrategia = new EstrategiaEstacion(ObtenerEstacionActual());
+                }
                 else
-                    estrategia = new EstrategiaNormal();
+                {
+                    var estacionActual = EstrategiaEstacion.ObtenerEstacionActual();
+                    estrategia = new EstrategiaEstacion(estacionActual);
+                }
 
                 return estrategia.CalcularPrecioAlquiler(item.tarifaDia, dias);
             }
@@ -188,22 +267,6 @@ namespace TitoAlquiler.Controller
                 throw;
             }
         }
-
-        private bool EsTemporadaAlta()
-        {
-            var mes = DateTime.Now.Month;
-            return mes is >= 12 or <= 2 || mes is >= 6 and <= 8;
-        }
-
-        private Estacion ObtenerEstacionActual()
-        {
-            return DateTime.Now.Month switch
-            {
-                >= 3 and <= 5 => Estacion.Primavera,
-                >= 6 and <= 8 => Estacion.Verano,
-                >= 9 and <= 11 => Estacion.Otoño,
-                _ => Estacion.Invierno
-            };
-        }
     }
 }
+

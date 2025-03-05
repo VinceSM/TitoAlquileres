@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Model.Strategy
@@ -11,11 +7,14 @@ namespace TitoAlquiler.Model.Strategy
     {
         public double CalcularPrecioAlquiler(double tarifaBase, int dias)
         {
+            // Precio estándar sin descuentos ni aumentos
             return tarifaBase * dias;
         }
+
         public string getEstrategia(string nombre)
         {
             return nombre = "EstrategiaNormal";
         }
     }
 }
+

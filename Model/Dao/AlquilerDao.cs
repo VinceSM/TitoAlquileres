@@ -13,8 +13,6 @@ namespace TitoAlquiler.Model.Dao
 {
     public class AlquilerDao
     {
-        private readonly UsuarioController _usuarioController = UsuarioController.Instance;
-
         /// <summary>
         /// Inserta un nuevo alquiler en la base de datos.
         /// </summary>
@@ -24,42 +22,12 @@ namespace TitoAlquiler.Model.Dao
             using var transaction = db.Database.BeginTransaction();
             try
             {
-                // Validar que el ítem exista y esté disponible
+                // Validar que el ítem exista
                 var item = db.Items
-                    .Include(i => i.Alquileres)
                     .FirstOrDefault(i => i.id == alquiler.ItemID && i.deletedAt == null);
 
                 if (item == null)
                     throw new Exception("El ítem no existe o ha sido eliminado.");
-
-                // Verificar disponibilidad
-                if (ExisteAlquilerActivo(db, alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
-                    throw new Exception("El ítem no está disponible para las fechas seleccionadas.");
-
-                // Determinar estrategia de precio
-                bool tieneMembresia = _usuarioController.getMembresiaUsuario(alquiler.UsuarioID);
-                IEstrategiaPrecio estrategia;
-
-                if (tieneMembresia)
-                {
-                    alquiler.tipoEstrategia = "EstrategiaMembresia";
-                    estrategia = new EstrategiaMembresia();
-                }
-                else if (AplicarEstrategiaEstacional())
-                {
-                    alquiler.tipoEstrategia = "EstrategiaEstacion";
-                    estrategia = new EstrategiaEstacion(ObtenerEstacionActual());
-                }
-                else
-                {
-                    alquiler.tipoEstrategia = "EstrategiaNormal";
-                    estrategia = new EstrategiaNormal();
-                }
-
-                // Calcular precio
-                int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
-                alquiler.tiempoDias = diasAlquiler;
-                alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(item.tarifaDia, diasAlquiler);
 
                 // Guardar alquiler
                 db.Alquileres.Add(alquiler);
@@ -105,10 +73,11 @@ namespace TitoAlquiler.Model.Dao
                     int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
                     alquiler.tiempoDias = diasAlquiler;
 
+                    // Recrear la estrategia según el tipo guardado
                     IEstrategiaPrecio estrategia = alquiler.tipoEstrategia switch
                     {
                         "EstrategiaMembresia" => new EstrategiaMembresia(),
-                        "EstrategiaEstacion" => new EstrategiaEstacion(ObtenerEstacionActual()),
+                        "EstrategiaEstacion" => new EstrategiaEstacion(EstrategiaEstacion.ObtenerEstacionActual()),
                         _ => new EstrategiaNormal()
                     };
 
@@ -215,23 +184,6 @@ namespace TitoAlquiler.Model.Dao
             return query.Any();
         }
 
-        private bool AplicarEstrategiaEstacional()
-        {
-            var mes = DateTime.Now.Month;
-            return mes is >= 12 or <= 2 || mes is >= 6 and <= 8;
-        }
-
-        private Estacion ObtenerEstacionActual()
-        {
-            return DateTime.Now.Month switch
-            {
-                >= 3 and <= 5 => Estacion.Primavera,
-                >= 6 and <= 8 => Estacion.Verano,
-                >= 9 and <= 11 => Estacion.Otoño,
-                _ => Estacion.Invierno
-            };
-        }
-
         /// <summary>
         /// Obtiene un alquiler activo por el nombre del ítem y el nombre del usuario.
         /// </summary>
@@ -260,3 +212,4 @@ namespace TitoAlquiler.Model.Dao
         }
     }
 }
+
