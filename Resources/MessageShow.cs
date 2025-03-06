@@ -11,17 +11,19 @@ namespace TitoAlquiler.Resources
         /// <summary>
         /// Muestra un mensaje de advertencia al usuario.
         /// </summary>
-        public static void MostrarMensajeAdvertencia(string mensaje)
+        public static bool MostrarMensajeAdvertencia(string mensaje)
         {
             MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return false;
         }
 
         /// <summary>
         /// Muestra un mensaje de error al usuario.
         /// </summary>
-        public static void MostrarMensajeError(string mensaje)
+        public static bool MostrarMensajeError(string mensaje)
         {
             MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
         }
 
         /// <summary>
@@ -35,9 +37,10 @@ namespace TitoAlquiler.Resources
         /// <summary>
         /// Muestra un mensaje de información al usuario.
         /// </summary>
-        public static void MostrarMensajeInformacion(string mensaje)
+        public static bool MostrarMensajeInformacion(string mensaje)
         {
             MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return false;
         }
     }
 }

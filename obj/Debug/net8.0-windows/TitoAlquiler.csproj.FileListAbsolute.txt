@@ -346,21 +346,6 @@ C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-win
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\bin\Debug\net8.0-windows\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.AssemblyReference.cache
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.Properties.Resources.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.FormInicio.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.CrearAlquiler.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.VerAlquileres.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewItem.CrearItem.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewItem.ModificarItem.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewUsuario.CrearUsuario.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewUsuario.ModificarUsuario.resources
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.GenerateResource.cache
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfoInputs.cache
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfo.cs
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.CoreCompileInputs.cache
-C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.sourcelink.json
 C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.exe
 C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.deps.json
 C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\TitoAlquiler.runtimeconfig.json
@@ -514,6 +499,21 @@ C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\
 C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Vicente\Documents\TitoAlquileres\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.AssemblyReference.cache
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.Properties.Resources.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.FormInicio.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.CrearAlquiler.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.VerAlquileres.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewItem.CrearItem.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewItem.ModificarItem.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewUsuario.CrearUsuario.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewUsuario.ModificarUsuario.resources
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.GenerateResource.cache
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfoInputs.cache
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.AssemblyInfo.cs
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.csproj.CoreCompileInputs.cache
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.sourcelink.json
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlqu.52134F2B.Up2Date
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.dll
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\refint\TitoAlquiler.dll

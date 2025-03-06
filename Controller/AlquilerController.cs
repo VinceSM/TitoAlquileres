@@ -177,6 +177,13 @@ namespace TitoAlquiler.Controller
         /// <param name="fechaFin">Fecha de fin del alquiler.</param>
         private bool VerificarDisponibilidadItem(int itemId, DateTime fechaInicio, DateTime fechaFin)
         {
+            // Verificar si las fechas son anteriores a la fecha actual
+            if (fechaInicio < DateTime.Today || fechaFin < DateTime.Today)
+            {
+                MessageShow.MostrarMensajeError("Las fechas no pueden ser anteriores a la fecha actual.");
+            }
+
+            // Verificar la disponibilidad del ítem en el rango de fechas
             var alquileres = _alquilerDao.FindAlquileresByItem(itemId);
             return !alquileres.Any(a =>
                 (fechaInicio >= a.fechaInicio && fechaInicio <= a.fechaFin) ||

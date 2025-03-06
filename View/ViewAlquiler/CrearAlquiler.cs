@@ -489,7 +489,6 @@ namespace TitoAlquiler.View.ViewAlquiler
 
                 CrearAlquileresParaItemsSeleccionados(usuarioId, fechaInicio, fechaFin);
 
-                MessageShow.MostrarMensajeExito("Alquiler creado con éxito.");
                 CargarUsuarios();
             }
             catch (SqlException ex)
