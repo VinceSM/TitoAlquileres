@@ -15,7 +15,8 @@ namespace TitoAlquiler.Model.Strategy
     public class EstrategiaEstacion : IEstrategiaPrecio
     {
         private readonly Estacion _estacion;
-        private static readonly Dictionary<Estacion, double> _factoresEstacionales = new Dictionary<Estacion, double>
+
+        public static readonly Dictionary<Estacion, double> _factoresEstacionales = new Dictionary<Estacion, double>
         {
             { Estacion.Verano, 1.15 },    // 15% de aumento en Verano
             { Estacion.Invierno, 1.10 },  // 10% de aumento en Invierno
@@ -46,9 +47,9 @@ namespace TitoAlquiler.Model.Strategy
         {
             return DateTime.Now.Month switch
             {
-                3 or 4 or 5 => Estacion.Otoño,
-                6 or 7 or 8 => Estacion.Invierno,
-                9 or 10 or 11 => Estacion.Primavera,
+                >= 3 and <= 5 => Estacion.Otoño,
+                >= 6 and <= 8 => Estacion.Invierno,
+                >= 9 and <= 11 => Estacion.Primavera,
                 _ => Estacion.Verano // 12, 1, 2
             };
         }

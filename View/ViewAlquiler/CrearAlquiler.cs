@@ -7,6 +7,7 @@ using TitoAlquiler.Model.Entities;
 using System.Linq;
 using TitoAlquiler.Model.Entities.Categorias;
 using Microsoft.Data.SqlClient;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.View.ViewAlquiler
 {
@@ -48,7 +49,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 Application.Exit();
             }
         }
-#endregion
+        #endregion
 
         #region Items
         /// <summary>
@@ -106,17 +107,17 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="e">Los datos del evento.</param>
         private void btnModificarItem_Click(object sender, EventArgs e)
         {
-        try
+            try
             {
                 if (dataGridViewItems.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Por favor, seleccione un ítem para modificar.", 
+                    MessageBox.Show("Por favor, seleccione un ítem para modificar.",
                         "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-        
+
                 // Crear y mostrar el formulario de modificación con el ID del ítem seleccionado
                 ModificarItem formModificarItem = new ModificarItem(itemId);
                 formModificarItem.Show();
@@ -124,10 +125,10 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir el formulario de modificación: {ex.Message}", 
+                MessageBox.Show($"Error al abrir el formulario de modificación: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            }
+        }
 
         /// <summary>
         /// Elimina un ítem seleccionado de la lista. Solicita confirmación antes de proceder.
@@ -491,33 +492,20 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             try
             {
-                MostrarMensajeAdvertencia();
+                if (!ValidarFormulario()) return;
 
-                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+                int usuarioId = ObtenerUsuarioSeleccionado();
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
 
-                foreach (DataGridViewRow row in dataGridViewItems.SelectedRows)
-                {
-                    int itemId = (int)row.Cells["ID"].Value;
+                CrearAlquileresParaItemsSeleccionados(usuarioId, fechaInicio, fechaFin);
 
-                    Alquileres nuevoAlquiler = new Alquileres
-                    {
-                        UsuarioID = usuarioId,
-                        fechaInicio = fechaInicio,
-                        fechaFin = fechaFin,
-                        ItemID = itemId
-                    };
-
-                    alquilerController.CrearAlquiler(nuevoAlquiler);
-                }
-
-                MessageBox.Show("Alquiler creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageShow.MostrarMensajeExito("Alquiler creado con éxito.");
                 CargarUsuarios();
             }
             catch (SqlException ex)
             {
-                MessageBox.Show($"Error al crear alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al crear alquiler: {ex.Message}");
             }
         }
 
@@ -530,52 +518,116 @@ namespace TitoAlquiler.View.ViewAlquiler
             formAlquileres.Show();
             this.Hide();
         }
-        
         #endregion
 
-        #region Advertencias
-        private void MostrarMensajeAdvertencia()
+        #region Métodos de validación
+
+        /// <summary>
+        /// Valida que todos los campos del formulario sean correctos.
+        /// </summary>
+        private bool ValidarFormulario()
         {
-            string mensaje = string.Empty;
-
-            AdvertenciaDgvUser();
-
-            AdvertenciaDgvItems();
-
-            AdvertenciaFechas();
-
-            if (!string.IsNullOrEmpty(mensaje))
-            {
-                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
+            return ValidarUsuarioSeleccionado() &&
+                   ValidarItemsSeleccionados() &&
+                   ValidarFechasSeleccionadas();
         }
 
-        private void AdvertenciaDgvUser()
+        /// <summary>
+        /// Valida que se haya seleccionado un usuario.
+        /// </summary>
+        private bool ValidarUsuarioSeleccionado()
         {
             if (dataGridViewUsuarios.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, seleccione un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un usuario.");
+                return false;
             }
+            return true;
         }
 
-        private void AdvertenciaDgvItems()
+        /// <summary>
+        /// Valida que se haya seleccionado al menos un ítem.
+        /// </summary>
+        private bool ValidarItemsSeleccionados()
         {
             if (dataGridViewItems.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, seleccione al menos un ítem para alquilar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione al menos un ítem para alquilar.");
+                return false;
             }
+            return true;
         }
 
-        private void AdvertenciaFechas()
+        /// <summary>
+        /// Valida que las fechas seleccionadas sean correctas.
+        /// </summary>
+        private bool ValidarFechasSeleccionadas()
         {
             if (dateTimePickerFechaFin.Value <= dateTimePickerFechaInicio.Value)
             {
-                MessageBox.Show("La fecha de fin debe ser posterior a la fecha de inicio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageShow.MostrarMensajeAdvertencia("La fecha de fin debe ser posterior a la fecha de inicio.");
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region Métodos de creación de alquileres
+
+        /// <summary>
+        /// Obtiene el ID del usuario seleccionado en el DataGridView.
+        /// </summary>
+        private int ObtenerUsuarioSeleccionado()
+        {
+            return (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+        }
+
+        /// <summary>
+        /// Crea alquileres para todos los ítems seleccionados.
+        /// </summary>
+        private void CrearAlquileresParaItemsSeleccionados(int usuarioId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            foreach (DataGridViewRow row in dataGridViewItems.SelectedRows)
+            {
+                int itemId = ObtenerItemIdDeRow(row);
+                CrearAlquilerIndividual(usuarioId, fechaInicio, fechaFin, itemId);
             }
         }
+
+        /// <summary>
+        /// Obtiene el ID del ítem de una fila del DataGridView.
+        /// </summary>
+        private int ObtenerItemIdDeRow(DataGridViewRow row)
+        {
+            return (int)row.Cells["ID"].Value;
+        }
+
+        /// <summary>
+        /// Crea un alquiler individual para un ítem específico.
+        /// </summary>
+        private void CrearAlquilerIndividual(int usuarioId, DateTime fechaInicio, DateTime fechaFin, int itemId)
+        {
+            Alquileres nuevoAlquiler = CrearObjetoAlquiler(usuarioId, fechaInicio, fechaFin, itemId);
+            alquilerController.CrearAlquiler(nuevoAlquiler);
+        }
+
+        /// <summary>
+        /// Crea un objeto Alquileres con los datos proporcionados.
+        /// </summary>
+        private Alquileres CrearObjetoAlquiler(int usuarioId, DateTime fechaInicio, DateTime fechaFin, int itemId)
+        {
+            return new Alquileres
+            {
+                UsuarioID = usuarioId,
+                fechaInicio = fechaInicio,
+                fechaFin = fechaFin,
+                ItemID = itemId
+            };
+        }
+
         #endregion
+
+        
     }
 }
-
