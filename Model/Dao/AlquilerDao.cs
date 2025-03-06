@@ -8,11 +8,13 @@ using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.Model.Strategy;
 using System.Windows.Forms;
 using TitoAlquiler.Controller;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Model.Dao
 {
     public class AlquilerDao
     {
+        #region Gestion Alquiler
         /// <summary>
         /// Inserta un nuevo alquiler en la base de datos.
         /// </summary>
@@ -29,7 +31,7 @@ namespace TitoAlquiler.Model.Dao
                 db.SaveChanges();
                 transaction.Commit();
 
-                MostrarMensajeExito($"Alquiler guardado exitosamente. Precio total: {alquiler.precioTotal:C}");
+                MessageShow.MostrarMensajeExito($"Alquiler guardado exitosamente. Precio total: {alquiler.precioTotal:C}");
             }
             catch (Exception ex)
             {
@@ -142,88 +144,6 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
-        #region Métodos privados encapsulados
-
-        /// <summary>
-        /// Valida que el ítem exista y no haya sido eliminado.
-        /// </summary>
-        private void ValidarItemExistente(SistemaAlquilerContext db, int itemId)
-        {
-            var item = db.Items
-                .FirstOrDefault(i => i.id == itemId && i.deletedAt == null);
-
-            if (item == null)
-                throw new Exception("El ítem no existe o ha sido eliminado.");
-        }
-
-        /// <summary>
-        /// Muestra un mensaje de éxito al usuario.
-        /// </summary>
-        private void MostrarMensajeExito(string mensaje)
-        {
-            MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        /// <summary>
-        /// Obtiene el alquiler original de la base de datos.
-        /// </summary>
-        private Alquileres ObtenerAlquilerOriginal(SistemaAlquilerContext db, int alquilerId)
-        {
-            var alquilerOriginal = db.Alquileres
-                .AsNoTracking()
-                .FirstOrDefault(a => a.id == alquilerId);
-
-            if (alquilerOriginal == null)
-                throw new Exception("El alquiler no existe.");
-
-            return alquilerOriginal;
-        }
-
-        /// <summary>
-        /// Determina si hay cambios en las fechas del alquiler.
-        /// </summary>
-        private bool HayCambioEnFechas(Alquileres alquilerOriginal, Alquileres alquilerNuevo)
-        {
-            return alquilerOriginal.fechaInicio != alquilerNuevo.fechaInicio ||
-                   alquilerOriginal.fechaFin != alquilerNuevo.fechaFin;
-        }
-
-        /// <summary>
-        /// Valida que el ítem esté disponible para las nuevas fechas.
-        /// </summary>
-        private void ValidarDisponibilidadParaNuevasFechas(SistemaAlquilerContext db, Alquileres alquiler)
-        {
-            if (ExisteAlquilerActivo(db, alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin, alquiler.id))
-                throw new Exception("El ítem no está disponible para las nuevas fechas seleccionadas.");
-        }
-
-        /// <summary>
-        /// Recalcula el precio del alquiler basado en la estrategia y las nuevas fechas.
-        /// </summary>
-        private void RecalcularPrecioAlquiler(SistemaAlquilerContext db, Alquileres alquiler)
-        {
-            var item = db.Items.Find(alquiler.ItemID);
-            int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
-            alquiler.tiempoDias = diasAlquiler;
-
-            // Recrear la estrategia según el tipo guardado
-            IEstrategiaPrecio estrategia = CrearEstrategia(alquiler.tipoEstrategia);
-            alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(item.tarifaDia, diasAlquiler);
-        }
-
-        /// <summary>
-        /// Crea la estrategia de precio adecuada según el tipo especificado.
-        /// </summary>
-        private IEstrategiaPrecio CrearEstrategia(string tipoEstrategia)
-        {
-            return tipoEstrategia switch
-            {
-                "EstrategiaMembresia" => new EstrategiaMembresia(),
-                "EstrategiaEstacion" => new EstrategiaEstacion(EstrategiaEstacion.ObtenerEstacionActual()),
-                _ => new EstrategiaNormal()
-            };
-        }
-
         /// <summary>
         /// Verifica si existe un alquiler activo para un ítem en un rango de fechas.
         /// </summary>
@@ -300,6 +220,83 @@ namespace TitoAlquiler.Model.Dao
                                           && a.usuario.nombre == nombreUsuario
                                           && a.deletedAt == null);
         }
+        #endregion
+
+        #region Métodos privados encapsulados
+
+        /// <summary>
+        /// Valida que el ítem exista y no haya sido eliminado.
+        /// </summary>
+        private void ValidarItemExistente(SistemaAlquilerContext db, int itemId)
+        {
+            var item = db.Items
+                .FirstOrDefault(i => i.id == itemId && i.deletedAt == null);
+
+            if (item == null)
+                throw new Exception("El ítem no existe o ha sido eliminado.");
+        }
+
+        /// <summary>
+        /// Obtiene el alquiler original de la base de datos.
+        /// </summary>
+        private Alquileres ObtenerAlquilerOriginal(SistemaAlquilerContext db, int alquilerId)
+        {
+            var alquilerOriginal = db.Alquileres
+                .AsNoTracking()
+                .FirstOrDefault(a => a.id == alquilerId);
+
+            if (alquilerOriginal == null)
+                throw new Exception("El alquiler no existe.");
+
+            return alquilerOriginal;
+        }
+
+        /// <summary>
+        /// Determina si hay cambios en las fechas del alquiler.
+        /// </summary>
+        private bool HayCambioEnFechas(Alquileres alquilerOriginal, Alquileres alquilerNuevo)
+        {
+            return alquilerOriginal.fechaInicio != alquilerNuevo.fechaInicio ||
+                   alquilerOriginal.fechaFin != alquilerNuevo.fechaFin;
+        }
+
+        /// <summary>
+        /// Valida que el ítem esté disponible para las nuevas fechas.
+        /// </summary>
+        private void ValidarDisponibilidadParaNuevasFechas(SistemaAlquilerContext db, Alquileres alquiler)
+        {
+            if (ExisteAlquilerActivo(db, alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin, alquiler.id))
+                throw new Exception("El ítem no está disponible para las nuevas fechas seleccionadas.");
+        }
+
+        /// <summary>
+        /// Recalcula el precio del alquiler basado en la estrategia y las nuevas fechas.
+        /// </summary>
+        private void RecalcularPrecioAlquiler(SistemaAlquilerContext db, Alquileres alquiler)
+        {
+            var item = db.Items.Find(alquiler.ItemID);
+            int diasAlquiler = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
+            alquiler.tiempoDias = diasAlquiler;
+
+            // Recrear la estrategia según el tipo guardado
+            IEstrategiaPrecio estrategia = CrearEstrategia(alquiler.tipoEstrategia);
+            alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(item.tarifaDia, diasAlquiler);
+        }
+
+        /// <summary>
+        /// Crea la estrategia de precio adecuada según el tipo especificado.
+        /// </summary>
+        private IEstrategiaPrecio CrearEstrategia(string tipoEstrategia)
+        {
+            return tipoEstrategia switch
+            {
+                "EstrategiaMembresia" => new EstrategiaMembresia(),
+                "EstrategiaEstacion" => new EstrategiaEstacion(EstrategiaEstacion.ObtenerEstacionActual()),
+                _ => new EstrategiaNormal()
+            };
+        }
+
+        
 
         #endregion
     }

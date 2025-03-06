@@ -18,7 +18,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         private AlquilerController alquilerController;
         private ItemController itemController;
 
-        #region Inicialización y eventos del formulario
+        #region Formulario
 
         public VerAlquileres()
         {
@@ -44,20 +44,12 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Maneja el evento de cierre del formulario para finalizar la aplicación si el usuario cierra la ventana.
+        /// Maneja el evento de cierre del formulario, cerrando toda la aplicación si el usuario lo cierra.
         /// </summary>
-        /// <param name="e">Argumentos del evento de cierre del formulario.</param>
+        /// <param name="e">Datos del evento de cierre del formulario.</param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            FinalizarAplicacionSiCierreUsuario(e);
-        }
-
-        /// <summary>
-        /// Finaliza la aplicación si el cierre fue iniciado por el usuario.
-        /// </summary>
-        private void FinalizarAplicacionSiCierreUsuario(FormClosingEventArgs e)
-        {
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 Application.Exit();
@@ -86,7 +78,7 @@ namespace TitoAlquiler.View.ViewAlquiler
 
         #endregion
 
-        #region Gestión de alquileres
+        #region Gestion Alquileres
 
         /// <summary>
         /// Carga todos los alquileres disponibles desde el controlador y los muestra en el DataGridView.
@@ -289,3 +281,4 @@ namespace TitoAlquiler.View.ViewAlquiler
         #endregion
     }
 }
+

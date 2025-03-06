@@ -12,6 +12,7 @@ using TitoAlquiler.Controller;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.View.ViewAlquiler;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.View.ViewItem
 {
@@ -20,11 +21,11 @@ namespace TitoAlquiler.View.ViewItem
         private readonly CategoriaController categoriaController = CategoriaController.Instance;
         private readonly ItemController itemController = ItemController.Instance;
 
-        // Variables para almacenar el ítem seleccionado y su categoría específica
         private ItemAlquilable itemSeleccionado;
         private object categoriaEspecifica;
         private int itemId = -1;
 
+        #region Formulario
         public ModificarItem()
         {
             InitializeComponent();
@@ -58,6 +59,30 @@ namespace TitoAlquiler.View.ViewItem
             CargarItem(id);
         }
 
+        /// <summary>
+        /// Maneja el evento de clic en el enlace de volver
+        /// </summary>
+        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CrearAlquiler formAlquilar = new CrearAlquiler();
+            formAlquilar.Show();
+            this.Hide();
+        }
+
+        /// <summary>
+        /// Sobrescribe el comportamiento al cerrar el formulario
+        /// </summary>
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
+        }
+
+        #endregion
+
         #region Carga de Datos
 
         /// <summary>
@@ -75,7 +100,7 @@ namespace TitoAlquiler.View.ViewItem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las categorías: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar las categorías: {ex.Message}");
             }
         }
 
@@ -130,7 +155,7 @@ namespace TitoAlquiler.View.ViewItem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los ítems: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar los ítems: {ex.Message}");
             }
         }
 
@@ -145,7 +170,7 @@ namespace TitoAlquiler.View.ViewItem
 
                 if (item == null)
                 {
-                    MessageBox.Show("No se encontró el ítem especificado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se encontró el ítem especificado.");
                     return;
                 }
 
@@ -176,7 +201,7 @@ namespace TitoAlquiler.View.ViewItem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el ítem: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar el ítem: {ex.Message}");
             }
         }
 
@@ -283,7 +308,7 @@ namespace TitoAlquiler.View.ViewItem
             {
                 if (itemSeleccionado == null || itemId == -1)
                 {
-                    MessageBox.Show("No hay un ítem seleccionado para modificar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No hay un ítem seleccionado para modificar.");
                     return;
                 }
 
@@ -298,7 +323,7 @@ namespace TitoAlquiler.View.ViewItem
                 }
                 else
                 {
-                    MessageBox.Show("La tarifa debe ser un valor numérico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("La tarifa debe ser un valor numérico válido.");
                     return;
                 }
 
@@ -307,14 +332,14 @@ namespace TitoAlquiler.View.ViewItem
 
                 if (categoriaActualizada == null)
                 {
-                    MessageBox.Show("Error al actualizar los datos específicos de la categoría.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("Error al actualizar los datos específicos de la categoría.");
                     return;
                 }
 
                 // Guardar cambios
                 itemController.ActualizarItem(itemSeleccionado, categoriaActualizada);
 
-                MessageBox.Show("Ítem actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageShow.MostrarMensajeExito("Ítem actualizado correctamente.");
 
                 // Recargar los datos
                 CargarItem(itemId);
@@ -322,32 +347,9 @@ namespace TitoAlquiler.View.ViewItem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al modificar el ítem: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al modificar el ítem: {ex.Message}");
             }
         }
-
-        /// <summary>
-        /// Maneja el evento de clic en el enlace de volver
-        /// </summary>
-        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            CrearAlquiler formAlquilar = new CrearAlquiler();
-            formAlquilar.Show();
-            this.Hide();
-        }
-
-        /// <summary>
-        /// Sobrescribe el comportamiento al cerrar el formulario
-        /// </summary>
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                Application.Exit();
-            }
-        }
-
         #endregion
 
         #region Métodos de Ayuda

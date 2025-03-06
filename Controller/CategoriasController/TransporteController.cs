@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TitoAlquiler.Model.Dao;
 using TitoAlquiler.Model.Dao.CategoriasDao;
 using TitoAlquiler.Model.Entities.Categorias;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Controller.CategoriasController
 {
@@ -33,7 +34,9 @@ namespace TitoAlquiler.Controller.CategoriasController
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al agregar transporte: {ex.Message}", ex);
+                string mensaje = $"Error al agregar transporte: {ex.Message}";
+                MessageShow.MostrarMensajeError(mensaje);
+                throw new Exception(mensaje, ex);
             }
         }
 
@@ -45,7 +48,9 @@ namespace TitoAlquiler.Controller.CategoriasController
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al obtener transporte: {ex.Message}", ex);
+                string mensaje = $"Error al obtener transporte: {ex.Message}";
+                MessageShow.MostrarMensajeError(mensaje);
+                throw new Exception(mensaje, ex);
             }
         }
 
@@ -57,7 +62,9 @@ namespace TitoAlquiler.Controller.CategoriasController
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al actualizar transporte: {ex.Message}", ex);
+                string mensaje = $"Error al actualizar transporte: {ex.Message}";
+                MessageShow.MostrarMensajeError(mensaje);
+                throw new Exception(mensaje, ex);
             }
         }
     }

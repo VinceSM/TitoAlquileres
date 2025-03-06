@@ -8,6 +8,7 @@ using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.Controller.CategoriasController;
 using TitoAlquiler.Model.Entities.Categorias;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Controller
 {
@@ -25,6 +26,7 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
+        #region Gestionar Items
         // Modificación en ItemController.cs
         public void CrearItem(IItemFactory factory, string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
         {
@@ -102,8 +104,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar el item: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al actualizar el item: {ex.Message}");
                 throw;
             }
         }
@@ -119,8 +120,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar el item: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
                 throw;
             }
         }
@@ -136,8 +136,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener el item: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al obtener el item: {ex.Message}");
                 throw;
             }
         }
@@ -153,8 +152,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener los items: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al obtener los items: {ex.Message}");
                 throw;
             }
         }
@@ -178,8 +176,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar items: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al buscar items: {ex.Message}");
                 throw;
             }
         }
@@ -212,8 +209,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al validar el item: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al validar el item: {ex.Message}");
                 throw;
             }
         }
@@ -270,5 +266,6 @@ namespace TitoAlquiler.Controller
                 throw new InvalidOperationException($"Error al actualizar la tarifa del item: {ex.Message}", ex);
             }
         }
+        #endregion
     }
 }

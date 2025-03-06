@@ -5,6 +5,7 @@ using System;
 using System.Windows.Forms;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.View.ViewUsuario
 {
@@ -12,19 +13,10 @@ namespace TitoAlquiler.View.ViewUsuario
     {
         private readonly UsuarioController usuarioController = UsuarioController.Instance;
 
+        #region FormUsuario
         public CrearUsuario()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Muestra un mensaje de error en un cuadro de diálogo y actualiza la etiqueta de estado.
-        /// </summary>
-        /// <param name="mensaje">Mensaje de error a mostrar.</param>
-        private void MostrarMensajeError(string mensaje)
-        {
-            lblCreado.Text = "Error al crear el usuario";
-            MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -51,8 +43,9 @@ namespace TitoAlquiler.View.ViewUsuario
                 Application.Exit();
             }
         }
+#endregion
 
-        #region FormUsuario
+        #region Usuario
 
         /// <summary>
         /// Limpia los campos de entrada en el formulario.
@@ -75,13 +68,13 @@ namespace TitoAlquiler.View.ViewUsuario
         {
             if (!ValidateInputsBoolean(out string nombre, out string email, out int dni))
             {
-                MostrarMensajeError("Por favor, completa los campos correctamente");
+                MessageShow.MostrarMensajeError("Por favor, completa los campos correctamente");
                 return;
             }
 
             if (!IsValidEmail(email))
             {
-                MostrarMensajeError("El email ingresado no es válido. Asegúrate de incluir un '@' y una terminación válida como '.com'.");
+                MessageShow.MostrarMensajeError("El email ingresado no es válido. Asegúrate de incluir un '@' y una terminación válida como '.com'.");
                 return;
             }
 
@@ -104,12 +97,11 @@ namespace TitoAlquiler.View.ViewUsuario
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
             }
         }
 
         #endregion
-
 
         #region Validate Dni
 
@@ -140,13 +132,13 @@ namespace TitoAlquiler.View.ViewUsuario
 
             if (!int.TryParse(dniText, out dni))
             {
-                MostrarMensajeError("El DNI debe ser un número válido.");
+                MessageShow.MostrarMensajeError("El DNI debe ser un número válido.");
                 return false;
             }
 
             if (dniText.Length != 8)
             {
-                MostrarMensajeError("El DNI debe constar de 8 dígitos.");
+                MessageShow.MostrarMensajeError("El DNI debe constar de 8 dígitos.");
                 return false;
             }
 
@@ -154,7 +146,6 @@ namespace TitoAlquiler.View.ViewUsuario
         }
 
         #endregion
-
 
         #region ValidateEmail
 

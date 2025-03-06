@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TitoAlquiler.Model.Dao.CategoriasDao;
 using TitoAlquiler.Model.Entities.Categorias;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Controller.CategoriasController
 {
@@ -30,7 +31,9 @@ namespace TitoAlquiler.Controller.CategoriasController
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al agregar electrónica: {ex.Message}", ex);
+                string mensaje = $"Error al agregar electrónica: {ex.Message}";
+                MessageShow.MostrarMensajeError(mensaje);
+                throw new Exception(mensaje, ex);
             }
         }
 
@@ -42,7 +45,9 @@ namespace TitoAlquiler.Controller.CategoriasController
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al obtener electrónica: {ex.Message}", ex);
+                string mensaje = $"Error al obtener electrónica: {ex.Message}";
+                MessageShow.MostrarMensajeError(mensaje);
+                throw new Exception(mensaje, ex);
             }
         }
 
@@ -54,9 +59,10 @@ namespace TitoAlquiler.Controller.CategoriasController
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al actualizar electrónica: {ex.Message}", ex);
+                string mensaje = $"Error al actualizar electrónica: {ex.Message}";
+                MessageShow.MostrarMensajeError(mensaje);
+                throw new Exception(mensaje, ex);
             }
         }
     }
-
 }

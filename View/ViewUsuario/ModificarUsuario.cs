@@ -11,6 +11,7 @@ namespace TitoAlquiler.View.ViewUsuario
         private readonly UsuarioController usuarioController = UsuarioController.Instance;
         private Usuarios usuarioActual;
 
+        #region FormModificarUser
         // Constructor que recibe el usuario a modificar
         public ModificarUsuario(Usuarios usuario)
         {
@@ -27,8 +28,16 @@ namespace TitoAlquiler.View.ViewUsuario
             textBoxDNI.Text = usuarioActual.dni.ToString();
             checkBoxMembresia.Checked = usuarioActual.membresiaPremium;
         }
- 
 
+        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CrearAlquiler formAlquilar = new CrearAlquiler();
+            formAlquilar.Show();
+            this.Hide();
+        }
+        #endregion
+
+        #region Validaciones
         // Método para validar los inputs
         private bool ValidateInputs(out string nombre, out string email, out int dni)
         {
@@ -64,7 +73,9 @@ namespace TitoAlquiler.View.ViewUsuario
                 return false;
             }
         }
+        #endregion
 
+        #region Botones
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs(out string nombre, out string email, out int dni))
@@ -90,11 +101,6 @@ namespace TitoAlquiler.View.ViewUsuario
             }
 
         }
-        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            CrearAlquiler formAlquilar = new CrearAlquiler();
-            formAlquilar.Show();
-            this.Hide();
-        }
+        #endregion
     }
 }

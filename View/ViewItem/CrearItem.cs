@@ -14,6 +14,7 @@ using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.View.ViewAlquiler;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.View.ViewItem
 {
@@ -22,12 +23,64 @@ namespace TitoAlquiler.View.ViewItem
         private readonly CategoriaController categoriaController = CategoriaController.Instance;
         private readonly ItemController itemController = ItemController.Instance;
 
+        #region Formulario
         public CrearItem()
         {
             InitializeComponent();
             CargarCategorias();
             comboBoxCategoria.SelectedIndex = -1;
         }
+
+        /// <summary>
+        /// Regresa a la pantalla principal de alquiler y oculta la ventana actual.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CrearAlquiler formAlquilar = new CrearAlquiler();
+            formAlquilar.Show();
+            this.Hide();
+        }
+
+        /// <summary>
+        /// Maneja el evento de cierre del formulario, cerrando toda la aplicación si el usuario lo cierra.
+        /// </summary>
+        /// <param name="e">Datos del evento de cierre del formulario.</param>
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
+        }
+
+        /// <summary>
+        /// Limpia todos los campos del formulario de creación de ítems.
+        /// </summary>
+        /// <remarks>
+        /// Restablece los valores de los controles del formulario, como los cuadros de texto y el comboBox de categoría, para prepararlos para una nueva entrada.
+        /// </remarks>
+        private void LimpiarFormulario()
+        {
+            txtNombreItem.Clear();
+            txtMarca.Clear();
+            txtModelo.Clear();
+            txtTarifa.Clear();
+            comboBoxCategoria.SelectedIndex = -1;
+        }
+
+        private void LimpiarInputs()
+        {
+            txtNombreItem.Clear();
+            txtMarca.Clear();
+            txtModelo.Clear();
+            txtTarifa.Clear();
+        }
+
+        #endregion
+
         #region Item
         /// <summary>
         /// Crea un nuevo ítem basado en los datos ingresados en el formulario y lo guarda en el sistema.
@@ -48,8 +101,7 @@ namespace TitoAlquiler.View.ViewItem
 
                 if (string.IsNullOrEmpty(categoria))
                 {
-                    MessageBox.Show("Seleccione una categoría", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("Seleccione una categoría");
                     return;
                 }
 
@@ -62,15 +114,13 @@ namespace TitoAlquiler.View.ViewItem
                                          double.Parse(txtTarifa.Text),
                                          ObtenerParametrosAdicionales(categoria));
 
-                MessageBox.Show("Item creado exitosamente", "Éxito",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageShow.MostrarMensajeExito("Item creado exitosamente");
 
                 LimpiarFormulario();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el item: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al crear el item: {ex.Message}");
             }
         }
 
@@ -104,7 +154,7 @@ namespace TitoAlquiler.View.ViewItem
             }
             catch (SqlException ex)
             {
-                MessageBox.Show($"Error al cargar las categorías: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar las categorías: {ex.Message}");
             }
         }
 
@@ -200,58 +250,5 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         #endregion
-
-        #region Form
-
-        /// <summary>
-        /// Regresa a la pantalla principal de alquiler y oculta la ventana actual.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            CrearAlquiler formAlquilar = new CrearAlquiler();
-            formAlquilar.Show();
-            this.Hide();
-        }
-
-        /// <summary>
-        /// Maneja el evento de cierre del formulario, cerrando toda la aplicación si el usuario lo cierra.
-        /// </summary>
-        /// <param name="e">Datos del evento de cierre del formulario.</param>
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                Application.Exit();
-            }
-        }
-
-        /// <summary>
-        /// Limpia todos los campos del formulario de creación de ítems.
-        /// </summary>
-        /// <remarks>
-        /// Restablece los valores de los controles del formulario, como los cuadros de texto y el comboBox de categoría, para prepararlos para una nueva entrada.
-        /// </remarks>
-        private void LimpiarFormulario()
-        {
-            txtNombreItem.Clear();
-            txtMarca.Clear();
-            txtModelo.Clear();
-            txtTarifa.Clear();
-            comboBoxCategoria.SelectedIndex = -1;
-        }
-
-        private void LimpiarInputs()
-        {
-            txtNombreItem.Clear();
-            txtMarca.Clear();
-            txtModelo.Clear();
-            txtTarifa.Clear();
-        }
-
-        #endregion
-
     }
 }

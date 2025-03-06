@@ -65,7 +65,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 if (items == null || !items.Any())
                 {
                     dataGridViewItems.Rows.Clear();
-                    MessageBox.Show("No se encontraron items para esta categoría.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageShow.MostrarMensajeInformacion("No se encontraron items para esta categoría.");
                     return;
                 }
 
@@ -84,7 +84,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar items: {ex.Message}");
             }
         }
 
@@ -111,8 +111,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 if (dataGridViewItems.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Por favor, seleccione un ítem para modificar.",
-                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un ítem para modificar.");
                     return;
                 }
 
@@ -125,8 +124,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir el formulario de modificación: {ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al abrir el formulario de modificación: {ex.Message}");
             }
         }
 
@@ -146,8 +144,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 // Verificar selección
                 if (dataGridViewItems.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Por favor, seleccione un item para eliminar.",
-                                  "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un item para eliminar.");
                     return;
                 }
 
@@ -158,8 +155,7 @@ namespace TitoAlquiler.View.ViewAlquiler
 
                 if (item == null)
                 {
-                    MessageBox.Show("No se encontró el item seleccionado.",
-                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se encontró el item seleccionado.");
                     return;
                 }
 
@@ -167,8 +163,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 if (item.Alquileres?.Any(a => a.deletedAt == null &&
                     a.fechaFin > DateTime.Now) == true)
                 {
-                    MessageBox.Show("No se puede eliminar el item porque tiene alquileres activos.",
-                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se puede eliminar el item porque tiene alquileres activos.");
                     return;
                 }
 
@@ -211,8 +206,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                     // Intentar eliminar el item
                     itemController.EliminarItem(itemId);
 
-                    MessageBox.Show("Item eliminado exitosamente.",
-                                  "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageShow.MostrarMensajeExito("Item eliminado exitosamente.");
 
                     cmbCategorias.SelectedIndex = -1;
                     CargarCategorias();
@@ -220,8 +214,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar el item: {ex.Message}",
-                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
             }
         }
 
@@ -238,7 +231,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             if (dataGridViewItems.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, seleccione un item para editar su tarifa.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un item para editar su tarifa.");
                 return;
             }
 
@@ -256,7 +249,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 if (itemController.ActualizarTarifaItem(itemId, nuevaTarifa))
                 {
-                    MessageBox.Show("Tarifa actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageShow.MostrarMensajeExito("Tarifa actualizada con éxito.");
                     if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
                     {
                         CargarItems(categoriaSeleccionada.id);
@@ -264,12 +257,12 @@ namespace TitoAlquiler.View.ViewAlquiler
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo actualizar la tarifa del item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se pudo actualizar la tarifa del item.");
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, ingrese un valor numérico válido para la tarifa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError("Por favor, ingrese un valor numérico válido para la tarifa.");
             }
         }
 
@@ -279,8 +272,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 if (dataGridViewItems.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Por favor, seleccione un ítem para ver su detalle.", "Advertencia",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un ítem para ver su detalle.");
                     return;
                 }
 
@@ -289,8 +281,7 @@ namespace TitoAlquiler.View.ViewAlquiler
 
                 if (item == null)
                 {
-                    MessageBox.Show("No se encontraron detalles para el ítem seleccionado.", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se encontraron detalles para el ítem seleccionado.");
                     return;
                 }
 
@@ -330,13 +321,11 @@ namespace TitoAlquiler.View.ViewAlquiler
                         break;
                 }
 
-                MessageBox.Show(mensajeDetalle, "Detalle del Ítem",
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageShow.MostrarMensajeInformacion(mensajeDetalle);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al mostrar detalles: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al mostrar detalles: {ex.Message}");
             }
         }
 
@@ -371,7 +360,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar usuarios: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar usuarios: {ex.Message}");
             }
         }
 
@@ -392,7 +381,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             if (dataGridViewUsuarios.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, seleccione un usuario para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un usuario para eliminar.");
                 return;
             }
 
@@ -403,7 +392,7 @@ namespace TitoAlquiler.View.ViewAlquiler
                 var selectedUsuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
                 if (selectedUsuario == null)
                 {
-                    MessageBox.Show("No se encontró el usuario seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se encontró el usuario seleccionado.");
                     return;
                 }
 
@@ -413,13 +402,13 @@ namespace TitoAlquiler.View.ViewAlquiler
                 if (result == DialogResult.Yes)
                 {
                     usuarioController.EliminarUsuario(selectedUsuario);
-                    MessageBox.Show("Usuario eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageShow.MostrarMensajeExito("Usuario eliminado exitosamente.");
                     CargarUsuarios();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al eliminar el usuario: {ex.Message}");
             }
         }
 
@@ -437,12 +426,12 @@ namespace TitoAlquiler.View.ViewAlquiler
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró el usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageShow.MostrarMensajeError("No se encontró el usuario.");
                 }
             }
             else
             {
-                MessageBox.Show("Seleccione un usuario para modificar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageShow.MostrarMensajeAdvertencia("Seleccione un usuario para modificar.");
             }
         }
 
@@ -465,7 +454,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las categorías: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al cargar las categorías: {ex.Message}");
             }
         }
 
@@ -626,8 +615,6 @@ namespace TitoAlquiler.View.ViewAlquiler
             };
         }
 
-        #endregion
-
-        
+        #endregion 
     }
 }

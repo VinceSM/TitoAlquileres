@@ -6,6 +6,7 @@ using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Interfaces;
 using TitoAlquiler.Model.Strategy;
 using System.Windows.Forms;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Controller
 {
@@ -41,7 +42,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al crear el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al crear el alquiler: {ex.Message}");
                 throw;
             }
         }
@@ -58,7 +59,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al actualizar el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al actualizar el alquiler: {ex.Message}");
                 throw;
             }
         }
@@ -82,7 +83,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
                 throw;
             }
         }
@@ -98,7 +99,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al obtener los alquileres: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al obtener los alquileres: {ex.Message}");
                 throw;
             }
         }
@@ -114,7 +115,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al obtener el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al obtener el alquiler: {ex.Message}");
                 throw;
             }
         }
@@ -130,7 +131,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al verificar disponibilidad: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al verificar disponibilidad: {ex.Message}");
                 throw;
             }
         }
@@ -148,6 +149,7 @@ namespace TitoAlquiler.Controller
             if (!VerificarDisponibilidadItem(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
             {
                 mensaje = "El ítem no está disponible para las fechas seleccionadas.";
+                return false;
             }
 
             // Obtener el ítem
@@ -162,7 +164,7 @@ namespace TitoAlquiler.Controller
 
             if (!string.IsNullOrEmpty(mensaje))
             {
-                MostrarMensajeError(mensaje);
+                MessageShow.MostrarMensajeError(mensaje);
                 return false;
             }
 
@@ -218,16 +220,6 @@ namespace TitoAlquiler.Controller
         }
 
         /// <summary>
-        /// Obtiene el porcentaje de ajuste según la estación.
-        /// </summary>
-        private string ObtenerPorcentajeEstacion(Estacion estacion)
-        {
-            return estacion == Estacion.Verano ? "15%" :
-                   estacion == Estacion.Invierno ? "10%" :
-                   estacion == Estacion.Otoño ? "5% de descuento" : "0%";
-        }
-
-        /// <summary>
         /// Valida que las fechas del alquiler sean correctas.
         /// </summary>
         private void ValidarFechasAlquiler(DateTime fechaInicio, DateTime fechaFin)
@@ -243,7 +235,7 @@ namespace TitoAlquiler.Controller
         {
             if (alquiler.fechaInicio <= DateTime.Now)
             {
-                MostrarMensajeError("No se pueden cancelar alquileres que ya han comenzado.");
+                MessageShow.MostrarMensajeError("No se pueden cancelar alquileres que ya han comenzado.");
                 return false;
             }
             return true;
@@ -259,14 +251,6 @@ namespace TitoAlquiler.Controller
                 (fechaInicio >= a.fechaInicio && fechaInicio <= a.fechaFin) ||
                 (fechaFin >= a.fechaInicio && fechaFin <= a.fechaFin) ||
                 (fechaInicio <= a.fechaInicio && fechaFin >= a.fechaFin));
-        }
-
-        /// <summary>
-        /// Muestra un mensaje de error al usuario.
-        /// </summary>
-        private void MostrarMensajeError(string mensaje)
-        {
-            MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         #endregion
