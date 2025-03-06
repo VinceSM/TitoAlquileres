@@ -118,6 +118,10 @@ namespace TitoAlquiler.View.ViewItem
 
                 LimpiarFormulario();
             }
+            catch (SqlException ec)
+            {
+                MessageShow.MostrarMensajeError($"Error al crear el item: {ec.Message}");
+            }
             catch (Exception ex)
             {
                 MessageShow.MostrarMensajeError($"Error al crear el item: {ex.Message}");
@@ -128,11 +132,11 @@ namespace TitoAlquiler.View.ViewItem
         {
             return categoria switch
             {
-                "Electrodomestico" => new object[] { int.Parse(txtWatss.Text), txtTipoElec.Text },
-                "Inmueble" => new object[] { int.Parse(txtMetros.Text), txtUbicacion.Text },
-                "Transporte" => new object[] { int.Parse(txtCapacidad.Text), txtCombustible.Text },
-                "Electronica" => new object[] { txtResolucion.Text, int.Parse(txtAlmacenamiento.Text) },
-                "Indumentaria" => new object[] { txtTalla.Text, txtMaterial.Text },
+                "Electrodomestico" => new object[] { int.Parse(txtWatss.Text), txtTipoElec.Text.Trim() },
+                "Inmueble" => new object[] { int.Parse(txtMetros.Text), txtUbicacion.Text.Trim() },
+                "Transporte" => new object[] { int.Parse(txtCapacidad.Text), txtCombustible.Text.Trim() },
+                "Electronica" => new object[] { txtResolucion.Text.Trim(), int.Parse(txtAlmacenamiento.Text) },
+                "Indumentaria" => new object[] { txtTalla.Text.Trim(), txtMaterial.Text.Trim() },
                 _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
             };
         }

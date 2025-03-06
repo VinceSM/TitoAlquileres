@@ -14,6 +14,9 @@ namespace TitoAlquiler.View.ViewUsuario
         private readonly UsuarioController usuarioController = UsuarioController.Instance;
 
         #region FormUsuario
+        /// <summary>
+        /// Inicializa una nueva instancia del formulario CrearUsuario.
+        /// </summary>
         public CrearUsuario()
         {
             InitializeComponent();
@@ -43,7 +46,7 @@ namespace TitoAlquiler.View.ViewUsuario
                 Application.Exit();
             }
         }
-#endregion
+        #endregion
 
         #region Usuario
 
@@ -182,5 +185,6 @@ namespace TitoAlquiler.View.ViewUsuario
 
         #endregion
     }
+
 }
 

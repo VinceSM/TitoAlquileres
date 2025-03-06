@@ -10,6 +10,10 @@ using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Controller
 {
+    /// <summary>
+    /// Controlador para la gestión de alquileres.
+    /// Maneja la creación, actualización, eliminación y consulta de alquileres.
+    /// </summary>
     public class AlquilerController
     {
         private readonly AlquilerDao _alquilerDao;
@@ -18,8 +22,14 @@ namespace TitoAlquiler.Controller
 
         #region Singleton
         private static AlquilerController? _instance;
+        /// <summary>
+        /// Obtiene la instancia única del controlador.
+        /// </summary>
         public static AlquilerController Instance => _instance ??= new AlquilerController();
 
+        /// <summary>
+        /// Constructor privado para la implementación del patrón Singleton.
+        /// </summary>
         private AlquilerController()
         {
             _alquilerDao = new AlquilerDao();
@@ -31,13 +41,13 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Crea un nuevo alquiler con validaciones completas.
         /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres a crear.</param>
         public void CrearAlquiler(Alquileres alquiler)
         {
             try
             {
                 if (!VerificarCreacionAlquiler(alquiler)) return;
 
-                // Guardar alquiler
                 _alquilerDao.InsertAlquiler(alquiler);
             }
             catch (Exception ex)
@@ -50,6 +60,7 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Actualiza un alquiler existente.
         /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres a actualizar.</param>
         public void ActualizarAlquiler(Alquileres alquiler)
         {
             try
@@ -67,6 +78,8 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Cancela un alquiler (eliminación lógica).
         /// </summary>
+        /// <param name="alquilerId">Identificador del alquiler a cancelar.</param>
+        /// <returns>True si el alquiler fue cancelado exitosamente, de lo contrario false.</returns>
         public bool EliminarAlquiler(int alquilerId)
         {
             try
@@ -89,8 +102,22 @@ namespace TitoAlquiler.Controller
         }
 
         /// <summary>
+        /// Verifica si un alquiler puede ser cancelado.
+        /// </summary>
+        private bool PuedeCancelarAlquiler(Alquileres alquiler)
+        {
+            if (alquiler.fechaInicio <= DateTime.Now)
+            {
+                MessageShow.MostrarMensajeError("No se pueden cancelar alquileres que ya han comenzado.");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Obtiene todos los alquileres activos.
         /// </summary>
+        /// <returns>Lista de alquileres activos.</returns>
         public List<Alquileres> ObtenerTodosLosAlquileres()
         {
             try
@@ -107,6 +134,8 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Obtiene un alquiler por su ID.
         /// </summary>
+        /// <param name="id">Identificador del alquiler.</param>
+        /// <returns>Objeto Alquileres encontrado.</returns>
         public Alquileres ObtenerAlquilerPorId(int id)
         {
             try
@@ -123,6 +152,10 @@ namespace TitoAlquiler.Controller
         /// <summary>
         /// Verifica la disponibilidad de un ítem para un rango de fechas.
         /// </summary>
+        /// <param name="itemId">Identificador del ítem.</param>
+        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
+        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
+        /// <returns>True si el ítem está disponible, de lo contrario false.</returns>
         public bool VerificarDisponibilidad(int itemId, DateTime fechaInicio, DateTime fechaFin)
         {
             try
@@ -136,6 +169,21 @@ namespace TitoAlquiler.Controller
             }
         }
 
+        /// <summary>
+        /// Verifica la disponibilidad de un ítem para un rango de fechas.
+        /// </summary>
+        /// <param name="itemId">Identificador del ítem.</param>
+        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
+        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
+        private bool VerificarDisponibilidadItem(int itemId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            var alquileres = _alquilerDao.FindAlquileresByItem(itemId);
+            return !alquileres.Any(a =>
+                (fechaInicio >= a.fechaInicio && fechaInicio <= a.fechaFin) ||
+                (fechaFin >= a.fechaInicio && fechaFin <= a.fechaFin) ||
+                (fechaInicio <= a.fechaInicio && fechaFin >= a.fechaFin));
+        }
+
         #region Métodos privados encapsulados
 
         /// <summary>
@@ -145,17 +193,14 @@ namespace TitoAlquiler.Controller
         {
             string mensaje = string.Empty;
 
-            // Verificar disponibilidad
             if (!VerificarDisponibilidadItem(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
             {
                 mensaje = "El ítem no está disponible para las fechas seleccionadas.";
                 return false;
             }
 
-            // Obtener el ítem
             var item = ObtenerItemValidado(alquiler.ItemID);
 
-            // Calcular días de alquiler
             int diasAlquiler = CalcularDiasAlquiler(alquiler.fechaInicio, alquiler.fechaFin);
             if (diasAlquiler <= 0)
             {
@@ -169,16 +214,11 @@ namespace TitoAlquiler.Controller
             }
 
             alquiler.tiempoDias = diasAlquiler;
-
-            // Configurar estrategia y calcular precio
             ConfigurarEstrategiaYPrecio(alquiler, item.tarifaDia);
 
             return true;
         }
 
-        /// <summary>
-        /// Obtiene un ítem por ID y valida que exista.
-        /// </summary>
         private ItemAlquilable ObtenerItemValidado(int itemId)
         {
             var (item, _) = _itemController.ObtenerItemPorId(itemId);
@@ -189,17 +229,11 @@ namespace TitoAlquiler.Controller
             return item;
         }
 
-        /// <summary>
-        /// Calcula los días de alquiler entre dos fechas.
-        /// </summary>
         private int CalcularDiasAlquiler(DateTime fechaInicio, DateTime fechaFin)
         {
             return (int)(fechaFin - fechaInicio).TotalDays + 1;
         }
 
-        /// <summary>
-        /// Configura la estrategia de precio y calcula el precio total.
-        /// </summary>
         private void ConfigurarEstrategiaYPrecio(Alquileres alquiler, double tarifaDiaria)
         {
             bool tieneMembresia = _usuarioController.getMembresiaUsuario(alquiler.UsuarioID);
@@ -209,9 +243,6 @@ namespace TitoAlquiler.Controller
             alquiler.precioTotal = estrategia.CalcularPrecioAlquiler(tarifaDiaria, alquiler.tiempoDias);
         }
 
-        /// <summary>
-        /// Determina la estrategia de precio a utilizar.
-        /// </summary>
         private IEstrategiaPrecio DeterminarEstrategia(bool tieneMembresia)
         {
             return tieneMembresia
@@ -219,40 +250,11 @@ namespace TitoAlquiler.Controller
                 : new EstrategiaEstacion(EstrategiaEstacion.ObtenerEstacionActual());
         }
 
-        /// <summary>
-        /// Valida que las fechas del alquiler sean correctas.
-        /// </summary>
         private void ValidarFechasAlquiler(DateTime fechaInicio, DateTime fechaFin)
         {
             if (fechaInicio > fechaFin)
                 throw new ArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
         }
-
-        /// <summary>
-        /// Verifica si un alquiler puede ser cancelado.
-        /// </summary>
-        private bool PuedeCancelarAlquiler(Alquileres alquiler)
-        {
-            if (alquiler.fechaInicio <= DateTime.Now)
-            {
-                MessageShow.MostrarMensajeError("No se pueden cancelar alquileres que ya han comenzado.");
-                return false;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Verifica la disponibilidad de un ítem para un rango de fechas.
-        /// </summary>
-        private bool VerificarDisponibilidadItem(int itemId, DateTime fechaInicio, DateTime fechaFin)
-        {
-            var alquileres = _alquilerDao.FindAlquileresByItem(itemId);
-            return !alquileres.Any(a =>
-                (fechaInicio >= a.fechaInicio && fechaInicio <= a.fechaFin) ||
-                (fechaFin >= a.fechaInicio && fechaFin <= a.fechaFin) ||
-                (fechaInicio <= a.fechaInicio && fechaFin >= a.fechaFin));
-        }
-
         #endregion
     }
 }

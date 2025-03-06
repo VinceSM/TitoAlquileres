@@ -12,15 +12,20 @@ namespace TitoAlquiler.View.ViewUsuario
         private Usuarios usuarioActual;
 
         #region FormModificarUser
-        // Constructor que recibe el usuario a modificar
+        /// <summary>
+        /// Constructor que recibe el usuario a modificar.
+        /// </summary>
+        /// <param name="usuario">Objeto de tipo Usuarios que se va a modificar.</param>
         public ModificarUsuario(Usuarios usuario)
         {
             InitializeComponent();
             usuarioActual = usuario;
-            CargarDatosUsuario(); 
+            CargarDatosUsuario();
         }
 
-        // Llena los campos con los datos del usuario actual
+        /// <summary>
+        /// Llena los campos del formulario con los datos del usuario actual.
+        /// </summary>
         private void CargarDatosUsuario()
         {
             textBoxNombre.Text = usuarioActual.nombre;
@@ -29,6 +34,11 @@ namespace TitoAlquiler.View.ViewUsuario
             checkBoxMembresia.Checked = usuarioActual.membresiaPremium;
         }
 
+        /// <summary>
+        /// Evento que permite volver a la ventana CrearAlquiler.
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos del evento.</param>
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CrearAlquiler formAlquilar = new CrearAlquiler();
@@ -38,7 +48,13 @@ namespace TitoAlquiler.View.ViewUsuario
         #endregion
 
         #region Validaciones
-        // Método para validar los inputs
+        /// <summary>
+        /// Valida los inputs del formulario.
+        /// </summary>
+        /// <param name="nombre">Nombre del usuario.</param>
+        /// <param name="email">Correo electrónico del usuario.</param>
+        /// <param name="dni">DNI del usuario.</param>
+        /// <returns>True si los inputs son válidos; de lo contrario, False.</returns>
         private bool ValidateInputs(out string nombre, out string email, out int dni)
         {
             nombre = textBoxNombre.Text.Trim();
@@ -60,7 +76,11 @@ namespace TitoAlquiler.View.ViewUsuario
             return true;
         }
 
-        // Método para validar el formato del email
+        /// <summary>
+        /// Valida el formato del correo electrónico.
+        /// </summary>
+        /// <param name="email">Correo electrónico a validar.</param>
+        /// <returns>True si el email es válido; de lo contrario, False.</returns>
         private bool IsValidEmail(string email)
         {
             try
@@ -76,6 +96,11 @@ namespace TitoAlquiler.View.ViewUsuario
         #endregion
 
         #region Botones
+        /// <summary>
+        /// Evento del botón para modificar el usuario.
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos del evento.</param>
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs(out string nombre, out string email, out int dni))
@@ -99,8 +124,8 @@ namespace TitoAlquiler.View.ViewUsuario
             {
                 MessageBox.Show($"Error al actualizar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
         #endregion
     }
+
 }
