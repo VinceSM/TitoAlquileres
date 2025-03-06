@@ -17,6 +17,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         private AlquilerController alquilerController;
         private ItemController itemController;
 
+        #region Form
         public VerAlquileres()
         {
             InitializeComponent();
@@ -48,8 +49,9 @@ namespace TitoAlquiler.View.ViewAlquiler
             formAlquilar.Show();
             this.Hide();
         }
+#endregion
 
-        #region FormAlquileres
+        #region VerAlquileres
 
         /// <summary>
         /// Carga todos los alquileres disponibles desde el controlador y los muestra en el DataGridView.

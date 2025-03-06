@@ -96,23 +96,24 @@ namespace TitoAlquiler.Model.Dao
         }
 
         /// <summary>
-        /// Realiza una eliminación lógica del alquiler.
+        /// Elimina un alquiler de manera lógica (soft delete), marcando la fecha de eliminación.
         /// </summary>
-        public void SoftDeleteAlquiler(int alquilerId)
+        /// <param name="alquiler">Objeto de tipo <see cref="Alquileres"/> que representa el alquiler a eliminar.</param>
+        public void SoftDeleteAlquiler(Alquileres alquiler)
         {
-            using var db = new SistemaAlquilerContext();
             try
             {
-                var alquiler = db.Alquileres.Find(alquilerId);
-                if (alquiler != null)
+                using (var db = new SistemaAlquilerContext())
                 {
                     alquiler.deletedAt = DateTime.Now;
+                    db.Update(alquiler);
                     db.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al eliminar el alquiler: {ex.Message}", ex);
+                Console.WriteLine($"Error soft deleting alquiler: {ex.Message}");
+                throw;
             }
         }
 

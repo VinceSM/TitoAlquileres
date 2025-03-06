@@ -152,25 +152,21 @@ namespace TitoAlquiler.Controller
             {
                 var alquiler = _alquilerDao.FindAlquilerById(alquilerId);
 
-                if (alquiler == null)
-                {
-                    MessageBox.Show("No se encontró el alquiler seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
                 if (alquiler.fechaInicio <= DateTime.Now)
                 {
-                    MessageBox.Show("No se pueden cancelar alquileres que ya han comenzado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"No se pueden cancelar alquileres que ya han comenzado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
-                _alquilerDao.SoftDeleteAlquiler(alquilerId);
+                _alquilerDao.SoftDeleteAlquiler(alquiler);
                 return true;
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cancelar el alquiler: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                MessageBox.Show($"Error al cancelar el alquiler: {ex.Message}",
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
 
@@ -206,28 +202,6 @@ namespace TitoAlquiler.Controller
                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Obtiene los alquileres de un usuario.
-        /// </summary>
-        public List<Alquileres> ObtenerAlquileresPorUsuario(int usuarioId)
-        {
-            try
-            {
-                return _alquilerDao.FindAlquileresByUsuario(usuarioId);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al obtener los alquileres del usuario: {ex.Message}",
-                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
-        }
-
-        public Alquileres ObtenerAlquilerPorItemYUsuario(string item, string usuario)
-        {
-            return _alquilerDao.ObtenerAlquilerPorItemYUsuario(item, usuario);
         }
 
         /// <summary>
