@@ -61,6 +61,13 @@ namespace TitoAlquiler.Model.Dao
                     RecalcularPrecioAlquiler(db, alquiler);
                 }
 
+                // Desvincular el item si ya está siendo rastreado
+                var itemExistente = db.Items.Local.FirstOrDefault(i => i.id == alquiler.item.id);
+                if (itemExistente != null)
+                {
+                    db.Entry(itemExistente).State = EntityState.Detached;
+                }
+
                 db.Update(alquiler);
                 db.SaveChanges();
                 transaction.Commit();
