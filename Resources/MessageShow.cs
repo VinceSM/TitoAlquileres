@@ -42,5 +42,14 @@ namespace TitoAlquiler.Resources
             MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return false;
         }
+
+        /// <summary>
+        /// Muestra un mensaje de confirmación al usuario y devuelve true si se confirma.
+        /// </summary>
+        public static bool MostrarMensajeConfirmacion(string mensaje)
+        {
+            var resultado = MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return resultado == DialogResult.Yes;
+        }
     }
 }

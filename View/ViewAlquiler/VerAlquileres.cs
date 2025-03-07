@@ -256,13 +256,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// </summary>
         private bool ConfirmarCierreAlquiler()
         {
-            var confirmResult = MessageBox.Show(
-                "¿Está seguro de que desea cerrar este alquiler?",
-                "Confirmar cierre de alquiler",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            return confirmResult == DialogResult.Yes;
+            return MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea cerrar este alquiler?"); ;
         }
 
         /// <summary>
