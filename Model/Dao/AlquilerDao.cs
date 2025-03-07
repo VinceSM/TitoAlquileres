@@ -18,6 +18,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Inserta un nuevo alquiler en la base de datos.
         /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres a insertar.</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la inserción.</exception>
         public void InsertAlquiler(Alquileres alquiler)
         {
             using var db = new SistemaAlquilerContext();
@@ -43,6 +45,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Actualiza un alquiler existente.
         /// </summary>
+        /// <param name="alquiler">Objeto de tipo Alquileres a actualizar.</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la actualización.</exception>
         public void UpdateAlquiler(Alquileres alquiler)
         {
             using var db = new SistemaAlquilerContext();
@@ -71,7 +75,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Elimina un alquiler de manera lógica (soft delete), marcando la fecha de eliminación.
         /// </summary>
-        /// <param name="alquiler">Objeto de tipo <see cref="Alquileres"/> que representa el alquiler a eliminar.</param>
+        /// <param name="alquiler">Objeto de tipo Alquileres que representa el alquiler a eliminar.</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la eliminación.</exception>
         public void SoftDeleteAlquiler(Alquileres alquiler)
         {
             try
@@ -91,6 +96,7 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene todos los alquileres activos.
         /// </summary>
+        /// <returns>Lista de objetos Alquileres activos.</returns>
         public List<Alquileres> LoadAllAlquileres()
         {
             using var db = new SistemaAlquilerContext();
@@ -100,6 +106,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Busca un alquiler por su ID.
         /// </summary>
+        /// <param name="id">ID del alquiler a buscar.</param>
+        /// <returns>Objeto Alquileres con los detalles del alquiler encontrado.</returns>
         public Alquileres FindAlquilerById(int id)
         {
             using var db = new SistemaAlquilerContext();
@@ -109,6 +117,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene los alquileres de un usuario específico.
         /// </summary>
+        /// <param name="usuarioId">ID del usuario cuyos alquileres se desean obtener.</param>
+        /// <returns>Lista de objetos Alquileres del usuario especificado.</returns>
         public List<Alquileres> FindAlquileresByUsuario(int usuarioId)
         {
             using var db = new SistemaAlquilerContext();
@@ -118,6 +128,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene los alquileres de un ítem específico.
         /// </summary>
+        /// <param name="itemId">ID del ítem cuyos alquileres se desean obtener.</param>
+        /// <returns>Lista de objetos Alquileres del ítem especificado.</returns>
         public List<Alquileres> FindAlquileresByItem(int itemId)
         {
             using var db = new SistemaAlquilerContext();
@@ -129,7 +141,8 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="nombreItem">Nombre del ítem alquilado.</param>
         /// <param name="nombreUsuario">Nombre del usuario que realizó el alquiler.</param>
-        /// <returns>Objeto <see cref="Alquileres"/> si se encuentra el alquiler; de lo contrario, null.</returns>
+        /// <returns>Objeto Alquileres si se encuentra el alquiler; de lo contrario, null.</returns>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la consulta.</exception>
         public Alquileres ObtenerAlquilerPorItemYUsuario(string nombreItem, string nombreUsuario)
         {
             try
@@ -147,6 +160,12 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Verifica si existe un alquiler activo para un ítem en un rango de fechas.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="itemId">ID del ítem a verificar.</param>
+        /// <param name="fechaInicio">Fecha de inicio del rango a verificar.</param>
+        /// <param name="fechaFin">Fecha de fin del rango a verificar.</param>
+        /// <param name="excludeAlquilerId">ID de alquiler a excluir de la verificación (opcional).</param>
+        /// <returns>True si existe un alquiler activo en el rango de fechas, de lo contrario False.</returns>
         private bool ExisteAlquilerActivo(SistemaAlquilerContext db, int itemId,
                                         DateTime fechaInicio, DateTime fechaFin, int? excludeAlquilerId = null)
         {
@@ -166,6 +185,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene todos los alquileres activos.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <returns>Lista de objetos Alquileres activos.</returns>
         private List<Alquileres> ObtenerAlquileresActivos(SistemaAlquilerContext db)
         {
             return db.Alquileres
@@ -178,6 +199,9 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene un alquiler por su ID.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="id">ID del alquiler a obtener.</param>
+        /// <returns>Objeto Alquileres con los detalles del alquiler encontrado.</returns>
         private Alquileres ObtenerAlquilerPorId(SistemaAlquilerContext db, int id)
         {
             return db.Alquileres
@@ -189,6 +213,9 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene los alquileres de un usuario específico.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="usuarioId">ID del usuario cuyos alquileres se desean obtener.</param>
+        /// <returns>Lista de objetos Alquileres del usuario especificado.</returns>
         private List<Alquileres> ObtenerAlquileresPorUsuario(SistemaAlquilerContext db, int usuarioId)
         {
             return db.Alquileres
@@ -200,6 +227,9 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene los alquileres de un ítem específico.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="itemId">ID del ítem cuyos alquileres se desean obtener.</param>
+        /// <returns>Lista de objetos Alquileres del ítem especificado.</returns>
         private List<Alquileres> ObtenerAlquileresPorItem(SistemaAlquilerContext db, int itemId)
         {
             return db.Alquileres
@@ -211,6 +241,10 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Busca un alquiler por nombre de ítem y nombre de usuario.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="nombreItem">Nombre del ítem alquilado.</param>
+        /// <param name="nombreUsuario">Nombre del usuario que realizó el alquiler.</param>
+        /// <returns>Objeto Alquileres si se encuentra el alquiler; de lo contrario, null.</returns>
         private Alquileres BuscarAlquilerPorItemYUsuario(SistemaAlquilerContext db, string nombreItem, string nombreUsuario)
         {
             return db.Alquileres
@@ -227,6 +261,9 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Valida que el ítem exista y no haya sido eliminado.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="itemId">ID del ítem a validar.</param>
+        /// <exception cref="Exception">Se lanza cuando el ítem no existe o ha sido eliminado.</exception>
         private void ValidarItemExistente(SistemaAlquilerContext db, int itemId)
         {
             var item = db.Items
@@ -239,6 +276,10 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Obtiene el alquiler original de la base de datos.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="alquilerId">ID del alquiler a obtener.</param>
+        /// <returns>Objeto Alquileres original.</returns>
+        /// <exception cref="Exception">Se lanza cuando el alquiler no existe.</exception>
         private Alquileres ObtenerAlquilerOriginal(SistemaAlquilerContext db, int alquilerId)
         {
             var alquilerOriginal = db.Alquileres
@@ -254,6 +295,9 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Determina si hay cambios en las fechas del alquiler.
         /// </summary>
+        /// <param name="alquilerOriginal">Alquiler original.</param>
+        /// <param name="alquilerNuevo">Alquiler con posibles cambios.</param>
+        /// <returns>True si hay cambios en las fechas, de lo contrario False.</returns>
         private bool HayCambioEnFechas(Alquileres alquilerOriginal, Alquileres alquilerNuevo)
         {
             return alquilerOriginal.fechaInicio != alquilerNuevo.fechaInicio ||
@@ -263,6 +307,9 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Valida que el ítem esté disponible para las nuevas fechas.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="alquiler">Alquiler con las nuevas fechas a validar.</param>
+        /// <exception cref="Exception">Se lanza cuando el ítem no está disponible para las nuevas fechas.</exception>
         private void ValidarDisponibilidadParaNuevasFechas(SistemaAlquilerContext db, Alquileres alquiler)
         {
             if (ExisteAlquilerActivo(db, alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin, alquiler.id))
@@ -272,6 +319,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Recalcula el precio del alquiler basado en la estrategia y las nuevas fechas.
         /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="alquiler">Alquiler a recalcular.</param>
         private void RecalcularPrecioAlquiler(SistemaAlquilerContext db, Alquileres alquiler)
         {
             var item = db.Items.Find(alquiler.ItemID);
@@ -286,6 +335,8 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Crea la estrategia de precio adecuada según el tipo especificado.
         /// </summary>
+        /// <param name="tipoEstrategia">Tipo de estrategia a crear.</param>
+        /// <returns>Instancia de la estrategia de precio correspondiente.</returns>
         private IEstrategiaPrecio CrearEstrategia(string tipoEstrategia)
         {
             return tipoEstrategia switch
@@ -295,8 +346,6 @@ namespace TitoAlquiler.Model.Dao
                 _ => new EstrategiaNormal()
             };
         }
-
-        
 
         #endregion
     }

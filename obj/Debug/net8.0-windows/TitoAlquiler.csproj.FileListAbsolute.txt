@@ -520,3 +520,4 @@ C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\refint\TitoAl
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.pdb
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
+C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.ModificarAlquiler.resources

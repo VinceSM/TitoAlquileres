@@ -32,10 +32,6 @@
             panel1 = new Panel();
             labelTitulo = new Label();
             dataGridViewAlquileres = new DataGridView();
-            alquileresBindingSource = new BindingSource(components);
-            sistemaAlquilerContextBindingSource = new BindingSource(components);
-            btnCerrarAlquiler = new Button();
-            linkLabelVolver = new LinkLabel();
             id = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
             modelo = new DataGridViewTextBoxColumn();
@@ -46,6 +42,11 @@
             fin = new DataGridViewTextBoxColumn();
             total = new DataGridViewTextBoxColumn();
             estrategia = new DataGridViewTextBoxColumn();
+            alquileresBindingSource = new BindingSource(components);
+            sistemaAlquilerContextBindingSource = new BindingSource(components);
+            btnCerrarAlquiler = new Button();
+            linkLabelVolver = new LinkLabel();
+            btnModificarAlquiler = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlquileres).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alquileresBindingSource).BeginInit();
@@ -93,42 +94,6 @@
             dataGridViewAlquileres.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAlquileres.Size = new Size(1379, 280);
             dataGridViewAlquileres.TabIndex = 1;
-            // 
-            // alquileresBindingSource
-            // 
-            alquileresBindingSource.DataSource = typeof(Model.Entities.Alquileres);
-            // 
-            // sistemaAlquilerContextBindingSource
-            // 
-            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
-            // 
-            // btnCerrarAlquiler
-            // 
-            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
-            btnCerrarAlquiler.BackColor = Color.White;
-            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
-            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCerrarAlquiler.ForeColor = Color.Blue;
-            btnCerrarAlquiler.Location = new Point(698, 482);
-            btnCerrarAlquiler.Margin = new Padding(4);
-            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
-            btnCerrarAlquiler.Size = new Size(221, 55);
-            btnCerrarAlquiler.TabIndex = 2;
-            btnCerrarAlquiler.Text = "Cerrar alquiler";
-            btnCerrarAlquiler.UseVisualStyleBackColor = false;
-            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
-            // 
-            // linkLabelVolver
-            // 
-            linkLabelVolver.AutoSize = true;
-            linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabelVolver.Location = new Point(12, 124);
-            linkLabelVolver.Name = "linkLabelVolver";
-            linkLabelVolver.Size = new Size(54, 19);
-            linkLabelVolver.TabIndex = 3;
-            linkLabelVolver.TabStop = true;
-            linkLabelVolver.Text = "Volver";
-            linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
             // 
             // id
             // 
@@ -211,12 +176,65 @@
             estrategia.ReadOnly = true;
             estrategia.Width = 125;
             // 
+            // alquileresBindingSource
+            // 
+            alquileresBindingSource.DataSource = typeof(Model.Entities.Alquileres);
+            // 
+            // sistemaAlquilerContextBindingSource
+            // 
+            sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
+            // 
+            // btnCerrarAlquiler
+            // 
+            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
+            btnCerrarAlquiler.BackColor = Color.White;
+            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
+            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCerrarAlquiler.ForeColor = Color.Blue;
+            btnCerrarAlquiler.Location = new Point(698, 482);
+            btnCerrarAlquiler.Margin = new Padding(4);
+            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
+            btnCerrarAlquiler.Size = new Size(221, 55);
+            btnCerrarAlquiler.TabIndex = 2;
+            btnCerrarAlquiler.Text = "Cerrar alquiler";
+            btnCerrarAlquiler.UseVisualStyleBackColor = false;
+            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
+            // 
+            // linkLabelVolver
+            // 
+            linkLabelVolver.AutoSize = true;
+            linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabelVolver.Location = new Point(12, 124);
+            linkLabelVolver.Name = "linkLabelVolver";
+            linkLabelVolver.Size = new Size(54, 19);
+            linkLabelVolver.TabIndex = 3;
+            linkLabelVolver.TabStop = true;
+            linkLabelVolver.Text = "Volver";
+            linkLabelVolver.LinkClicked += linkLabelVolver_LinkClicked;
+            // 
+            // btnModificarAlquiler
+            // 
+            btnModificarAlquiler.Anchor = AnchorStyles.Top;
+            btnModificarAlquiler.BackColor = Color.White;
+            btnModificarAlquiler.FlatStyle = FlatStyle.Flat;
+            btnModificarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnModificarAlquiler.ForeColor = Color.Blue;
+            btnModificarAlquiler.Location = new Point(435, 482);
+            btnModificarAlquiler.Margin = new Padding(4);
+            btnModificarAlquiler.Name = "btnModificarAlquiler";
+            btnModificarAlquiler.Size = new Size(221, 55);
+            btnModificarAlquiler.TabIndex = 4;
+            btnModificarAlquiler.Text = "Modifcar alquiler";
+            btnModificarAlquiler.UseVisualStyleBackColor = false;
+            btnModificarAlquiler.Click += btnModificarAlquiler_Click;
+            // 
             // VerAlquileres
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 557);
+            Controls.Add(btnModificarAlquiler);
             Controls.Add(linkLabelVolver);
             Controls.Add(btnCerrarAlquiler);
             Controls.Add(dataGridViewAlquileres);
@@ -256,5 +274,6 @@
         private DataGridViewTextBoxColumn fin;
         private DataGridViewTextBoxColumn total;
         private DataGridViewTextBoxColumn estrategia;
+        private Button btnModificarAlquiler;
     }
 }

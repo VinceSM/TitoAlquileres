@@ -20,27 +20,27 @@ namespace TitoAlquiler.Controller
 
 
         /// <summary>
-        /// Obtiene la instancia única del controlador de categorías.
+        /// Crea una nueva categoría en la base de datos.
         /// </summary>
-        /// <returns>Instancia única de CategoriaController.</returns>
+        /// <param name="categoria">Objeto de tipo Categoria que contiene la información de la categoría a crear.</param>
         public void CrearCategoria(Categoria categoria)
         {
             _categoriaDao.InsertCategoria(categoria);
         }
 
         /// <summary>
-        /// Crea una nueva categoría en la base de datos.
+        /// Actualiza una categoría existente en la base de datos.
         /// </summary>
-        /// <param name="categoria">Objeto de tipo Categoria que contiene la información de la categoría a crear.</param>
+        /// <param name="categoria">Objeto de tipo Categoria con los datos actualizados de la categoría.</param>
         public void ActualizarCategoria(Categoria categoria)
         {
             _categoriaDao.UpdateCategoria(categoria);
         }
 
         /// <summary>
-        /// Actualiza una categoría existente en la base de datos.
+        /// Elimina una categoría de manera lógica (soft delete).
         /// </summary>
-        /// <param name="categoria">Objeto de tipo Categoria con los datos actualizados de la categoría.</param>
+        /// <param name="categoria">Objeto de tipo Categoria que representa la categoría a eliminar.</param>
         public void EliminarCategoria(Categoria categoria)
         {
             _categoriaDao.SoftDeleteCategoria(categoria);

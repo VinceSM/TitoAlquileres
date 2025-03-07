@@ -11,6 +11,17 @@ namespace TitoAlquiler.Model.Factory
 {
     public class ElectrodomesticoFactory : IItemFactory
     {
+        /// <summary>
+        /// Crea un nuevo electrodoméstico alquilable con sus propiedades específicas.
+        /// </summary>
+        /// <param name="nombre">Nombre del electrodoméstico.</param>
+        /// <param name="marca">Marca del electrodoméstico.</param>
+        /// <param name="modelo">Modelo del electrodoméstico.</param>
+        /// <param name="tarifaDia">Tarifa diaria de alquiler del electrodoméstico.</param>
+        /// <param name="adicionales">Parámetros adicionales específicos para electrodomésticos:
+        /// [0]: potenciaWatts (int) - Potencia del electrodoméstico en watts.
+        /// [1]: tipoElectrodomestico (string) - Tipo o categoría específica del electrodoméstico.</param>
+        /// <returns>Tupla que contiene el ítem base (ItemAlquilable) y el electrodoméstico específico (Electrodomestico).</returns>
         public (ItemAlquilable item, object categoria) CrearAlquilable(
             string nombre,
             string marca,

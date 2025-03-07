@@ -63,16 +63,15 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="e">Argumentos del evento del enlace.</param>
         private void linkLabelVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            VolverAFormularioPrincipal();
-        }
-
-        /// <summary>
-        /// Abre el formulario principal y oculta el formulario actual.
-        /// </summary>
-        private void VolverAFormularioPrincipal()
-        {
             CrearAlquiler formAlquilar = new CrearAlquiler();
             formAlquilar.Show();
+            this.Hide();
+        }
+
+        private void btnModificarAlquiler_Click(object sender, EventArgs e)
+        {
+            ModificarAlquiler modificarAlquiler = new ModificarAlquiler();
+            modificarAlquiler.Show();
             this.Hide();
         }
 

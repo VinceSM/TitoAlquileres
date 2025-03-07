@@ -11,6 +11,17 @@ namespace TitoAlquiler.Model.Factory
 {
     public class ElectronicaFactory : IItemFactory
     {
+        /// <summary>
+        /// Crea un nuevo artículo electrónico alquilable con sus propiedades específicas.
+        /// </summary>
+        /// <param name="nombre">Nombre del artículo electrónico.</param>
+        /// <param name="marca">Marca del artículo electrónico.</param>
+        /// <param name="modelo">Modelo del artículo electrónico.</param>
+        /// <param name="tarifaDia">Tarifa diaria de alquiler del artículo electrónico.</param>
+        /// <param name="adicionales">Parámetros adicionales específicos para artículos electrónicos:
+        /// [0]: almacenamientoGB (int) - Capacidad de almacenamiento en gigabytes.
+        /// [1]: resolucionPantalla (string) - Resolución de la pantalla del dispositivo.</param>
+        /// <returns>Tupla que contiene el ítem base (ItemAlquilable) y el artículo electrónico específico (Electronica).</returns>
         public (ItemAlquilable item, object categoria) CrearAlquilable(
             string nombre,
             string marca,

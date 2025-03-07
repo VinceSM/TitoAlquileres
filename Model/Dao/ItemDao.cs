@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities.Categorias;
 using TitoAlquiler.Model.Entities;
 using Microsoft.Data.SqlClient;
-using TitoAlquiler.Controller.CategoriasController;
+using System.Text.RegularExpressions;
+using TitoAlquiler.Model.Interfaces;
 
 namespace TitoAlquiler.Model.Dao
 {
@@ -15,19 +16,56 @@ namespace TitoAlquiler.Model.Dao
         /// <summary>
         /// Inserta un nuevo ítem y su categoría específica en la base de datos.
         /// </summary>
-        /// <param name="item">Item base a insertar</param>
-        public void InsertItem(ItemAlquilable item)
+        /// <param name="factory">Fábrica específica para el tipo de ítem a crear.</param>
+        /// <param name="nombre">Nombre del ítem.</param>
+        /// <param name="marca">Marca del ítem.</param>
+        /// <param name="modelo">Modelo del ítem.</param>
+        /// <param name="tarifaDia">Tarifa diaria de alquiler del ítem.</param>
+        /// <param name="adicionales">Parámetros adicionales específicos según el tipo de ítem.</param>
+        public void InsertItem(IItemFactory factory, string nombre, string marca, string modelo, double tarifaDia, params object[] adicionales)
         {
-            ArgumentNullException.ThrowIfNull(item);
+            using var db = new SistemaAlquilerContext();
+            using var transaction = db.Database.BeginTransaction();
 
             try
             {
-                using var db = new SistemaAlquilerContext();
+                var (item, categoria) = factory.CrearAlquilable(nombre, marca, modelo, tarifaDia, adicionales);
+
                 db.Items.Add(item);
                 db.SaveChanges();
+
+                switch (categoria)
+                {
+                    case Transporte transporte:
+                        transporte.itemId = item.id;
+                        db.Transportes.Add(transporte);
+                        break;
+                    case Electrodomestico electrodomestico:
+                        electrodomestico.itemId = item.id;
+                        db.Electrodomesticos.Add(electrodomestico);
+                        break;
+                    case Inmueble inmueble:
+                        inmueble.itemId = item.id;
+                        db.Inmuebles.Add(inmueble);
+                        break;
+                    case Electronica electronica:
+                        electronica.itemId = item.id;
+                        db.Electronicas.Add(electronica);
+                        break;
+                    case Indumentaria indumentaria:
+                        indumentaria.itemId = item.id;
+                        db.Indumentarias.Add(indumentaria);
+                        break;
+                    default:
+                        throw new ArgumentException("Categoría no reconocida.");
+                }
+
+                db.SaveChanges();
+                transaction.Commit();
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 throw new Exception($"Error al insertar el item: {ex.Message}", ex);
             }
         }
@@ -37,6 +75,8 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="item">Item base a actualizar</param>
         /// <param name="categoria">Objeto de categoría específica actualizado</param>
+        /// <exception cref="ArgumentNullException">Se lanza cuando el ítem o la categoría son nulos.</exception>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la actualización.</exception>
         public void UpdateItem(ItemAlquilable item, object categoria)
         {
             ArgumentNullException.ThrowIfNull(item);
@@ -93,6 +133,7 @@ namespace TitoAlquiler.Model.Dao
         /// Realiza un borrado lógico del ítem.
         /// </summary>
         /// <param name="itemId">ID del ítem a eliminar</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la eliminación.</exception>
         public void SoftDeleteItem(int itemId)
         {
             try
@@ -117,6 +158,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="id">ID del ítem</param>
         /// <returns>Tupla con el item y su categoría específica</returns>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la búsqueda.</exception>
         public (ItemAlquilable? item, object? categoria) FindItemById(int id)
         {
             try
@@ -150,6 +192,7 @@ namespace TitoAlquiler.Model.Dao
         /// Carga todos los ítems activos con sus categorías específicas.
         /// </summary>
         /// <returns>Lista de tuplas con items y sus categorías</returns>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la carga.</exception>
         public List<(ItemAlquilable item, object? categoria)> LoadAllItems()
         {
             try
@@ -192,6 +235,7 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="categoriaId">ID de la categoría</param>
         /// <returns>Lista de items de una categoría específica</returns>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la búsqueda.</exception>
         public List<ItemAlquilable> FindItemsByCategoria(int categoriaId)
         {
             try
@@ -213,6 +257,8 @@ namespace TitoAlquiler.Model.Dao
         /// </summary>
         /// <param name="searchTerm">Término de búsqueda</param>
         /// <returns>Lista de tuplas con items y sus categorías</returns>
+        /// <exception cref="ArgumentNullException">Se lanza cuando el término de búsqueda es nulo.</exception>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la búsqueda.</exception>
         public List<(ItemAlquilable item, object? categoria)> SearchItems(string searchTerm)
         {
             ArgumentNullException.ThrowIfNull(searchTerm);
@@ -242,6 +288,7 @@ namespace TitoAlquiler.Model.Dao
         /// <param name="db">Contexto de la base de datos</param>
         /// <param name="item">Item del cual obtener la categoría</param>
         /// <returns>Objeto de categoría específica o null si no se encuentra</returns>
+        /// <exception cref="ArgumentNullException">Se lanza cuando el contexto o el ítem son nulos.</exception>
         private object? GetCategoriaForItem(SistemaAlquilerContext db, ItemAlquilable item)
         {
             ArgumentNullException.ThrowIfNull(db);

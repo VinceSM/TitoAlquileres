@@ -104,6 +104,11 @@ namespace TitoAlquiler.Controller
             return _usuarioDao.CompararEmail(email);
         }
 
+        /// <summary>
+        /// Obtiene el estado de membresía premium de un usuario.
+        /// </summary>
+        /// <param name="id">ID del usuario cuya membresía se desea consultar.</param>
+        /// <returns>True si el usuario tiene membresía premium, de lo contrario False.</returns>
         public bool getMembresiaUsuario(int id)
         {
             return _usuarioDao.getMembresiaUsuario(id);
