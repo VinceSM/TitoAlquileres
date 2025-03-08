@@ -251,58 +251,5 @@ namespace TitoAlquiler.Model.Dao
                 throw new Exception($"Error al buscar items por categoría: {ex.Message}", ex);
             }
         }
-
-        /// <summary>
-        /// Busca ítems por término de búsqueda en nombre, marca o modelo.
-        /// </summary>
-        /// <param name="searchTerm">Término de búsqueda</param>
-        /// <returns>Lista de tuplas con items y sus categorías</returns>
-        /// <exception cref="ArgumentNullException">Se lanza cuando el término de búsqueda es nulo.</exception>
-        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la búsqueda.</exception>
-        public List<(ItemAlquilable item, object? categoria)> SearchItems(string searchTerm)
-        {
-            ArgumentNullException.ThrowIfNull(searchTerm);
-
-            try
-            {
-                using var db = new SistemaAlquilerContext();
-                var items = db.Items
-                    .Where(i => (i.nombreItem != null && i.nombreItem.Contains(searchTerm)) ||
-                               (i.marca != null && i.marca.Contains(searchTerm)) ||
-                               (i.modelo != null && i.modelo.Contains(searchTerm)) &&
-                               i.deletedAt == null)
-                    .Include(i => i.categoria)
-                    .ToList();
-
-                return items.Select(item => (item, GetCategoriaForItem(db, item))).ToList();
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception($"Error al buscar items: {ex.Message}", ex);
-            }
-        }
-
-        /// <summary>
-        /// Obtiene la categoría específica para un item.
-        /// </summary>
-        /// <param name="db">Contexto de la base de datos</param>
-        /// <param name="item">Item del cual obtener la categoría</param>
-        /// <returns>Objeto de categoría específica o null si no se encuentra</returns>
-        /// <exception cref="ArgumentNullException">Se lanza cuando el contexto o el ítem son nulos.</exception>
-        private object? GetCategoriaForItem(SistemaAlquilerContext db, ItemAlquilable item)
-        {
-            ArgumentNullException.ThrowIfNull(db);
-            ArgumentNullException.ThrowIfNull(item);
-
-            return item.categoriaId switch
-            {
-                1 => db.Transportes.FirstOrDefault(t => t.itemId == item.id),
-                2 => db.Electrodomesticos.FirstOrDefault(e => e.itemId == item.id),
-                3 => db.Electronicas.FirstOrDefault(e => e.itemId == item.id),
-                4 => db.Inmuebles.FirstOrDefault(i => i.itemId == item.id),
-                5 => db.Indumentarias.FirstOrDefault(i => i.itemId == item.id),
-                _ => null
-            };
-        }
     }
 }

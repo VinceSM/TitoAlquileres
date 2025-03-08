@@ -152,64 +152,6 @@ namespace TitoAlquiler.Controller
         }
 
         /// <summary>
-        /// Busca ítems por término de búsqueda.
-        /// </summary>
-        /// <param name="searchTerm">Término de búsqueda para filtrar los ítems.</param>
-        /// <returns>Lista de tuplas que contienen los ítems y sus categorías que coinciden con el término de búsqueda.</returns>
-        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la búsqueda.</exception>
-        public List<(ItemAlquilable item, object categoria)> BuscarItems(string searchTerm)
-        {
-            try
-            {
-                return _itemDao.SearchItems(searchTerm);
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError($"Error al buscar items: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Obtiene la fábrica correspondiente según el ID de la categoría.
-        /// </summary>
-        /// <param name="categoriaId">ID de la categoría para la cual se requiere la fábrica.</param>
-        /// <returns>Instancia de la fábrica específica para la categoría solicitada.</returns>
-        /// <exception cref="ArgumentException">Se lanza cuando la categoría no es válida.</exception>
-        public IItemFactory ObtenerFactory(int categoriaId)
-        {
-            return categoriaId switch
-            {
-                1 => new TransporteFactory(),
-                2 => new ElectrodomesticoFactory(),
-                3 => new ElectronicaFactory(),
-                4 => new InmuebleFactory(),
-                5 => new IndumentariaFactory(),
-                _ => throw new ArgumentException("Categoría no válida")
-            };
-        }
-
-        /// <summary>
-        /// Valida si un ítem puede ser eliminado (no tiene alquileres activos).
-        /// </summary>
-        /// <param name="itemId">ID del ítem a validar.</param>
-        /// <returns>True si el ítem puede ser eliminado, de lo contrario False.</returns>
-        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la validación.</exception>
-        public bool PuedeEliminarItem(int itemId)
-        {
-            try
-            {
-                var (item, _) = _itemDao.FindItemById(itemId);
-                return item?.Alquileres == null || item.Alquileres.Count == 0;
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError($"Error al validar el item: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Actualiza la tarifa de un ítem existente en la base de datos.
         /// </summary>
         /// <param name="itemId">ID del ítem a actualizar.</param>

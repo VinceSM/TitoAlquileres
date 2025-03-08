@@ -115,11 +115,6 @@ namespace TitoAlquiler.Controller
             {
                 var alquiler = ObtenerAlquilerPorId(alquilerId);
 
-                if (!PuedeCancelarAlquiler(alquiler))
-                {
-                    return false;
-                }
-
                 _alquilerDao.SoftDeleteAlquiler(alquiler);
                 return true;
             }
@@ -128,19 +123,6 @@ namespace TitoAlquiler.Controller
                 MessageShow.MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Verifica si un alquiler puede ser cancelado.
-        /// </summary>
-        private bool PuedeCancelarAlquiler(Alquileres alquiler)
-        {
-            if (alquiler.fechaInicio <= DateTime.Now)
-            {
-                MessageShow.MostrarMensajeError("No se pueden cancelar alquileres que ya han comenzado.");
-                return false;
-            }
-            return true;
         }
 
         /// <summary>

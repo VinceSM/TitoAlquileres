@@ -190,9 +190,10 @@ namespace TitoAlquiler.View.ViewAlquiler
             // No permitir fechas de inicio anteriores a hoy para alquileres futuros
             if (alquilerSeleccionado != null && alquilerSeleccionado.fechaInicio > hoy)
             {
-                if (dateTimePickerNuevaFechaInicio.Value < hoy)
+                if (dateTimePickerNuevaFechaInicio.Value < hoy && dateTimePickerNuevaFechaFin.Value < hoy)
                 {
                     dateTimePickerNuevaFechaInicio.Value = hoy;
+                    dateTimePickerNuevaFechaFin.Value = hoy;
                     MessageShow.MostrarMensajeAdvertencia("La fecha de inicio no puede ser anterior a hoy.");
                 }
             }
@@ -202,13 +203,6 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 dateTimePickerNuevaFechaInicio.Value = alquilerSeleccionado.fechaInicio;
                 dateTimePickerNuevaFechaInicio.Enabled = false;
-            }
-
-            // No permitir que la fecha de fin sea anterior a hoy
-            if (dateTimePickerNuevaFechaFin.Value < hoy)
-            {
-                dateTimePickerNuevaFechaFin.Value = hoy;
-                MessageShow.MostrarMensajeAdvertencia("La fecha de fin no puede ser anterior a hoy.");
             }
 
             // Asegurar que la fecha de fin no sea anterior a la fecha de inicio
