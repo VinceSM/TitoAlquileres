@@ -84,6 +84,8 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// </summary>
         private void LoadAlquileres()
         {
+            // Verificar y cerrar alquileres vencidos primero
+            alquilerController.VerificarYCerrarAlquileresVencidos();
             try
             {
                 var alquileres = ObtenerAlquileresDesdeControlador();
@@ -200,33 +202,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Cierra el alquiler seleccionado en el DataGridView.
-        /// </summary>
-        /// <param name="sender">El objeto que desencadenó el evento.</param>
-        /// <param name="e">Argumentos del evento del botón.</param>
-        private void btnCerrarAlquiler_Click(object sender, EventArgs e)
-        {
-            if (!HayAlquilerSeleccionado())
-            {
-                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un alquiler para cerrar.");
-                return;
-            }
-
-            var alquiler = ObtenerAlquilerSeleccionado();
-
-            if (alquiler == null)
-            {
-                MessageShow.MostrarMensajeError("No se encontró el alquiler seleccionado.");
-                return;
-            }
-
-            if (ConfirmarCierreAlquiler())
-            {
-                CerrarAlquiler(alquiler);
-            }
-        }
-
-        /// <summary>
         /// Verifica si hay un alquiler seleccionado en la tabla.
         /// </summary>
         private bool HayAlquilerSeleccionado()
@@ -251,27 +226,51 @@ namespace TitoAlquiler.View.ViewAlquiler
             return Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["id"].Value);
         }
 
-        /// <summary>
-        /// Muestra un diálogo de confirmación para cerrar el alquiler.
-        /// </summary>
-        private bool ConfirmarCierreAlquiler()
-        {
-            return MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea cerrar este alquiler?"); ;
-        }
+        #endregion
 
-        /// <summary>
-        /// Cierra el alquiler y actualiza la interfaz.
-        /// </summary>
-        private void CerrarAlquiler(Alquileres alquiler)
+        private void btnDevolucionAnticipada_Click(object sender, EventArgs e)
         {
-            if (alquilerController.EliminarAlquiler(alquiler.id))
+            if (!HayAlquilerSeleccionado())
             {
-                MessageShow.MostrarMensajeExito("El alquiler se ha cerrado correctamente.");
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un alquiler para realizar una devolución anticipada.");
+                return;
+            }
+
+            var alquiler = ObtenerAlquilerSeleccionado();
+            if (alquiler == null)
+            {
+                MessageShow.MostrarMensajeError("No se encontró el alquiler seleccionado.");
+                return;
+            }
+
+            // Verificar que el alquiler esté activo y no haya terminado
+            if (alquiler.fechaFin < DateTime.Today)
+            {
+                MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado.");
+                return;
+            }
+
+            // Confirmar la devolución anticipada
+            if (MessageShow.MostrarMensajeConfirmacion($"¿Está seguro de que desea realizar la devolución anticipada del ítem '{alquiler.item?.nombreItem}' hoy?\n\nLa fecha original de finalización era {alquiler.fechaFin:dd/MM/yyyy}."))
+            {
+                // Actualizar la fecha de fin al día actual
+                alquiler.fechaFin = DateTime.Today;
+
+                // Recalcular los días de alquiler
+                alquiler.tiempoDias = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
+
+                // Actualizar el alquiler
+                alquilerController.ActualizarAlquiler(alquiler);
+
+                // Cerrar el alquiler
+                alquilerController.EliminarAlquiler(alquiler.id);
+
+                MessageShow.MostrarMensajeExito("Devolución anticipada realizada con éxito. El ítem está disponible para nuevos alquileres.");
+
+                // Recargar la lista de alquileres
                 LoadAlquileres();
             }
         }
-
-        #endregion
     }
 }
 

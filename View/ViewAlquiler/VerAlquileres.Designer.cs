@@ -45,9 +45,9 @@
             estrategia = new DataGridViewTextBoxColumn();
             alquileresBindingSource = new BindingSource(components);
             sistemaAlquilerContextBindingSource = new BindingSource(components);
-            btnCerrarAlquiler = new Button();
             linkLabelVolver = new LinkLabel();
             btnModificarAlquiler = new Button();
+            btnDevolucionAnticipada = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlquileres).BeginInit();
             ((System.ComponentModel.ISupportInitialize)alquileresBindingSource).BeginInit();
@@ -190,22 +190,6 @@
             // 
             sistemaAlquilerContextBindingSource.DataSource = typeof(SistemaAlquilerContext);
             // 
-            // btnCerrarAlquiler
-            // 
-            btnCerrarAlquiler.Anchor = AnchorStyles.Top;
-            btnCerrarAlquiler.BackColor = Color.White;
-            btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
-            btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCerrarAlquiler.ForeColor = Color.Blue;
-            btnCerrarAlquiler.Location = new Point(919, 489);
-            btnCerrarAlquiler.Margin = new Padding(4);
-            btnCerrarAlquiler.Name = "btnCerrarAlquiler";
-            btnCerrarAlquiler.Size = new Size(221, 55);
-            btnCerrarAlquiler.TabIndex = 2;
-            btnCerrarAlquiler.Text = "Cerrar alquiler";
-            btnCerrarAlquiler.UseVisualStyleBackColor = false;
-            btnCerrarAlquiler.Click += btnCerrarAlquiler_Click;
-            // 
             // linkLabelVolver
             // 
             linkLabelVolver.AutoSize = true;
@@ -225,7 +209,7 @@
             btnModificarAlquiler.FlatStyle = FlatStyle.Flat;
             btnModificarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnModificarAlquiler.ForeColor = Color.Blue;
-            btnModificarAlquiler.Location = new Point(581, 489);
+            btnModificarAlquiler.Location = new Point(560, 489);
             btnModificarAlquiler.Margin = new Padding(4);
             btnModificarAlquiler.Name = "btnModificarAlquiler";
             btnModificarAlquiler.Size = new Size(221, 55);
@@ -234,15 +218,31 @@
             btnModificarAlquiler.UseVisualStyleBackColor = false;
             btnModificarAlquiler.Click += btnModificarAlquiler_Click;
             // 
+            // btnDevolucionAnticipada
+            // 
+            btnDevolucionAnticipada.Anchor = AnchorStyles.Top;
+            btnDevolucionAnticipada.BackColor = Color.White;
+            btnDevolucionAnticipada.FlatStyle = FlatStyle.Flat;
+            btnDevolucionAnticipada.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDevolucionAnticipada.ForeColor = Color.Blue;
+            btnDevolucionAnticipada.Location = new Point(871, 489);
+            btnDevolucionAnticipada.Margin = new Padding(4);
+            btnDevolucionAnticipada.Name = "btnDevolucionAnticipada";
+            btnDevolucionAnticipada.Size = new Size(252, 55);
+            btnDevolucionAnticipada.TabIndex = 5;
+            btnDevolucionAnticipada.Text = "Devolucion Anticipada";
+            btnDevolucionAnticipada.UseVisualStyleBackColor = false;
+            btnDevolucionAnticipada.Click += btnDevolucionAnticipada_Click;
+            // 
             // VerAlquileres
             // 
             AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 557);
+            Controls.Add(btnDevolucionAnticipada);
             Controls.Add(btnModificarAlquiler);
             Controls.Add(linkLabelVolver);
-            Controls.Add(btnCerrarAlquiler);
             Controls.Add(dataGridViewAlquileres);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -265,7 +265,6 @@
         private DataGridView dataGridViewAlquileres;
         private BindingSource sistemaAlquilerContextBindingSource;
         private BindingSource alquileresBindingSource;
-        private Button btnCerrarAlquiler;
         private LinkLabel linkLabelVolver;
         private Label labelTitulo;
         private DataGridViewTextBoxColumn itemIDDataGridViewTextBoxColumn;
@@ -281,5 +280,6 @@
         private DataGridViewTextBoxColumn fin;
         private DataGridViewTextBoxColumn total;
         private DataGridViewTextBoxColumn estrategia;
+        private Button btnDevolucionAnticipada;
     }
 }

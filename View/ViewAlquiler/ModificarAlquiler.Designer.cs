@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridViewAlquileres = new DataGridView();
             id = new DataGridViewTextBoxColumn();
             marca = new DataGridViewTextBoxColumn();
@@ -64,23 +64,24 @@
             dataGridViewAlquileres.AllowUserToOrderColumns = true;
             dataGridViewAlquileres.Anchor = AnchorStyles.Top;
             dataGridViewAlquileres.BackgroundColor = Color.LightBlue;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewAlquileres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewAlquileres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewAlquileres.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewAlquileres.Columns.AddRange(new DataGridViewColumn[] { id, marca, modelo, item, usuario, dias, inicio, fin, total, estrategia });
-            dataGridViewAlquileres.Location = new Point(282, 157);
+            dataGridViewAlquileres.Location = new Point(151, 205);
+            dataGridViewAlquileres.Margin = new Padding(3, 4, 3, 4);
             dataGridViewAlquileres.Name = "dataGridViewAlquileres";
             dataGridViewAlquileres.ReadOnly = true;
             dataGridViewAlquileres.RowHeadersVisible = false;
             dataGridViewAlquileres.RowHeadersWidth = 51;
             dataGridViewAlquileres.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAlquileres.Size = new Size(1129, 167);
+            dataGridViewAlquileres.Size = new Size(1290, 223);
             dataGridViewAlquileres.TabIndex = 0;
             dataGridViewAlquileres.SelectionChanged += dataGridViewAlquileres_SelectionChanged;
             // 
@@ -151,9 +152,9 @@
             // 
             // total
             // 
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            total.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            total.DefaultCellStyle = dataGridViewCellStyle2;
             total.HeaderText = "TOTAL";
             total.MinimumWidth = 6;
             total.Name = "total";
@@ -172,18 +173,20 @@
             // 
             dateTimePickerNuevaFechaInicio.Anchor = AnchorStyles.Top;
             dateTimePickerNuevaFechaInicio.CalendarFont = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePickerNuevaFechaInicio.Location = new Point(89, 27);
+            dateTimePickerNuevaFechaInicio.Location = new Point(102, 36);
+            dateTimePickerNuevaFechaInicio.Margin = new Padding(3, 4, 3, 4);
             dateTimePickerNuevaFechaInicio.Name = "dateTimePickerNuevaFechaInicio";
-            dateTimePickerNuevaFechaInicio.Size = new Size(244, 23);
+            dateTimePickerNuevaFechaInicio.Size = new Size(278, 27);
             dateTimePickerNuevaFechaInicio.TabIndex = 1;
             // 
             // dateTimePickerNuevaFechaFin
             // 
             dateTimePickerNuevaFechaFin.Anchor = AnchorStyles.Top;
             dateTimePickerNuevaFechaFin.CalendarFont = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimePickerNuevaFechaFin.Location = new Point(89, 53);
+            dateTimePickerNuevaFechaFin.Location = new Point(102, 71);
+            dateTimePickerNuevaFechaFin.Margin = new Padding(3, 4, 3, 4);
             dateTimePickerNuevaFechaFin.Name = "dateTimePickerNuevaFechaFin";
-            dateTimePickerNuevaFechaFin.Size = new Size(244, 23);
+            dateTimePickerNuevaFechaFin.Size = new Size(278, 27);
             dateTimePickerNuevaFechaFin.TabIndex = 2;
             // 
             // btnActualizarAlquiler
@@ -193,9 +196,10 @@
             btnActualizarAlquiler.FlatStyle = FlatStyle.Flat;
             btnActualizarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnActualizarAlquiler.ForeColor = Color.Blue;
-            btnActualizarAlquiler.Location = new Point(1277, 380);
+            btnActualizarAlquiler.Location = new Point(1288, 509);
+            btnActualizarAlquiler.Margin = new Padding(3, 4, 3, 4);
             btnActualizarAlquiler.Name = "btnActualizarAlquiler";
-            btnActualizarAlquiler.Size = new Size(134, 38);
+            btnActualizarAlquiler.Size = new Size(153, 51);
             btnActualizarAlquiler.TabIndex = 3;
             btnActualizarAlquiler.Text = "Actualizar";
             btnActualizarAlquiler.UseVisualStyleBackColor = false;
@@ -206,9 +210,9 @@
             lblDetalleAlquiler.Anchor = AnchorStyles.Top;
             lblDetalleAlquiler.AutoSize = true;
             lblDetalleAlquiler.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDetalleAlquiler.Location = new Point(282, 343);
+            lblDetalleAlquiler.Location = new Point(151, 457);
             lblDetalleAlquiler.Name = "lblDetalleAlquiler";
-            lblDetalleAlquiler.Size = new Size(83, 18);
+            lblDetalleAlquiler.Size = new Size(115, 22);
             lblDetalleAlquiler.TabIndex = 4;
             lblDetalleAlquiler.Text = "---------------";
             // 
@@ -218,9 +222,9 @@
             linkVolver.BorderStyle = BorderStyle.FixedSingle;
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.LinkColor = Color.FromArgb(0, 0, 192);
-            linkVolver.Location = new Point(10, 90);
+            linkVolver.Location = new Point(11, 120);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(56, 21);
+            linkVolver.Size = new Size(68, 26);
             linkVolver.TabIndex = 5;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -232,10 +236,9 @@
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.SteelBlue;
             panel1.Controls.Add(lblTitulo);
-            panel1.Location = new Point(-4, -2);
-            panel1.Margin = new Padding(3, 2, 3, 2);
+            panel1.Location = new Point(-5, -3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(2117, 76);
+            panel1.Size = new Size(2419, 101);
             panel1.TabIndex = 6;
             // 
             // lblTitulo
@@ -243,9 +246,9 @@
             lblTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Times New Roman", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(598, 25);
+            lblTitulo.Location = new Point(683, 33);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(359, 31);
+            lblTitulo.Size = new Size(452, 38);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "MODIFICAR ALQUILERES";
             // 
@@ -258,19 +261,18 @@
             panelFecha.Controls.Add(lblFecha);
             panelFecha.Controls.Add(dateTimePickerNuevaFechaInicio);
             panelFecha.Controls.Add(dateTimePickerNuevaFechaFin);
-            panelFecha.Location = new Point(724, 343);
-            panelFecha.Margin = new Padding(3, 2, 3, 2);
+            panelFecha.Location = new Point(576, 457);
             panelFecha.Name = "panelFecha";
-            panelFecha.Size = new Size(366, 86);
+            panelFecha.Size = new Size(418, 114);
             panelFecha.TabIndex = 7;
             // 
             // lblFechaFin
             // 
             lblFechaFin.AutoSize = true;
             lblFechaFin.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFechaFin.Location = new Point(20, 50);
+            lblFechaFin.Location = new Point(23, 67);
             lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(30, 17);
+            lblFechaFin.Size = new Size(38, 21);
             lblFechaFin.TabIndex = 2;
             lblFechaFin.Text = "Fin:";
             // 
@@ -278,9 +280,9 @@
             // 
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Font = new Font("Tahoma", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFechaInicio.Location = new Point(3, 27);
+            lblFechaInicio.Location = new Point(3, 36);
             lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(44, 17);
+            lblFechaInicio.Size = new Size(56, 21);
             lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Inicio:";
             // 
@@ -288,24 +290,25 @@
             // 
             lblFecha.AutoSize = true;
             lblFecha.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFecha.Location = new Point(148, 0);
+            lblFecha.Location = new Point(169, 0);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(54, 18);
+            lblFecha.Size = new Size(63, 22);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fechas";
             // 
             // ModificarAlquiler
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
-            ClientSize = new Size(1286, 454);
+            ClientSize = new Size(1470, 605);
             Controls.Add(panelFecha);
             Controls.Add(dataGridViewAlquileres);
             Controls.Add(panel1);
             Controls.Add(linkVolver);
             Controls.Add(lblDetalleAlquiler);
             Controls.Add(btnActualizarAlquiler);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ModificarAlquiler";
             Text = "ModificarAlquiler";
             WindowState = FormWindowState.Maximized;

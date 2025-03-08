@@ -57,6 +57,35 @@ namespace TitoAlquiler.Controller
             }
         }
 
+        public void VerificarYCerrarAlquileresVencidos()
+        {
+            try
+            {
+                using var db = new SistemaAlquilerContext();
+                var hoy = DateTime.Today;
+
+                // Buscar alquileres que ya han vencido pero no están marcados como eliminados
+                var alquileresVencidos = db.Alquileres
+                    .Where(a => a.fechaFin < hoy && a.deletedAt == null)
+                    .ToList();
+
+                foreach (var alquiler in alquileresVencidos)
+                {
+                    // Marcar como eliminado (cierre lógico)
+                    alquiler.deletedAt = DateTime.Now;
+                    db.Update(alquiler);
+                }
+
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción según tu sistema de logging
+                Console.WriteLine($"Error al cerrar alquileres vencidos: {ex.Message}");
+            }
+        }
+
+
         /// <summary>
         /// Actualiza un alquiler existente.
         /// </summary>
@@ -155,32 +184,13 @@ namespace TitoAlquiler.Controller
         /// <param name="itemId">Identificador del ítem.</param>
         /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
         /// <param name="fechaFin">Fecha de fin del alquiler.</param>
-        /// <returns>True si el ítem está disponible, de lo contrario false.</returns>
-        public bool VerificarDisponibilidad(int itemId, DateTime fechaInicio, DateTime fechaFin)
-        {
-            try
-            {
-                return VerificarDisponibilidadItem(itemId, fechaInicio, fechaFin);
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError($"Error al verificar disponibilidad: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Verifica la disponibilidad de un ítem para un rango de fechas.
-        /// </summary>
-        /// <param name="itemId">Identificador del ítem.</param>
-        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
-        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
         private bool VerificarDisponibilidadItem(int itemId, DateTime fechaInicio, DateTime fechaFin)
         {
             // Verificar si las fechas son anteriores a la fecha actual
             if (fechaInicio < DateTime.Today || fechaFin < DateTime.Today)
             {
                 MessageShow.MostrarMensajeError("Las fechas no pueden ser anteriores a la fecha actual.");
+                return false;
             }
 
             // Verificar la disponibilidad del ítem en el rango de fechas
