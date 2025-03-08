@@ -17,16 +17,28 @@ namespace TitoAlquiler.View.ViewAlquiler
 {
     public partial class ModificarAlquiler : Form
     {
-        private readonly AlquilerController alquilerController;
+        private AlquilerController alquilerController = AlquilerController.Instance;
         private Alquileres alquilerSeleccionado;
 
         #region Formulario
         public ModificarAlquiler()
         {
             InitializeComponent();
-            alquilerController = AlquilerController.Instance;
+            ConfigurarControles();
             CargarAlquileres();
         }
+
+        private void ConfigurarControles()
+        {
+            dateTimePickerNuevaFechaInicio.ValueChanged += DateTimePicker_ValueChanged;
+            dateTimePickerNuevaFechaFin.ValueChanged += DateTimePicker_ValueChanged;
+
+            // Inicializar controles
+            lblDetalleAlquiler.Text = "Seleccione un alquiler para modificar";
+            btnActualizarAlquiler.Enabled = false;
+
+        }
+
         /// <summary>
         /// Evento que redirige al formulario de visualización de alquileres y oculta el formulario actual.
         /// </summary>
@@ -95,7 +107,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Maneja el evento de cambio de selección en el DataGridView de alquileres.
         /// </summary>
-        private void DataGridViewAlquileres_SelectionChanged(object sender, EventArgs e)
+        private void dataGridViewAlquileres_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewAlquileres.SelectedRows.Count == 0)
             {
@@ -132,14 +144,6 @@ namespace TitoAlquiler.View.ViewAlquiler
                 if (alquilerSeleccionado == null)
                 {
                     MessageShow.MostrarMensajeError("No se encontró el alquiler seleccionado.");
-                    LimpiarDetalleAlquiler();
-                    return;
-                }
-
-                // Verificar si el alquiler ya ha comenzado
-                if (alquilerSeleccionado.fechaInicio <= DateTime.Today)
-                {
-                    MessageShow.MostrarMensajeAdvertencia("No se pueden modificar alquileres que ya han comenzado.");
                     LimpiarDetalleAlquiler();
                     return;
                 }
@@ -219,7 +223,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Maneja el evento de clic en el botón de actualizar alquiler.
         /// </summary>
-        private void BtnActualizarAlquiler_Click(object sender, EventArgs e)
+        private void btnActualizarAlquiler_Click(object sender, EventArgs e)
         {
             if (alquilerSeleccionado == null)
             {
@@ -237,10 +241,24 @@ namespace TitoAlquiler.View.ViewAlquiler
                     return;
                 }
 
-                // Confirmar la actualización
-                if (!MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea actualizar las fechas del alquiler?"))
+                // Mostrar advertencia si el alquiler ya ha comenzado
+                if (alquilerSeleccionado.fechaInicio <= DateTime.Today)
                 {
-                    return;
+                    bool confirmarCambio = MessageShow.MostrarMensajeConfirmacion(
+                        "Este alquiler ya ha comenzado. Modificar las fechas podría afectar la facturación y disponibilidad. ¿Desea continuar?");
+
+                    if (!confirmarCambio)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    // Confirmar la actualización para alquileres que no han comenzado
+                    if (!MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea actualizar las fechas del alquiler?"))
+                    {
+                        return;
+                    }
                 }
 
                 // Actualizar fechas del alquiler
