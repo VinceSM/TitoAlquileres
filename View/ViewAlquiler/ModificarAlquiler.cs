@@ -25,7 +25,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             InitializeComponent();
             alquilerController = AlquilerController.Instance;
-            ConfigurarControles();
             CargarAlquileres();
         }
         /// <summary>
@@ -37,49 +36,6 @@ namespace TitoAlquiler.View.ViewAlquiler
             formVerAlquileres.Show();
             this.Hide();
         }
-
-        /// <summary>
-        /// Configura los controles iniciales del formulario.
-        /// </summary>
-        private void ConfigurarControles()
-        {
-            // Configurar DataGridView para alquileres
-            dataGridViewAlquileres.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAlquileres.MultiSelect = false;
-            dataGridViewAlquileres.ReadOnly = true;
-            dataGridViewAlquileres.AllowUserToAddRows = false;
-            dataGridViewAlquileres.AllowUserToDeleteRows = false;
-            dataGridViewAlquileres.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // Configurar columnas del DataGridView
-            dataGridViewAlquileres.Columns.Add("id", "ID");
-            dataGridViewAlquileres.Columns.Add("marca", "Marca");
-            dataGridViewAlquileres.Columns.Add("modelo", "Modelo");
-            dataGridViewAlquileres.Columns.Add("nombreItem", "Nombre Item");
-            dataGridViewAlquileres.Columns.Add("nombreUsuario", "Usuario");
-            dataGridViewAlquileres.Columns.Add("tiempoDias", "Días");
-            dataGridViewAlquileres.Columns.Add("fechaInicio", "Fecha Inicio");
-            dataGridViewAlquileres.Columns.Add("fechaFin", "Fecha Fin");
-            dataGridViewAlquileres.Columns.Add("precioTotal", "Precio Total");
-            dataGridViewAlquileres.Columns.Add("tipoEstrategia", "Estrategia");
-
-            // Configurar DateTimePickers
-            dateTimePickerNuevaFechaInicio.Format = DateTimePickerFormat.Short;
-            dateTimePickerNuevaFechaFin.Format = DateTimePickerFormat.Short;
-            dateTimePickerNuevaFechaInicio.MinDate = DateTime.Today;
-            dateTimePickerNuevaFechaFin.MinDate = DateTime.Today;
-
-            // Configurar etiquetas y botones
-            lblDetalleAlquiler.Text = "Seleccione un alquiler para modificar";
-            btnActualizarAlquiler.Enabled = false;
-
-            // Configurar eventos
-            dataGridViewAlquileres.SelectionChanged += DataGridViewAlquileres_SelectionChanged;
-            dateTimePickerNuevaFechaInicio.ValueChanged += DateTimePicker_ValueChanged;
-            dateTimePickerNuevaFechaFin.ValueChanged += DateTimePicker_ValueChanged;
-            btnActualizarAlquiler.Click += BtnActualizarAlquiler_Click;
-        }
-
 
 
         /// <summary>

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             labelTitulo = new Label();
             dataGridViewAlquileres = new DataGridView();
@@ -71,7 +72,7 @@
             labelTitulo.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelTitulo.Location = new Point(769, 42);
             labelTitulo.Name = "labelTitulo";
-            labelTitulo.Size = new Size(134, 31);
+            labelTitulo.Size = new Size(163, 38);
             labelTitulo.TabIndex = 0;
             labelTitulo.Text = "Alquileres";
             // 
@@ -98,9 +99,11 @@
             // id
             // 
             id.HeaderText = "ID";
+            id.MinimumWidth = 6;
             id.Name = "id";
             id.ReadOnly = true;
             id.Visible = false;
+            id.Width = 125;
             // 
             // marca
             // 
@@ -162,6 +165,9 @@
             // 
             // total
             // 
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            total.DefaultCellStyle = dataGridViewCellStyle1;
             total.HeaderText = "TOTAL";
             total.MinimumWidth = 6;
             total.Name = "total";
@@ -191,7 +197,7 @@
             btnCerrarAlquiler.FlatStyle = FlatStyle.Flat;
             btnCerrarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCerrarAlquiler.ForeColor = Color.Blue;
-            btnCerrarAlquiler.Location = new Point(698, 482);
+            btnCerrarAlquiler.Location = new Point(919, 489);
             btnCerrarAlquiler.Margin = new Padding(4);
             btnCerrarAlquiler.Name = "btnCerrarAlquiler";
             btnCerrarAlquiler.Size = new Size(221, 55);
@@ -206,7 +212,7 @@
             linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkLabelVolver.Location = new Point(12, 124);
             linkLabelVolver.Name = "linkLabelVolver";
-            linkLabelVolver.Size = new Size(54, 19);
+            linkLabelVolver.Size = new Size(66, 24);
             linkLabelVolver.TabIndex = 3;
             linkLabelVolver.TabStop = true;
             linkLabelVolver.Text = "Volver";
@@ -219,7 +225,7 @@
             btnModificarAlquiler.FlatStyle = FlatStyle.Flat;
             btnModificarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnModificarAlquiler.ForeColor = Color.Blue;
-            btnModificarAlquiler.Location = new Point(435, 482);
+            btnModificarAlquiler.Location = new Point(581, 489);
             btnModificarAlquiler.Margin = new Padding(4);
             btnModificarAlquiler.Name = "btnModificarAlquiler";
             btnModificarAlquiler.Size = new Size(221, 55);
@@ -230,7 +236,7 @@
             // 
             // VerAlquileres
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 557);
@@ -264,6 +270,7 @@
         private Label labelTitulo;
         private DataGridViewTextBoxColumn itemIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn usuarioIDDataGridViewTextBoxColumn;
+        private Button btnModificarAlquiler;
         private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn marca;
         private DataGridViewTextBoxColumn modelo;
@@ -274,6 +281,5 @@
         private DataGridViewTextBoxColumn fin;
         private DataGridViewTextBoxColumn total;
         private DataGridViewTextBoxColumn estrategia;
-        private Button btnModificarAlquiler;
     }
 }

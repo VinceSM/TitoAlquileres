@@ -521,3 +521,4 @@ C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.genruntimeconfig.cache
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\ref\TitoAlquiler.dll
 C:\Users\Vicente\Documents\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.ModificarAlquiler.resources
+C:\Users\gabri\Desktop\ITEC\3er año\EDI-III\TitoAlquileres\obj\Debug\net8.0-windows\TitoAlquiler.View.ViewAlquiler.ModificarAlquiler.resources
