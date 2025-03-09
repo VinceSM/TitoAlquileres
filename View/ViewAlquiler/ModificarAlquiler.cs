@@ -181,40 +181,102 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Maneja el evento de cambio de valor en los DateTimePickers.
+        /// Maneja el evento de cambio de valor en los DateTimePickers, validando las fechas
+        /// y actualizando la vista previa del alquiler.
         /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
         private void DateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validar las fechas seleccionadas
+                ValidarFechasSeleccionadas();
+
+                // Mostrar vista previa de la actualización si hay un alquiler seleccionado
+                if (alquilerSeleccionado != null)
+                {
+                    MostrarVistaPreviaActualizacion();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al procesar el cambio de fecha: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Valida las fechas seleccionadas en los DateTimePickers según las reglas de negocio.
+        /// </summary>
+        private void ValidarFechasSeleccionadas()
         {
             DateTime hoy = DateTime.Today;
 
-            // No permitir fechas de inicio anteriores a hoy para alquileres futuros
-            if (alquilerSeleccionado != null && alquilerSeleccionado.fechaInicio > hoy)
+            // Aplicar reglas de validación según el estado del alquiler
+            if (EsAlquilerFuturo(hoy))
             {
-                if (dateTimePickerNuevaFechaInicio.Value < hoy && dateTimePickerNuevaFechaFin.Value < hoy)
-                {
-                    dateTimePickerNuevaFechaInicio.Value = hoy;
-                    dateTimePickerNuevaFechaFin.Value = hoy;
-                    MessageShow.MostrarMensajeAdvertencia("La fecha de inicio no puede ser anterior a hoy.");
-                }
+                ValidarFechasParaAlquilerFuturo(hoy);
             }
-
-            // Para alquileres en curso, no permitir cambiar la fecha de inicio
-            if (alquilerSeleccionado != null && alquilerSeleccionado.fechaInicio <= hoy)
+            else if (EsAlquilerEnCurso(hoy))
             {
-                dateTimePickerNuevaFechaInicio.Value = alquilerSeleccionado.fechaInicio;
-                dateTimePickerNuevaFechaInicio.Enabled = false;
+                RestringirFechaInicioParaAlquilerEnCurso();
             }
 
             // Asegurar que la fecha de fin no sea anterior a la fecha de inicio
+            ValidarCoherenciaEntreFechas();
+        }
+
+        /// <summary>
+        /// Determina si el alquiler seleccionado es un alquiler futuro (aún no ha comenzado).
+        /// </summary>
+        /// <param name="fechaActual">La fecha actual para comparar.</param>
+        /// <returns>True si el alquiler es futuro, false en caso contrario.</returns>
+        private bool EsAlquilerFuturo(DateTime fechaActual)
+        {
+            return alquilerSeleccionado != null && alquilerSeleccionado.fechaInicio > fechaActual;
+        }
+
+        /// <summary>
+        /// Determina si el alquiler seleccionado está en curso (ya ha comenzado).
+        /// </summary>
+        /// <param name="fechaActual">La fecha actual para comparar.</param>
+        /// <returns>True si el alquiler está en curso, false en caso contrario.</returns>
+        private bool EsAlquilerEnCurso(DateTime fechaActual)
+        {
+            return alquilerSeleccionado != null && alquilerSeleccionado.fechaInicio <= fechaActual;
+        }
+
+        /// <summary>
+        /// Valida las fechas para un alquiler futuro, asegurando que no sean anteriores a hoy.
+        /// </summary>
+        /// <param name="fechaActual">La fecha actual para comparar.</param>
+        private void ValidarFechasParaAlquilerFuturo(DateTime fechaActual)
+        {
+            if (dateTimePickerNuevaFechaInicio.Value < fechaActual && dateTimePickerNuevaFechaFin.Value < fechaActual)
+            {
+                dateTimePickerNuevaFechaInicio.Value = fechaActual;
+                dateTimePickerNuevaFechaFin.Value = fechaActual;
+                MessageShow.MostrarMensajeAdvertencia("La fecha de inicio no puede ser anterior a hoy.");
+            }
+        }
+
+        /// <summary>
+        /// Restringe la modificación de la fecha de inicio para alquileres en curso.
+        /// </summary>
+        private void RestringirFechaInicioParaAlquilerEnCurso()
+        {
+            dateTimePickerNuevaFechaInicio.Value = alquilerSeleccionado.fechaInicio;
+            dateTimePickerNuevaFechaInicio.Enabled = false;
+        }
+
+        /// <summary>
+        /// Valida que la fecha de fin no sea anterior a la fecha de inicio.
+        /// </summary>
+        private void ValidarCoherenciaEntreFechas()
+        {
             if (dateTimePickerNuevaFechaFin.Value < dateTimePickerNuevaFechaInicio.Value)
             {
                 dateTimePickerNuevaFechaFin.Value = dateTimePickerNuevaFechaInicio.Value;
-            }
-
-            // Calcular y mostrar una vista previa de los nuevos días y precio
-            if (alquilerSeleccionado != null)
-            {
-                MostrarVistaPreviaActualizacion();
             }
         }
 
@@ -241,64 +303,131 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Maneja el evento de clic en el botón de actualizar alquiler.
+        /// Maneja el evento de clic en el botón de actualizar alquiler, validando y aplicando
+        /// los cambios a las fechas del alquiler seleccionado.
         /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
         private void btnActualizarAlquiler_Click(object sender, EventArgs e)
         {
-            if (alquilerSeleccionado == null)
-            {
-                MessageShow.MostrarMensajeAdvertencia("No hay un alquiler seleccionado para actualizar.");
-                return;
-            }
-
             try
             {
+                // Validar que haya un alquiler seleccionado
+                if (!ValidarAlquilerSeleccionado())
+                {
+                    return;
+                }
+
                 // Verificar si las fechas han cambiado
-                if (dateTimePickerNuevaFechaInicio.Value == alquilerSeleccionado.fechaInicio &&
-                    dateTimePickerNuevaFechaFin.Value == alquilerSeleccionado.fechaFin)
+                if (!HanCambiadoLasFechas())
                 {
                     MessageShow.MostrarMensajeInformacion("No se han realizado cambios en las fechas.");
                     return;
                 }
 
-                // Mostrar advertencia si el alquiler ya ha comenzado
-                if (alquilerSeleccionado.fechaInicio <= DateTime.Today)
+                // Solicitar confirmación según el estado del alquiler
+                if (!SolicitarConfirmacionActualizacion())
                 {
-                    bool confirmarCambio = MessageShow.MostrarMensajeConfirmacion(
-                        "Este alquiler ya ha comenzado. Modificar las fechas podría afectar la facturación y disponibilidad. ¿Desea continuar?");
-
-                    if (!confirmarCambio)
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    // Confirmar la actualización para alquileres que no han comenzado
-                    if (!MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea actualizar las fechas del alquiler?"))
-                    {
-                        return;
-                    }
+                    return;
                 }
 
-                // Actualizar fechas del alquiler
-                alquilerSeleccionado.fechaInicio = dateTimePickerNuevaFechaInicio.Value;
-                alquilerSeleccionado.fechaFin = dateTimePickerNuevaFechaFin.Value;
+                // Actualizar el alquiler
+                ActualizarAlquiler();
 
-                // Actualizar el alquiler (el controlador se encargará de recalcular días y precio)
-                alquilerController.ActualizarAlquiler(alquilerSeleccionado);
-
-                // Mostrar mensaje de éxito
-                MessageShow.MostrarMensajeExito("Alquiler actualizado correctamente.");
-
-                // Recargar alquileres y limpiar selección
-                CargarAlquileres();
-                LimpiarDetalleAlquiler();
+                // Recargar datos y limpiar selección
+                FinalizarActualizacion();
             }
             catch (Exception ex)
             {
                 MessageShow.MostrarMensajeError($"Error al actualizar el alquiler: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Valida que haya un alquiler seleccionado para actualizar.
+        /// </summary>
+        /// <returns>True si hay un alquiler seleccionado, false en caso contrario.</returns>
+        private bool ValidarAlquilerSeleccionado()
+        {
+            if (alquilerSeleccionado == null)
+            {
+                MessageShow.MostrarMensajeAdvertencia("No hay un alquiler seleccionado para actualizar.");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Verifica si las fechas seleccionadas son diferentes a las fechas actuales del alquiler.
+        /// </summary>
+        /// <returns>True si las fechas han cambiado, false en caso contrario.</returns>
+        private bool HanCambiadoLasFechas()
+        {
+            return dateTimePickerNuevaFechaInicio.Value != alquilerSeleccionado.fechaInicio ||
+                   dateTimePickerNuevaFechaFin.Value != alquilerSeleccionado.fechaFin;
+        }
+
+        /// <summary>
+        /// Solicita confirmación al usuario para actualizar el alquiler, con un mensaje
+        /// específico según si el alquiler ya ha comenzado o no.
+        /// </summary>
+        /// <returns>True si el usuario confirma la actualización, false en caso contrario.</returns>
+        private bool SolicitarConfirmacionActualizacion()
+        {
+            if (EsAlquilerEnCurso(DateTime.Today))
+            {
+                return SolicitarConfirmacionAlquilerEnCurso();
+            }
+            else
+            {
+                return SolicitarConfirmacionAlquilerFuturo();
+            }
+        }
+
+        /// <summary>
+        /// Solicita confirmación específica para actualizar un alquiler en curso.
+        /// </summary>
+        /// <returns>True si el usuario confirma, false en caso contrario.</returns>
+        private bool SolicitarConfirmacionAlquilerEnCurso()
+        {
+            return MessageShow.MostrarMensajeConfirmacion(
+                "Este alquiler ya ha comenzado. Modificar las fechas podría afectar la facturación y disponibilidad. ¿Desea continuar?");
+        }
+
+        /// <summary>
+        /// Solicita confirmación para actualizar un alquiler futuro.
+        /// </summary>
+        /// <returns>True si el usuario confirma, false en caso contrario.</returns>
+        private bool SolicitarConfirmacionAlquilerFuturo()
+        {
+            return MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea actualizar las fechas del alquiler?");
+        }
+
+        /// <summary>
+        /// Actualiza las fechas del alquiler y guarda los cambios.
+        /// </summary>
+        private void ActualizarAlquiler()
+        {
+            // Actualizar fechas del alquiler
+            alquilerSeleccionado.fechaInicio = dateTimePickerNuevaFechaInicio.Value;
+            alquilerSeleccionado.fechaFin = dateTimePickerNuevaFechaFin.Value;
+
+            // Guardar cambios (el controlador recalculará días y precio)
+            alquilerController.ActualizarAlquiler(alquilerSeleccionado);
+        }
+
+        /// <summary>
+        /// Finaliza el proceso de actualización mostrando un mensaje de éxito,
+        /// recargando los alquileres y limpiando la selección.
+        /// </summary>
+        private void FinalizarActualizacion()
+        {
+            // Mostrar mensaje de éxito
+            MessageShow.MostrarMensajeExito("Alquiler actualizado correctamente.");
+
+            // Recargar alquileres y limpiar selección
+            CargarAlquileres();
+            LimpiarDetalleAlquiler();
         }
         #endregion
     }

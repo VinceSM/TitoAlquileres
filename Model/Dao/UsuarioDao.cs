@@ -114,51 +114,6 @@ namespace TitoAlquiler.Model.Dao
         }
 
         /// <summary>
-        /// Busca un usuario por su número de DNI.
-        /// </summary>
-        /// <param name="dni">Número de DNI del usuario a buscar.</param>
-        /// <returns>Objeto <see cref="Usuarios"/> con los detalles del usuario encontrado, o null si no se encuentra.</returns>
-        public Usuarios FindUsuarioByDNI(int dni)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    return db.Usuarios
-                        .Where(x => x.dni == dni && x.deletedAt == null)
-                        .Include(x => x.Alquileres)
-                        .FirstOrDefault();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Busca usuarios cuyo nombre o correo electrónico coincidan con el término de búsqueda.
-        /// </summary>
-        /// <param name="search">Término de búsqueda que se debe encontrar en el nombre o correo electrónico de los usuarios.</param>
-        /// <returns>Lista de objetos <see cref="Usuarios"/> que coinciden con el término de búsqueda.</returns>
-        public List<Usuarios> SearchUsuarios(string search)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    return db.Usuarios
-                        .Where(x => (x.nombre.Contains(search) || x.email.Contains(search)) && x.deletedAt == null)
-                        .ToList();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Compara si existe un usuario con el DNI especificado.
         /// </summary>
         /// <param name="dni">Número de DNI a comparar.</param>

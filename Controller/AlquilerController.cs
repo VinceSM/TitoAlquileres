@@ -38,6 +38,8 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
+        #region Crear Alquiler
+
         /// <summary>
         /// Crea un nuevo alquiler con validaciones completas.
         /// </summary>
@@ -57,35 +59,9 @@ namespace TitoAlquiler.Controller
             }
         }
 
-        public void VerificarYCerrarAlquileresVencidos()
-        {
-            try
-            {
-                using var db = new SistemaAlquilerContext();
-                var hoy = DateTime.Today;
+        #endregion
 
-                // Buscar alquileres que ya han vencido pero no están marcados como eliminados
-                var alquileresVencidos = db.Alquileres
-                    .Where(a => a.fechaFin < hoy && a.deletedAt == null)
-                    .ToList();
-
-                foreach (var alquiler in alquileresVencidos)
-                {
-                    // Marcar como eliminado (cierre lógico)
-                    alquiler.deletedAt = DateTime.Now;
-                    db.Update(alquiler);
-                }
-
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                // Manejar la excepción según tu sistema de logging
-                Console.WriteLine($"Error al cerrar alquileres vencidos: {ex.Message}");
-            }
-        }
-
-
+        #region Actualizar Alquiler
         /// <summary>
         /// Actualiza un alquiler existente.
         /// </summary>
@@ -104,25 +80,109 @@ namespace TitoAlquiler.Controller
             }
         }
 
+        #endregion
+
+        #region Verificaciones Alquiler
         /// <summary>
-        /// Cancela un alquiler (eliminación lógica).
+        /// Verifica si se puede crear un alquiler con los datos proporcionados.
         /// </summary>
-        /// <param name="alquilerId">Identificador del alquiler a cancelar.</param>
-        /// <returns>True si el alquiler fue cancelado exitosamente, de lo contrario false.</returns>
-        public bool EliminarAlquiler(int alquilerId)
+        private bool VerificarCreacionAlquiler(Alquileres alquiler)
+        {
+            if (!VerificarDisponibilidadItem(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
+            {
+                NoHayDisponibilidad();
+            }
+
+            var item = ObtenerItemValidado(alquiler.ItemID);
+
+            int diasAlquiler = CalcularDiasAlquiler(alquiler.fechaInicio, alquiler.fechaFin);
+
+            VerificarDiasAlquiler(diasAlquiler);
+
+            alquiler.tiempoDias = diasAlquiler;
+
+            ConfigurarEstrategiaYPrecio(alquiler, item.tarifaDia);
+
+            return true;
+        }
+
+        private bool NoHayDisponibilidad()
+        {
+            MessageShow.MostrarMensajeInformacion("El ítem no está disponible para las fechas seleccionadas.");
+            return false;
+        }
+
+        private int CalcularDiasAlquiler(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return (int)(fechaFin - fechaInicio).TotalDays + 1;
+        }
+
+        public void VerificarYCerrarAlquileresVencidos()
         {
             try
             {
-                var alquiler = ObtenerAlquilerPorId(alquilerId);
+                using var db = new SistemaAlquilerContext();
+                var hoy = DateTime.Today;
 
-                _alquilerDao.SoftDeleteAlquiler(alquiler);
-                return true;
+                var alquileresVencidos = ObtenerAlquileresVencidos(db, hoy);
+                CierreAutomaticoAlquileres(db, alquileresVencidos);
+
+                db.SaveChanges();
             }
             catch (Exception ex)
             {
-                MessageShow.MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al cerrar alquileres vencidos: {ex.Message}");
                 throw;
             }
+        }
+
+        private void ValidarFechasAlquiler(DateTime fechaInicio, DateTime fechaFin)
+        {
+            if (fechaInicio > fechaFin)
+                MessageShow.MostrarMensajeAdvertencia("La fecha de inicio no puede ser posterior a la fecha de fin.");
+        }
+
+        /// <summary>
+        /// Verifica la disponibilidad de un ítem para un rango de fechas.
+        /// </summary>
+        /// <param name="itemId">Identificador del ítem.</param>
+        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
+        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
+        private bool VerificarDisponibilidadItem(int itemId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            if (fechaInicio < DateTime.Today || fechaFin < DateTime.Today)
+            {
+                MessageShow.MostrarMensajeError("Las fechas no pueden ser anteriores a la fecha actual.");
+                return false;
+            }
+
+            var alquileres = _alquilerDao.FindAlquileresByItem(itemId);
+            return !alquileres.Any(a =>
+                (fechaInicio >= a.fechaInicio && fechaInicio <= a.fechaFin) ||
+                (fechaFin >= a.fechaInicio && fechaFin <= a.fechaFin) ||
+                (fechaInicio <= a.fechaInicio && fechaFin >= a.fechaFin));
+        }
+
+        private void VerificarDiasAlquiler(int diasAlquiler)
+        {
+            if (diasAlquiler <= 0)
+            {
+                MessageShow.MostrarMensajeInformacion("Las fechas seleccionadas no son válidas.");
+            }
+        }
+
+        #endregion
+
+        #region Obtener, Find, Load Alquiler
+
+        /// <summary>
+        /// Obtiene la lista de alquileres vencidos cuya fecha de finalización es anterior a la fecha actual.
+        /// </summary>
+        private List<Alquileres> ObtenerAlquileresVencidos(SistemaAlquilerContext db, DateTime fecha)
+        {
+            return db.Alquileres
+                .Where(a => a.fechaFin < fecha && a.deletedAt == null)
+                .ToList();
         }
 
         /// <summary>
@@ -160,78 +220,56 @@ namespace TitoAlquiler.Controller
             }
         }
 
-        /// <summary>
-        /// Verifica la disponibilidad de un ítem para un rango de fechas.
-        /// </summary>
-        /// <param name="itemId">Identificador del ítem.</param>
-        /// <param name="fechaInicio">Fecha de inicio del alquiler.</param>
-        /// <param name="fechaFin">Fecha de fin del alquiler.</param>
-        private bool VerificarDisponibilidadItem(int itemId, DateTime fechaInicio, DateTime fechaFin)
-        {
-            // Verificar si las fechas son anteriores a la fecha actual
-            if (fechaInicio < DateTime.Today || fechaFin < DateTime.Today)
-            {
-                MessageShow.MostrarMensajeError("Las fechas no pueden ser anteriores a la fecha actual.");
-                return false;
-            }
-
-            // Verificar la disponibilidad del ítem en el rango de fechas
-            var alquileres = _alquilerDao.FindAlquileresByItem(itemId);
-            return !alquileres.Any(a =>
-                (fechaInicio >= a.fechaInicio && fechaInicio <= a.fechaFin) ||
-                (fechaFin >= a.fechaInicio && fechaFin <= a.fechaFin) ||
-                (fechaInicio <= a.fechaInicio && fechaFin >= a.fechaFin));
-        }
-
-        #region Métodos privados encapsulados
-
-        /// <summary>
-        /// Verifica si se puede crear un alquiler con los datos proporcionados.
-        /// </summary>
-        private bool VerificarCreacionAlquiler(Alquileres alquiler)
-        {
-            string mensaje = string.Empty;
-
-            if (!VerificarDisponibilidadItem(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
-            {
-                mensaje = "El ítem no está disponible para las fechas seleccionadas.";
-                return false;
-            }
-
-            var item = ObtenerItemValidado(alquiler.ItemID);
-
-            int diasAlquiler = CalcularDiasAlquiler(alquiler.fechaInicio, alquiler.fechaFin);
-            if (diasAlquiler <= 0)
-            {
-                mensaje = "Las fechas seleccionadas no son válidas.";
-            }
-
-            if (!string.IsNullOrEmpty(mensaje))
-            {
-                MessageShow.MostrarMensajeError(mensaje);
-                return false;
-            }
-
-            alquiler.tiempoDias = diasAlquiler;
-            ConfigurarEstrategiaYPrecio(alquiler, item.tarifaDia);
-
-            return true;
-        }
-
         private ItemAlquilable ObtenerItemValidado(int itemId)
         {
             var (item, _) = _itemController.ObtenerItemPorId(itemId);
+
             if (item == null)
             {
-                throw new Exception("Item no encontrado");
+                MessageShow.MostrarMensajeError("Item no encontrado");
             }
             return item;
         }
 
-        private int CalcularDiasAlquiler(DateTime fechaInicio, DateTime fechaFin)
+        #endregion
+
+        #region Cierre y Eliminacion Alquiler
+        /// <summary>
+        /// Marca como eliminados (soft delete) los alquileres vencidos.
+        /// </summary>
+        private void CierreAutomaticoAlquileres(SistemaAlquilerContext db, List<Alquileres> alquileres)
         {
-            return (int)(fechaFin - fechaInicio).TotalDays + 1;
+            foreach (var alquiler in alquileres)
+            {
+                alquiler.deletedAt = DateTime.Now;
+                db.Update(alquiler);
+            }
         }
+
+        /// <summary>
+        /// Cancela un alquiler (eliminación lógica).
+        /// </summary>
+        /// <param name="alquilerId">Identificador del alquiler a cancelar.</param>
+        /// <returns>True si el alquiler fue cancelado exitosamente, de lo contrario false.</returns>
+        public bool EliminarAlquiler(int alquilerId)
+        {
+            try
+            {
+                var alquiler = ObtenerAlquilerPorId(alquilerId);
+
+                _alquilerDao.SoftDeleteAlquiler(alquiler);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region Estrategia Alquiler
 
         private void ConfigurarEstrategiaYPrecio(Alquileres alquiler, double tarifaDiaria)
         {
@@ -249,11 +287,6 @@ namespace TitoAlquiler.Controller
                 : new EstrategiaEstacion(EstrategiaEstacion.ObtenerEstacionActual());
         }
 
-        private void ValidarFechasAlquiler(DateTime fechaInicio, DateTime fechaFin)
-        {
-            if (fechaInicio > fechaFin)
-                throw new ArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
-        }
         #endregion
     }
 }

@@ -13,6 +13,8 @@ namespace TitoAlquiler.Model.Dao
 {
     public class ItemDao
     {
+        #region Insertar Item
+
         /// <summary>
         /// Inserta un nuevo ítem y su categoría específica en la base de datos.
         /// </summary>
@@ -34,31 +36,7 @@ namespace TitoAlquiler.Model.Dao
                 db.Items.Add(item);
                 db.SaveChanges();
 
-                switch (categoria)
-                {
-                    case Transporte transporte:
-                        transporte.itemId = item.id;
-                        db.Transportes.Add(transporte);
-                        break;
-                    case Electrodomestico electrodomestico:
-                        electrodomestico.itemId = item.id;
-                        db.Electrodomesticos.Add(electrodomestico);
-                        break;
-                    case Inmueble inmueble:
-                        inmueble.itemId = item.id;
-                        db.Inmuebles.Add(inmueble);
-                        break;
-                    case Electronica electronica:
-                        electronica.itemId = item.id;
-                        db.Electronicas.Add(electronica);
-                        break;
-                    case Indumentaria indumentaria:
-                        indumentaria.itemId = item.id;
-                        db.Indumentarias.Add(indumentaria);
-                        break;
-                    default:
-                        throw new ArgumentException("Categoría no reconocida.");
-                }
+                InsertarCategoriaEspecifica(db, item.id, categoria);
 
                 db.SaveChanges();
                 transaction.Commit();
@@ -69,6 +47,42 @@ namespace TitoAlquiler.Model.Dao
                 throw new Exception($"Error al insertar el item: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Inserta la categoría específica en la base de datos.
+        /// </summary>
+        private void InsertarCategoriaEspecifica(SistemaAlquilerContext db, int itemId, object categoria)
+        {
+            switch (categoria)
+            {
+                case Transporte transporte:
+                    transporte.itemId = itemId;
+                    db.Transportes.Add(transporte);
+                    break;
+                case Electrodomestico electrodomestico:
+                    electrodomestico.itemId = itemId;
+                    db.Electrodomesticos.Add(electrodomestico);
+                    break;
+                case Inmueble inmueble:
+                    inmueble.itemId = itemId;
+                    db.Inmuebles.Add(inmueble);
+                    break;
+                case Electronica electronica:
+                    electronica.itemId = itemId;
+                    db.Electronicas.Add(electronica);
+                    break;
+                case Indumentaria indumentaria:
+                    indumentaria.itemId = itemId;
+                    db.Indumentarias.Add(indumentaria);
+                    break;
+                default:
+                    throw new ArgumentException("Categoría no reconocida.");
+            }
+        }
+
+        #endregion
+
+        #region Actualizar Item
 
         /// <summary>
         /// Actualiza un ítem y su categoría específica en la base de datos.
@@ -82,52 +96,59 @@ namespace TitoAlquiler.Model.Dao
             ArgumentNullException.ThrowIfNull(item);
             ArgumentNullException.ThrowIfNull(categoria);
 
+            using var db = new SistemaAlquilerContext();
+            using var transaction = db.Database.BeginTransaction();
+
             try
             {
-                using var db = new SistemaAlquilerContext();
-                using var transaction = db.Database.BeginTransaction();
-                try
-                {
-                    db.Update(item);
+                db.Update(item);
+                ActualizarCategoriaEspecifica(db, item.id, categoria);
 
-                    switch (categoria)
-                    {
-                        case Transporte transporte:
-                            transporte.itemId = item.id; // Asegurarse de que se use itemId
-                            db.Transportes.Update(transporte);
-                            break;
-                        case Electrodomestico electrodomestico:
-                            electrodomestico.itemId = item.id;
-                            db.Electrodomesticos.Update(electrodomestico);
-                            break;
-                        case Inmueble inmueble:
-                            inmueble.itemId = item.id;
-                            db.Inmuebles.Update(inmueble);
-                            break;
-                        case Electronica electronica:
-                            electronica.itemId = item.id;
-                            db.Electronicas.Update(electronica);
-                            break;
-                        case Indumentaria indumentaria:
-                            indumentaria.itemId = item.id;
-                            db.Indumentarias.Update(indumentaria);
-                            break;
-                    }
-
-                    db.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (SqlException)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
+                db.SaveChanges();
+                transaction.Commit();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
+                transaction.Rollback();
                 throw new Exception($"Error al actualizar el item: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Actualiza la categoría específica en la base de datos.
+        /// </summary>
+        private void ActualizarCategoriaEspecifica(SistemaAlquilerContext db, int itemId, object categoria)
+        {
+            switch (categoria)
+            {
+                case Transporte transporte:
+                    transporte.itemId = itemId;
+                    db.Transportes.Update(transporte);
+                    break;
+                case Electrodomestico electrodomestico:
+                    electrodomestico.itemId = itemId;
+                    db.Electrodomesticos.Update(electrodomestico);
+                    break;
+                case Inmueble inmueble:
+                    inmueble.itemId = itemId;
+                    db.Inmuebles.Update(inmueble);
+                    break;
+                case Electronica electronica:
+                    electronica.itemId = itemId;
+                    db.Electronicas.Update(electronica);
+                    break;
+                case Indumentaria indumentaria:
+                    indumentaria.itemId = itemId;
+                    db.Indumentarias.Update(indumentaria);
+                    break;
+                default:
+                    throw new ArgumentException("Categoría no reconocida.");
+            }
+        }
+
+        #endregion
+
+        #region Soft Delete Item
 
         /// <summary>
         /// Realiza un borrado lógico del ítem.
@@ -153,6 +174,10 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        #endregion
+
+        #region Find, Load, Obtener Items
+
         /// <summary>
         /// Busca un ítem y su categoría específica por ID.
         /// </summary>
@@ -164,21 +189,11 @@ namespace TitoAlquiler.Model.Dao
             try
             {
                 using var db = new SistemaAlquilerContext();
-                var item = db.Items
-                    .Include(i => i.categoria)
-                    .FirstOrDefault(i => i.id == id && i.deletedAt == null);
+                var item = ObtenerItemPorId(db, id);
 
                 if (item == null) return (null, null);
 
-                object? categoria = item.categoriaId switch
-                {
-                    1 => db.Transportes.FirstOrDefault(t => t.itemId == id),
-                    2 => db.Electrodomesticos.FirstOrDefault(e => e.itemId == id),
-                    3 => db.Electronicas.FirstOrDefault(e => e.itemId == id),
-                    4 => db.Inmuebles.FirstOrDefault(i => i.itemId == id),
-                    5 => db.Indumentarias.FirstOrDefault(i => i.itemId == id),
-                    _ => null
-                };
+                var categoria = ObtenerCategoriaEspecifica(db, item);
 
                 return (item, categoria);
             }
@@ -198,36 +213,42 @@ namespace TitoAlquiler.Model.Dao
             try
             {
                 using var db = new SistemaAlquilerContext();
-                var items = db.Items
-                    .Where(i => i.deletedAt == null)
-                    .Include(i => i.categoria)
-                    .ToList();
+                var items = ObtenerItemsActivos(db);
 
-                var result = new List<(ItemAlquilable item, object? categoria)>();
-
-                foreach (var item in items)
-                {
-                    if (item == null) continue;
-
-                    object? categoria = item.categoriaId switch
-                    {
-                        1 => db.Transportes.FirstOrDefault(t => t.itemId == item.id),
-                        2 => db.Electrodomesticos.FirstOrDefault(e => e.itemId == item.id),
-                        3 => db.Electronicas.FirstOrDefault(e => e.itemId == item.id),
-                        4 => db.Inmuebles.FirstOrDefault(i => i.itemId == item.id),
-                        5 => db.Indumentarias.FirstOrDefault(i => i.itemId == item.id),
-                        _ => null
-                    };
-
-                    result.Add((item, categoria));
-                }
-
-                return result;
+                return items.Select(item => (item, ObtenerCategoriaEspecifica(db, item))).ToList();
             }
             catch (SqlException ex)
             {
                 throw new Exception($"Error al cargar los items: {ex.Message}", ex);
             }
+        }
+
+        private List<ItemAlquilable> ObtenerItemsActivos(SistemaAlquilerContext db)
+        {
+            return db.Items
+                .Where(i => i.deletedAt == null)
+                .Include(i => i.categoria)
+                .ToList();
+        }
+
+        private ItemAlquilable? ObtenerItemPorId(SistemaAlquilerContext db, int id)
+        {
+            return db.Items
+                .Include(i => i.categoria)
+                .FirstOrDefault(i => i.id == id && i.deletedAt == null);
+        }
+
+        private object? ObtenerCategoriaEspecifica(SistemaAlquilerContext db, ItemAlquilable item)
+        {
+            return item.categoriaId switch
+            {
+                1 => db.Transportes.FirstOrDefault(t => t.itemId == item.id),
+                2 => db.Electrodomesticos.FirstOrDefault(e => e.itemId == item.id),
+                3 => db.Electronicas.FirstOrDefault(e => e.itemId == item.id),
+                4 => db.Inmuebles.FirstOrDefault(i => i.itemId == item.id),
+                5 => db.Indumentarias.FirstOrDefault(i => i.itemId == item.id),
+                _ => null
+            };
         }
 
         /// <summary>
@@ -243,7 +264,7 @@ namespace TitoAlquiler.Model.Dao
                 using var db = new SistemaAlquilerContext();
                 return db.Items
                     .Where(x => x.categoriaId == categoriaId && x.deletedAt == null)
-                    .Include(x => x.categoria) // Incluir la categoría para evitar cargas adicionales
+                    .Include(x => x.categoria)
                     .ToList();
             }
             catch (SqlException ex)
@@ -251,5 +272,7 @@ namespace TitoAlquiler.Model.Dao
                 throw new Exception($"Error al buscar items por categoría: {ex.Message}", ex);
             }
         }
+
+        #endregion
     }
 }

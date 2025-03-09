@@ -3,76 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Resources;
 
 namespace TitoAlquiler.Model.Dao
 {
     public class CategoriaDao
     {
         public CategoriaDao() { }
-
-        /// <summary>
-        /// Inserta una nueva categoría en la base de datos.
-        /// </summary>
-        /// <param name="categoria">Objeto de tipo <see cref="Categoria"/> que contiene los datos de la categoría a insertar.</param>
-        public void InsertCategoria(Categoria categoria)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    db.Categorias.Add(categoria);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error inserting categoria: {ex.Message}");
-                throw; 
-            }
-        }
-
-        /// <summary>
-        /// Actualiza una categoría existente en la base de datos.
-        /// </summary>
-        /// <param name="categoria">Objeto de tipo <see cref="Categoria"/> que contiene los datos actualizados de la categoría.</param>
-        public void UpdateCategoria(Categoria categoria)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    db.Update(categoria);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating categoria: {ex.Message}");
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Elimina una categoría de manera lógica (soft delete), marcando la fecha de eliminación.
-        /// </summary>
-        /// <param name="categoria">Objeto de tipo <see cref="Categoria"/> que representa la categoría a eliminar.</param>
-        public void SoftDeleteCategoria(Categoria categoria)
-        {
-            try
-            {
-                using (var db = new SistemaAlquilerContext())
-                {
-                    categoria.deletedAt = DateTime.Now;
-                    db.Update(categoria);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error soft deleting categoria: {ex.Message}");
-                throw;
-            }
-        }
 
         /// <summary>
         /// Obtiene todas las categorías que no han sido eliminadas de la base de datos.
@@ -92,7 +29,7 @@ namespace TitoAlquiler.Model.Dao
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading all categorias: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al cargar categorias: {ex.Message}");
                 throw;
             }
         }
@@ -116,7 +53,7 @@ namespace TitoAlquiler.Model.Dao
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error finding categoria by id: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al encontrar categoria by id: {ex.Message}");
                 throw;
             }
         }
@@ -139,7 +76,7 @@ namespace TitoAlquiler.Model.Dao
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error finding categoria by nombre: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al encontrar categoria by nombre: {ex.Message}");
                 throw;
             }
         }

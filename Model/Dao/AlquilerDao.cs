@@ -14,7 +14,8 @@ namespace TitoAlquiler.Model.Dao
 {
     public class AlquilerDao
     {
-        #region Gestion Alquiler
+        #region Insertar Alquiler
+
         /// <summary>
         /// Inserta un nuevo alquiler en la base de datos.
         /// </summary>
@@ -28,12 +29,11 @@ namespace TitoAlquiler.Model.Dao
             {
                 ValidarItemExistente(db, alquiler.ItemID);
 
-                // Guardar alquiler
                 db.Alquileres.Add(alquiler);
                 db.SaveChanges();
                 transaction.Commit();
 
-                MessageShow.MostrarMensajeExito($"Alquiler guardado exitosamente. Precio total: {alquiler.precioTotal:C}");
+                MessageShow.MostrarMensajeExito($"Alquiler guardado exitosamente. Precio total: {alquiler.precioTotal:C2}");
             }
             catch (Exception ex)
             {
@@ -41,6 +41,10 @@ namespace TitoAlquiler.Model.Dao
                 throw new Exception($"Error al crear el alquiler: {ex.Message}", ex);
             }
         }
+
+        #endregion
+
+        #region Actualizar Alquiler
 
         /// <summary>
         /// Actualiza un alquiler existente.
@@ -61,8 +65,8 @@ namespace TitoAlquiler.Model.Dao
                     RecalcularPrecioAlquiler(db, alquiler);
                 }
 
-                // Desvincular el item si ya está siendo rastreado
                 var itemExistente = db.Items.Local.FirstOrDefault(i => i.id == alquiler.item.id);
+
                 if (itemExistente != null)
                 {
                     db.Entry(itemExistente).State = EntityState.Detached;
@@ -78,6 +82,10 @@ namespace TitoAlquiler.Model.Dao
                 throw new Exception($"Error al actualizar el alquiler: {ex.Message}", ex);
             }
         }
+
+        #endregion
+
+        #region Eliminar Alquiler
 
         /// <summary>
         /// Elimina un alquiler de manera lógica (soft delete), marcando la fecha de eliminación.
@@ -95,10 +103,13 @@ namespace TitoAlquiler.Model.Dao
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error soft deleting alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al eliminar (soft) alquiler: {ex.Message}");
                 throw;
             }
         }
+        #endregion
+
+        #region Obtener, Load, Find Alquileres
 
         /// <summary>
         /// Obtiene todos los alquileres activos.
@@ -122,17 +133,6 @@ namespace TitoAlquiler.Model.Dao
         }
 
         /// <summary>
-        /// Obtiene los alquileres de un usuario específico.
-        /// </summary>
-        /// <param name="usuarioId">ID del usuario cuyos alquileres se desean obtener.</param>
-        /// <returns>Lista de objetos Alquileres del usuario especificado.</returns>
-        public List<Alquileres> FindAlquileresByUsuario(int usuarioId)
-        {
-            using var db = new SistemaAlquilerContext();
-            return ObtenerAlquileresPorUsuario(db, usuarioId);
-        }
-
-        /// <summary>
         /// Obtiene los alquileres de un ítem específico.
         /// </summary>
         /// <param name="itemId">ID del ítem cuyos alquileres se desean obtener.</param>
@@ -141,27 +141,6 @@ namespace TitoAlquiler.Model.Dao
         {
             using var db = new SistemaAlquilerContext();
             return ObtenerAlquileresPorItem(db, itemId);
-        }
-
-        /// <summary>
-        /// Obtiene un alquiler activo por el nombre del ítem y el nombre del usuario.
-        /// </summary>
-        /// <param name="nombreItem">Nombre del ítem alquilado.</param>
-        /// <param name="nombreUsuario">Nombre del usuario que realizó el alquiler.</param>
-        /// <returns>Objeto Alquileres si se encuentra el alquiler; de lo contrario, null.</returns>
-        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la consulta.</exception>
-        public Alquileres ObtenerAlquilerPorItemYUsuario(string nombreItem, string nombreUsuario)
-        {
-            try
-            {
-                using var db = new SistemaAlquilerContext();
-                return BuscarAlquilerPorItemYUsuario(db, nombreItem, nombreUsuario);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al obtener el alquiler: {ex.Message}");
-                throw;
-            }
         }
 
         /// <summary>
@@ -218,20 +197,6 @@ namespace TitoAlquiler.Model.Dao
         }
 
         /// <summary>
-        /// Obtiene los alquileres de un usuario específico.
-        /// </summary>
-        /// <param name="db">Contexto de la base de datos.</param>
-        /// <param name="usuarioId">ID del usuario cuyos alquileres se desean obtener.</param>
-        /// <returns>Lista de objetos Alquileres del usuario especificado.</returns>
-        private List<Alquileres> ObtenerAlquileresPorUsuario(SistemaAlquilerContext db, int usuarioId)
-        {
-            return db.Alquileres
-                    .Include(a => a.item)
-                    .Where(a => a.UsuarioID == usuarioId && a.deletedAt == null)
-                    .ToList();
-        }
-
-        /// <summary>
         /// Obtiene los alquileres de un ítem específico.
         /// </summary>
         /// <param name="db">Contexto de la base de datos.</param>
@@ -243,41 +208,6 @@ namespace TitoAlquiler.Model.Dao
                     .Include(a => a.usuario)
                     .Where(a => a.ItemID == itemId && a.deletedAt == null)
                     .ToList();
-        }
-
-        /// <summary>
-        /// Busca un alquiler por nombre de ítem y nombre de usuario.
-        /// </summary>
-        /// <param name="db">Contexto de la base de datos.</param>
-        /// <param name="nombreItem">Nombre del ítem alquilado.</param>
-        /// <param name="nombreUsuario">Nombre del usuario que realizó el alquiler.</param>
-        /// <returns>Objeto Alquileres si se encuentra el alquiler; de lo contrario, null.</returns>
-        private Alquileres BuscarAlquilerPorItemYUsuario(SistemaAlquilerContext db, string nombreItem, string nombreUsuario)
-        {
-            return db.Alquileres
-                     .Include(a => a.item)
-                     .Include(a => a.usuario)
-                     .FirstOrDefault(a => a.item.nombreItem == nombreItem
-                                          && a.usuario.nombre == nombreUsuario
-                                          && a.deletedAt == null);
-        }
-        #endregion
-
-        #region Métodos privados encapsulados
-
-        /// <summary>
-        /// Valida que el ítem exista y no haya sido eliminado.
-        /// </summary>
-        /// <param name="db">Contexto de la base de datos.</param>
-        /// <param name="itemId">ID del ítem a validar.</param>
-        /// <exception cref="Exception">Se lanza cuando el ítem no existe o ha sido eliminado.</exception>
-        private void ValidarItemExistente(SistemaAlquilerContext db, int itemId)
-        {
-            var item = db.Items
-                .FirstOrDefault(i => i.id == itemId && i.deletedAt == null);
-
-            if (item == null)
-                throw new Exception("El ítem no existe o ha sido eliminado.");
         }
 
         /// <summary>
@@ -294,9 +224,27 @@ namespace TitoAlquiler.Model.Dao
                 .FirstOrDefault(a => a.id == alquilerId);
 
             if (alquilerOriginal == null)
-                throw new Exception("El alquiler no existe.");
+                MessageShow.MostrarMensajeAdvertencia("El alquiler no existe.");
 
             return alquilerOriginal;
+        }
+        #endregion
+
+        #region Validaciones Alquiler
+
+        /// <summary>
+        /// Valida que el ítem exista y no haya sido eliminado.
+        /// </summary>
+        /// <param name="db">Contexto de la base de datos.</param>
+        /// <param name="itemId">ID del ítem a validar.</param>
+        /// <exception cref="Exception">Se lanza cuando el ítem no existe o ha sido eliminado.</exception>
+        private void ValidarItemExistente(SistemaAlquilerContext db, int itemId)
+        {
+            var item = db.Items
+                .FirstOrDefault(i => i.id == itemId && i.deletedAt == null);
+
+            if (item == null)
+                MessageShow.MostrarMensajeError("El ítem no existe o ha sido eliminado.");
         }
 
         /// <summary>
@@ -320,9 +268,11 @@ namespace TitoAlquiler.Model.Dao
         private void ValidarDisponibilidadParaNuevasFechas(SistemaAlquilerContext db, Alquileres alquiler)
         {
             if (ExisteAlquilerActivo(db, alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin, alquiler.id))
-                throw new Exception("El ítem no está disponible para las nuevas fechas seleccionadas.");
+                MessageShow.MostrarMensajeError("El ítem no está disponible para las nuevas fechas seleccionadas.");
         }
+        #endregion
 
+        #region Estrategia Alquiler
         /// <summary>
         /// Recalcula el precio del alquiler basado en la estrategia y las nuevas fechas.
         /// </summary>

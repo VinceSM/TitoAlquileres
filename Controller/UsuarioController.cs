@@ -65,26 +65,6 @@ namespace TitoAlquiler.Controller
         }
 
         /// <summary>
-        /// Obtiene un usuario por su número de DNI.
-        /// </summary>
-        /// <param name="dni">DNI del usuario a obtener.</param>
-        /// <returns>Objeto Usuarios con los detalles del usuario cuyo DNI coincida.</returns>
-        public Usuarios ObtenerUsuarioPorDNI(int dni)
-        {
-            return _usuarioDao.FindUsuarioByDNI(dni);
-        }
-
-        /// <summary>
-        /// Busca usuarios que coincidan con el término de búsqueda proporcionado.
-        /// </summary>
-        /// <param name="busqueda">Cadena de texto para realizar la búsqueda de usuarios.</param>
-        /// <returns>Lista de objetos Usuarios que coinciden con el término de búsqueda.</returns>
-        public List<Usuarios> BuscarUsuarios(string busqueda)
-        {
-            return _usuarioDao.SearchUsuarios(busqueda);
-        }
-
-        /// <summary>
         /// Compara si el DNI proporcionado ya está registrado en la base de datos.
         /// </summary>
         /// <param name="dni">DNI del usuario a comparar.</param>

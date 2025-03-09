@@ -134,88 +134,190 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="sender">El origen del evento.</param>
         /// <param name="e">Los datos del evento.</param>
         /// <remarks>
-        /// Si no hay un ítem seleccionado, se mostrará un mensaje de advertencia.
-        /// También se manejarán posibles errores durante el proceso de eliminación.
+        /// Este método implementa la eliminación lógica (soft delete) de un ítem, verificando primero
+        /// que esté seleccionado, que exista y que no tenga alquileres activos. Luego solicita
+        /// confirmación al usuario mostrando los detalles del ítem antes de proceder con la eliminación.
         /// </remarks>
         private void btnSoftDeleteItem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Verificar selección
-                if (dataGridViewItems.SelectedRows.Count == 0)
+                // Verificar que haya un ítem seleccionado
+                if (!VerificarItemSeleccionado())
                 {
-                    MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un item para eliminar.");
-                    return;
+                    return; // Ya se mostró un mensaje en el método VerificarItemSeleccionado
                 }
 
-                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-
-                // Obtener el item y su categoría
-                var (item, categoria) = itemController.ObtenerItemPorId(itemId);
-
-                if (item == null)
+                // Obtener el ítem y su categoría
+                int itemId = ObtenerIdItemSeleccionado();
+                if (!ObtenerItemYCategoria(itemId, out ItemAlquilable item, out object categoria))
                 {
-                    MessageShow.MostrarMensajeError("No se encontró el item seleccionado.");
-                    return;
+                    return; // Ya se mostró un mensaje en el método ObtenerItemYCategoria
                 }
 
-                // Verificar si el item tiene alquileres activos
-                if (item.Alquileres?.Any(a => a.deletedAt == null &&
-                    a.fechaFin > DateTime.Now) == true)
+                // Verificar si el ítem tiene alquileres activos
+                if (TieneAlquileresActivos(item))
                 {
                     MessageShow.MostrarMensajeError("No se puede eliminar el item porque tiene alquileres activos.");
                     return;
                 }
 
-                // Construir mensaje de confirmación con detalles
-                string mensajeConfirmacion = $"¿Está seguro que desea eliminar el siguiente item?\n\n" +
-                                           $"Nombre: {item.nombreItem}\n" +
-                                           $"Marca: {item.marca}\n" +
-                                           $"Modelo: {item.modelo}\n";
-
-                // Agregar detalles específicos según la categoría
-                switch (categoria)
+                // Solicitar confirmación al usuario
+                if (!SolicitarConfirmacionEliminarItem(item, categoria))
                 {
-                    case Transporte t:
-                        mensajeConfirmacion += $"Tipo: Transporte\n" +
-                                             $"Capacidad: {t.capacidadPasajeros} pasajeros";
-                        break;
-                    case Electrodomestico ele:
-                        mensajeConfirmacion += $"Tipo: Electrodoméstico\n" +
-                                             $"Potencia: {ele.potenciaWatts}W";
-                        break;
-                    case Indumentaria i:
-                        mensajeConfirmacion += $"Tipo: Indumentaria\n" +
-                                             $"Talla: {i.talla}";
-                        break;
-                    case Inmueble inm:
-                        mensajeConfirmacion += $"Tipo: Inmueble\n" +
-                                             $"Ubicación: {inm.ubicacion}";
-                        break;
-                    case Electronica el:
-                        mensajeConfirmacion += $"Tipo: Electrónica\n" +
-                                             $"Almacenamiento: {el.almacenamientoGB}GB";
-                        break;
+                    return; // El usuario canceló la operación
                 }
 
-                DialogResult result = MessageBox.Show(mensajeConfirmacion,
-                    "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    // Intentar eliminar el item
-                    itemController.EliminarItem(itemId);
-
-                    MessageShow.MostrarMensajeExito("Item eliminado exitosamente.");
-
-                    cmbCategorias.SelectedIndex = -1;
-                    CargarCategorias();
-                }
+                // Eliminar el ítem y actualizar la interfaz
+                EliminarItemYActualizarInterfaz(itemId);
             }
             catch (Exception ex)
             {
                 MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Verifica que haya un ítem seleccionado en el DataGridView.
+        /// </summary>
+        /// <returns>True si hay un ítem seleccionado, false en caso contrario.</returns>
+        private bool VerificarItemSeleccionado()
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un item para eliminar.");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Obtiene el ID del ítem seleccionado en el DataGridView.
+        /// </summary>
+        /// <returns>El ID del ítem seleccionado.</returns>
+        private int ObtenerIdItemSeleccionado()
+        {
+            return (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+        }
+
+        /// <summary>
+        /// Obtiene el ítem y su categoría específica por su ID.
+        /// </summary>
+        /// <param name="itemId">ID del ítem a obtener.</param>
+        /// <param name="item">El ítem obtenido (salida).</param>
+        /// <param name="categoria">La categoría específica del ítem (salida).</param>
+        /// <returns>True si se obtuvo el ítem y su categoría, false en caso contrario.</returns>
+        private bool ObtenerItemYCategoria(int itemId, out ItemAlquilable item, out object categoria)
+        {
+            var resultado = itemController.ObtenerItemPorId(itemId);
+            item = resultado.Item1;
+            categoria = resultado.Item2;
+
+            if (item == null)
+            {
+                MessageShow.MostrarMensajeError("No se encontró el item seleccionado.");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Verifica si el ítem tiene alquileres activos.
+        /// </summary>
+        /// <param name="item">El ítem a verificar.</param>
+        /// <returns>True si el ítem tiene alquileres activos, false en caso contrario.</returns>
+        private bool TieneAlquileresActivos(ItemAlquilable item)
+        {
+            return item.Alquileres?.Any(a => a.deletedAt == null && a.fechaFin > DateTime.Now) == true;
+        }
+
+        /// <summary>
+        /// Solicita confirmación al usuario para eliminar un ítem, mostrando sus detalles.
+        /// </summary>
+        /// <param name="item">El ítem a eliminar.</param>
+        /// <param name="categoria">La categoría específica del ítem.</param>
+        /// <returns>True si el usuario confirma la eliminación, false en caso contrario.</returns>
+        private bool SolicitarConfirmacionEliminarItem(ItemAlquilable item, object categoria)
+        {
+            string mensajeConfirmacion = ConstruirMensajeConfirmacion(item, categoria);
+
+            DialogResult result = MessageBox.Show(mensajeConfirmacion,
+                "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            return result == DialogResult.Yes;
+        }
+
+        /// <summary>
+        /// Construye el mensaje de confirmación con los detalles del ítem.
+        /// </summary>
+        /// <param name="item">El ítem cuyos detalles se mostrarán.</param>
+        /// <param name="categoria">La categoría específica del ítem.</param>
+        /// <returns>El mensaje de confirmación con los detalles del ítem.</returns>
+        private string ConstruirMensajeConfirmacion(ItemAlquilable item, object categoria)
+        {
+            string mensajeConfirmacion = $"¿Está seguro que desea eliminar el siguiente item?\n\n" +
+                                       $"Nombre: {item.nombreItem}\n" +
+                                       $"Marca: {item.marca}\n" +
+                                       $"Modelo: {item.modelo}\n";
+
+            // Agregar detalles específicos según la categoría
+            mensajeConfirmacion += ObtenerDetallesCategoria(categoria);
+
+            return mensajeConfirmacion;
+        }
+
+        /// <summary>
+        /// Obtiene los detalles específicos de la categoría del ítem.
+        /// </summary>
+        /// <param name="categoria">La categoría específica del ítem.</param>
+        /// <returns>Una cadena con los detalles específicos de la categoría.</returns>
+        private string ObtenerDetallesCategoria(object categoria)
+        {
+            // Usar un diccionario de funciones para obtener los detalles según el tipo de categoría
+            var estrategiasDetalles = new Dictionary<Type, Func<object, string>>
+    {
+        { typeof(Transporte), c => $"Tipo: Transporte\nCapacidad: {((Transporte)c).capacidadPasajeros} pasajeros" },
+        { typeof(Electrodomestico), c => $"Tipo: Electrodoméstico\nPotencia: {((Electrodomestico)c).potenciaWatts}W" },
+        { typeof(Indumentaria), c => $"Tipo: Indumentaria\nTalla: {((Indumentaria)c).talla}" },
+        { typeof(Inmueble), c => $"Tipo: Inmueble\nUbicación: {((Inmueble)c).ubicacion}" },
+        { typeof(Electronica), c => $"Tipo: Electrónica\nAlmacenamiento: {((Electronica)c).almacenamientoGB}GB" }
+    };
+
+            // Obtener el tipo de la categoría
+            Type tipoCategoria = categoria.GetType();
+
+            // Si existe una estrategia para este tipo, ejecutarla
+            if (estrategiasDetalles.ContainsKey(tipoCategoria))
+            {
+                return estrategiasDetalles[tipoCategoria](categoria);
+            }
+
+            return "Tipo: Desconocido";
+        }
+
+        /// <summary>
+        /// Elimina el ítem y actualiza la interfaz de usuario.
+        /// </summary>
+        /// <param name="itemId">ID del ítem a eliminar.</param>
+        private void EliminarItemYActualizarInterfaz(int itemId)
+        {
+            // Intentar eliminar el item
+            itemController.EliminarItem(itemId);
+
+            MessageShow.MostrarMensajeExito("Item eliminado exitosamente.");
+
+            // Actualizar la interfaz
+            ActualizarInterfazDespuesDeEliminar();
+        }
+
+        /// <summary>
+        /// Actualiza la interfaz de usuario después de eliminar un ítem.
+        /// </summary>
+        private void ActualizarInterfazDespuesDeEliminar()
+        {
+            cmbCategorias.SelectedIndex = -1;
+            CargarCategorias();
         }
 
         /// <summary>
@@ -227,106 +329,250 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// Si no hay un ítem seleccionado, se mostrará un mensaje de advertencia.
         /// Se valida que el nuevo valor ingresado sea un número válido.
         /// </remarks>
+        /// <summary>
+        /// Maneja el evento de clic para editar la tarifa de un ítem seleccionado.
+        /// </summary>
         private void btnEditarTarifa_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Obtener el ítem seleccionado
+                if (!ObtenerItemParaEditarTarifa(out int itemId, out string marca, out string modelo, out double tarifaActual))
+                {
+                    return; // Ya se mostró un mensaje en el método ObtenerItemParaEditarTarifa
+                }
+
+                // Solicitar la nueva tarifa al usuario
+                string nuevaTarifaStr = SolicitarNuevaTarifa(marca, modelo, tarifaActual);
+
+                if (string.IsNullOrEmpty(nuevaTarifaStr))
+                    return; // El usuario canceló la operación
+
+                // Validar y convertir la nueva tarifa
+                if (!ValidarNuevaTarifa(nuevaTarifaStr, out double nuevaTarifa))
+                {
+                    return; // Ya se mostró un mensaje en el método ValidarNuevaTarifa
+                }
+
+                // Actualizar la tarifa y refrescar la interfaz
+                ActualizarTarifaItem(itemId, nuevaTarifa);
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al editar la tarifa: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el ítem seleccionado para editar su tarifa.
+        /// </summary>
+        /// <param name="itemId">ID del ítem seleccionado (salida).</param>
+        /// <param name="marca">Marca del ítem (salida).</param>
+        /// <param name="modelo">Modelo del ítem (salida).</param>
+        /// <param name="tarifaActual">Tarifa actual del ítem (salida).</param>
+        /// <returns>True si se obtuvo un ítem válido, false en caso contrario.</returns>
+        private bool ObtenerItemParaEditarTarifa(out int itemId, out string marca, out string modelo, out double tarifaActual)
+        {
+            // Inicializar valores de salida
+            itemId = 0;
+            marca = string.Empty;
+            modelo = string.Empty;
+            tarifaActual = 0;
+
             if (dataGridViewItems.SelectedRows.Count == 0)
             {
                 MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un item para editar su tarifa.");
-                return;
+                return false;
             }
 
-            int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-            string marca = dataGridViewItems.SelectedRows[0].Cells["marca"].Value.ToString();
-            string modelo = dataGridViewItems.SelectedRows[0].Cells["modelo"].Value.ToString();
-            double tarifaActual = Convert.ToDouble(dataGridViewItems.SelectedRows[0].Cells["tarifaXDia"].Value);
+            // Obtener datos del ítem seleccionado
+            itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+            marca = dataGridViewItems.SelectedRows[0].Cells["marca"].Value.ToString();
+            modelo = dataGridViewItems.SelectedRows[0].Cells["modelo"].Value.ToString();
+            tarifaActual = Convert.ToDouble(dataGridViewItems.SelectedRows[0].Cells["tarifaXDia"].Value);
 
-            string input = Microsoft.VisualBasic.Interaction.InputBox($"Ingrese la nueva tarifa para {marca} {modelo}:", "Editar Tarifa", tarifaActual.ToString());
+            return true;
+        }
 
-            if (string.IsNullOrEmpty(input))
-                return;
+        /// <summary>
+        /// Solicita al usuario que ingrese una nueva tarifa para el ítem.
+        /// </summary>
+        /// <param name="marca">Marca del ítem.</param>
+        /// <param name="modelo">Modelo del ítem.</param>
+        /// <param name="tarifaActual">Tarifa actual del ítem.</param>
+        /// <returns>La nueva tarifa ingresada por el usuario o una cadena vacía si canceló.</returns>
+        private string SolicitarNuevaTarifa(string marca, string modelo, double tarifaActual)
+        {
+            return Microsoft.VisualBasic.Interaction.InputBox(
+                $"Ingrese la nueva tarifa para {marca} {modelo}:",
+                "Editar Tarifa",
+                tarifaActual.ToString());
+        }
 
-            if (double.TryParse(input, out double nuevaTarifa))
+        /// <summary>
+        /// Valida que la nueva tarifa ingresada sea un valor numérico válido.
+        /// </summary>
+        /// <param name="nuevaTarifaStr">Cadena con la nueva tarifa ingresada.</param>
+        /// <param name="nuevaTarifa">Valor numérico de la nueva tarifa (salida).</param>
+        /// <returns>True si la tarifa es válida, false en caso contrario.</returns>
+        private bool ValidarNuevaTarifa(string nuevaTarifaStr, out double nuevaTarifa)
+        {
+            if (!double.TryParse(nuevaTarifaStr, out nuevaTarifa))
             {
-                if (itemController.ActualizarTarifaItem(itemId, nuevaTarifa))
+                MessageShow.MostrarMensajeError("Por favor, ingrese un valor numérico válido para la tarifa.");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Actualiza la tarifa de un ítem y refresca la interfaz de usuario.
+        /// </summary>
+        /// <param name="itemId">ID del ítem a actualizar.</param>
+        /// <param name="nuevaTarifa">Nueva tarifa a aplicar.</param>
+        private void ActualizarTarifaItem(int itemId, double nuevaTarifa)
+        {
+            if (itemController.ActualizarTarifaItem(itemId, nuevaTarifa))
+            {
+                MessageShow.MostrarMensajeExito("Tarifa actualizada con éxito.");
+
+                // Refrescar la lista de ítems
+                if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
                 {
-                    MessageShow.MostrarMensajeExito("Tarifa actualizada con éxito.");
-                    if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
-                    {
-                        CargarItems(categoriaSeleccionada.id);
-                    }
-                }
-                else
-                {
-                    MessageShow.MostrarMensajeError("No se pudo actualizar la tarifa del item.");
+                    CargarItems(categoriaSeleccionada.id);
                 }
             }
             else
             {
-                MessageShow.MostrarMensajeError("Por favor, ingrese un valor numérico válido para la tarifa.");
+                MessageShow.MostrarMensajeError("No se pudo actualizar la tarifa del item.");
             }
         }
 
+        /// <summary>
+        /// Muestra los detalles completos del ítem seleccionado, incluyendo sus propiedades específicas según su categoría.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Este método obtiene el ítem seleccionado del DataGridView, recupera sus datos completos
+        /// incluyendo las propiedades específicas de su categoría (Transporte, Electrodoméstico, etc.)
+        /// y muestra toda esta información en un mensaje informativo para el usuario.
+        /// Si no hay un ítem seleccionado o no se puede obtener la información, muestra un mensaje de error.
+        /// </remarks>
         private void btnVerDetalle_Click(object sender, EventArgs e)
         {
             try
             {
-                if (dataGridViewItems.SelectedRows.Count == 0)
+                // Verificar que haya un ítem seleccionado
+                if (!VerificarItemSeleccionadoParaDetalle())
                 {
-                    MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un ítem para ver su detalle.");
-                    return;
+                    return; // Ya se mostró un mensaje en el método VerificarItemSeleccionadoParaDetalle
                 }
 
-                int itemId = Convert.ToInt32(dataGridViewItems.SelectedRows[0].Cells["ID"].Value);
-                var (item, categoria) = itemController.ObtenerItemPorId(itemId);
-
-                if (item == null)
+                // Obtener el ítem y su categoría
+                int itemId = ObtenerIdItemSeleccionado();
+                if (!ObtenerItemYCategoria(itemId, out ItemAlquilable item, out object categoria))
                 {
-                    MessageShow.MostrarMensajeError("No se encontraron detalles para el ítem seleccionado.");
-                    return;
+                    return; // Ya se mostró un mensaje en el método ObtenerItemYCategoria
                 }
 
-                string mensajeDetalle = $"ID: {item.id}\n" +
-                                      $"Nombre: {item.nombreItem}\n" +
-                                      $"Marca: {item.marca}\n" +
-                                      $"Modelo: {item.modelo}\n" +
-                                      $"Tarifa por día: ${item.tarifaDia}\n\n";
-
-                // Agregar detalles específicos según la categoría
-                switch (categoria)
-                {
-                    case Transporte t:
-                        mensajeDetalle += $"Tipo: Transporte\n" +
-                                        $"Capacidad de Pasajeros: {t.capacidadPasajeros}\n" +
-                                        $"Tipo de Combustible: {t.tipoCombustible}";
-                        break;
-                    case Electrodomestico ele:
-                        mensajeDetalle += $"Tipo: Electrodoméstico\n" +
-                                        $"Potencia (Watts): {ele.potenciaWatts}\n" +
-                                        $"Tipo: {ele.tipoElectrodomestico}";
-                        break;
-                    case Indumentaria i:
-                        mensajeDetalle += $"Tipo: Indumentaria\n" +
-                                        $"Talla: {i.talla}\n" +
-                                        $"Material: {i.material}";
-                        break;
-                    case Inmueble inm:
-                        mensajeDetalle += $"Tipo: Inmueble\n" +
-                                        $"Metros Cuadrados: {inm.metrosCuadrados}\n" +
-                                        $"Ubicación: {inm.ubicacion}";
-                        break;
-                    case Electronica el:
-                        mensajeDetalle += $"Tipo: Electrónica\n" +
-                                        $"Resolución: {el.resolucionPantalla}\n" +
-                                        $"Almacenamiento: {el.almacenamientoGB}GB";
-                        break;
-                }
-
+                // Construir y mostrar el mensaje de detalle
+                string mensajeDetalle = ConstruirMensajeDetalle(item, categoria);
                 MessageShow.MostrarMensajeInformacion(mensajeDetalle);
             }
             catch (Exception ex)
             {
                 MessageShow.MostrarMensajeError($"Error al mostrar detalles: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Verifica que haya un ítem seleccionado para mostrar sus detalles.
+        /// </summary>
+        /// <returns>True si hay un ítem seleccionado, false en caso contrario.</returns>
+        private bool VerificarItemSeleccionadoParaDetalle()
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un ítem para ver su detalle.");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Construye el mensaje de detalle con la información completa del ítem.
+        /// </summary>
+        /// <param name="item">El ítem cuyos detalles se mostrarán.</param>
+        /// <param name="categoria">La categoría específica del ítem.</param>
+        /// <returns>El mensaje de detalle con la información completa del ítem.</returns>
+        private string ConstruirMensajeDetalle(ItemAlquilable item, object categoria)
+        {
+            // Construir la información básica del ítem
+            string mensajeDetalle = ConstruirInformacionBasicaItem(item);
+
+            // Agregar detalles específicos según la categoría
+            mensajeDetalle += ObtenerDetallesCompletosCategoria(categoria);
+
+            return mensajeDetalle;
+        }
+
+        /// <summary>
+        /// Construye la información básica del ítem (propiedades comunes a todos los ítems).
+        /// </summary>
+        /// <param name="item">El ítem cuya información básica se construirá.</param>
+        /// <returns>Una cadena con la información básica del ítem.</returns>
+        private string ConstruirInformacionBasicaItem(ItemAlquilable item)
+        {
+            return $"ID: {item.id}\n" +
+                   $"Nombre: {item.nombreItem}\n" +
+                   $"Marca: {item.marca}\n" +
+                   $"Modelo: {item.modelo}\n" +
+                   $"Tarifa por día: ${item.tarifaDia}\n\n";
+        }
+
+        /// <summary>
+        /// Obtiene los detalles completos específicos de la categoría del ítem.
+        /// </summary>
+        /// <param name="categoria">La categoría específica del ítem.</param>
+        /// <returns>Una cadena con los detalles completos específicos de la categoría.</returns>
+        private string ObtenerDetallesCompletosCategoria(object categoria)
+        {
+            // Usar un diccionario de funciones para obtener los detalles según el tipo de categoría
+            var estrategiasDetallesCompletos = new Dictionary<Type, Func<object, string>>
+    {
+        { typeof(Transporte), c => $"Tipo: Transporte\n" +
+                                   $"Capacidad de Pasajeros: {((Transporte)c).capacidadPasajeros}\n" +
+                                   $"Tipo de Combustible: {((Transporte)c).tipoCombustible}" },
+
+        { typeof(Electrodomestico), c => $"Tipo: Electrodoméstico\n" +
+                                         $"Potencia (Watts): {((Electrodomestico)c).potenciaWatts}\n" +
+                                         $"Tipo: {((Electrodomestico)c).tipoElectrodomestico}" },
+
+        { typeof(Indumentaria), c => $"Tipo: Indumentaria\n" +
+                                     $"Talla: {((Indumentaria)c).talla}\n" +
+                                     $"Material: {((Indumentaria)c).material}" },
+
+        { typeof(Inmueble), c => $"Tipo: Inmueble\n" +
+                                 $"Metros Cuadrados: {((Inmueble)c).metrosCuadrados}\n" +
+                                 $"Ubicación: {((Inmueble)c).ubicacion}" },
+
+        { typeof(Electronica), c => $"Tipo: Electrónica\n" +
+                                    $"Resolución: {((Electronica)c).resolucionPantalla}\n" +
+                                    $"Almacenamiento: {((Electronica)c).almacenamientoGB}GB" }
+    };
+
+            // Obtener el tipo de la categoría
+            Type tipoCategoria = categoria.GetType();
+
+            // Si existe una estrategia para este tipo, ejecutarla
+            if (estrategiasDetallesCompletos.ContainsKey(tipoCategoria))
+            {
+                return estrategiasDetallesCompletos[tipoCategoria](categoria);
+            }
+
+            return "Tipo: Desconocido";
         }
 
         #endregion
@@ -377,33 +623,29 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Realiza un borrado lógico del usuario seleccionado en el DataGridView.
         /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
         private void btnSoftDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridViewUsuarios.SelectedRows.Count == 0)
-            {
-                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un usuario para eliminar.");
-                return;
-            }
-
-            int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
-
             try
             {
-                var selectedUsuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
-                if (selectedUsuario == null)
+                // Obtener el usuario seleccionado
+                if (!ObtenerUsuarioParaEliminar(out int usuarioId))
                 {
-                    MessageShow.MostrarMensajeError("No se encontró el usuario seleccionado.");
-                    return;
+                    return; // Ya se mostró un mensaje en el método ObtenerUsuarioParaEliminar
                 }
 
-                DialogResult result = MessageBox.Show($"¿Está seguro que desea eliminar al usuario {selectedUsuario.nombre}?",
-                    "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
+                // Cargar los datos completos del usuario
+                if (!CargarDatosCompletosUsuario(usuarioId, out Usuarios usuario))
                 {
-                    usuarioController.EliminarUsuario(selectedUsuario);
-                    MessageShow.MostrarMensajeExito("Usuario eliminado exitosamente.");
-                    CargarUsuarios();
+                    return; // Ya se mostró un mensaje en el método CargarDatosCompletosUsuario
+                }
+
+                // Solicitar confirmación al usuario
+                if (SolicitarConfirmacionEliminarUsuario(usuario))
+                {
+                    // Eliminar el usuario y actualizar la interfaz
+                    EliminarUsuario(usuario);
                 }
             }
             catch (Exception ex)
@@ -412,27 +654,134 @@ namespace TitoAlquiler.View.ViewAlquiler
             }
         }
 
+        /// <summary>
+        /// Obtiene el ID del usuario seleccionado para eliminarlo.
+        /// </summary>
+        /// <param name="usuarioId">ID del usuario seleccionado (salida).</param>
+        /// <returns>True si se seleccionó un usuario válido, false en caso contrario.</returns>
+        private bool ObtenerUsuarioParaEliminar(out int usuarioId)
+        {
+            usuarioId = 0;
+
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
+            {
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un usuario para eliminar.");
+                return false;
+            }
+
+            usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+            return true;
+        }
+
+        /// <summary>
+        /// Carga los datos completos de un usuario.
+        /// </summary>
+        /// <param name="usuarioId">ID del usuario a cargar.</param>
+        /// <param name="usuario">Objeto Usuario cargado (salida).</param>
+        /// <returns>True si se cargaron los datos correctamente, false en caso contrario.</returns>
+        private bool CargarDatosCompletosUsuario(int usuarioId, out Usuarios usuario)
+        {
+            usuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
+
+            if (usuario == null)
+            {
+                MessageShow.MostrarMensajeError("No se encontró el usuario seleccionado.");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Solicita confirmación al usuario para eliminar un usuario.
+        /// </summary>
+        /// <param name="usuario">Usuario a eliminar.</param>
+        /// <returns>True si el usuario confirma la eliminación, false en caso contrario.</returns>
+        private bool SolicitarConfirmacionEliminarUsuario(Usuarios usuario)
+        {
+            DialogResult result = MessageBox.Show(
+                $"¿Está seguro que desea eliminar al usuario {usuario.nombre}?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            return result == DialogResult.Yes;
+        }
+
+        /// <summary>
+        /// Elimina un usuario y actualiza la interfaz de usuario.
+        /// </summary>
+        /// <param name="usuario">Usuario a eliminar.</param>
+        private void EliminarUsuario(Usuarios usuario)
+        {
+            usuarioController.EliminarUsuario(usuario);
+            MessageShow.MostrarMensajeExito("Usuario eliminado exitosamente.");
+            CargarUsuarios();
+        }
+
+        /// <summary>
+        /// Abre el formulario para modificar los datos de un usuario seleccionado.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Este método verifica si hay un usuario seleccionado en el DataGridView, obtiene sus datos
+        /// completos y abre el formulario de modificación de usuario con esos datos precargados.
+        /// Si no hay un usuario seleccionado o no se puede encontrar el usuario en la base de datos,
+        /// se muestra un mensaje de error apropiado.
+        /// </remarks>
         private void bntModificarUser_Click(object sender, EventArgs e)
         {
-            if (dataGridViewUsuarios.SelectedRows.Count > 0)
+            try
             {
-                int idUsuario = Convert.ToInt32(dataGridViewUsuarios.SelectedRows[0].Cells[0].Value);
-                var usuario = usuarioController.ObtenerUsuarioPorId(idUsuario);
+                // Obtener el usuario seleccionado
+                if (!ObtenerUsuarioParaModificar(out int usuarioId))
+                {
+                    return; // Ya se mostró un mensaje en el método ObtenerUsuarioParaModificar
+                }
 
-                if (usuario != null)
+                // Cargar los datos completos del usuario
+                if (!CargarDatosCompletosUsuario(usuarioId, out Usuarios usuario))
                 {
-                    ModificarUsuario formModificarUsuario = new ModificarUsuario(usuario);
-                    formModificarUsuario.ShowDialog();
+                    return; // Ya se mostró un mensaje en el método CargarDatosCompletosUsuario
                 }
-                else
-                {
-                    MessageShow.MostrarMensajeError("No se encontró el usuario.");
-                }
+
+                // Abrir el formulario de modificación
+                AbrirFormularioModificarUsuario(usuario);
             }
-            else
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al abrir el formulario de modificación: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el ID del usuario seleccionado para modificarlo.
+        /// </summary>
+        /// <param name="usuarioId">ID del usuario seleccionado (salida).</param>
+        /// <returns>True si se seleccionó un usuario válido, false en caso contrario.</returns>
+        private bool ObtenerUsuarioParaModificar(out int usuarioId)
+        {
+            usuarioId = 0;
+
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
             {
                 MessageShow.MostrarMensajeAdvertencia("Seleccione un usuario para modificar.");
+                return false;
             }
+
+            usuarioId = Convert.ToInt32(dataGridViewUsuarios.SelectedRows[0].Cells[0].Value);
+            return true;
+        }
+
+        /// <summary>
+        /// Abre el formulario de modificación de usuario con los datos del usuario seleccionado.
+        /// </summary>
+        /// <param name="usuario">Usuario a modificar.</param>
+        private void AbrirFormularioModificarUsuario(Usuarios usuario)
+        {
+            ModificarUsuario formModificarUsuario = new ModificarUsuario(usuario);
+            formModificarUsuario.ShowDialog();
         }
 
         #endregion

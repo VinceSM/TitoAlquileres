@@ -26,7 +26,7 @@ namespace TitoAlquiler.Controller
         }
         #endregion
 
-        #region Gestionar Items
+        #region Crear Item
         /// <summary>
         /// Crea un nuevo ítem alquilable utilizando el patrón Factory.
         /// </summary>
@@ -40,33 +40,16 @@ namespace TitoAlquiler.Controller
         {
             try
             {
-               _itemDao.InsertItem(factory, nombre, marca, modelo, tarifaDia, adicionales); 
+                _itemDao.InsertItem(factory, nombre, marca, modelo, tarifaDia, adicionales);
             }
             catch (SqlException ex)
             {
                 throw new Exception($"Error al crear el item: {ex.Message}", ex);
             }
         }
+        #endregion
 
-        /// <summary>
-        /// Obtiene la fábrica correspondiente según el nombre de la categoría.
-        /// </summary>
-        /// <param name="categoria">Nombre de la categoría para la cual se requiere la fábrica.</param>
-        /// <returns>Instancia de la fábrica específica para la categoría solicitada.</returns>
-        /// <exception cref="ArgumentException">Se lanza cuando la categoría no es válida.</exception>
-        public IItemFactory ObtenerFactory(string categoria)
-        {
-            return categoria switch
-            {
-                "Transporte" => new TransporteFactory(),
-                "Electrodomestico" => new ElectrodomesticoFactory(),
-                "Electronica" => new ElectronicaFactory(),
-                "Inmueble" => new InmuebleFactory(),
-                "Indumentaria" => new IndumentariaFactory(),
-                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
-            };
-        }
-
+        #region Actualizar Item
         /// <summary>
         /// Actualiza un ítem existente y su categoría.
         /// </summary>
@@ -87,21 +70,64 @@ namespace TitoAlquiler.Controller
         }
 
         /// <summary>
-        /// Elimina lógicamente un ítem por su ID.
+        /// Actualiza la tarifa de un ítem existente en la base de datos.
         /// </summary>
-        /// <param name="itemId">ID del ítem a eliminar.</param>
-        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la eliminación.</exception>
-        public void EliminarItem(int itemId)
+        /// <param name="itemId">ID del ítem a actualizar.</param>
+        /// <param name="nuevaTarifa">Nueva tarifa para el ítem.</param>
+        /// <returns>True si la actualización fue exitosa, de lo contrario False.</returns>
+        /// <exception cref="ArgumentException">Se lanza cuando el itemId no existe o la tarifa es inválida.</exception>
+        /// <exception cref="InvalidOperationException">Se lanza cuando hay un error al actualizar el item.</exception>
+        public bool ActualizarTarifaItem(int itemId, double nuevaTarifa)
         {
             try
             {
-                _itemDao.SoftDeleteItem(itemId);
+                ValidarTarifa(nuevaTarifa);
+
+                var (item, categoria) = ObtenerItemPorId(itemId);
+
+                item.tarifaDia = nuevaTarifa;
+
+                _itemDao.UpdateItem(item, categoria);
+
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
-                MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
-                throw;
+                throw new InvalidOperationException($"Error al actualizar la tarifa del item: {ex.Message}", ex);
             }
+        }
+
+        private void ValidarTarifa(double tarifa)
+        {
+            if (tarifa <= 0)
+            {
+                throw new ArgumentException("La tarifa debe ser mayor que cero.");
+            }
+        }
+        #endregion
+
+        #region Obtener Items
+        /// <summary>
+        /// Obtiene la fábrica correspondiente según el nombre de la categoría.
+        /// </summary>
+        /// <param name="categoria">Nombre de la categoría para la cual se requiere la fábrica.</param>
+        /// <returns>Instancia de la fábrica específica para la categoría solicitada.</returns>
+        /// <exception cref="ArgumentException">Se lanza cuando la categoría no es válida.</exception>
+        public IItemFactory ObtenerFactory(string categoria)
+        {
+            return categoria switch
+            {
+                "Transporte" => new TransporteFactory(),
+                "Electrodomestico" => new ElectrodomesticoFactory(),
+                "Electronica" => new ElectronicaFactory(),
+                "Inmueble" => new InmuebleFactory(),
+                "Indumentaria" => new IndumentariaFactory(),
+                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
+            };
         }
 
         /// <summary>
@@ -151,43 +177,24 @@ namespace TitoAlquiler.Controller
             return _itemDao.FindItemsByCategoria(categoriaId);
         }
 
+        #endregion
+
+        #region Eliminar Item
         /// <summary>
-        /// Actualiza la tarifa de un ítem existente en la base de datos.
+        /// Elimina lógicamente un ítem por su ID.
         /// </summary>
-        /// <param name="itemId">ID del ítem a actualizar.</param>
-        /// <param name="nuevaTarifa">Nueva tarifa para el ítem.</param>
-        /// <returns>True si la actualización fue exitosa, de lo contrario False.</returns>
-        /// <exception cref="ArgumentException">Se lanza cuando el itemId no existe o la tarifa es inválida.</exception>
-        /// <exception cref="InvalidOperationException">Se lanza cuando hay un error al actualizar el item.</exception>
-        public bool ActualizarTarifaItem(int itemId, double nuevaTarifa)
+        /// <param name="itemId">ID del ítem a eliminar.</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante la eliminación.</exception>
+        public void EliminarItem(int itemId)
         {
             try
             {
-                if (nuevaTarifa <= 0)
-                {
-                    throw new ArgumentException("La tarifa debe ser mayor que cero.");
-                }
-
-                var (item, categoria) = _itemDao.FindItemById(itemId);
-
-                if (item == null)
-                {
-                    throw new ArgumentException($"No se encontró el item con ID {itemId}.");
-                }
-
-                item.tarifaDia = nuevaTarifa;
-
-                _itemDao.UpdateItem(item, categoria);
-
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                throw;
+                _itemDao.SoftDeleteItem(itemId);
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException($"Error al actualizar la tarifa del item: {ex.Message}", ex);
+                MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
+                throw;
             }
         }
         #endregion

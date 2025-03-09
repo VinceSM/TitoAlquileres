@@ -228,48 +228,197 @@ namespace TitoAlquiler.View.ViewAlquiler
 
         #endregion
 
+        /// <summary>
+        /// Maneja el evento de clic en el botón de devolución anticipada, permitiendo finalizar
+        /// un alquiler antes de la fecha prevista.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Este método permite al usuario realizar la devolución anticipada de un ítem alquilado,
+        /// actualizando la fecha de finalización al día actual, recalculando los días de alquiler
+        /// y el precio correspondiente, y marcando el alquiler como finalizado.
+        /// </remarks>
         private void btnDevolucionAnticipada_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Validar que haya un alquiler seleccionado y obtenerlo
+                if (!ValidarYObtenerAlquilerSeleccionado(out Alquileres alquiler))
+                {
+                    return; // Ya se mostró un mensaje en el método ValidarYObtenerAlquilerSeleccionado
+                }
+
+                // Validar que el alquiler esté activo
+                if (!ValidarAlquilerActivo(alquiler))
+                {
+                    return; // Ya se mostró un mensaje en el método ValidarAlquilerActivo
+                }
+
+                // Solicitar confirmación al usuario
+                if (!SolicitarConfirmacionDevolucionAnticipada(alquiler))
+                {
+                    return; // El usuario canceló la operación
+                }
+
+                // Procesar la devolución anticipada
+                ProcesarDevolucionAnticipada(alquiler);
+
+                // Finalizar el proceso
+                FinalizarDevolucionAnticipada();
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al procesar la devolución anticipada: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Valida que haya un alquiler seleccionado y lo obtiene.
+        /// </summary>
+        /// <param name="alquiler">El alquiler seleccionado (salida).</param>
+        /// <returns>True si se seleccionó y obtuvo un alquiler válido, false en caso contrario.</returns>
+        private bool ValidarYObtenerAlquilerSeleccionado(out Alquileres alquiler)
+        {
+            alquiler = null;
+
             if (!HayAlquilerSeleccionado())
             {
                 MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un alquiler para realizar una devolución anticipada.");
-                return;
+                return false;
             }
 
-            var alquiler = ObtenerAlquilerSeleccionado();
+            alquiler = ObtenerAlquilerSeleccionado();
             if (alquiler == null)
             {
                 MessageShow.MostrarMensajeError("No se encontró el alquiler seleccionado.");
-                return;
+                return false;
             }
 
-            // Verificar que el alquiler esté activo y no haya terminado
+            return true;
+        }
+
+        /// <summary>
+        /// Valida que el alquiler esté activo (no haya finalizado).
+        /// </summary>
+        /// <param name="alquiler">El alquiler a validar.</param>
+        /// <returns>True si el alquiler está activo, false si ya ha finalizado.</returns>
+        private bool ValidarAlquilerActivo(Alquileres alquiler)
+        {
             if (alquiler.fechaFin < DateTime.Today)
             {
                 MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado.");
-                return;
+                return false;
             }
 
-            // Confirmar la devolución anticipada
-            if (MessageShow.MostrarMensajeConfirmacion($"¿Está seguro de que desea realizar la devolución anticipada del ítem '{alquiler.item?.nombreItem}' hoy?\n\nLa fecha original de finalización era {alquiler.fechaFin:dd/MM/yyyy}."))
-            {
-                // Actualizar la fecha de fin al día actual
-                alquiler.fechaFin = DateTime.Today;
+            return true;
+        }
 
-                // Recalcular los días de alquiler
-                alquiler.tiempoDias = (int)(alquiler.fechaFin - alquiler.fechaInicio).TotalDays + 1;
+        /// <summary>
+        /// Solicita confirmación al usuario para realizar la devolución anticipada.
+        /// </summary>
+        /// <param name="alquiler">El alquiler para el que se solicita confirmación.</param>
+        /// <returns>True si el usuario confirma la devolución, false en caso contrario.</returns>
+        private bool SolicitarConfirmacionDevolucionAnticipada(Alquileres alquiler)
+        {
+            string nombreItem = ObtenerNombreItemSeguro(alquiler);
+            string fechaFinOriginal = alquiler.fechaFin.ToString("dd/MM/yyyy");
 
-                // Actualizar el alquiler
-                alquilerController.ActualizarAlquiler(alquiler);
+            string mensajeConfirmacion =
+                $"¿Está seguro de que desea realizar la devolución anticipada del ítem '{nombreItem}' hoy?\n\n" +
+                $"La fecha original de finalización era {fechaFinOriginal}.";
 
-                // Cerrar el alquiler
-                alquilerController.EliminarAlquiler(alquiler.id);
+            return MessageShow.MostrarMensajeConfirmacion(mensajeConfirmacion);
+        }
 
-                MessageShow.MostrarMensajeExito("Devolución anticipada realizada con éxito. El ítem está disponible para nuevos alquileres.");
+        /// <summary>
+        /// Obtiene el nombre del ítem de un alquiler de forma segura, evitando referencias nulas.
+        /// </summary>
+        /// <param name="alquiler">El alquiler del que se quiere obtener el nombre del ítem.</param>
+        /// <returns>El nombre del ítem o un valor por defecto si no está disponible.</returns>
+        private string ObtenerNombreItemSeguro(Alquileres alquiler)
+        {
+            return alquiler.item?.nombreItem ?? "ítem desconocido";
+        }
 
-                // Recargar la lista de alquileres
-                LoadAlquileres();
-            }
+        /// <summary>
+        /// Procesa la devolución anticipada, actualizando las fechas, recalculando los días
+        /// y finalizando el alquiler.
+        /// </summary>
+        /// <param name="alquiler">El alquiler a procesar.</param>
+        private void ProcesarDevolucionAnticipada(Alquileres alquiler)
+        {
+            // Actualizar la fecha de fin al día actual
+            ActualizarFechaFinAlquiler(alquiler);
+
+            // Recalcular los días de alquiler
+            RecalcularDiasAlquiler(alquiler);
+
+            // Actualizar el alquiler en la base de datos
+            ActualizarAlquilerEnBaseDeDatos(alquiler);
+
+            // Cerrar el alquiler (marcarlo como finalizado)
+            CerrarAlquiler(alquiler);
+        }
+
+        /// <summary>
+        /// Actualiza la fecha de fin del alquiler al día actual.
+        /// </summary>
+        /// <param name="alquiler">El alquiler a actualizar.</param>
+        private void ActualizarFechaFinAlquiler(Alquileres alquiler)
+        {
+            alquiler.fechaFin = DateTime.Today;
+        }
+
+        /// <summary>
+        /// Recalcula los días de alquiler basándose en las fechas de inicio y fin.
+        /// </summary>
+        /// <param name="alquiler">El alquiler para el que se recalculan los días.</param>
+        private void RecalcularDiasAlquiler(Alquileres alquiler)
+        {
+            alquiler.tiempoDias = CalcularDiasEntreDosFechas(alquiler.fechaInicio, alquiler.fechaFin);
+        }
+
+        /// <summary>
+        /// Calcula el número de días entre dos fechas, incluyendo ambos días.
+        /// </summary>
+        /// <param name="fechaInicio">La fecha de inicio.</param>
+        /// <param name="fechaFin">La fecha de fin.</param>
+        /// <returns>El número de días entre las dos fechas, incluyendo ambos días.</returns>
+        private int CalcularDiasEntreDosFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return (int)(fechaFin - fechaInicio).TotalDays + 1;
+        }
+
+        /// <summary>
+        /// Actualiza el alquiler en la base de datos.
+        /// </summary>
+        /// <param name="alquiler">El alquiler a actualizar.</param>
+        private void ActualizarAlquilerEnBaseDeDatos(Alquileres alquiler)
+        {
+            alquilerController.ActualizarAlquiler(alquiler);
+        }
+
+        /// <summary>
+        /// Cierra el alquiler, marcándolo como finalizado.
+        /// </summary>
+        /// <param name="alquiler">El alquiler a cerrar.</param>
+        private void CerrarAlquiler(Alquileres alquiler)
+        {
+            alquilerController.EliminarAlquiler(alquiler.id);
+        }
+
+        /// <summary>
+        /// Finaliza el proceso de devolución anticipada, mostrando un mensaje de éxito
+        /// y recargando la lista de alquileres.
+        /// </summary>
+        private void FinalizarDevolucionAnticipada()
+        {
+            // Mostrar mensaje de éxito
+            MessageShow.MostrarMensajeExito("Devolución anticipada realizada con éxito. El ítem está disponible para nuevos alquileres.");
+
+            // Recargar la lista de alquileres
+            LoadAlquileres();
         }
     }
 }

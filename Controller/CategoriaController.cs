@@ -18,34 +18,6 @@ namespace TitoAlquiler.Controller
 
         #endregion
 
-
-        /// <summary>
-        /// Crea una nueva categoría en la base de datos.
-        /// </summary>
-        /// <param name="categoria">Objeto de tipo Categoria que contiene la información de la categoría a crear.</param>
-        public void CrearCategoria(Categoria categoria)
-        {
-            _categoriaDao.InsertCategoria(categoria);
-        }
-
-        /// <summary>
-        /// Actualiza una categoría existente en la base de datos.
-        /// </summary>
-        /// <param name="categoria">Objeto de tipo Categoria con los datos actualizados de la categoría.</param>
-        public void ActualizarCategoria(Categoria categoria)
-        {
-            _categoriaDao.UpdateCategoria(categoria);
-        }
-
-        /// <summary>
-        /// Elimina una categoría de manera lógica (soft delete).
-        /// </summary>
-        /// <param name="categoria">Objeto de tipo Categoria que representa la categoría a eliminar.</param>
-        public void EliminarCategoria(Categoria categoria)
-        {
-            _categoriaDao.SoftDeleteCategoria(categoria);
-        }
-
         /// <summary>
         /// Obtiene una categoría por su identificador único.
         /// </summary>

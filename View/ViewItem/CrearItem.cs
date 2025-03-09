@@ -71,6 +71,13 @@ namespace TitoAlquiler.View.ViewItem
             comboBoxCategoria.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Limpia los campos de entrada básicos del formulario.
+        /// </summary>
+        /// <remarks>
+        /// Este método restablece los valores de los campos de texto para nombre, marca, modelo y tarifa,
+        /// preparándolos para una nueva entrada cuando se cambia de categoría.
+        /// </remarks>
         private void LimpiarInputs()
         {
             txtNombreItem.Clear();
@@ -78,7 +85,6 @@ namespace TitoAlquiler.View.ViewItem
             txtModelo.Clear();
             txtTarifa.Clear();
         }
-
         #endregion
 
         #region Item
@@ -127,19 +133,6 @@ namespace TitoAlquiler.View.ViewItem
                 MessageShow.MostrarMensajeError($"Error al crear el item: {ex.Message}");
             }
         }
-
-        private object[] ObtenerParametrosAdicionales(string categoria)
-        {
-            return categoria switch
-            {
-                "Electrodomestico" => new object[] { int.Parse(txtWatss.Text), txtTipoElec.Text.Trim() },
-                "Inmueble" => new object[] { int.Parse(txtMetros.Text), txtUbicacion.Text.Trim() },
-                "Transporte" => new object[] { int.Parse(txtCapacidad.Text), txtCombustible.Text.Trim() },
-                "Electronica" => new object[] { int.Parse(txtAlmacenamiento.Text), txtResolucion.Text.Trim() },
-                "Indumentaria" => new object[] { txtTalla.Text.Trim(), txtMaterial.Text.Trim() },
-                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
-            };
-        }
         #endregion
 
         #region Categorias
@@ -162,37 +155,111 @@ namespace TitoAlquiler.View.ViewItem
             }
         }
 
+        /// <summary>
+        /// Maneja el evento de cambio de selección en el ComboBox de categorías, mostrando
+        /// los campos específicos correspondientes a la categoría seleccionada.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        /// <remarks>
+        /// Este método se activa cuando el usuario selecciona una categoría diferente en el ComboBox.
+        /// Primero oculta todos los campos específicos, luego obtiene la categoría seleccionada,
+        /// limpia los campos de entrada y finalmente muestra solo los campos relevantes para
+        /// la categoría seleccionada (Transporte, Electrodoméstico, Electrónica, Inmueble o Indumentaria).
+        /// </remarks>
         private void comboBoxCategoria_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            OcultarTodosLosCampos();
-
-            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
-            if (categoriaSeleccionada == null) return;
-
-            switch (categoriaSeleccionada.nombre)
+            try
             {
-                case "Transporte":
-                    LimpiarInputs();
-                    mostrarLosCamposTransporte();
-                    break;
-                case "Electrodomestico":
-                    LimpiarInputs();
-                    mostrarLosCamposElectrodomestico();
-                    break;
-                case "Electronica":
-                    LimpiarInputs();
-                    mostrarLosCamposElectronica();
-                    break;
-                case "Inmueble":
-                    LimpiarInputs();
-                    mostrarLosCamposInmuebles();
-                    break;
-                case "Indumentaria":
-                    LimpiarInputs();
-                    mostrarLosCamposIndumentaria();
-                    break;
+                // Ocultar todos los campos específicos de categorías
+                OcultarTodosLosCampos();
+
+                // Obtener la categoría seleccionada
+                var categoriaSeleccionada = ObtenerCategoriaSeleccionada();
+                if (categoriaSeleccionada == null) return;
+
+                // Limpiar los campos de entrada
+                LimpiarInputs();
+
+                // Mostrar los campos específicos según la categoría seleccionada
+                MostrarCamposEspecificosPorCategoria(categoriaSeleccionada.nombre);
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al cambiar la categoría: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Obtiene la categoría seleccionada en el ComboBox.
+        /// </summary>
+        /// <returns>La categoría seleccionada o null si no hay selección.</returns>
+        private Categoria ObtenerCategoriaSeleccionada()
+        {
+            return comboBoxCategoria.SelectedItem as Categoria;
+        }
+
+        /// <summary>
+        /// Muestra los campos específicos según la categoría seleccionada.
+        /// </summary>
+        /// <param name="nombreCategoria">Nombre de la categoría seleccionada.</param>
+        private void MostrarCamposEspecificosPorCategoria(string nombreCategoria)
+        {
+            // Utilizamos un diccionario de acciones para evitar el switch y hacer el código extensible
+            var estrategiasMostrarCampos = new Dictionary<string, Action>
+            {
+                { "Transporte", mostrarLosCamposTransporte },
+                { "Electrodomestico", mostrarLosCamposElectrodomestico },
+                { "Electronica", mostrarLosCamposElectronica },
+                { "Inmueble", mostrarLosCamposInmuebles },
+                { "Indumentaria", mostrarLosCamposIndumentaria }
+            };
+
+            // Si la categoría está en el diccionario, ejecutar la acción correspondiente
+            if (estrategiasMostrarCampos.ContainsKey(nombreCategoria))
+            {
+                estrategiasMostrarCampos[nombreCategoria]();
+            }
+        }
+
+        /// <summary>
+        /// Obtiene los parámetros adicionales específicos según la categoría seleccionada.
+        /// </summary>
+        /// <param name="categoria">Nombre de la categoría.</param>
+        /// <returns>Un array de objetos con los parámetros adicionales para la categoría.</returns>
+        /// <exception cref="ArgumentException">Se lanza si la categoría no es válida.</exception>
+        /// <remarks>
+        /// Este método extrae los valores de los campos específicos de cada categoría y los
+        /// devuelve como un array de objetos para ser utilizados en la creación del ítem.
+        /// </remarks>
+        private object[] ObtenerParametrosAdicionales(string categoria)
+        {
+            return categoria switch
+            {
+                "Electrodomestico" => new object[] { ObtenerValorNumerico(txtWatss.Text), txtTipoElec.Text.Trim() },
+                "Inmueble" => new object[] { ObtenerValorNumerico(txtMetros.Text), txtUbicacion.Text.Trim() },
+                "Transporte" => new object[] { ObtenerValorNumerico(txtCapacidad.Text), txtCombustible.Text.Trim() },
+                "Electronica" => new object[] { ObtenerValorNumerico(txtAlmacenamiento.Text), txtResolucion.Text.Trim() },
+                "Indumentaria" => new object[] { txtTalla.Text.Trim(), txtMaterial.Text.Trim() },
+                _ => throw new ArgumentException("Categoría no válida", nameof(categoria))
+            };
+        }
+
+        /// <summary>
+        /// Convierte un texto a un valor numérico entero, con manejo de errores.
+        /// </summary>
+        /// <param name="texto">El texto a convertir.</param>
+        /// <returns>El valor numérico entero.</returns>
+        /// <exception cref="FormatException">Se lanza si el texto no puede convertirse a un número.</exception>
+        private int ObtenerValorNumerico(string texto)
+        {
+            if (!int.TryParse(texto, out int valor))
+            {
+                throw new FormatException($"El valor '{texto}' no es un número válido.");
+            }
+            return valor;
+        }
+
         #endregion
 
         #region Mostrar y Ocultar Campos
@@ -222,30 +289,65 @@ namespace TitoAlquiler.View.ViewItem
             txtTalla.Visible = false;
             txtMaterial.Visible = false;
         }
+
+        /// <summary>
+        /// Muestra los campos específicos para la categoría Transporte.
+        /// </summary>
+        /// <remarks>
+        /// Hace visibles los controles relacionados con la capacidad de pasajeros y tipo de combustible.
+        /// </remarks>
         private void mostrarLosCamposTransporte()
         {
             lblTransporte.Visible = true;
             txtCapacidad.Visible = true;
             txtCombustible.Visible = true;
         }
+
+        /// <summary>
+        /// Muestra los campos específicos para la categoría Electrodoméstico.
+        /// </summary>
+        /// <remarks>
+        /// Hace visibles los controles relacionados con la potencia en watts y el tipo de electrodoméstico.
+        /// </remarks>
         private void mostrarLosCamposElectrodomestico()
         {
             lblElectrodomesticos.Visible = true;
             txtWatss.Visible = true;
             txtTipoElec.Visible = true;
         }
+
+        /// <summary>
+        /// Muestra los campos específicos para la categoría Electrónica.
+        /// </summary>
+        /// <remarks>
+        /// Hace visibles los controles relacionados con el almacenamiento en GB y la resolución de pantalla.
+        /// </remarks>
         private void mostrarLosCamposElectronica()
         {
             lblElectronicas.Visible = true;
             txtAlmacenamiento.Visible = true;
             txtResolucion.Visible = true;
         }
+
+        /// <summary>
+        /// Muestra los campos específicos para la categoría Inmueble.
+        /// </summary>
+        /// <remarks>
+        /// Hace visibles los controles relacionados con la ubicación y los metros cuadrados.
+        /// </remarks>
         private void mostrarLosCamposInmuebles()
         {
             lblInmuebles.Visible = true;
             txtUbicacion.Visible = true;
             txtMetros.Visible = true;
         }
+
+        /// <summary>
+        /// Muestra los campos específicos para la categoría Indumentaria.
+        /// </summary>
+        /// <remarks>
+        /// Hace visibles los controles relacionados con la talla y el material.
+        /// </remarks>
         private void mostrarLosCamposIndumentaria()
         {
             lblIndumentaria.Visible = true;
