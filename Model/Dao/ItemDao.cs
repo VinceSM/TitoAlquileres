@@ -273,6 +273,18 @@ namespace TitoAlquiler.Model.Dao
             }
         }
 
+        /// <summary>
+        /// Verifica si el item tiene alquileres activos.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool TieneAlquileresActivos(ItemAlquilable item)
+        {
+            using var db = new SistemaAlquilerContext();
+            return db.Alquileres
+                .Any(a => a.ItemID == item.id && a.deletedAt == null && a.fechaFin > DateTime.Now);
+        }
+
         #endregion
     }
 }

@@ -177,6 +177,16 @@ namespace TitoAlquiler.Controller
             return _itemDao.FindItemsByCategoria(categoriaId);
         }
 
+        /// <summary>
+        /// Verifica si el item tiene alquileres activos.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool TieneAlquileresActivos(ItemAlquilable item)
+        {
+            return _itemDao.TieneAlquileresActivos(item);
+        }
+
         #endregion
 
         #region Eliminar Item
