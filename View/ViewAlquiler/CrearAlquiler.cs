@@ -14,14 +14,12 @@ namespace TitoAlquiler.View.ViewAlquiler
 {
     public partial class CrearAlquiler : Form
     {
-        #region Controladores
         private readonly UsuarioController usuarioController = UsuarioController.Instance;
         private readonly AlquilerController alquilerController = AlquilerController.Instance;
         private readonly ItemController itemController = ItemController.Instance;
         private readonly CategoriaController categoriaController = CategoriaController.Instance;
-        #endregion
 
-        #region Inicialización y Eventos del Formulario
+        #region Formulario
         /// <summary>
         /// Constructor de la clase CrearAlquiler. Inicializa el formulario y carga los datos iniciales.
         /// </summary>
@@ -99,7 +97,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
         #endregion
 
-        #region Gestión de Items - Carga y Navegación
+        #region Carga Items, btnCrearItem y btnModificarItem
         /// <summary>
         /// Carga los items de una categoría específica en un DataGridView.
         /// </summary>
@@ -153,14 +151,27 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             try
             {
-                if (ValidarItemsSeleccionados())
-                {
-                    int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                ValidarItemsSeleccionados();
 
-                    ModificarItem formModificarItem = new ModificarItem(itemId);
-                    formModificarItem.Show();
-                    this.Hide();
+                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+
+                // Obtener el ítem y su categoría
+                if (!ObtenerItemYCategoria(itemId, out ItemAlquilable item, out object categoria))
+                {
+                    return;
                 }
+
+                // Verificar si el ítem tiene alquileres activos
+                bool tieneAlquileresActivos = TieneAlquileresActivos(item);
+                if (tieneAlquileresActivos)
+                {
+                    MessageShow.MostrarMensajeError("No se puede modificar el item porque tiene alquileres activos.");
+                    return;
+                }
+
+                ModificarItem formModificarItem = new ModificarItem(itemId);
+                formModificarItem.Show();
+                this.Hide();
             }
             catch (Exception ex)
             {
@@ -733,7 +744,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             if (dataGridViewItems.SelectedRows.Count == 0)
             {
-                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione al menos un ítem.");
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un ítem.");
                 return true;
             }
             return false;

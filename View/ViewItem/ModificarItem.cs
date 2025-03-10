@@ -1,18 +1,12 @@
-﻿// ModificarItem.cs
+﻿// ModificarItem.cs - Versión simplificada
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TitoAlquiler.Controller;
 using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Model.Entities.Categorias;
-using TitoAlquiler.View.ViewAlquiler;
 using TitoAlquiler.Resources;
+using TitoAlquiler.View.ViewAlquiler;
 
 namespace TitoAlquiler.View.ViewItem
 {
@@ -25,35 +19,29 @@ namespace TitoAlquiler.View.ViewItem
         private object categoriaEspecifica;
         private int itemId = -1;
 
+        // Variables para almacenar los valores originales y detectar cambios
+        private string nombreOriginal;
+        private string marcaOriginal;
+        private string modeloOriginal;
+        private double tarifaOriginal;
+        private Dictionary<string, string> camposEspecificosOriginales;
+
         #region Formulario
-        public ModificarItem()
-        {
-            InitializeComponent();
-            CargarCategorias();
-            comboBoxCategoria.SelectedIndexChanged += comboBoxCategoria_SelectedIndexChanged;
-
-            // Inicialmente ocultar todos los campos específicos
-            OcultarTodosLosCampos();
-
-            // Configurar el botón de modificar
-            btnModificaItem.Click += btnModificaItem_Click;
-
-            // Cargar el DataGrid con todos los ítems
-            CargarItems();
-        }
-
-        // Constructor sobrecargado para recibir un ID de ítem directamente
+        /// <summary>
+        /// Constructor que recibe el ID del ítem a modificar.
+        /// </summary>
+        /// <param name="id">ID del ítem a modificar</param>
         public ModificarItem(int id)
         {
             InitializeComponent();
+
+            // Cargar categorías pero ocultar el ComboBox y su etiqueta
             CargarCategorias();
-            comboBoxCategoria.SelectedIndexChanged += comboBoxCategoria_SelectedIndexChanged;
+            lblCategoria.Visible = false;
+            comboBoxCategoria.Visible = false;
 
             // Inicialmente ocultar todos los campos específicos
             OcultarTodosLosCampos();
-
-            // Configurar el botón de modificar
-            btnModificaItem.Click += btnModificaItem_Click;
 
             // Cargar el ítem específico
             CargarItem(id);
@@ -80,11 +68,9 @@ namespace TitoAlquiler.View.ViewItem
                 Application.Exit();
             }
         }
-
         #endregion
 
         #region Carga de Datos
-
         /// <summary>
         /// Carga todas las categorías en el ComboBox
         /// </summary>
@@ -101,61 +87,6 @@ namespace TitoAlquiler.View.ViewItem
             catch (Exception ex)
             {
                 MessageShow.MostrarMensajeError($"Error al cargar las categorías: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Carga todos los ítems en un DataGridView
-        /// </summary>
-        private void CargarItems()
-        {
-            try
-            {
-                // Crear un DataGridView dinámicamente si no existe
-                DataGridView dataGridViewItems = new DataGridView();
-                dataGridViewItems.Name = "dataGridViewItems";
-                dataGridViewItems.Location = new Point(50, 400);
-                dataGridViewItems.Size = new Size(800, 200);
-                dataGridViewItems.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
-                dataGridViewItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dataGridViewItems.ReadOnly = true;
-                dataGridViewItems.AllowUserToAddRows = false;
-                dataGridViewItems.AllowUserToDeleteRows = false;
-                dataGridViewItems.BackgroundColor = Color.LightBlue;
-                dataGridViewItems.RowHeadersVisible = false;
-
-                // Agregar columnas
-                dataGridViewItems.Columns.Add("ID", "ID");
-                dataGridViewItems.Columns.Add("Nombre", "Nombre");
-                dataGridViewItems.Columns.Add("Marca", "Marca");
-                dataGridViewItems.Columns.Add("Modelo", "Modelo");
-                dataGridViewItems.Columns.Add("Tarifa", "Tarifa");
-                dataGridViewItems.Columns.Add("Categoria", "Categoría");
-
-                // Agregar evento de selección
-                dataGridViewItems.SelectionChanged += DataGridViewItems_SelectionChanged;
-
-                // Agregar al formulario
-                this.Controls.Add(dataGridViewItems);
-
-                // Cargar datos
-                var items = itemController.ObtenerTodosLosItems();
-
-                foreach (var item in items)
-                {
-                    dataGridViewItems.Rows.Add(
-                        item.item.id,
-                        item.item.nombreItem,
-                        item.item.marca,
-                        item.item.modelo,
-                        item.item.tarifaDia,
-                        item.item.categoria?.nombre
-                    );
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError($"Error al cargar los ítems: {ex.Message}");
             }
         }
 
@@ -179,13 +110,19 @@ namespace TitoAlquiler.View.ViewItem
                 categoriaEspecifica = categoria;
                 itemId = id;
 
+                // Guardar valores originales para detectar cambios
+                nombreOriginal = item.nombreItem;
+                marcaOriginal = item.marca;
+                modeloOriginal = item.modelo;
+                tarifaOriginal = item.tarifaDia;
+
                 // Cargar datos básicos
                 txtNombreItem.Text = item.nombreItem;
                 txtMarca.Text = item.marca;
                 txtModelo.Text = item.modelo;
                 txtTarifa.Text = item.tarifaDia.ToString();
 
-                // Seleccionar la categoría en el ComboBox
+                // Seleccionar la categoría en el ComboBox (aunque esté oculto)
                 for (int i = 0; i < comboBoxCategoria.Items.Count; i++)
                 {
                     var cat = comboBoxCategoria.Items[i] as Categoria;
@@ -198,6 +135,9 @@ namespace TitoAlquiler.View.ViewItem
 
                 // Cargar datos específicos según la categoría
                 CargarDatosEspecificos(categoria);
+
+                // Guardar los campos específicos originales
+                camposEspecificosOriginales = ObtenerCamposEspecificos(((Categoria)comboBoxCategoria.SelectedItem).nombre);
             }
             catch (Exception ex)
             {
@@ -247,58 +187,9 @@ namespace TitoAlquiler.View.ViewItem
                     break;
             }
         }
-
         #endregion
 
         #region Eventos
-
-        /// <summary>
-        /// Maneja el evento de selección en el DataGridView
-        /// </summary>
-        private void DataGridViewItems_SelectionChanged(object sender, EventArgs e)
-        {
-            var dataGridView = sender as DataGridView;
-            if (dataGridView != null && dataGridView.SelectedRows.Count > 0)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["ID"].Value);
-                CargarItem(id);
-            }
-        }
-
-        /// <summary>
-        /// Maneja el evento de cambio de selección en el ComboBox de categorías
-        /// </summary>
-        private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxCategoria.SelectedItem == null) return;
-
-            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
-            if (categoriaSeleccionada == null) return;
-
-            // Ocultar todos los campos específicos
-            OcultarTodosLosCampos();
-
-            // Mostrar los campos según la categoría seleccionada
-            switch (categoriaSeleccionada.nombre)
-            {
-                case "Transporte":
-                    MostrarCamposTransporte();
-                    break;
-                case "Electrodomestico":
-                    MostrarCamposElectrodomestico();
-                    break;
-                case "Electronica":
-                    MostrarCamposElectronica();
-                    break;
-                case "Inmueble":
-                    MostrarCamposInmueble();
-                    break;
-                case "Indumentaria":
-                    MostrarCamposIndumentaria();
-                    break;
-            }
-        }
-
         /// <summary>
         /// Maneja el evento de clic en el botón de modificar
         /// </summary>
@@ -312,23 +203,40 @@ namespace TitoAlquiler.View.ViewItem
                     return;
                 }
 
-                // Actualizar datos básicos del ítem
-                itemSeleccionado.nombreItem = txtNombreItem.Text.Trim();
-                itemSeleccionado.marca = txtMarca.Text.Trim();
-                itemSeleccionado.modelo = txtModelo.Text.Trim();
+                // Obtener y validar los campos básicos
+                string nombre = txtNombreItem.Text.Trim();
+                string marca = txtMarca.Text.Trim();
+                string modelo = txtModelo.Text.Trim();
+                string tarifaText = txtTarifa.Text.Trim();
 
-                if (double.TryParse(txtTarifa.Text, out double tarifa))
+                if (!ValidacionesItem.ValidarCamposBasicos(nombre, marca, modelo, tarifaText, out double tarifa))
+                    return;
+
+                // Obtener y validar la categoría
+                var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
+                if (!ValidacionesItem.ValidarCategoria(categoriaSeleccionada))
+                    return;
+
+                // Obtener y validar los campos específicos según la categoría
+                Dictionary<string, string> camposEspecificos = ObtenerCamposEspecificos(categoriaSeleccionada.nombre);
+                if (!ValidacionesItem.ValidarCamposEspecificos(categoriaSeleccionada.nombre, camposEspecificos))
+                    return;
+
+                // Verificar si hubo cambios
+                if (!HayCambios(nombre, marca, modelo, tarifa, camposEspecificos))
                 {
-                    itemSeleccionado.tarifaDia = tarifa;
-                }
-                else
-                {
-                    MessageShow.MostrarMensajeError("La tarifa debe ser un valor numérico válido.");
+                    MessageShow.MostrarMensajeInformacion("No se detectaron cambios en el ítem.");
                     return;
                 }
 
+                // Actualizar datos básicos del ítem
+                itemSeleccionado.nombreItem = nombre;
+                itemSeleccionado.marca = marca;
+                itemSeleccionado.modelo = modelo;
+                itemSeleccionado.tarifaDia = tarifa;
+
                 // Actualizar datos específicos según la categoría
-                object categoriaActualizada = ActualizarCategoriaEspecifica();
+                object categoriaActualizada = ActualizarCategoriaEspecifica(camposEspecificos);
 
                 if (categoriaActualizada == null)
                 {
@@ -341,19 +249,207 @@ namespace TitoAlquiler.View.ViewItem
 
                 MessageShow.MostrarMensajeExito("Ítem actualizado correctamente.");
 
+                // Actualizar los valores originales
+                nombreOriginal = nombre;
+                marcaOriginal = marca;
+                modeloOriginal = modelo;
+                tarifaOriginal = tarifa;
+                camposEspecificosOriginales = new Dictionary<string, string>(camposEspecificos);
+
                 // Recargar los datos
                 CargarItem(itemId);
-                CargarItems();
             }
             catch (Exception ex)
             {
                 MessageShow.MostrarMensajeError($"Error al modificar el ítem: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Verifica si se han realizado cambios en el ítem
+        /// </summary>
+        /// <returns>True si hay cambios, False si no hay cambios</returns>
+        private bool HayCambios(string nombre, string marca, string modelo, double tarifa, Dictionary<string, string> camposEspecificos)
+        {
+            // Verificar cambios en los campos básicos
+            if (nombre != nombreOriginal ||
+                marca != marcaOriginal ||
+                modelo != modeloOriginal ||
+                Math.Abs(tarifa - tarifaOriginal) > 0.001)
+            {
+                return true;
+            }
+
+            // Verificar cambios en los campos específicos
+            if (camposEspecificosOriginales != null)
+            {
+                foreach (var campo in camposEspecificos)
+                {
+                    if (camposEspecificosOriginales.ContainsKey(campo.Key))
+                    {
+                        if (camposEspecificosOriginales[campo.Key] != campo.Value)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        return true; // Campo nuevo
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Obtiene los campos específicos según la categoría seleccionada.
+        /// </summary>
+        private Dictionary<string, string> ObtenerCamposEspecificos(string categoria)
+        {
+            var campos = new Dictionary<string, string>();
+
+            switch (categoria)
+            {
+                case "Transporte":
+                    campos.Add("capacidad", txtCantidad.Text.Trim());
+                    campos.Add("combustible", txtCombustible.Text.Trim());
+                    break;
+                case "Electrodomestico":
+                    campos.Add("potencia", txtWatss.Text.Trim());
+                    campos.Add("tipo", txtTipo.Text.Trim());
+                    break;
+                case "Electronica":
+                    campos.Add("almacenamiento", txtAlmacenamiento.Text.Trim());
+                    campos.Add("resolucion", txtResolucion.Text.Trim());
+                    break;
+                case "Inmueble":
+                    campos.Add("metros", txtMetros.Text.Trim());
+                    campos.Add("ubicacion", txtUbicacion.Text.Trim());
+                    break;
+                case "Indumentaria":
+                    campos.Add("talla", txtTalla.Text.Trim());
+                    campos.Add("material", txtMaterial.Text.Trim());
+                    break;
+            }
+
+            return campos;
+        }
+
+        /// <summary>
+        /// Actualiza el objeto de categoría específica con los datos del formulario
+        /// </summary>
+        private object ActualizarCategoriaEspecifica(Dictionary<string, string> campos)
+        {
+            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
+            if (categoriaSeleccionada == null) return null;
+
+            switch (categoriaSeleccionada.nombre)
+            {
+                case "Transporte":
+                    if (categoriaEspecifica is Transporte transporte)
+                    {
+                        if (int.TryParse(campos["capacidad"], out int capacidad))
+                        {
+                            transporte.capacidadPasajeros = capacidad;
+                        }
+                        transporte.tipoCombustible = campos["combustible"];
+                        return transporte;
+                    }
+                    else
+                    {
+                        return new Transporte
+                        {
+                            itemId = itemId,
+                            capacidadPasajeros = int.TryParse(campos["capacidad"], out int cap) ? cap : 0,
+                            tipoCombustible = campos["combustible"]
+                        };
+                    }
+
+                case "Electrodomestico":
+                    if (categoriaEspecifica is Electrodomestico electrodomestico)
+                    {
+                        if (int.TryParse(campos["potencia"], out int potencia))
+                        {
+                            electrodomestico.potenciaWatts = potencia;
+                        }
+                        electrodomestico.tipoElectrodomestico = campos["tipo"];
+                        return electrodomestico;
+                    }
+                    else
+                    {
+                        return new Electrodomestico
+                        {
+                            itemId = itemId,
+                            potenciaWatts = int.TryParse(campos["potencia"], out int pot) ? pot : 0,
+                            tipoElectrodomestico = campos["tipo"]
+                        };
+                    }
+
+                case "Electronica":
+                    if (categoriaEspecifica is Electronica electronica)
+                    {
+                        if (int.TryParse(campos["almacenamiento"], out int almacenamiento))
+                        {
+                            electronica.almacenamientoGB = almacenamiento;
+                        }
+                        electronica.resolucionPantalla = campos["resolucion"];
+                        return electronica;
+                    }
+                    else
+                    {
+                        return new Electronica
+                        {
+                            itemId = itemId,
+                            almacenamientoGB = int.TryParse(campos["almacenamiento"], out int alm) ? alm : 0,
+                            resolucionPantalla = campos["resolucion"]
+                        };
+                    }
+
+                case "Inmueble":
+                    if (categoriaEspecifica is Inmueble inmueble)
+                    {
+                        if (int.TryParse(campos["metros"], out int metros))
+                        {
+                            inmueble.metrosCuadrados = metros;
+                        }
+                        inmueble.ubicacion = campos["ubicacion"];
+                        return inmueble;
+                    }
+                    else
+                    {
+                        return new Inmueble
+                        {
+                            itemId = itemId,
+                            metrosCuadrados = int.TryParse(campos["metros"], out int met) ? met : 0,
+                            ubicacion = campos["ubicacion"]
+                        };
+                    }
+
+                case "Indumentaria":
+                    if (categoriaEspecifica is Indumentaria indumentaria)
+                    {
+                        indumentaria.talla = campos["talla"];
+                        indumentaria.material = campos["material"];
+                        return indumentaria;
+                    }
+                    else
+                    {
+                        return new Indumentaria
+                        {
+                            itemId = itemId,
+                            talla = campos["talla"],
+                            material = campos["material"]
+                        };
+                    }
+
+                default:
+                    return null;
+            }
+        }
         #endregion
 
         #region Métodos de Ayuda
-
         /// <summary>
         /// Oculta todos los campos específicos de categorías
         /// </summary>
@@ -434,119 +530,6 @@ namespace TitoAlquiler.View.ViewItem
             txtTalla.Visible = true;
             txtMaterial.Visible = true;
         }
-
-        /// <summary>
-        /// Actualiza el objeto de categoría específica con los datos del formulario
-        /// </summary>
-        private object ActualizarCategoriaEspecifica()
-        {
-            var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
-            if (categoriaSeleccionada == null) return null;
-
-            switch (categoriaSeleccionada.nombre)
-            {
-                case "Transporte":
-                    if (categoriaEspecifica is Transporte transporte)
-                    {
-                        if (int.TryParse(txtCantidad.Text, out int capacidad))
-                        {
-                            transporte.capacidadPasajeros = capacidad;
-                        }
-                        transporte.tipoCombustible = txtCombustible.Text;
-                        return transporte;
-                    }
-                    else
-                    {
-                        return new Transporte
-                        {
-                            itemId = itemId,
-                            capacidadPasajeros = int.TryParse(txtCantidad.Text, out int cap) ? cap : 0,
-                            tipoCombustible = txtCombustible.Text
-                        };
-                    }
-
-                case "Electrodomestico":
-                    if (categoriaEspecifica is Electrodomestico electrodomestico)
-                    {
-                        if (int.TryParse(txtWatss.Text, out int potencia))
-                        {
-                            electrodomestico.potenciaWatts = potencia;
-                        }
-                        electrodomestico.tipoElectrodomestico = txtTipo.Text;
-                        return electrodomestico;
-                    }
-                    else
-                    {
-                        return new Electrodomestico
-                        {
-                            itemId = itemId,
-                            potenciaWatts = int.TryParse(txtWatss.Text, out int pot) ? pot : 0,
-                            tipoElectrodomestico = txtTipo.Text
-                        };
-                    }
-
-                case "Electronica":
-                    if (categoriaEspecifica is Electronica electronica)
-                    {
-                        if (int.TryParse(txtAlmacenamiento.Text, out int almacenamiento))
-                        {
-                            electronica.almacenamientoGB = almacenamiento;
-                        }
-                        electronica.resolucionPantalla = txtResolucion.Text;
-                        return electronica;
-                    }
-                    else
-                    {
-                        return new Electronica
-                        {
-                            itemId = itemId,
-                            almacenamientoGB = int.TryParse(txtAlmacenamiento.Text, out int alm) ? alm : 0,
-                            resolucionPantalla = txtResolucion.Text
-                        };
-                    }
-
-                case "Inmueble":
-                    if (categoriaEspecifica is Inmueble inmueble)
-                    {
-                        if (int.TryParse(txtMetros.Text, out int metros))
-                        {
-                            inmueble.metrosCuadrados = metros;
-                        }
-                        inmueble.ubicacion = txtUbicacion.Text;
-                        return inmueble;
-                    }
-                    else
-                    {
-                        return new Inmueble
-                        {
-                            itemId = itemId,
-                            metrosCuadrados = int.TryParse(txtMetros.Text, out int met) ? met : 0,
-                            ubicacion = txtUbicacion.Text
-                        };
-                    }
-
-                case "Indumentaria":
-                    if (categoriaEspecifica is Indumentaria indumentaria)
-                    {
-                        indumentaria.talla = txtTalla.Text;
-                        indumentaria.material = txtMaterial.Text;
-                        return indumentaria;
-                    }
-                    else
-                    {
-                        return new Indumentaria
-                        {
-                            itemId = itemId,
-                            talla = txtTalla.Text,
-                            material = txtMaterial.Text
-                        };
-                    }
-
-                default:
-                    return null;
-            }
-        }
-
         #endregion
     }
 }

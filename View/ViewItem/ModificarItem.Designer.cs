@@ -351,6 +351,7 @@
             btnModificaItem.TabIndex = 33;
             btnModificaItem.Text = "Modificar";
             btnModificaItem.UseVisualStyleBackColor = false;
+            btnModificaItem.Click += btnModificaItem_Click;
             // 
             // sistemaAlquilerContextBindingSource
             // 

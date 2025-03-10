@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\resources\\validacionesusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:resources\\validacionesusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewalquiler\\crearalquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\crearalquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewitem\\modificaritem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewitem\\modificaritem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,26 +34,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ValidacionesUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\Resources\\ValidacionesUsuario.cs",
-              "RelativeDocumentMoniker": "Resources\\ValidacionesUsuario.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\Resources\\ValidacionesUsuario.cs",
-              "RelativeToolTip": "Resources\\ValidacionesUsuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ModificarItem.cs",
+              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewItem\\ModificarItem.cs",
+              "RelativeDocumentMoniker": "View\\ViewItem\\ModificarItem.cs",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewItem\\ModificarItem.cs",
+              "RelativeToolTip": "View\\ViewItem\\ModificarItem.cs",
+              "ViewState": "AgIAALoAAAAAAAAAAAAmwMQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T00:27:59.12Z",
+              "WhenOpened": "2025-03-10T02:07:39.852Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "CrearAlquiler.cs",
               "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\CrearAlquiler.cs",
               "RelativeDocumentMoniker": "View\\ViewAlquiler\\CrearAlquiler.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\CrearAlquiler.cs",
-              "RelativeToolTip": "View\\ViewAlquiler\\CrearAlquiler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHICAAAIAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\CrearAlquiler.cs*",
+              "RelativeToolTip": "View\\ViewAlquiler\\CrearAlquiler.cs*",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAAAKoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-09T21:56:52.786Z",
               "EditorCaption": ""
