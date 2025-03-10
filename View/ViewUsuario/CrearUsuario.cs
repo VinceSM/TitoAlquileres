@@ -1,11 +1,10 @@
-﻿using TitoAlquiler.Controller;
-using TitoAlquiler.Model.Entities;
-using TitoAlquiler.View.ViewAlquiler;
+﻿// CrearUsuario.cs
 using System;
 using System.Windows.Forms;
-using Microsoft.IdentityModel.Tokens;
-using System.Net;
+using TitoAlquiler.Controller;
+using TitoAlquiler.Model.Entities;
 using TitoAlquiler.Resources;
+using TitoAlquiler.View.ViewAlquiler;
 
 namespace TitoAlquiler.View.ViewUsuario
 {
@@ -14,9 +13,6 @@ namespace TitoAlquiler.View.ViewUsuario
         private readonly UsuarioController usuarioController = UsuarioController.Instance;
 
         #region FormUsuario
-        /// <summary>
-        /// Inicializa una nueva instancia del formulario CrearUsuario.
-        /// </summary>
         public CrearUsuario()
         {
             InitializeComponent();
@@ -49,7 +45,6 @@ namespace TitoAlquiler.View.ViewUsuario
         #endregion
 
         #region Usuario
-
         /// <summary>
         /// Limpia los campos de entrada en el formulario.
         /// </summary>
@@ -69,33 +64,45 @@ namespace TitoAlquiler.View.ViewUsuario
         /// <param name="e">Datos del evento.</param>
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputsBoolean(out string nombre, out string email, out int dni))
-            {
-                MessageShow.MostrarMensajeError("Por favor, completa los campos correctamente");
-                return;
-            }
-
-            if (!IsValidEmail(email))
-            {
-                MessageShow.MostrarMensajeError("El email ingresado no es válido. Asegúrate de incluir un '@' y una terminación válida como '.com'.");
-                return;
-            }
-
-            Usuarios nuevoUsuario = new Usuarios
-            {
-                nombre = nombre,
-                dni = dni,
-                email = email,
-                membresiaPremium = checkBoxMembresia.Checked
-            };
-
             try
             {
-                VerificarDniExistente(dni);
-                VerificarEmailExistente(email);
+                // Obtener y validar los datos
+                string nombre = textBoxCrearNombre.Text.Trim();
+                string email = textBoxCrearEmail.Text.Trim();
+                string dniText = textBoxCrearDNI.Text.Trim();
+
+                if (!ValidacionesUsuario.ValidarDatosUsuario(nombre, email, dniText, out int dni))
+                {
+                    return; // La validación ya mostró los mensajes de error
+                }
+
+                // Verificar si el DNI ya está registrado
+                if (usuarioController.CompararDNI(dni))
+                {
+                    MessageShow.MostrarMensajeAdvertencia("El DNI ingresado ya está registrado.");
+                    return;
+                }
+
+                // Verificar si el email ya está registrado
+                if (usuarioController.CompararEmail(email))
+                {
+                    MessageShow.MostrarMensajeAdvertencia("El Email ingresado ya está registrado.");
+                    return;
+                }
+
+                // Crear el nuevo usuario
+                Usuarios nuevoUsuario = new Usuarios
+                {
+                    nombre = nombre,
+                    dni = dni,
+                    email = email,
+                    membresiaPremium = checkBoxMembresia.Checked
+                };
+
                 usuarioController.CrearUsuario(nuevoUsuario);
+
                 lblCreado.Text = "Usuario creado exitosamente";
-                MessageBox.Show("Usuario creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageShow.MostrarMensajeExito("Usuario creado exitosamente.");
                 LimpiarCampos();
             }
             catch (Exception ex)
@@ -103,88 +110,6 @@ namespace TitoAlquiler.View.ViewUsuario
                 MessageShow.MostrarMensajeError($"Error al crear el usuario: {ex.Message}");
             }
         }
-
-        #endregion
-
-        #region Validate Dni
-
-        /// <summary>
-        /// Verifica si el DNI ingresado ya está registrado en el sistema.
-        /// </summary>
-        /// <param name="dni">El DNI a validar.</param>
-        private void VerificarDniExistente(int dni)
-        {
-            if (usuarioController.CompararDNI(dni))
-            {
-                throw new Exception("El DNI ingresado ya está registrado.");
-            }
-        }
-
-        /// <summary>
-        /// Valida los datos de entrada del formulario para la creación de un usuario.
-        /// </summary>
-        /// <param name="nombre">Salida: Nombre ingresado por el usuario.</param>
-        /// <param name="email">Salida: Email ingresado por el usuario.</param>
-        /// <param name="dni">Salida: DNI ingresado por el usuario.</param>
-        /// <returns>True si todos los datos son válidos, de lo contrario False.</returns>
-        private bool ValidateInputsBoolean(out string nombre, out string email, out int dni)
-        {
-            nombre = textBoxCrearNombre.Text.Trim();
-            email = textBoxCrearEmail.Text.Trim();
-            string dniText = textBoxCrearDNI.Text.Trim();
-
-            if (!int.TryParse(dniText, out dni))
-            {
-                MessageShow.MostrarMensajeError("El DNI debe ser un número válido.");
-                return false;
-            }
-
-            if (dniText.Length != 8)
-            {
-                MessageShow.MostrarMensajeError("El DNI debe constar de 8 dígitos.");
-                return false;
-            }
-
-            return true;
-        }
-
-        #endregion
-
-        #region ValidateEmail
-
-        /// <summary>
-        /// Verifica si el correo electrónico ingresado ya está registrado en el sistema.
-        /// </summary>
-        /// <param name="email">El correo electrónico a validar.</param>
-        private void VerificarEmailExistente(string email)
-        {
-            if (usuarioController.CompararEmail(email))
-            {
-                throw new Exception("El Email ingresado ya está registrado.");
-            }
-        }
-
-        /// <summary>
-        /// Valida que el correo electrónico tenga un formato válido.
-        /// </summary>
-        /// <param name="email">El correo electrónico a validar.</param>
-        /// <returns>True si el correo tiene un formato válido, de lo contrario False.</returns>
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                string[] validEndings = { ".com", ".net", ".org", ".edu", ".gov", ".ar", ".es" };
-                return addr.Address == email && validEndings.Any(ending => email.EndsWith(ending, StringComparison.OrdinalIgnoreCase));
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         #endregion
     }
-
 }
-

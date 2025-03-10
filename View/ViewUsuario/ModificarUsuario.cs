@@ -1,7 +1,9 @@
-﻿using System;
+﻿// ModificarUsuario.cs
+using System;
 using System.Windows.Forms;
 using TitoAlquiler.Controller;
 using TitoAlquiler.Model.Entities;
+using TitoAlquiler.Resources;
 using TitoAlquiler.View.ViewAlquiler;
 
 namespace TitoAlquiler.View.ViewUsuario
@@ -51,47 +53,14 @@ namespace TitoAlquiler.View.ViewUsuario
         /// <summary>
         /// Valida los inputs del formulario.
         /// </summary>
-        /// <param name="nombre">Nombre del usuario.</param>
-        /// <param name="email">Correo electrónico del usuario.</param>
-        /// <param name="dni">DNI del usuario.</param>
         /// <returns>True si los inputs son válidos; de lo contrario, False.</returns>
-        private bool ValidateInputs(out string nombre, out string email, out int dni)
+        private bool ValidarInputs()
         {
-            nombre = textBoxNombre.Text.Trim();
-            email = textBoxEmail.Text.Trim();
+            string nombre = textBoxNombre.Text.Trim();
+            string email = textBoxEmail.Text.Trim();
             string dniText = textBoxDNI.Text.Trim();
 
-            if (!int.TryParse(dniText, out dni) || dniText.Length != 8)
-            {
-                MessageBox.Show("El DNI debe ser un número válido de 8 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (!IsValidEmail(email))
-            {
-                MessageBox.Show("El email ingresado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Valida el formato del correo electrónico.
-        /// </summary>
-        /// <param name="email">Correo electrónico a validar.</param>
-        /// <returns>True si el email es válido; de lo contrario, False.</returns>
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email && email.Contains("@");
-            }
-            catch
-            {
-                return false;
-            }
+            return ValidacionesUsuario.ValidarDatosUsuario(nombre, email, dniText, out _);
         }
         #endregion
 
@@ -103,29 +72,47 @@ namespace TitoAlquiler.View.ViewUsuario
         /// <param name="e">Argumentos del evento.</param>
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputs(out string nombre, out string email, out int dni))
-            {
-                MessageBox.Show("Por favor, completa los campos correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            usuarioActual.nombre = nombre;
-            usuarioActual.email = email;
-            usuarioActual.dni = dni;
-            usuarioActual.membresiaPremium = checkBoxMembresia.Checked;
-
             try
             {
+                // Obtener y validar los datos
+                string nombre = textBoxNombre.Text.Trim();
+                string email = textBoxEmail.Text.Trim();
+                string dniText = textBoxDNI.Text.Trim();
+
+                if (!ValidacionesUsuario.ValidarDatosUsuario(nombre, email, dniText, out int dni))
+                {
+                    return; // La validación ya mostró los mensajes de error
+                }
+
+                // Verificar si el email ya está en uso por otro usuario
+                if (email != usuarioActual.email && usuarioController.CompararEmail(email))
+                {
+                    MessageShow.MostrarMensajeAdvertencia("El email ingresado ya está registrado por otro usuario.");
+                    return;
+                }
+
+                // Verificar si el DNI ya está en uso por otro usuario
+                if (dni != usuarioActual.dni && usuarioController.CompararDNI(dni))
+                {
+                    MessageShow.MostrarMensajeAdvertencia("El DNI ingresado ya está registrado por otro usuario.");
+                    return;
+                }
+
+                // Actualizar el usuario
+                usuarioActual.nombre = nombre;
+                usuarioActual.email = email;
+                usuarioActual.dni = dni;
+                usuarioActual.membresiaPremium = checkBoxMembresia.Checked;
+
                 usuarioController.ActualizarUsuario(usuarioActual);
-                MessageBox.Show("Usuario actualizado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageShow.MostrarMensajeExito("Usuario actualizado exitosamente.");
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageShow.MostrarMensajeError($"Error al actualizar el usuario: {ex.Message}");
             }
         }
         #endregion
     }
-
 }

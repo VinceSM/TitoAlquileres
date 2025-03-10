@@ -8,23 +8,37 @@ using System.Linq;
 using TitoAlquiler.Model.Entities.Categorias;
 using Microsoft.Data.SqlClient;
 using TitoAlquiler.Resources;
+using System.Collections.Generic;
 
 namespace TitoAlquiler.View.ViewAlquiler
 {
     public partial class CrearAlquiler : Form
     {
-        UsuarioController usuarioController = UsuarioController.Instance;
-        AlquilerController alquilerController = AlquilerController.Instance;
-        ItemController itemController = ItemController.Instance;
-        CategoriaController categoriaController = CategoriaController.Instance;
+        #region Controladores
+        private readonly UsuarioController usuarioController = UsuarioController.Instance;
+        private readonly AlquilerController alquilerController = AlquilerController.Instance;
+        private readonly ItemController itemController = ItemController.Instance;
+        private readonly CategoriaController categoriaController = CategoriaController.Instance;
+        #endregion
 
-        #region FormAlquiler
+        #region Inicialización y Eventos del Formulario
+        /// <summary>
+        /// Constructor de la clase CrearAlquiler. Inicializa el formulario y carga los datos iniciales.
+        /// </summary>
         public CrearAlquiler()
         {
             InitializeComponent();
             this.Activated += FormAlquilar_Activated;
             cmbCategorias.SelectedIndex = -1;
             CargarCategorias();
+        }
+
+        /// <summary>
+        /// Evento que se dispara cuando el formulario se activa. Recarga los usuarios.
+        /// </summary>
+        private void FormAlquilar_Activated(object sender, EventArgs e)
+        {
+            CargarUsuarios();
         }
 
         /// <summary>
@@ -49,48 +63,43 @@ namespace TitoAlquiler.View.ViewAlquiler
                 Application.Exit();
             }
         }
+        #endregion
 
+        #region Gestión de Categorías
         /// <summary>
-        /// Muestra el formulario para crear un nuevo ítem y oculta la ventana actual.
+        /// Carga todas las categorías en un ComboBox.
         /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void btnCrearItem_Click(object sender, EventArgs e)
-        {
-            CrearItem formCreaItem = new CrearItem();
-            formCreaItem.Show();
-            this.Hide();
-        }
-
-        /// <summary>
-        /// Muestra el formulario para modificar un ítem seleccionado y oculta la ventana actual.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void btnModificarItem_Click(object sender, EventArgs e)
+        private void CargarCategorias()
         {
             try
             {
-                if (dataGridViewItems.SelectedRows.Count == 0)
-                {
-                    MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un ítem para modificar.");
-                    return;
-                }
-
-                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-
-                ModificarItem formModificarItem = new ModificarItem(itemId);
-                formModificarItem.Show();
-                this.Hide();
+                cmbCategorias.DropDownStyle = ComboBoxStyle.DropDownList;
+                List<Categoria> categorias = categoriaController.ObtenerTodasLasCategorias();
+                cmbCategorias.DataSource = categorias;
+                cmbCategorias.DisplayMember = "nombre";
+                cmbCategorias.ValueMember = "id";
             }
             catch (Exception ex)
             {
-                MessageShow.MostrarMensajeError($"Error al abrir el formulario de modificación: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al cargar las categorías: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Maneja el evento de cambio de selección en el ComboBox de categorías y carga los items relacionados.
+        /// </summary>
+        private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCategorias.SelectedItem != null)
+            {
+                Categoria categoriaSeleccionada = (Categoria)cmbCategorias.SelectedItem;
+                int categoriaId = categoriaSeleccionada.id;
+                CargarItems(categoriaId);
             }
         }
         #endregion
 
-        #region Items
+        #region Gestión de Items - Carga y Navegación
         /// <summary>
         /// Carga los items de una categoría específica en un DataGridView.
         /// </summary>
@@ -128,145 +137,128 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Elimina un ítem seleccionado de la lista. Solicita confirmación antes de proceder.
+        /// Muestra el formulario para crear un nuevo ítem y oculta la ventana actual.
         /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        /// <remarks>
-        /// Este método implementa la eliminación lógica (soft delete) de un ítem, verificando primero
-        /// que esté seleccionado, que exista y que no tenga alquileres activos. Luego solicita
-        /// confirmación al usuario mostrando los detalles del ítem antes de proceder con la eliminación.
-        /// </remarks>
-        private void btnSoftDeleteItem_Click(object sender, EventArgs e)
+        private void btnCrearItem_Click(object sender, EventArgs e)
+        {
+            CrearItem formCreaItem = new CrearItem();
+            formCreaItem.Show();
+            this.Hide();
+        }
+
+        /// <summary>
+        /// Muestra el formulario para modificar un ítem seleccionado y oculta la ventana actual.
+        /// </summary>
+        private void btnModificarItem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Verificar que haya un ítem seleccionado
                 if (ValidarItemsSeleccionados())
                 {
-                    return; 
+                    int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+
+                    ModificarItem formModificarItem = new ModificarItem(itemId);
+                    formModificarItem.Show();
+                    this.Hide();
                 }
-
-                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-
-                if (!ObtenerItemYCategoria(itemId, out ItemAlquilable item, out object categoria))
-                {
-                    return; 
-                }
-
-                // Verificar si el ítem tiene alquileres activos
-                if (TieneAlquileresActivos(item))
-                {
-                    MessageShow.MostrarMensajeError("No se puede eliminar el item porque tiene alquileres activos.");
-                    return;
-                }
-
-                // Solicitar confirmación al usuario
-                if (!SolicitarConfirmacionEliminarItem(item, categoria))
-                {
-                    return; 
-                }
-
-                // Eliminar el ítem y actualizar la interfaz
-                EliminarItem(itemId);
             }
             catch (Exception ex)
             {
-                MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al abrir el formulario de modificación: {ex.Message}");
             }
         }
+        #endregion
 
+        #region Gestión de Items - Visualización de Detalles
         /// <summary>
-        /// Elimina el ítem y actualiza la interfaz de usuario.
+        /// Muestra los detalles completos del ítem seleccionado.
         /// </summary>
-        /// <param name="itemId">ID del ítem a eliminar.</param>
-        private void EliminarItem(int itemId)
+        private void btnVerDetalle_Click(object sender, EventArgs e)
         {
-            // Intentar eliminar el item
-            itemController.EliminarItem(itemId);
-
-            MessageShow.MostrarMensajeExito("Item eliminado exitosamente.");
-
-            cmbCategorias.SelectedIndex = -1;
-            CargarCategorias();
-        }
-
-        /// <summary>
-        /// Obtiene el ítem y su categoría específica por su ID.
-        /// </summary>
-        /// <param name="itemId">ID del ítem a obtener.</param>
-        /// <param name="item">El ítem obtenido (salida).</param>
-        /// <param name="categoria">La categoría específica del ítem (salida).</param>
-        /// <returns>True si se obtuvo el ítem y su categoría, false en caso contrario.</returns>
-        private bool ObtenerItemYCategoria(int itemId, out ItemAlquilable item, out object categoria)
-        {
-            var resultado = itemController.ObtenerItemPorId(itemId);
-            item = resultado.Item1;
-            categoria = resultado.Item2;
-
-            if (item == null)
+            try
             {
-                SiItemIsNull();
+                if (!ValidarItemsSeleccionados())
+                {
+                    int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+
+                    if (ObtenerItemYCategoria(itemId, out ItemAlquilable item, out object categoria))
+                    {
+                        string mensajeDetalle = ConstruirMensajeDetalle(item, categoria);
+                        MessageShow.MostrarMensajeInformacion(mensajeDetalle);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al mostrar detalles: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Construye el mensaje de detalle con la información completa del ítem.
+        /// </summary>
+        private string ConstruirMensajeDetalle(ItemAlquilable item, object categoria)
+        {
+            string mensajeDetalle = ConstruirInformacionBasicaItem(item);
+            mensajeDetalle += ObtenerDetallesCompletosCategoria(categoria);
+            return mensajeDetalle;
+        }
+
+        /// <summary>
+        /// Construye la información básica del ítem.
+        /// </summary>
+        private string ConstruirInformacionBasicaItem(ItemAlquilable item)
+        {
+            return $"ID: {item.id}\n" +
+                   $"Nombre: {item.nombreItem}\n" +
+                   $"Marca: {item.marca}\n" +
+                   $"Modelo: {item.modelo}\n" +
+                   $"Tarifa por día: ${item.tarifaDia}\n\n";
+        }
+
+        /// <summary>
+        /// Obtiene los detalles completos específicos de la categoría del ítem.
+        /// </summary>
+        private string ObtenerDetallesCompletosCategoria(object categoria)
+        {
+            var estrategiasDetallesCompletos = new Dictionary<Type, Func<object, string>>
+            {
+                { typeof(Transporte), c => $"Tipo: Transporte\n" +
+                                        $"Capacidad de Pasajeros: {((Transporte)c).capacidadPasajeros}\n" +
+                                        $"Tipo de Combustible: {((Transporte)c).tipoCombustible}" },
+
+                { typeof(Electrodomestico), c => $"Tipo: Electrodoméstico\n" +
+                                                $"Potencia (Watts): {((Electrodomestico)c).potenciaWatts}\n" +
+                                                $"Tipo: {((Electrodomestico)c).tipoElectrodomestico}" },
+
+                { typeof(Indumentaria), c => $"Tipo: Indumentaria\n" +
+                                            $"Talla: {((Indumentaria)c).talla}\n" +
+                                            $"Material: {((Indumentaria)c).material}" },
+
+                { typeof(Inmueble), c => $"Tipo: Inmueble\n" +
+                                        $"Metros Cuadrados: {((Inmueble)c).metrosCuadrados}\n" +
+                                        $"Ubicación: {((Inmueble)c).ubicacion}" },
+
+                { typeof(Electronica), c => $"Tipo: Electrónica\n" +
+                                            $"Resolución: {((Electronica)c).resolucionPantalla}\n" +
+                                            $"Almacenamiento: {((Electronica)c).almacenamientoGB}GB" }
+            };
+
+            Type tipoCategoria = categoria.GetType();
+
+            if (estrategiasDetallesCompletos.ContainsKey(tipoCategoria))
+            {
+                return estrategiasDetallesCompletos[tipoCategoria](categoria);
             }
 
-            return true;
-        }
-
-        private bool SiItemIsNull()
-        {
-            MessageShow.MostrarMensajeError("No se encontró el item seleccionado.");
-            return false;
+            return "Tipo: Desconocido";
         }
 
         /// <summary>
-        /// Verifica si el ítem tiene alquileres activos.
+        /// Obtiene los detalles básicos de la categoría del ítem.
         /// </summary>
-        /// <param name="item">El ítem a verificar.</param>
-        /// <returns>True si el ítem tiene alquileres activos, false en caso contrario.</returns>
-        private bool TieneAlquileresActivos(ItemAlquilable item)
-        {
-            return itemController.TieneAlquileresActivos(item);
-        }
-
-        /// <summary>
-        /// Solicita confirmación al usuario para eliminar un ítem, mostrando sus detalles.
-        /// </summary>
-        /// <param name="item">El ítem a eliminar.</param>
-        /// <param name="categoria">La categoría específica del ítem.</param>
-        /// <returns>True si el usuario confirma la eliminación, false en caso contrario.</returns>
-        private bool SolicitarConfirmacionEliminarItem(ItemAlquilable item, object categoria)
-        {
-            string mensajeConfirmacion = ConstruirMensajeConfirmacion(item, categoria);
-
-            return MessageShow.MostrarMensajeConfirmacion(mensajeConfirmacion);
-        }
-
-        /// <summary>
-        /// Construye el mensaje de confirmación con los detalles del ítem.
-        /// </summary>
-        /// <param name="item">El ítem cuyos detalles se mostrarán.</param>
-        /// <param name="categoria">La categoría específica del ítem.</param>
-        /// <returns>El mensaje de confirmación con los detalles del ítem.</returns>
-        private string ConstruirMensajeConfirmacion(ItemAlquilable item, object categoria)
-        {
-            string mensajeConfirmacion = $"¿Está seguro que desea eliminar el siguiente item?\n\n" +
-                                       $"Nombre: {item.nombreItem}\n" +
-                                       $"Marca: {item.marca}\n" +
-                                       $"Modelo: {item.modelo}\n";
-
-            mensajeConfirmacion += ObtenerDetallesCategoria(categoria);
-
-            return mensajeConfirmacion;
-        }
-
-        /// <summary>
-        /// Obtiene los detalles específicos de la categoría del ítem.
-        /// </summary>
-        /// <param name="categoria">La categoría específica del ítem.</param>
-        /// <returns>Una cadena con los detalles específicos de la categoría.</returns>
         private string ObtenerDetallesCategoria(object categoria)
         {
-            // Usar un diccionario de funciones para obtener los detalles según el tipo de categoría
             var estrategiasDetalles = new Dictionary<Type, Func<object, string>>
             {
                 { typeof(Transporte), c => $"Tipo: Transporte\nCapacidad: {((Transporte)c).capacidadPasajeros} pasajeros" },
@@ -276,10 +268,8 @@ namespace TitoAlquiler.View.ViewAlquiler
                 { typeof(Electronica), c => $"Tipo: Electrónica\nAlmacenamiento: {((Electronica)c).almacenamientoGB}GB" }
             };
 
-            // Obtener el tipo de la categoría
             Type tipoCategoria = categoria.GetType();
 
-            // Si existe una estrategia para este tipo, ejecutarla
             if (estrategiasDetalles.ContainsKey(tipoCategoria))
             {
                 return estrategiasDetalles[tipoCategoria](categoria);
@@ -287,43 +277,25 @@ namespace TitoAlquiler.View.ViewAlquiler
 
             return "Tipo: Desconocido";
         }
+        #endregion
 
+        #region Gestión de Items - Edición de Tarifa
         /// <summary>
-        /// Edita la tarifa de un ítem seleccionado. Solicita al usuario que ingrese un nuevo valor.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        /// <remarks>
-        /// Si no hay un ítem seleccionado, se mostrará un mensaje de advertencia.
-        /// Se valida que el nuevo valor ingresado sea un número válido.
-        /// </remarks>
-        /// <summary>
-        /// Maneja el evento de clic para editar la tarifa de un ítem seleccionado.
+        /// Edita la tarifa de un ítem seleccionado.
         /// </summary>
         private void btnEditarTarifa_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener el ítem seleccionado
-                if (!ObtenerItemParaEditarTarifa(out int itemId, out string marca, out string modelo, out double tarifaActual))
+                if (ObtenerItemParaEditarTarifa(out int itemId, out string marca, out string modelo, out double tarifaActual))
                 {
-                    return; // Ya se mostró un mensaje en el método ObtenerItemParaEditarTarifa
+                    string nuevaTarifaStr = SolicitarNuevaTarifa(marca, modelo, tarifaActual);
+
+                    if (!string.IsNullOrEmpty(nuevaTarifaStr) && ValidarNuevaTarifa(nuevaTarifaStr, out double nuevaTarifa))
+                    {
+                        ActualizarTarifaItem(itemId, nuevaTarifa);
+                    }
                 }
-
-                // Solicitar la nueva tarifa al usuario
-                string nuevaTarifaStr = SolicitarNuevaTarifa(marca, modelo, tarifaActual);
-
-                if (string.IsNullOrEmpty(nuevaTarifaStr))
-                    return; // El usuario canceló la operación
-
-                // Validar y convertir la nueva tarifa
-                if (!ValidarNuevaTarifa(nuevaTarifaStr, out double nuevaTarifa))
-                {
-                    return; // Ya se mostró un mensaje en el método ValidarNuevaTarifa
-                }
-
-                // Actualizar la tarifa y refrescar la interfaz
-                ActualizarTarifaItem(itemId, nuevaTarifa);
             }
             catch (Exception ex)
             {
@@ -334,37 +306,28 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Obtiene el ítem seleccionado para editar su tarifa.
         /// </summary>
-        /// <param name="itemId">ID del ítem seleccionado (salida).</param>
-        /// <param name="marca">Marca del ítem (salida).</param>
-        /// <param name="modelo">Modelo del ítem (salida).</param>
-        /// <param name="tarifaActual">Tarifa actual del ítem (salida).</param>
-        /// <returns>True si se obtuvo un ítem válido, false en caso contrario.</returns>
         private bool ObtenerItemParaEditarTarifa(out int itemId, out string marca, out string modelo, out double tarifaActual)
         {
-            // Inicializar valores de salida
             itemId = 0;
             marca = string.Empty;
             modelo = string.Empty;
             tarifaActual = 0;
 
-            ValidarItemsSeleccionados();
+            if (!ValidarItemsSeleccionados())
+            {
+                itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                marca = dataGridViewItems.SelectedRows[0].Cells["marca"].Value.ToString();
+                modelo = dataGridViewItems.SelectedRows[0].Cells["modelo"].Value.ToString();
+                tarifaActual = Convert.ToDouble(dataGridViewItems.SelectedRows[0].Cells["tarifaXDia"].Value);
+                return true;
+            }
 
-            // Obtener datos del ítem seleccionado
-            itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-            marca = dataGridViewItems.SelectedRows[0].Cells["marca"].Value.ToString();
-            modelo = dataGridViewItems.SelectedRows[0].Cells["modelo"].Value.ToString();
-            tarifaActual = Convert.ToDouble(dataGridViewItems.SelectedRows[0].Cells["tarifaXDia"].Value);
-
-            return true;
+            return false;
         }
 
         /// <summary>
         /// Solicita al usuario que ingrese una nueva tarifa para el ítem.
         /// </summary>
-        /// <param name="marca">Marca del ítem.</param>
-        /// <param name="modelo">Modelo del ítem.</param>
-        /// <param name="tarifaActual">Tarifa actual del ítem.</param>
-        /// <returns>La nueva tarifa ingresada por el usuario o una cadena vacía si canceló.</returns>
         private string SolicitarNuevaTarifa(string marca, string modelo, double tarifaActual)
         {
             return Microsoft.VisualBasic.Interaction.InputBox(
@@ -376,9 +339,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Valida que la nueva tarifa ingresada sea un valor numérico válido.
         /// </summary>
-        /// <param name="nuevaTarifaStr">Cadena con la nueva tarifa ingresada.</param>
-        /// <param name="nuevaTarifa">Valor numérico de la nueva tarifa (salida).</param>
-        /// <returns>True si la tarifa es válida, false en caso contrario.</returns>
         private bool ValidarNuevaTarifa(string nuevaTarifaStr, out double nuevaTarifa)
         {
             if (!double.TryParse(nuevaTarifaStr, out nuevaTarifa))
@@ -393,15 +353,12 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Actualiza la tarifa de un ítem y refresca la interfaz de usuario.
         /// </summary>
-        /// <param name="itemId">ID del ítem a actualizar.</param>
-        /// <param name="nuevaTarifa">Nueva tarifa a aplicar.</param>
         private void ActualizarTarifaItem(int itemId, double nuevaTarifa)
         {
             if (itemController.ActualizarTarifaItem(itemId, nuevaTarifa))
             {
                 MessageShow.MostrarMensajeExito("Tarifa actualizada con éxito.");
 
-                // Refrescar la lista de ítems
                 if (cmbCategorias.SelectedItem is Categoria categoriaSeleccionada)
                 {
                     CargarItems(categoriaSeleccionada.id);
@@ -412,128 +369,122 @@ namespace TitoAlquiler.View.ViewAlquiler
                 MessageShow.MostrarMensajeError("No se pudo actualizar la tarifa del item.");
             }
         }
+        #endregion
 
+        #region Gestión de Items - Eliminación
         /// <summary>
-        /// Muestra los detalles completos del ítem seleccionado, incluyendo sus propiedades específicas según su categoría.
+        /// Elimina un ítem seleccionado de la lista.
         /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        /// <remarks>
-        /// Este método obtiene el ítem seleccionado del DataGridView, recupera sus datos completos
-        /// incluyendo las propiedades específicas de su categoría (Transporte, Electrodoméstico, etc.)
-        /// y muestra toda esta información en un mensaje informativo para el usuario.
-        /// Si no hay un ítem seleccionado o no se puede obtener la información, muestra un mensaje de error.
-        /// </remarks>
-        private void btnVerDetalle_Click(object sender, EventArgs e)
+        private void btnSoftDeleteItem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Verificar que haya un ítem seleccionado
-                if (ValidarItemsSeleccionados())
-                {
-                    return;
-                }
-
-                // Obtener el ítem y su categoría
-                int itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
-
-               if (!ObtenerItemYCategoria(itemId, out ItemAlquilable item, out object categoria))
-                {
-                    return;
-                }
-
-                // Construir y mostrar el mensaje de detalle
-                string mensajeDetalle = ConstruirMensajeDetalle(item, categoria);
-                MessageShow.MostrarMensajeInformacion(mensajeDetalle);
+                ProcesarEliminacionItem();
             }
             catch (Exception ex)
             {
-                MessageShow.MostrarMensajeError($"Error al mostrar detalles: {ex.Message}");
+                MessageShow.MostrarMensajeError($"Error al eliminar el item: {ex.Message}");
             }
         }
 
         /// <summary>
-        /// Construye el mensaje de detalle con la información completa del ítem.
+        /// Procesa la eliminación de un ítem siguiendo un flujo secuencial de validaciones.
         /// </summary>
-        /// <param name="item">El ítem cuyos detalles se mostrarán.</param>
-        /// <param name="categoria">La categoría específica del ítem.</param>
-        /// <returns>El mensaje de detalle con la información completa del ítem.</returns>
-        private string ConstruirMensajeDetalle(ItemAlquilable item, object categoria)
+        private void ProcesarEliminacionItem()
         {
-            // Construir la información básica del ítem
-            string mensajeDetalle = ConstruirInformacionBasicaItem(item);
+            bool continuarProceso = true;
+            int itemId = 0;
+            ItemAlquilable item = null;
+            object categoria = null;
 
-            // Agregar detalles específicos según la categoría
-            mensajeDetalle += ObtenerDetallesCompletosCategoria(categoria);
-
-            return mensajeDetalle;
-        }
-
-        /// <summary>
-        /// Construye la información básica del ítem (propiedades comunes a todos los ítems).
-        /// </summary>
-        /// <param name="item">El ítem cuya información básica se construirá.</param>
-        /// <returns>Una cadena con la información básica del ítem.</returns>
-        private string ConstruirInformacionBasicaItem(ItemAlquilable item)
-        {
-            return $"ID: {item.id}\n" +
-                   $"Nombre: {item.nombreItem}\n" +
-                   $"Marca: {item.marca}\n" +
-                   $"Modelo: {item.modelo}\n" +
-                   $"Tarifa por día: ${item.tarifaDia}\n\n";
-        }
-
-        /// <summary>
-        /// Obtiene los detalles completos específicos de la categoría del ítem.
-        /// </summary>
-        /// <param name="categoria">La categoría específica del ítem.</param>
-        /// <returns>Una cadena con los detalles completos específicos de la categoría.</returns>
-        private string ObtenerDetallesCompletosCategoria(object categoria)
-        {
-            // Usar un diccionario de funciones para obtener los detalles según el tipo de categoría
-            var estrategiasDetallesCompletos = new Dictionary<Type, Func<object, string>>
-    {
-        { typeof(Transporte), c => $"Tipo: Transporte\n" +
-                                   $"Capacidad de Pasajeros: {((Transporte)c).capacidadPasajeros}\n" +
-                                   $"Tipo de Combustible: {((Transporte)c).tipoCombustible}" },
-
-        { typeof(Electrodomestico), c => $"Tipo: Electrodoméstico\n" +
-                                         $"Potencia (Watts): {((Electrodomestico)c).potenciaWatts}\n" +
-                                         $"Tipo: {((Electrodomestico)c).tipoElectrodomestico}" },
-
-        { typeof(Indumentaria), c => $"Tipo: Indumentaria\n" +
-                                     $"Talla: {((Indumentaria)c).talla}\n" +
-                                     $"Material: {((Indumentaria)c).material}" },
-
-        { typeof(Inmueble), c => $"Tipo: Inmueble\n" +
-                                 $"Metros Cuadrados: {((Inmueble)c).metrosCuadrados}\n" +
-                                 $"Ubicación: {((Inmueble)c).ubicacion}" },
-
-        { typeof(Electronica), c => $"Tipo: Electrónica\n" +
-                                    $"Resolución: {((Electronica)c).resolucionPantalla}\n" +
-                                    $"Almacenamiento: {((Electronica)c).almacenamientoGB}GB" }
-    };
-
-            // Obtener el tipo de la categoría
-            Type tipoCategoria = categoria.GetType();
-
-            // Si existe una estrategia para este tipo, ejecutarla
-            if (estrategiasDetallesCompletos.ContainsKey(tipoCategoria))
+            // Paso 1: Verificar que haya un ítem seleccionado
+            if (continuarProceso)
             {
-                return estrategiasDetallesCompletos[tipoCategoria](categoria);
+                if (ValidarItemsSeleccionados())
+                {
+                    continuarProceso = false;
+                }
+                else
+                {
+                    itemId = (int)dataGridViewItems.SelectedRows[0].Cells["ID"].Value;
+                }
             }
 
-            return "Tipo: Desconocido";
+            // Paso 2: Obtener el ítem y su categoría
+            if (continuarProceso)
+            {
+                bool itemEncontrado = ObtenerItemYCategoria(itemId, out item, out categoria);
+                continuarProceso = itemEncontrado;
+            }
+
+            // Paso 3: Verificar si el ítem tiene alquileres activos
+            if (continuarProceso)
+            {
+                bool tieneAlquileresActivos = TieneAlquileresActivos(item);
+                if (tieneAlquileresActivos)
+                {
+                    MessageShow.MostrarMensajeError("No se puede eliminar el item porque tiene alquileres activos.");
+                    continuarProceso = false;
+                }
+            }
+
+            // Paso 4: Solicitar confirmación al usuario
+            if (continuarProceso)
+            {
+                continuarProceso = SolicitarConfirmacionEliminarItem(item, categoria);
+            }
+
+            // Paso 5: Eliminar el ítem y actualizar la interfaz
+            if (continuarProceso)
+            {
+                EliminarItem(itemId);
+            }
         }
 
+        /// <summary>
+        /// Verifica si el ítem tiene alquileres activos.
+        /// </summary>
+        private bool TieneAlquileresActivos(ItemAlquilable item)
+        {
+            return itemController.TieneAlquileresActivos(item);
+        }
+
+        /// <summary>
+        /// Solicita confirmación al usuario para eliminar un ítem.
+        /// </summary>
+        private bool SolicitarConfirmacionEliminarItem(ItemAlquilable item, object categoria)
+        {
+            string mensajeConfirmacion = ConstruirMensajeConfirmacion(item, categoria);
+            return MessageShow.MostrarMensajeConfirmacion(mensajeConfirmacion);
+        }
+
+        /// <summary>
+        /// Construye el mensaje de confirmación con los detalles del ítem.
+        /// </summary>
+        private string ConstruirMensajeConfirmacion(ItemAlquilable item, object categoria)
+        {
+            string mensajeConfirmacion = $"¿Está seguro que desea eliminar el siguiente item?\n\n" +
+                                       $"Nombre: {item.nombreItem}\n" +
+                                       $"Marca: {item.marca}\n" +
+                                       $"Modelo: {item.modelo}\n";
+
+            mensajeConfirmacion += ObtenerDetallesCategoria(categoria);
+            return mensajeConfirmacion;
+        }
+
+        /// <summary>
+        /// Elimina el ítem y actualiza la interfaz de usuario.
+        /// </summary>
+        private void EliminarItem(int itemId)
+        {
+            itemController.EliminarItem(itemId);
+            MessageShow.MostrarMensajeExito("Item eliminado exitosamente.");
+            cmbCategorias.SelectedIndex = -1;
+            CargarCategorias();
+        }
         #endregion
 
-        #region Usuarios
-        private void FormAlquilar_Activated(object sender, EventArgs e)
-        {
-            CargarUsuarios(); // Recarga la tabla cada vez que el formulario se activa
-        }
-
+        #region Gestión de Usuarios - Carga y Navegación
         /// <summary>
         /// Carga todos los usuarios en un DataGridView con información relevante.
         /// </summary>
@@ -562,7 +513,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Abre el formulario para crear un nuevo usuario y oculta el formulario actual.
+        /// Abre el formulario para crear un nuevo usuario.
         /// </summary>
         private void btnCrearUsuario_Click(object sender, EventArgs e)
         {
@@ -572,30 +523,62 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Realiza un borrado lógico del usuario seleccionado en el DataGridView.
+        /// Abre el formulario para modificar los datos de un usuario seleccionado.
         /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
+        private void bntModificarUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ObtenerUsuarioParaModificar(out int usuarioId) &&
+                    CargarDatosCompletosUsuario(usuarioId, out Usuarios usuario))
+                {
+                    FormModificarUsuario(usuario);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al abrir el formulario de modificación: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el ID del usuario seleccionado para modificarlo.
+        /// </summary>
+        private bool ObtenerUsuarioParaModificar(out int usuarioId)
+        {
+            usuarioId = 0;
+
+            if (ValidarUsuarioSeleccionado())
+            {
+                usuarioId = Convert.ToInt32(dataGridViewUsuarios.SelectedRows[0].Cells[0].Value);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Abre el formulario de modificación de usuario.
+        /// </summary>
+        private void FormModificarUsuario(Usuarios usuario)
+        {
+            ModificarUsuario formModificarUsuario = new ModificarUsuario(usuario);
+            formModificarUsuario.ShowDialog();
+        }
+        #endregion
+
+        #region Gestión de Usuarios - Eliminación
+        /// <summary>
+        /// Realiza un borrado lógico del usuario seleccionado.
+        /// </summary>
         private void btnSoftDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener el usuario seleccionado
-                if (!ObtenerUsuarioParaEliminar(out int usuarioId))
+                if (ObtenerUsuarioParaEliminar(out int usuarioId) &&
+                    CargarDatosCompletosUsuario(usuarioId, out Usuarios usuario) &&
+                    SolicitarConfirmacionEliminarUsuario(usuario))
                 {
-                    return; // Ya se mostró un mensaje en el método ObtenerUsuarioParaEliminar
-                }
-
-                // Cargar los datos completos del usuario
-                if (!CargarDatosCompletosUsuario(usuarioId, out Usuarios usuario))
-                {
-                    return; // Ya se mostró un mensaje en el método CargarDatosCompletosUsuario
-                }
-
-                // Solicitar confirmación al usuario
-                if (SolicitarConfirmacionEliminarUsuario(usuario))
-                {
-                    // Eliminar el usuario y actualizar la interfaz
                     EliminarUsuario(usuario);
                 }
             }
@@ -608,167 +591,42 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <summary>
         /// Obtiene el ID del usuario seleccionado para eliminarlo.
         /// </summary>
-        /// <param name="usuarioId">ID del usuario seleccionado (salida).</param>
-        /// <returns>True si se seleccionó un usuario válido, false en caso contrario.</returns>
         private bool ObtenerUsuarioParaEliminar(out int usuarioId)
         {
             usuarioId = 0;
 
-            ValidarUsuarioSeleccionado();
-
-            usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
-            return true;
-        }
-
-        /// <summary>
-        /// Carga los datos completos de un usuario.
-        /// </summary>
-        /// <param name="usuarioId">ID del usuario a cargar.</param>
-        /// <param name="usuario">Objeto Usuario cargado (salida).</param>
-        /// <returns>True si se cargaron los datos correctamente, false en caso contrario.</returns>
-        private bool CargarDatosCompletosUsuario(int usuarioId, out Usuarios usuario)
-        {
-            usuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
-
-            if (usuario == null)
+            if (ValidarUsuarioSeleccionado())
             {
-                SiUsurioIsNull();
+                usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
+                return true;
             }
 
-            return true;
-        }
-
-        private void SiUsurioIsNull()
-        {
-            MessageShow.MostrarMensajeError("No se encontró el usuario seleccionado.");
-            return;
+            return false;
         }
 
         /// <summary>
         /// Solicita confirmación al usuario para eliminar un usuario.
         /// </summary>
-        /// <param name="usuario">Usuario a eliminar.</param>
-        /// <returns>True si el usuario confirma la eliminación, false en caso contrario.</returns>
         private bool SolicitarConfirmacionEliminarUsuario(Usuarios usuario)
         {
             string mensajeConfirmacion = $"¿Está seguro que desea eliminar al usuario {usuario.nombre}?";
-
             return MessageShow.MostrarMensajeConfirmacion(mensajeConfirmacion);
         }
 
         /// <summary>
         /// Elimina un usuario y actualiza la interfaz de usuario.
         /// </summary>
-        /// <param name="usuario">Usuario a eliminar.</param>
         private void EliminarUsuario(Usuarios usuario)
         {
             usuarioController.EliminarUsuario(usuario);
             MessageShow.MostrarMensajeExito("Usuario eliminado exitosamente.");
             CargarUsuarios();
         }
-
-        /// <summary>
-        /// Abre el formulario para modificar los datos de un usuario seleccionado.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        /// <remarks>
-        /// Este método verifica si hay un usuario seleccionado en el DataGridView, obtiene sus datos
-        /// completos y abre el formulario de modificación de usuario con esos datos precargados.
-        /// Si no hay un usuario seleccionado o no se puede encontrar el usuario en la base de datos,
-        /// se muestra un mensaje de error apropiado.
-        /// </remarks>
-        private void bntModificarUser_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Obtener el usuario seleccionado
-                if (!ObtenerUsuarioParaModificar(out int usuarioId))
-                {
-                    return;
-                }
-
-                // Cargar los datos completos del usuario
-                if (!CargarDatosCompletosUsuario(usuarioId, out Usuarios usuario))
-                {
-                    return;
-                }
-
-                // Abrir el formulario de modificación
-                FormModificarUsuario(usuario);
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError($"Error al abrir el formulario de modificación: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Obtiene el ID del usuario seleccionado para modificarlo.
-        /// </summary>
-        /// <param name="usuarioId">ID del usuario seleccionado (salida).</param>
-        /// <returns>True si se seleccionó un usuario válido, false en caso contrario.</returns>
-        private bool ObtenerUsuarioParaModificar(out int usuarioId)
-        {
-            usuarioId = 0;
-
-            ValidarUsuarioSeleccionado();
-
-            usuarioId = Convert.ToInt32(dataGridViewUsuarios.SelectedRows[0].Cells[0].Value);
-            return true;
-        }
-
-        /// <summary>
-        /// Abre el formulario de modificación de usuario con los datos del usuario seleccionado.
-        /// </summary>
-        /// <param name="usuario">Usuario a modificar.</param>
-        private void FormModificarUsuario(Usuarios usuario)
-        {
-            ModificarUsuario formModificarUsuario = new ModificarUsuario(usuario);
-            formModificarUsuario.ShowDialog();
-        }
-
         #endregion
 
-        #region Categorias
-
+        #region Creación de Alquileres
         /// <summary>
-        /// Carga todas las categorías en un ComboBox.
-        /// </summary>
-        private void CargarCategorias()
-        {
-            try
-            {
-                cmbCategorias.DropDownStyle = ComboBoxStyle.DropDownList;
-                List<Categoria> categorias = categoriaController.ObtenerTodasLasCategorias();
-                cmbCategorias.DataSource = categorias;
-                cmbCategorias.DisplayMember = "nombre";
-                cmbCategorias.ValueMember = "id";
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError($"Error al cargar las categorías: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Maneja el evento de cambio de selección en el ComboBox de categorías y carga los items relacionados.
-        /// </summary>
-        private void cmbCategorias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbCategorias.SelectedItem != null)
-            {
-                Categoria categoriaSeleccionada = (Categoria)cmbCategorias.SelectedItem;
-                int categoriaId = categoriaSeleccionada.id;
-                CargarItems(categoriaId);
-            }
-        }
-        #endregion
-
-        #region Alquiler
-
-        /// <summary>
-        /// Crea un nuevo alquiler basado en las entradas seleccionadas y muestra el precio total.
+        /// Crea un nuevo alquiler basado en las entradas seleccionadas.
         /// </summary>
         private void btnCrear_Click(object sender, EventArgs e)
         {
@@ -776,7 +634,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 if (!ValidarFormulario()) return;
 
-                int usuarioId = ObtenerUsuarioSeleccionado();
+                int usuarioId = (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
                 DateTime fechaInicio = dateTimePickerFechaInicio.Value;
                 DateTime fechaFin = dateTimePickerFechaFin.Value;
 
@@ -788,80 +646,6 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 MessageShow.MostrarMensajeError($"Error al crear alquiler: {ex.Message}");
             }
-        }
-
-        /// <summary>
-        /// Abre el formulario de visualización de alquileres y oculta el formulario actual.
-        /// </summary>
-        private void btnVerAlquileres_Click(object sender, EventArgs e)
-        {
-            VerAlquileres formAlquileres = new VerAlquileres();
-            formAlquileres.Show();
-            this.Hide();
-        }
-        #endregion
-
-        #region Métodos de validación
-
-        /// <summary>
-        /// Valida que todos los campos del formulario sean correctos.
-        /// </summary>
-        private bool ValidarFormulario()
-        {
-            return ValidarUsuarioSeleccionado() &&
-                   ValidarItemsSeleccionados() &&
-                   ValidarFechasSeleccionadas();
-        }
-
-        /// <summary>
-        /// Valida que se haya seleccionado un usuario.
-        /// </summary>
-        private bool ValidarUsuarioSeleccionado()
-        {
-            if (dataGridViewUsuarios.SelectedRows.Count == 0)
-            {
-                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un usuario.");
-                return false;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Valida que se haya seleccionado al menos un ítem.
-        /// </summary>
-        private bool ValidarItemsSeleccionados()
-        {
-            if (dataGridViewItems.SelectedRows.Count == 0)
-            {
-                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione al menos un ítem para alquilar.");
-                return false;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Valida que las fechas seleccionadas sean correctas.
-        /// </summary>
-        private bool ValidarFechasSeleccionadas()
-        {
-            if (dateTimePickerFechaFin.Value <= dateTimePickerFechaInicio.Value)
-            {
-                MessageShow.MostrarMensajeAdvertencia("La fecha de fin debe ser posterior a la fecha de inicio.");
-                return false;
-            }
-            return true;
-        }
-
-        #endregion
-
-        #region Métodos de creación de alquileres
-
-        /// <summary>
-        /// Obtiene el ID del usuario seleccionado en el DataGridView.
-        /// </summary>
-        private int ObtenerUsuarioSeleccionado()
-        {
-            return (int)dataGridViewUsuarios.SelectedRows[0].Cells["idDataGridViewTextBoxColumn"].Value;
         }
 
         /// <summary>
@@ -907,6 +691,102 @@ namespace TitoAlquiler.View.ViewAlquiler
             };
         }
 
-        #endregion 
+        /// <summary>
+        /// Abre el formulario de visualización de alquileres.
+        /// </summary>
+        private void btnVerAlquileres_Click(object sender, EventArgs e)
+        {
+            VerAlquileres formAlquileres = new VerAlquileres();
+            formAlquileres.Show();
+            this.Hide();
+        }
+        #endregion
+
+        #region Métodos de Validación
+        /// <summary>
+        /// Valida que todos los campos del formulario sean correctos.
+        /// </summary>
+        private bool ValidarFormulario()
+        {
+            return ValidarUsuarioSeleccionado() &&
+                   !ValidarItemsSeleccionados() &&
+                   ValidarFechasSeleccionadas();
+        }
+
+        /// <summary>
+        /// Valida que se haya seleccionado un usuario.
+        /// </summary>
+        private bool ValidarUsuarioSeleccionado()
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
+            {
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un usuario.");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Valida que se haya seleccionado al menos un ítem.
+        /// </summary>
+        private bool ValidarItemsSeleccionados()
+        {
+            if (dataGridViewItems.SelectedRows.Count == 0)
+            {
+                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione al menos un ítem.");
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Valida que las fechas seleccionadas sean correctas.
+        /// </summary>
+        private bool ValidarFechasSeleccionadas()
+        {
+            if (dateTimePickerFechaFin.Value <= dateTimePickerFechaInicio.Value)
+            {
+                MessageShow.MostrarMensajeAdvertencia("La fecha de fin debe ser posterior a la fecha de inicio.");
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region Métodos Auxiliares
+        /// <summary>
+        /// Obtiene el ítem y su categoría específica por su ID.
+        /// </summary>
+        private bool ObtenerItemYCategoria(int itemId, out ItemAlquilable item, out object categoria)
+        {
+            var resultado = itemController.ObtenerItemPorId(itemId);
+            item = resultado.Item1;
+            categoria = resultado.Item2;
+
+            if (item == null)
+            {
+                MessageShow.MostrarMensajeError("No se encontró el item seleccionado.");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Carga los datos completos de un usuario.
+        /// </summary>
+        private bool CargarDatosCompletosUsuario(int usuarioId, out Usuarios usuario)
+        {
+            usuario = usuarioController.ObtenerUsuarioPorId(usuarioId);
+
+            if (usuario == null)
+            {
+                MessageShow.MostrarMensajeError("No se encontró el usuario seleccionado.");
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 }
