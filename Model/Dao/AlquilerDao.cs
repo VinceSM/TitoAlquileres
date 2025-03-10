@@ -79,7 +79,7 @@ namespace TitoAlquiler.Model.Dao
             catch (Exception ex)
             {
                 transaction.Rollback();
-                throw new Exception($"Error al actualizar el alquiler: {ex.Message}", ex);
+                throw;
             }
         }
 

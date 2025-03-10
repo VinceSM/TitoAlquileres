@@ -72,7 +72,7 @@
             labelTitulo.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelTitulo.Location = new Point(769, 42);
             labelTitulo.Name = "labelTitulo";
-            labelTitulo.Size = new Size(191, 31);
+            labelTitulo.Size = new Size(241, 38);
             labelTitulo.TabIndex = 0;
             labelTitulo.Text = "ALQUILERES";
             // 
@@ -196,7 +196,7 @@
             linkLabelVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkLabelVolver.Location = new Point(12, 124);
             linkLabelVolver.Name = "linkLabelVolver";
-            linkLabelVolver.Size = new Size(54, 19);
+            linkLabelVolver.Size = new Size(66, 24);
             linkLabelVolver.TabIndex = 3;
             linkLabelVolver.TabStop = true;
             linkLabelVolver.Text = "Volver";
@@ -209,7 +209,7 @@
             btnModificarAlquiler.FlatStyle = FlatStyle.Flat;
             btnModificarAlquiler.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnModificarAlquiler.ForeColor = Color.Blue;
-            btnModificarAlquiler.Location = new Point(509, 489);
+            btnModificarAlquiler.Location = new Point(543, 489);
             btnModificarAlquiler.Margin = new Padding(4);
             btnModificarAlquiler.Name = "btnModificarAlquiler";
             btnModificarAlquiler.Size = new Size(221, 55);
@@ -225,10 +225,10 @@
             btnCierreAnticipada.FlatStyle = FlatStyle.Flat;
             btnCierreAnticipada.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCierreAnticipada.ForeColor = Color.Blue;
-            btnCierreAnticipada.Location = new Point(805, 489);
+            btnCierreAnticipada.Location = new Point(812, 489);
             btnCierreAnticipada.Margin = new Padding(4);
             btnCierreAnticipada.Name = "btnCierreAnticipada";
-            btnCierreAnticipada.Size = new Size(329, 55);
+            btnCierreAnticipada.Size = new Size(222, 55);
             btnCierreAnticipada.TabIndex = 5;
             btnCierreAnticipada.Text = "Cierre Anticipado";
             btnCierreAnticipada.UseVisualStyleBackColor = false;
@@ -236,7 +236,7 @@
             // 
             // VerAlquileres
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(11F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1364, 557);
