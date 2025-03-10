@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             labelTitulo = new Label();
             dataGridViewAlquileres = new DataGridView();
@@ -70,7 +70,7 @@
             labelTitulo.Anchor = AnchorStyles.Top;
             labelTitulo.AutoSize = true;
             labelTitulo.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelTitulo.Location = new Point(769, 42);
+            labelTitulo.Location = new Point(647, 33);
             labelTitulo.Name = "labelTitulo";
             labelTitulo.Size = new Size(241, 38);
             labelTitulo.TabIndex = 0;
@@ -165,9 +165,9 @@
             // 
             // total
             // 
-            dataGridViewCellStyle1.Format = "C2";
-            dataGridViewCellStyle1.NullValue = null;
-            total.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            total.DefaultCellStyle = dataGridViewCellStyle2;
             total.HeaderText = "TOTAL";
             total.MinimumWidth = 6;
             total.Name = "total";

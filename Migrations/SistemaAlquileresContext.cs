@@ -18,8 +18,8 @@ public class SistemaAlquilerContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            //optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres1;Trusted_Connection=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres1;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=GABRIELMUISE\SQLEXPRESS;Database=alquileres1;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-7GMGFPP\SQLEXPRESS;Database=alquileres1;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
@@ -32,12 +32,12 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Transportes");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.itemId).HasColumnName("itemId"); // Cambiado a itemId
+            entity.Property(e => e.itemId).HasColumnName("itemId"); 
             entity.Property(e => e.capacidadPasajeros).HasColumnName("capacidadPasajeros");
             entity.Property(e => e.tipoCombustible).HasColumnName("tipoCombustible");
             entity.HasOne(e => e.item)
                   .WithOne()
-                  .HasForeignKey<Transporte>(t => t.itemId) // Cambiado a itemId
+                  .HasForeignKey<Transporte>(t => t.itemId) 
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -46,12 +46,12 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Electrodomesticos");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.itemId).HasColumnName("itemId"); // Asegúrate de que la propiedad se llame itemId
+            entity.Property(e => e.itemId).HasColumnName("itemId"); 
             entity.Property(e => e.potenciaWatts).HasColumnName("potenciaWatts");
             entity.Property(e => e.tipoElectrodomestico).HasColumnName("tipoElectrodomestico");
             entity.HasOne(e => e.item)
                   .WithOne()
-                  .HasForeignKey<Electrodomestico>(e => e.itemId) // Cambiado a itemId
+                  .HasForeignKey<Electrodomestico>(e => e.itemId) 
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -60,12 +60,12 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Indumentarias");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.itemId).HasColumnName("itemId"); // Asegúrate de que la propiedad se llame itemId
+            entity.Property(e => e.itemId).HasColumnName("itemId"); 
             entity.Property(e => e.talla).HasColumnName("talla");
             entity.Property(e => e.material).HasColumnName("material");
             entity.HasOne(e => e.item)
                   .WithOne()
-                  .HasForeignKey<Indumentaria>(i => i.itemId) // Cambiado a itemId
+                  .HasForeignKey<Indumentaria>(i => i.itemId)
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -74,12 +74,12 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Inmuebles");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.itemId).HasColumnName("itemId"); // Cambiado a itemId
+            entity.Property(e => e.itemId).HasColumnName("itemId"); 
             entity.Property(e => e.metrosCuadrados).HasColumnName("metrosCuadrados");
             entity.Property(e => e.ubicacion).HasColumnName("ubicacion");
             entity.HasOne(e => e.item)
                   .WithOne()
-                  .HasForeignKey<Inmueble>(i => i.itemId) // Cambiado a itemId
+                  .HasForeignKey<Inmueble>(i => i.itemId) 
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -88,12 +88,12 @@ public class SistemaAlquilerContext : DbContext
             entity.ToTable("Electronicas");
             entity.HasKey(e => e.id);
             entity.Property(e => e.id).HasColumnName("id");
-            entity.Property(e => e.itemId).HasColumnName("itemId"); // Asegúrate de que la propiedad se llame itemId
+            entity.Property(e => e.itemId).HasColumnName("itemId"); 
             entity.Property(e => e.resolucionPantalla).HasColumnName("resolucionPantalla");
             entity.Property(e => e.almacenamientoGB).HasColumnName("almacenamientoGB");
             entity.HasOne(e => e.item)
                   .WithOne()
-                  .HasForeignKey<Electronica>(e => e.itemId) // Cambiado a itemId
+                  .HasForeignKey<Electronica>(e => e.itemId) 
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -104,7 +104,6 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.nombre).HasColumnName("nombre");
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
 
-            // Agregar datos semilla
             entity.HasData(
                 new Categoria { id = 1, nombre = "Transporte" },
                 new Categoria { id = 2, nombre = "Electrodomestico" },
@@ -144,7 +143,6 @@ public class SistemaAlquilerContext : DbContext
             entity.Property(e => e.deletedAt).HasColumnName("deletedAt");
         });
 
-        // Filtros de consulta
         modelBuilder.Entity<Usuarios>().HasQueryFilter(u => u.deletedAt == null);
         modelBuilder.Entity<Alquileres>().HasQueryFilter(a => a.deletedAt == null);
         modelBuilder.Entity<Categoria>().HasQueryFilter(c => c.deletedAt == null);

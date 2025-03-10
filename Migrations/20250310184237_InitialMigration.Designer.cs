@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TitoAlquiler.Migrations
 {
     [DbContext(typeof(SistemaAlquilerContext))]
-    [Migration("20250302174746_InitialMigration")]
+    [Migration("20250310184237_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -169,7 +169,6 @@ namespace TitoAlquiler.Migrations
                         .HasColumnName("itemId");
 
                     b.Property<string>("resolucionPantalla")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("resolucionPantalla");
 
@@ -228,7 +227,6 @@ namespace TitoAlquiler.Migrations
                         .HasColumnName("metrosCuadrados");
 
                     b.Property<string>("ubicacion")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ubicacion");
 
@@ -269,7 +267,7 @@ namespace TitoAlquiler.Migrations
                     b.ToTable("Transportes", (string)null);
                 });
 
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Item", b =>
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.ItemAlquilable", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -339,7 +337,7 @@ namespace TitoAlquiler.Migrations
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Alquileres", b =>
                 {
-                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                    b.HasOne("TitoAlquiler.Model.Entities.ItemAlquilable", "item")
                         .WithMany("Alquileres")
                         .HasForeignKey("ItemID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,7 +356,7 @@ namespace TitoAlquiler.Migrations
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", b =>
                 {
-                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                    b.HasOne("TitoAlquiler.Model.Entities.ItemAlquilable", "item")
                         .WithOne()
                         .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electrodomestico", "itemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -369,7 +367,7 @@ namespace TitoAlquiler.Migrations
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Electronica", b =>
                 {
-                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                    b.HasOne("TitoAlquiler.Model.Entities.ItemAlquilable", "item")
                         .WithOne()
                         .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Electronica", "itemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -380,7 +378,7 @@ namespace TitoAlquiler.Migrations
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Indumentaria", b =>
                 {
-                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                    b.HasOne("TitoAlquiler.Model.Entities.ItemAlquilable", "item")
                         .WithOne()
                         .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Indumentaria", "itemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -391,7 +389,7 @@ namespace TitoAlquiler.Migrations
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Inmueble", b =>
                 {
-                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                    b.HasOne("TitoAlquiler.Model.Entities.ItemAlquilable", "item")
                         .WithOne()
                         .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Inmueble", "itemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -402,7 +400,7 @@ namespace TitoAlquiler.Migrations
 
             modelBuilder.Entity("TitoAlquiler.Model.Entities.Categorias.Transporte", b =>
                 {
-                    b.HasOne("TitoAlquiler.Model.Entities.Item", "item")
+                    b.HasOne("TitoAlquiler.Model.Entities.ItemAlquilable", "item")
                         .WithOne()
                         .HasForeignKey("TitoAlquiler.Model.Entities.Categorias.Transporte", "itemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -411,7 +409,7 @@ namespace TitoAlquiler.Migrations
                     b.Navigation("item");
                 });
 
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Item", b =>
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.ItemAlquilable", b =>
                 {
                     b.HasOne("TitoAlquiler.Model.Entities.Categoria", "categoria")
                         .WithMany("items")
@@ -427,7 +425,7 @@ namespace TitoAlquiler.Migrations
                     b.Navigation("items");
                 });
 
-            modelBuilder.Entity("TitoAlquiler.Model.Entities.Item", b =>
+            modelBuilder.Entity("TitoAlquiler.Model.Entities.ItemAlquilable", b =>
                 {
                     b.Navigation("Alquileres");
                 });

@@ -128,7 +128,7 @@ namespace TitoAlquiler.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     itemId = table.Column<int>(type: "int", nullable: false),
-                    resolucionPantalla = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    resolucionPantalla = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     almacenamientoGB = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -171,7 +171,7 @@ namespace TitoAlquiler.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     itemId = table.Column<int>(type: "int", nullable: false),
                     metrosCuadrados = table.Column<int>(type: "int", nullable: false),
-                    ubicacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ubicacion = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

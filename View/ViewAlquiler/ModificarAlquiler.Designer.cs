@@ -246,7 +246,7 @@
             lblTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Times New Roman", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(683, 33);
+            lblTitulo.Location = new Point(756, 28);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(452, 38);
             lblTitulo.TabIndex = 0;
