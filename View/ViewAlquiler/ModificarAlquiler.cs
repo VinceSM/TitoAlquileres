@@ -30,13 +30,6 @@ namespace TitoAlquiler.View.ViewAlquiler
 
         private void ConfigurarControles()
         {
-            // Conectar eventos
-            dataGridViewAlquileres.SelectionChanged += dataGridViewAlquileres_SelectionChanged;
-            dateTimePickerNuevaFechaInicio.ValueChanged += DateTimePicker_ValueChanged;
-            dateTimePickerNuevaFechaFin.ValueChanged += DateTimePicker_ValueChanged;
-            btnActualizarAlquiler.Click += btnActualizarAlquiler_Click;
-
-            // Inicializar controles
             lblDetalleAlquiler.Text = "Seleccione un alquiler para modificar";
             btnActualizarAlquiler.Enabled = false;
         }
@@ -289,7 +282,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// Verifica si las fechas han cambiado y realiza validaciones finales.
         /// </summary>
         /// <returns>True si la actualización es necesaria y las fechas son válidas, false en caso contrario.</returns>
-        /// <exception cref="Exception">Se lanza cuando alguna de las validaciones de fechas falla.</exception>
         private bool EsActualizacionNecesaria()
         {
             return !FechasNoCambiaron();
@@ -384,7 +376,7 @@ namespace TitoAlquiler.View.ViewAlquiler
             catch (Exception ex)
             {
                 RestaurarFechasOriginales(fechaInicioOriginal, fechaFinOriginal);
-                MessageShow.MostrarMensajeError($"Error al actualizar el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"{ex.Message}");
             }
         }
 

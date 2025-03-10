@@ -76,9 +76,9 @@
             lblTitle.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.Location = new Point(387, 33);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(179, 38);
+            lblTitle.Size = new Size(189, 31);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Crear Item";
+            lblTitle.Text = "CREAR ITEM";
             // 
             // lblCategoria
             // 
@@ -87,7 +87,7 @@
             lblCategoria.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblCategoria.Location = new Point(382, 137);
             lblCategoria.Name = "lblCategoria";
-            lblCategoria.Size = new Size(179, 22);
+            lblCategoria.Size = new Size(137, 19);
             lblCategoria.TabIndex = 1;
             lblCategoria.Text = "Seleccione Categoria";
             // 
@@ -103,7 +103,7 @@
             txtNombreItem.Location = new Point(357, 221);
             txtNombreItem.Name = "txtNombreItem";
             txtNombreItem.PlaceholderText = "nombre";
-            txtNombreItem.Size = new Size(220, 30);
+            txtNombreItem.Size = new Size(220, 26);
             txtNombreItem.TabIndex = 3;
             txtNombreItem.Tag = "";
             // 
@@ -115,7 +115,7 @@
             txtMarca.Location = new Point(357, 257);
             txtMarca.Name = "txtMarca";
             txtMarca.PlaceholderText = "marca";
-            txtMarca.Size = new Size(220, 30);
+            txtMarca.Size = new Size(220, 26);
             txtMarca.TabIndex = 4;
             // 
             // txtModelo
@@ -126,7 +126,7 @@
             txtModelo.Location = new Point(357, 293);
             txtModelo.Name = "txtModelo";
             txtModelo.PlaceholderText = "modelo";
-            txtModelo.Size = new Size(220, 30);
+            txtModelo.Size = new Size(220, 26);
             txtModelo.TabIndex = 5;
             // 
             // txtTarifa
@@ -137,7 +137,7 @@
             txtTarifa.Location = new Point(357, 329);
             txtTarifa.Name = "txtTarifa";
             txtTarifa.PlaceholderText = "tarifa";
-            txtTarifa.Size = new Size(220, 30);
+            txtTarifa.Size = new Size(220, 26);
             txtTarifa.TabIndex = 6;
             // 
             // btnCreaItem
@@ -162,7 +162,7 @@
             linkVolver.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkVolver.Location = new Point(12, 120);
             linkVolver.Name = "linkVolver";
-            linkVolver.Size = new Size(66, 24);
+            linkVolver.Size = new Size(54, 19);
             linkVolver.TabIndex = 8;
             linkVolver.TabStop = true;
             linkVolver.Text = "Volver";
@@ -179,7 +179,7 @@
             comboBoxCategoria.FormattingEnabled = true;
             comboBoxCategoria.Location = new Point(357, 162);
             comboBoxCategoria.Name = "comboBoxCategoria";
-            comboBoxCategoria.Size = new Size(220, 31);
+            comboBoxCategoria.Size = new Size(220, 25);
             comboBoxCategoria.TabIndex = 12;
             comboBoxCategoria.SelectedIndexChanged += comboBoxCategoria_SelectedIndexChanged_1;
             // 
@@ -190,7 +190,7 @@
             lblTransporte.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTransporte.Location = new Point(709, 171);
             lblTransporte.Name = "lblTransporte";
-            lblTransporte.Size = new Size(95, 22);
+            lblTransporte.Size = new Size(74, 19);
             lblTransporte.TabIndex = 13;
             lblTransporte.Text = "Transporte";
             lblTransporte.Visible = false;
@@ -202,7 +202,7 @@
             lblInmuebles.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblInmuebles.Location = new Point(714, 171);
             lblInmuebles.Name = "lblInmuebles";
-            lblInmuebles.Size = new Size(90, 22);
+            lblInmuebles.Size = new Size(70, 19);
             lblInmuebles.TabIndex = 14;
             lblInmuebles.Text = "Inmuebles";
             lblInmuebles.Visible = false;
@@ -214,7 +214,7 @@
             lblIndumentaria.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblIndumentaria.Location = new Point(709, 171);
             lblIndumentaria.Name = "lblIndumentaria";
-            lblIndumentaria.Size = new Size(112, 22);
+            lblIndumentaria.Size = new Size(87, 19);
             lblIndumentaria.TabIndex = 15;
             lblIndumentaria.Text = "Indumentaria";
             lblIndumentaria.Visible = false;
@@ -226,7 +226,7 @@
             lblElectronicas.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblElectronicas.Location = new Point(712, 171);
             lblElectronicas.Name = "lblElectronicas";
-            lblElectronicas.Size = new Size(109, 22);
+            lblElectronicas.Size = new Size(82, 19);
             lblElectronicas.TabIndex = 16;
             lblElectronicas.Text = "Electronicas";
             lblElectronicas.Visible = false;
@@ -238,7 +238,7 @@
             lblElectrodomesticos.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblElectrodomesticos.Location = new Point(675, 171);
             lblElectrodomesticos.Name = "lblElectrodomesticos";
-            lblElectrodomesticos.Size = new Size(157, 22);
+            lblElectrodomesticos.Size = new Size(120, 19);
             lblElectrodomesticos.TabIndex = 17;
             lblElectrodomesticos.Text = "Electrodomesticos";
             lblElectrodomesticos.Visible = false;
@@ -251,7 +251,7 @@
             txtWatss.Location = new Point(649, 221);
             txtWatss.Name = "txtWatss";
             txtWatss.PlaceholderText = "potencia-watts";
-            txtWatss.Size = new Size(220, 30);
+            txtWatss.Size = new Size(220, 26);
             txtWatss.TabIndex = 18;
             txtWatss.Tag = "";
             txtWatss.Visible = false;
@@ -264,7 +264,7 @@
             txtTipoElec.Location = new Point(649, 257);
             txtTipoElec.Name = "txtTipoElec";
             txtTipoElec.PlaceholderText = "tipo";
-            txtTipoElec.Size = new Size(220, 30);
+            txtTipoElec.Size = new Size(220, 26);
             txtTipoElec.TabIndex = 19;
             txtTipoElec.Tag = "";
             txtTipoElec.Visible = false;
@@ -277,7 +277,7 @@
             txtResolucion.Location = new Point(649, 221);
             txtResolucion.Name = "txtResolucion";
             txtResolucion.PlaceholderText = "resolucion";
-            txtResolucion.Size = new Size(220, 30);
+            txtResolucion.Size = new Size(220, 26);
             txtResolucion.TabIndex = 20;
             txtResolucion.Tag = "";
             txtResolucion.Visible = false;
@@ -290,7 +290,7 @@
             txtAlmacenamiento.Location = new Point(649, 257);
             txtAlmacenamiento.Name = "txtAlmacenamiento";
             txtAlmacenamiento.PlaceholderText = "almacenamiento-GB";
-            txtAlmacenamiento.Size = new Size(220, 30);
+            txtAlmacenamiento.Size = new Size(220, 26);
             txtAlmacenamiento.TabIndex = 21;
             txtAlmacenamiento.Tag = "";
             txtAlmacenamiento.Visible = false;
@@ -303,7 +303,7 @@
             txtTalla.Location = new Point(649, 221);
             txtTalla.Name = "txtTalla";
             txtTalla.PlaceholderText = "talle";
-            txtTalla.Size = new Size(220, 30);
+            txtTalla.Size = new Size(220, 26);
             txtTalla.TabIndex = 22;
             txtTalla.Tag = "";
             txtTalla.Visible = false;
@@ -316,7 +316,7 @@
             txtMaterial.Location = new Point(649, 257);
             txtMaterial.Name = "txtMaterial";
             txtMaterial.PlaceholderText = "material-tela";
-            txtMaterial.Size = new Size(220, 30);
+            txtMaterial.Size = new Size(220, 26);
             txtMaterial.TabIndex = 23;
             txtMaterial.Tag = "";
             txtMaterial.Visible = false;
@@ -329,7 +329,7 @@
             txtMetros.Location = new Point(649, 221);
             txtMetros.Name = "txtMetros";
             txtMetros.PlaceholderText = "metros-cuadrados";
-            txtMetros.Size = new Size(220, 30);
+            txtMetros.Size = new Size(220, 26);
             txtMetros.TabIndex = 24;
             txtMetros.Tag = "";
             txtMetros.Visible = false;
@@ -342,7 +342,7 @@
             txtUbicacion.Location = new Point(649, 257);
             txtUbicacion.Name = "txtUbicacion";
             txtUbicacion.PlaceholderText = "ubicacion";
-            txtUbicacion.Size = new Size(220, 30);
+            txtUbicacion.Size = new Size(220, 26);
             txtUbicacion.TabIndex = 25;
             txtUbicacion.Tag = "";
             txtUbicacion.Visible = false;
@@ -355,7 +355,7 @@
             txtCapacidad.Location = new Point(649, 221);
             txtCapacidad.Name = "txtCapacidad";
             txtCapacidad.PlaceholderText = "cant-pasajeros";
-            txtCapacidad.Size = new Size(220, 30);
+            txtCapacidad.Size = new Size(220, 26);
             txtCapacidad.TabIndex = 26;
             txtCapacidad.Tag = "";
             txtCapacidad.Visible = false;
@@ -368,14 +368,14 @@
             txtCombustible.Location = new Point(649, 257);
             txtCombustible.Name = "txtCombustible";
             txtCombustible.PlaceholderText = "tipo-combustible";
-            txtCombustible.Size = new Size(220, 30);
+            txtCombustible.Size = new Size(220, 26);
             txtCombustible.TabIndex = 27;
             txtCombustible.Tag = "";
             txtCombustible.Visible = false;
             // 
             // CrearItem
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(923, 533);

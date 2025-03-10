@@ -74,7 +74,7 @@ namespace TitoAlquiler.Controller
             }
             catch (Exception ex)
             {
-                MessageShow.MostrarMensajeError($"Error al actualizar el alquiler: {ex.Message}");
+                MessageShow.MostrarMensajeError($"{ex.Message}");
                 throw;
             }
         }
