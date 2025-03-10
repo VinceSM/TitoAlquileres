@@ -12,7 +12,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int id { get; set; }
         public int itemId { get; set; }
         public ItemAlquilable item { get; set; }
-        public string resolucionPantalla { get; set; }
+        public string? resolucionPantalla { get; set; }
         public int almacenamientoGB { get; set; }
 
         public Electronica() { }

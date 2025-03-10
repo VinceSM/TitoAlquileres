@@ -208,47 +208,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         #region Fechas Alquiler
 
         /// <summary>
-        /// Maneja el evento de cambio de valor en los DateTimePickers.
-        /// Valida las fechas seleccionadas y muestra una vista previa de la actualización.
-        /// </summary>
-        /// <param name="sender">El objeto que desencadenó el evento.</param>
-        /// <param name="e">Argumentos del evento que contienen información sobre el cambio de valor.</param>
-        private void DateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            if (alquilerSeleccionado == null) return;
-
-            try
-            {
-                // Validar fecha de inicio
-                ValidarFechaInicio();
-
-                // Validar fecha de fin
-                ValidarFechaFin();
-
-                // Calcular días entre las fechas
-                int nuevosDias = (int)(dateTimePickerNuevaFechaFin.Value.Date - dateTimePickerNuevaFechaInicio.Value.Date).TotalDays + 1;
-
-                // Verificar que el alquiler dure al menos un día
-                if (nuevosDias < 1)
-                {
-                    MessageShow.MostrarMensajeAdvertencia("Un alquiler debe durar al menos un día.");
-                    RestaurarFechasOriginales(alquilerSeleccionado.fechaInicio, alquilerSeleccionado.fechaFin);
-                    return;
-                }
-
-                // Mostrar vista previa de la actualización
-                DetallePrevioActualizacion();
-            }
-            catch (Exception ex)
-            {
-                MessageShow.MostrarMensajeError(ex.Message);
-
-                // Restaurar valores originales en caso de error
-                RestaurarFechasOriginales(alquilerSeleccionado.fechaInicio, alquilerSeleccionado.fechaFin);
-            }
-        }
-
-        /// <summary>
         /// Valida que la fecha de inicio cumpla con las reglas de negocio.
         /// Lanza una excepción si la fecha de inicio es anterior a la fecha actual.
         /// </summary>
@@ -272,9 +231,9 @@ namespace TitoAlquiler.View.ViewAlquiler
             DateTime fechaFin = dateTimePickerNuevaFechaFin.Value.Date;
 
             // Verificamos que la fecha de fin no sea anterior a la fecha de inicio
-            if (fechaFin < fechaInicio)
+            if (fechaFin <= fechaInicio)
             {
-                throw new Exception("La fecha de fin debe ser igual o posterior a la fecha de inicio.");
+                throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
             }
         }
 
@@ -284,17 +243,8 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <returns>True si la actualización es necesaria y las fechas son válidas, false en caso contrario.</returns>
         private bool EsActualizacionNecesaria()
         {
-            return !FechasNoCambiaron();
-        }
-
-        /// <summary>
-        /// Comprueba si las fechas seleccionadas son idénticas a las originales.
-        /// </summary>
-        /// <returns>True si las fechas no han cambiado, false si hay cambios.</returns>
-        private bool FechasNoCambiaron()
-        {
-            return dateTimePickerNuevaFechaInicio.Value == alquilerSeleccionado.fechaInicio &&
-                   dateTimePickerNuevaFechaFin.Value == alquilerSeleccionado.fechaFin;
+            return !(dateTimePickerNuevaFechaInicio.Value == alquilerSeleccionado.fechaInicio &&
+                   dateTimePickerNuevaFechaFin.Value == alquilerSeleccionado.fechaFin);
         }
 
         /// <summary>
@@ -334,6 +284,8 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 if (EsActualizacionValida())
                 {
+                    ValidarFechaInicio();
+                    ValidarFechaFin();
                     ActualizarAlquiler();
                 }
             }
@@ -349,7 +301,10 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <returns>True si la actualización es válida y confirmada, false en caso contrario.</returns>
         private bool EsActualizacionValida()
         {
-            if (!EsActualizacionNecesaria()) return false;
+            if (!EsActualizacionNecesaria())
+            {
+                return false;
+            }
 
             return MessageShow.MostrarMensajeConfirmacion("¿Está seguro de que desea actualizar las fechas del alquiler?");
         }

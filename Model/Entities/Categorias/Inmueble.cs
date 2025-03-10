@@ -12,7 +12,7 @@ namespace TitoAlquiler.Model.Entities.Categorias
         public int itemId { get; set; }
         public ItemAlquilable item { get; set; }
         public int metrosCuadrados { get; set; }
-        public string ubicacion { get; set; }
+        public string? ubicacion { get; set; }
 
         public Inmueble() { }
         public Inmueble(ItemAlquilable item)

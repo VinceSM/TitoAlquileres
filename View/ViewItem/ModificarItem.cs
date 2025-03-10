@@ -15,16 +15,16 @@ namespace TitoAlquiler.View.ViewItem
         private readonly CategoriaController categoriaController = CategoriaController.Instance;
         private readonly ItemController itemController = ItemController.Instance;
 
-        private ItemAlquilable itemSeleccionado;
-        private object categoriaEspecifica;
+        private ItemAlquilable? itemSeleccionado;
+        private object? categoriaEspecifica;
         private int itemId = -1;
 
         // Variables para almacenar los valores originales y detectar cambios
-        private string nombreOriginal;
-        private string marcaOriginal;
-        private string modeloOriginal;
+        private string? nombreOriginal;
+        private string? marcaOriginal;
+        private string? modeloOriginal;
         private double tarifaOriginal;
-        private Dictionary<string, string> camposEspecificosOriginales;
+        private Dictionary<string, string>? camposEspecificosOriginales;
 
         #region Formulario
         /// <summary>
@@ -34,14 +34,8 @@ namespace TitoAlquiler.View.ViewItem
         public ModificarItem(int id)
         {
             InitializeComponent();
-
-            // Cargar categorías pero ocultar el ComboBox y su etiqueta
             CargarCategorias();
-
-            // Inicialmente ocultar todos los campos específicos
             OcultarTodosLosCampos();
-
-            // Cargar el ítem específico
             CargarItem(id);
         }
 

@@ -16,30 +16,13 @@ namespace TitoAlquiler.View.ViewAlquiler
     public partial class VerAlquileres : Form
     {
         private AlquilerController alquilerController;
-        private ItemController itemController;
 
         #region Formulario
 
         public VerAlquileres()
         {
             InitializeComponent();
-            InicializarControladores();
-            CargarDatosIniciales();
-        }
-
-        /// <summary>
-        /// Inicializa los controladores necesarios para la operación del formulario.
-        /// </summary>
-        private void InicializarControladores()
-        {
             alquilerController = AlquilerController.Instance;
-        }
-
-        /// <summary>
-        /// Carga los datos iniciales necesarios para el formulario.
-        /// </summary>
-        private void CargarDatosIniciales()
-        {
             LoadAlquileres();
         }
 
@@ -88,9 +71,9 @@ namespace TitoAlquiler.View.ViewAlquiler
             alquilerController.VerificarYCerrarAlquileresVencidos();
             try
             {
-                var alquileres = ObtenerAlquileresDesdeControlador();
+                var alquileres = alquilerController.ObtenerTodosLosAlquileres(); 
 
-                if (NoHayAlquileres(alquileres))
+                if (alquileres == null || !alquileres.Any())
                 {
                     LimpiarTablaAlquileres();
                     MessageShow.MostrarMensajeInformacion("No se encontraron alquileres.");
@@ -103,22 +86,6 @@ namespace TitoAlquiler.View.ViewAlquiler
             {
                 MessageShow.MostrarMensajeError($"Error al cargar alquileres: {ex.Message}");
             }
-        }
-
-        /// <summary>
-        /// Obtiene la lista de alquileres desde el controlador.
-        /// </summary>
-        private List<Alquileres> ObtenerAlquileresDesdeControlador()
-        {
-            return alquilerController.ObtenerTodosLosAlquileres();
-        }
-
-        /// <summary>
-        /// Verifica si no hay alquileres disponibles.
-        /// </summary>
-        private bool NoHayAlquileres(List<Alquileres> alquileres)
-        {
-            return alquileres == null || !alquileres.Any();
         }
 
         /// <summary>
@@ -138,59 +105,19 @@ namespace TitoAlquiler.View.ViewAlquiler
 
             foreach (var alquiler in alquileres)
             {
-                AgregarFilaAlquiler(alquiler);
-            }
-        }
-
-        /// <summary>
-        /// Agrega una fila con los datos del alquiler a la tabla.
-        /// </summary>
-        private void AgregarFilaAlquiler(Alquileres alquiler)
-        {
-            dataGridViewAlquileres.Rows.Add(
+                dataGridViewAlquileres.Rows.Add(
                 alquiler.id,
-                ObtenerMarcaItem(alquiler),
-                ObtenerModeloItem(alquiler),
-                ObtenerNombreItem(alquiler),
-                ObtenerNombreUsuario(alquiler),
+                alquiler.item?.marca ?? "Sin marca",
+                alquiler.item?.modelo ?? "Sin modelo",
+                alquiler.item?.nombreItem ?? "Sin nombre",
+                alquiler.usuario?.nombre ?? "Sin usuario",
                 alquiler.tiempoDias,
                 FormatearFecha(alquiler.fechaInicio),
                 FormatearFecha(alquiler.fechaFin),
                 alquiler.precioTotal,
                 alquiler.tipoEstrategia
-            );
-        }
-
-        /// <summary>
-        /// Obtiene la marca del ítem del alquiler o un valor por defecto.
-        /// </summary>
-        private string ObtenerMarcaItem(Alquileres alquiler)
-        {
-            return alquiler.item?.marca ?? "Sin marca";
-        }
-
-        /// <summary>
-        /// Obtiene el modelo del ítem del alquiler o un valor por defecto.
-        /// </summary>
-        private string ObtenerModeloItem(Alquileres alquiler)
-        {
-            return alquiler.item?.modelo ?? "Sin modelo";
-        }
-
-        /// <summary>
-        /// Obtiene el nombre del ítem del alquiler o un valor por defecto.
-        /// </summary>
-        private string ObtenerNombreItem(Alquileres alquiler)
-        {
-            return alquiler.item?.nombreItem ?? "Sin nombre";
-        }
-
-        /// <summary>
-        /// Obtiene el nombre del usuario del alquiler o un valor por defecto.
-        /// </summary>
-        private string ObtenerNombreUsuario(Alquileres alquiler)
-        {
-            return alquiler.usuario?.nombre ?? "Sin usuario";
+                );
+            }
         }
 
         /// <summary>
@@ -202,28 +129,13 @@ namespace TitoAlquiler.View.ViewAlquiler
         }
 
         /// <summary>
-        /// Verifica si hay un alquiler seleccionado en la tabla.
-        /// </summary>
-        private bool HayAlquilerSeleccionado()
-        {
-            return dataGridViewAlquileres.SelectedRows.Count > 0;
-        }
-
-        /// <summary>
         /// Obtiene el alquiler seleccionado en la tabla.
         /// </summary>
         private Alquileres ObtenerAlquilerSeleccionado()
         {
-            int selectedId = ObtenerIdAlquilerSeleccionado();
-            return alquilerController.ObtenerAlquilerPorId(selectedId);
-        }
+            int selectedId = Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["id"].Value);
 
-        /// <summary>
-        /// Obtiene el ID del alquiler seleccionado en la tabla.
-        /// </summary>
-        private int ObtenerIdAlquilerSeleccionado()
-        {
-            return Convert.ToInt32(dataGridViewAlquileres.SelectedRows[0].Cells["id"].Value);
+            return alquilerController.ObtenerAlquilerPorId(selectedId);
         }
 
         #endregion
@@ -243,25 +155,18 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             try
             {
-                // Validar que haya un alquiler seleccionado y obtenerlo
-                if (!ValidarYObtenerAlquilerSeleccionado(out Alquileres alquiler))
+                ValidarYObtenerAlquilerSeleccionado(out Alquileres alquiler);
+
+                if (!CancelarAlquilerActivo(alquiler))
                 {
-                    return; // Ya se mostró un mensaje en el método ValidarYObtenerAlquilerSeleccionado
+                    return;
                 }
 
-                // Validar que el alquiler esté activo
-                if (!ValidarAlquilerActivo(alquiler))
-                {
-                    return; // Ya se mostró un mensaje en el método ValidarAlquilerActivo
-                }
-
-                // Solicitar confirmación al usuario
                 if (!SolicitarConfirmacionDevolucionAnticipada(alquiler))
                 {
-                    return; // El usuario canceló la operación
+                    return;
                 }
 
-                // Procesar la devolución anticipada
                 ProcesarDevolucionAnticipada(alquiler);
             }
             catch (Exception ex)
@@ -277,52 +182,40 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <returns>True si se seleccionó y obtuvo un alquiler válido, false en caso contrario.</returns>
         private bool ValidarYObtenerAlquilerSeleccionado(out Alquileres alquiler)
         {
-            alquiler = null;
-
-            if (!HayAlquilerSeleccionado())
-            {
-                MessageShow.MostrarMensajeAdvertencia("Por favor, seleccione un alquiler para realizar una devolución anticipada.");
-                return false;
-            }
+            bool isValid = true;
 
             alquiler = ObtenerAlquilerSeleccionado();
+
             if (alquiler == null)
             {
                 MessageShow.MostrarMensajeError("No se encontró el alquiler seleccionado.");
-                return false;
+                isValid = false;
             }
 
-            return true;
+            return isValid;
         }
 
         /// <summary>
-        /// Valida que el alquiler esté activo (no haya finalizado).
+        /// Cancela el alquiler activo.
         /// </summary>
         /// <param name="alquiler">El alquiler a validar.</param>
         /// <returns>True si el alquiler está activo, false si ya ha finalizado.</returns>
-        private bool ValidarAlquilerActivo(Alquileres alquiler)
+        private bool CancelarAlquilerActivo(Alquileres alquiler)
         {
-            // Verificar si el alquiler ya ha finalizado
-            if (alquiler.fechaFin < DateTime.Today)
-            {
-                MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado y no puede ser modificado.");
-                return false;
-            }
+            bool isValid = true;
 
-            // Verificar si el alquiler aún no ha comenzado
             if (alquiler.fechaInicio > DateTime.Today)
             {
-                // Si el alquiler aún no ha comenzado, permitimos cancelarlo pero con un mensaje claro
                 bool cancelar = MessageShow.MostrarMensajeConfirmacion(
-                    "Este alquiler aún no ha comenzado. ¿Desea cancelarlo completamente?");
+                    "Este alquiler aún no ha finalizado. ¿Desea cancelarlo completamente?");
         
                 if (!cancelar)
                 {
-                    return false;
+                    isValid = false;
                 }
             }
 
-            return true;
+            return isValid;
         }
 
         /// <summary>
@@ -332,7 +225,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <returns>True si el usuario confirma la devolución, false en caso contrario.</returns>
         private bool SolicitarConfirmacionDevolucionAnticipada(Alquileres alquiler)
         {
-            string nombreItem = ObtenerNombreItemSeguro(alquiler);
+            string nombreItem = alquiler.item?.nombreItem ?? "ítem desconocido";
             string fechaFinOriginal = alquiler.fechaFin.ToString("dd/MM/yyyy");
 
             string mensajeConfirmacion =
@@ -340,16 +233,6 @@ namespace TitoAlquiler.View.ViewAlquiler
                 $"La fecha original de finalización era {fechaFinOriginal}.";
 
             return MessageShow.MostrarMensajeConfirmacion(mensajeConfirmacion);
-        }
-
-        /// <summary>
-        /// Obtiene el nombre del ítem de un alquiler de forma segura, evitando referencias nulas.
-        /// </summary>
-        /// <param name="alquiler">El alquiler del que se quiere obtener el nombre del ítem.</param>
-        /// <returns>El nombre del ítem o un valor por defecto si no está disponible.</returns>
-        private string ObtenerNombreItemSeguro(Alquileres alquiler)
-        {
-            return alquiler.item?.nombreItem ?? "ítem desconocido";
         }
 
         /// <summary>
@@ -361,57 +244,21 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             try
             {
-                // Verificar si el alquiler ya ha finalizado
-                if (alquiler.fechaFin < DateTime.Today)
-                {
-                    MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado.");
-                    return;
-                }
-
-                // Verificar si el alquiler aún no ha comenzado
                 if (alquiler.fechaInicio > DateTime.Today)
                 {
-                    // Si el alquiler aún no ha comenzado, lo cancelamos directamente
-                    try
-                    {
-                        alquilerController.EliminarAlquiler(alquiler.id);
-                        MessageShow.MostrarMensajeExito("Alquiler cancelado correctamente.");
-                        LoadAlquileres();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageShow.MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
-                    }
+                    alquilerController.EliminarAlquiler(alquiler.id);
+                    MessageShow.MostrarMensajeExito("Alquiler cancelado correctamente.");
+                    LoadAlquileres();
                     return;
                 }
 
-                // Para alquileres en curso, actualizamos la fecha de fin y recalculamos
                 alquiler.fechaFin = DateTime.Today;
                 alquiler.tiempoDias = CalcularDiasEntreDosFechas(alquiler.fechaInicio, alquiler.fechaFin);
 
-                // Actualizar el alquiler en la base de datos antes de eliminarlo
-                try
-                {
-                    alquilerController.ActualizarAlquiler(alquiler);
-                }
-                catch (Exception ex)
-                {
-                    MessageShow.MostrarMensajeError($"No se pudo actualizar el alquiler: {ex.Message}");
-                    return;
-                }
+                alquilerController.ActualizarAlquiler(alquiler);
 
-                // Cerrar el alquiler (marcarlo como finalizado)
-                try
-                {
-                    alquilerController.EliminarAlquiler(alquiler.id);
-                }
-                catch (Exception ex)
-                {
-                    MessageShow.MostrarMensajeError($"No se pudo finalizar el alquiler: {ex.Message}");
-                    return;
-                }
+                alquilerController.EliminarAlquiler(alquiler.id);
 
-                // Mostrar mensaje de éxito
                 MessageShow.MostrarMensajeExito("Devolución anticipada realizada con éxito. El ítem está disponible para nuevos alquileres.");
             }
             catch (Exception ex)

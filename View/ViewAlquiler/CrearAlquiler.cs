@@ -405,8 +405,8 @@ namespace TitoAlquiler.View.ViewAlquiler
         {
             bool continuarProceso = true;
             int itemId = 0;
-            ItemAlquilable item = null;
-            object categoria = null;
+            ItemAlquilable? item = null;
+            object? categoria = null;
 
             // Paso 1: Verificar que haya un ítem seleccionado
             if (continuarProceso)
