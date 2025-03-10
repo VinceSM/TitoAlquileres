@@ -268,7 +268,9 @@ namespace TitoAlquiler.Model.Dao
         private void ValidarDisponibilidadParaNuevasFechas(SistemaAlquilerContext db, Alquileres alquiler)
         {
             if (ExisteAlquilerActivo(db, alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin, alquiler.id))
-                MessageShow.MostrarMensajeError("El ítem no está disponible para las nuevas fechas seleccionadas.");
+            {
+                throw new Exception("El ítem no está disponible para las nuevas fechas seleccionadas.");
+            }
         }
         #endregion
 

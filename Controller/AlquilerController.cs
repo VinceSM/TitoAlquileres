@@ -70,7 +70,6 @@ namespace TitoAlquiler.Controller
         {
             try
             {
-                ValidarFechasAlquiler(alquiler.fechaInicio, alquiler.fechaFin);
                 _alquilerDao.UpdateAlquiler(alquiler);
             }
             catch (Exception ex)
@@ -88,9 +87,11 @@ namespace TitoAlquiler.Controller
         /// </summary>
         private bool VerificarCreacionAlquiler(Alquileres alquiler)
         {
+            bool itemValido = true;
             if (!VerificarDisponibilidadItem(alquiler.ItemID, alquiler.fechaInicio, alquiler.fechaFin))
             {
-                NoHayDisponibilidad();
+                MessageShow.MostrarMensajeInformacion("El ítem no está disponible para las fechas seleccionadas.");
+                itemValido = false;
             }
 
             var item = ObtenerItemValidado(alquiler.ItemID);
@@ -103,16 +104,10 @@ namespace TitoAlquiler.Controller
 
             ConfigurarEstrategiaYPrecio(alquiler, item.tarifaDia);
 
-            return true;
+            return itemValido;
         }
 
-        private bool NoHayDisponibilidad()
-        {
-            MessageShow.MostrarMensajeInformacion("El ítem no está disponible para las fechas seleccionadas.");
-            return false;
-        }
-
-        private int CalcularDiasAlquiler(DateTime fechaInicio, DateTime fechaFin)
+        public int CalcularDiasAlquiler(DateTime fechaInicio, DateTime fechaFin)
         {
             return (int)(fechaFin - fechaInicio).TotalDays + 1;
         }
@@ -134,12 +129,6 @@ namespace TitoAlquiler.Controller
                 MessageShow.MostrarMensajeError($"Error al cerrar alquileres vencidos: {ex.Message}");
                 throw;
             }
-        }
-
-        private void ValidarFechasAlquiler(DateTime fechaInicio, DateTime fechaFin)
-        {
-            if (fechaInicio > fechaFin)
-                MessageShow.MostrarMensajeAdvertencia("La fecha de inicio no puede ser posterior a la fecha de fin.");
         }
 
         /// <summary>

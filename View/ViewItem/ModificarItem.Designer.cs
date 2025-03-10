@@ -151,6 +151,7 @@
             lblCategoria.Size = new Size(179, 22);
             lblCategoria.TabIndex = 16;
             lblCategoria.Text = "Seleccione Categoria";
+            lblCategoria.Visible = false;
             // 
             // lblElectrodomestico
             // 
@@ -377,6 +378,7 @@
             comboBoxCategoria.Name = "comboBoxCategoria";
             comboBoxCategoria.Size = new Size(220, 31);
             comboBoxCategoria.TabIndex = 34;
+            comboBoxCategoria.Visible = false;
             // 
             // ModificarItem
             // 

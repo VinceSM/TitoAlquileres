@@ -263,9 +263,6 @@ namespace TitoAlquiler.View.ViewAlquiler
 
                 // Procesar la devolución anticipada
                 ProcesarDevolucionAnticipada(alquiler);
-
-                // Finalizar el proceso
-                FinalizarDevolucionAnticipada();
             }
             catch (Exception ex)
             {
@@ -305,10 +302,24 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <returns>True si el alquiler está activo, false si ya ha finalizado.</returns>
         private bool ValidarAlquilerActivo(Alquileres alquiler)
         {
+            // Verificar si el alquiler ya ha finalizado
             if (alquiler.fechaFin < DateTime.Today)
             {
-                MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado.");
+                MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado y no puede ser modificado.");
                 return false;
+            }
+
+            // Verificar si el alquiler aún no ha comenzado
+            if (alquiler.fechaInicio > DateTime.Today)
+            {
+                // Si el alquiler aún no ha comenzado, permitimos cancelarlo pero con un mensaje claro
+                bool cancelar = MessageShow.MostrarMensajeConfirmacion(
+                    "Este alquiler aún no ha comenzado. ¿Desea cancelarlo completamente?");
+        
+                if (!cancelar)
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -348,35 +359,65 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <param name="alquiler">El alquiler a procesar.</param>
         private void ProcesarDevolucionAnticipada(Alquileres alquiler)
         {
-            // Actualizar la fecha de fin al día actual
-            ActualizarFechaFinAlquiler(alquiler);
+            try
+            {
+                // Verificar si el alquiler ya ha finalizado
+                if (alquiler.fechaFin < DateTime.Today)
+                {
+                    MessageShow.MostrarMensajeAdvertencia("Este alquiler ya ha finalizado.");
+                    return;
+                }
 
-            // Recalcular los días de alquiler
-            RecalcularDiasAlquiler(alquiler);
+                // Verificar si el alquiler aún no ha comenzado
+                if (alquiler.fechaInicio > DateTime.Today)
+                {
+                    // Si el alquiler aún no ha comenzado, lo cancelamos directamente
+                    try
+                    {
+                        alquilerController.EliminarAlquiler(alquiler.id);
+                        MessageShow.MostrarMensajeExito("Alquiler cancelado correctamente.");
+                        LoadAlquileres();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageShow.MostrarMensajeError($"Error al cancelar el alquiler: {ex.Message}");
+                    }
+                    return;
+                }
 
-            // Actualizar el alquiler en la base de datos
-            ActualizarAlquilerEnBaseDeDatos(alquiler);
+                // Para alquileres en curso, actualizamos la fecha de fin y recalculamos
+                alquiler.fechaFin = DateTime.Today;
+                alquiler.tiempoDias = CalcularDiasEntreDosFechas(alquiler.fechaInicio, alquiler.fechaFin);
 
-            // Cerrar el alquiler (marcarlo como finalizado)
-            CerrarAlquiler(alquiler);
-        }
+                // Actualizar el alquiler en la base de datos antes de eliminarlo
+                try
+                {
+                    alquilerController.ActualizarAlquiler(alquiler);
+                }
+                catch (Exception ex)
+                {
+                    MessageShow.MostrarMensajeError($"No se pudo actualizar el alquiler: {ex.Message}");
+                    return;
+                }
 
-        /// <summary>
-        /// Actualiza la fecha de fin del alquiler al día actual.
-        /// </summary>
-        /// <param name="alquiler">El alquiler a actualizar.</param>
-        private void ActualizarFechaFinAlquiler(Alquileres alquiler)
-        {
-            alquiler.fechaFin = DateTime.Today;
-        }
+                // Cerrar el alquiler (marcarlo como finalizado)
+                try
+                {
+                    alquilerController.EliminarAlquiler(alquiler.id);
+                }
+                catch (Exception ex)
+                {
+                    MessageShow.MostrarMensajeError($"No se pudo finalizar el alquiler: {ex.Message}");
+                    return;
+                }
 
-        /// <summary>
-        /// Recalcula los días de alquiler basándose en las fechas de inicio y fin.
-        /// </summary>
-        /// <param name="alquiler">El alquiler para el que se recalculan los días.</param>
-        private void RecalcularDiasAlquiler(Alquileres alquiler)
-        {
-            alquiler.tiempoDias = CalcularDiasEntreDosFechas(alquiler.fechaInicio, alquiler.fechaFin);
+                // Mostrar mensaje de éxito
+                MessageShow.MostrarMensajeExito("Devolución anticipada realizada con éxito. El ítem está disponible para nuevos alquileres.");
+            }
+            catch (Exception ex)
+            {
+                MessageShow.MostrarMensajeError($"Error al procesar la devolución anticipada: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -387,38 +428,7 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <returns>El número de días entre las dos fechas, incluyendo ambos días.</returns>
         private int CalcularDiasEntreDosFechas(DateTime fechaInicio, DateTime fechaFin)
         {
-            return (int)(fechaFin - fechaInicio).TotalDays + 1;
-        }
-
-        /// <summary>
-        /// Actualiza el alquiler en la base de datos.
-        /// </summary>
-        /// <param name="alquiler">El alquiler a actualizar.</param>
-        private void ActualizarAlquilerEnBaseDeDatos(Alquileres alquiler)
-        {
-            alquilerController.ActualizarAlquiler(alquiler);
-        }
-
-        /// <summary>
-        /// Cierra el alquiler, marcándolo como finalizado.
-        /// </summary>
-        /// <param name="alquiler">El alquiler a cerrar.</param>
-        private void CerrarAlquiler(Alquileres alquiler)
-        {
-            alquilerController.EliminarAlquiler(alquiler.id);
-        }
-
-        /// <summary>
-        /// Finaliza el proceso de devolución anticipada, mostrando un mensaje de éxito
-        /// y recargando la lista de alquileres.
-        /// </summary>
-        private void FinalizarDevolucionAnticipada()
-        {
-            // Mostrar mensaje de éxito
-            MessageShow.MostrarMensajeExito("Devolución anticipada realizada con éxito. El ítem está disponible para nuevos alquileres.");
-
-            // Recargar la lista de alquileres
-            LoadAlquileres();
+            return (int)(fechaFin - fechaInicio).TotalDays +1;
         }
     }
 }

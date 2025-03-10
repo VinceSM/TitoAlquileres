@@ -37,8 +37,6 @@ namespace TitoAlquiler.View.ViewItem
 
             // Cargar categorías pero ocultar el ComboBox y su etiqueta
             CargarCategorias();
-            lblCategoria.Visible = false;
-            comboBoxCategoria.Visible = false;
 
             // Inicialmente ocultar todos los campos específicos
             OcultarTodosLosCampos();

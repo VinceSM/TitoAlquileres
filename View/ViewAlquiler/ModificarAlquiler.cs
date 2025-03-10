@@ -232,6 +232,17 @@ namespace TitoAlquiler.View.ViewAlquiler
                 // Validar fecha de fin
                 ValidarFechaFin();
 
+                // Calcular días entre las fechas
+                int nuevosDias = (int)(dateTimePickerNuevaFechaFin.Value.Date - dateTimePickerNuevaFechaInicio.Value.Date).TotalDays + 1;
+
+                // Verificar que el alquiler dure al menos un día
+                if (nuevosDias < 1)
+                {
+                    MessageShow.MostrarMensajeAdvertencia("Un alquiler debe durar al menos un día.");
+                    RestaurarFechasOriginales(alquilerSeleccionado.fechaInicio, alquilerSeleccionado.fechaFin);
+                    return;
+                }
+
                 // Mostrar vista previa de la actualización
                 DetallePrevioActualizacion();
             }
@@ -260,15 +271,17 @@ namespace TitoAlquiler.View.ViewAlquiler
 
         /// <summary>
         /// Valida que la fecha de fin cumpla con las reglas de negocio.
-        /// Lanza una excepción si la fecha de fin no es posterior a la fecha de inicio.
         /// </summary>
-        /// <exception cref="Exception">Se lanza cuando la fecha de fin no es posterior a la fecha de inicio.</exception>
         private void ValidarFechaFin()
         {
-            // Validar que la fecha de fin sea posterior a la fecha de inicio
-            if (dateTimePickerNuevaFechaFin.Value <= dateTimePickerNuevaFechaInicio.Value)
+            // Comparamos solo las fechas sin la hora para evitar problemas
+            DateTime fechaInicio = dateTimePickerNuevaFechaInicio.Value.Date;
+            DateTime fechaFin = dateTimePickerNuevaFechaFin.Value.Date;
+
+            // Verificamos que la fecha de fin no sea anterior a la fecha de inicio
+            if (fechaFin < fechaInicio)
             {
-                throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio. Un alquiler debe durar al menos un día.");
+                throw new Exception("La fecha de fin debe ser igual o posterior a la fecha de inicio.");
             }
         }
 
@@ -279,9 +292,6 @@ namespace TitoAlquiler.View.ViewAlquiler
         /// <exception cref="Exception">Se lanza cuando alguna de las validaciones de fechas falla.</exception>
         private bool EsActualizacionNecesaria()
         {
-            ValidarFechaInicio();
-            ValidarFechaFin();
-
             return !FechasNoCambiaron();
         }
 
