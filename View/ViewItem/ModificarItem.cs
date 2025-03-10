@@ -28,9 +28,10 @@ namespace TitoAlquiler.View.ViewItem
 
         #region Formulario
         /// <summary>
-        /// Constructor que recibe el ID del ítem a modificar.
+        /// Constructor que inicializa el formulario para modificar un ítem específico.
+        /// Carga las categorías disponibles, oculta los campos específicos y carga los datos del ítem seleccionado.
         /// </summary>
-        /// <param name="id">ID del ítem a modificar</param>
+        /// <param name="id">Identificador único del ítem que se desea modificar.</param>
         public ModificarItem(int id)
         {
             InitializeComponent();
@@ -40,8 +41,11 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Maneja el evento de clic en el enlace de volver
+        /// Maneja el evento de clic en el enlace para volver al formulario anterior.
+        /// Muestra el formulario de creación de alquileres y oculta el formulario actual.
         /// </summary>
+        /// <param name="sender">Objeto que desencadenó el evento.</param>
+        /// <param name="e">Argumentos del evento que contienen información sobre el clic en el enlace.</param>
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CrearAlquiler formAlquilar = new CrearAlquiler();
@@ -50,8 +54,10 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Sobrescribe el comportamiento al cerrar el formulario
+        /// Sobrescribe el comportamiento predeterminado al cerrar el formulario.
+        /// Si el usuario cierra el formulario directamente, finaliza toda la aplicación.
         /// </summary>
+        /// <param name="e">Argumentos del evento que contienen información sobre el cierre del formulario.</param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -64,8 +70,10 @@ namespace TitoAlquiler.View.ViewItem
 
         #region Carga de Datos
         /// <summary>
-        /// Carga todas las categorías en el ComboBox
+        /// Carga todas las categorías disponibles en el sistema en el control ComboBox.
+        /// Configura el ComboBox para mostrar el nombre de la categoría y usar su ID como valor.
         /// </summary>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error al cargar las categorías.</exception>
         private void CargarCategorias()
         {
             try
@@ -83,8 +91,12 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Carga un ítem específico por su ID
+        /// Carga los datos de un ítem específico por su identificador.
+        /// Obtiene tanto los datos básicos como los específicos según la categoría del ítem.
+        /// Almacena los valores originales para detectar cambios posteriores.
         /// </summary>
+        /// <param name="id">Identificador único del ítem a cargar.</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error al cargar el ítem o cuando el ítem no existe.</exception>
         private void CargarItem(int id)
         {
             try
@@ -138,8 +150,10 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Carga los datos específicos según la categoría del ítem
+        /// Carga los datos específicos según la categoría del ítem.
+        /// Muestra los campos correspondientes a la categoría y los rellena con los valores del ítem.
         /// </summary>
+        /// <param name="categoria">Objeto que representa la categoría específica del ítem (Transporte, Electrodoméstico, etc.).</param>
         private void CargarDatosEspecificos(object categoria)
         {
             // Primero ocultar todos los campos
@@ -183,8 +197,12 @@ namespace TitoAlquiler.View.ViewItem
 
         #region Eventos
         /// <summary>
-        /// Maneja el evento de clic en el botón de modificar
+        /// Maneja el evento de clic en el botón de modificar ítem.
+        /// Valida los datos ingresados, verifica si hubo cambios y actualiza el ítem en el sistema.
         /// </summary>
+        /// <param name="sender">Objeto que desencadenó el evento.</param>
+        /// <param name="e">Argumentos del evento que contienen información sobre el clic en el botón.</param>
+        /// <exception cref="Exception">Se lanza cuando ocurre un error durante el proceso de modificación.</exception>
         private void btnModificaItem_Click(object sender, EventArgs e)
         {
             try
@@ -258,9 +276,15 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Verifica si se han realizado cambios en el ítem
+        /// Verifica si se han realizado cambios en el ítem comparando los valores actuales con los originales.
+        /// Comprueba tanto los campos básicos como los específicos de la categoría.
         /// </summary>
-        /// <returns>True si hay cambios, False si no hay cambios</returns>
+        /// <param name="nombre">Nuevo nombre del ítem.</param>
+        /// <param name="marca">Nueva marca del ítem.</param>
+        /// <param name="modelo">Nuevo modelo del ítem.</param>
+        /// <param name="tarifa">Nueva tarifa diaria del ítem.</param>
+        /// <param name="camposEspecificos">Diccionario con los nuevos valores de los campos específicos.</param>
+        /// <returns>True si se detectaron cambios en algún campo, False si todos los campos mantienen sus valores originales.</returns>
         private bool HayCambios(string nombre, string marca, string modelo, double tarifa, Dictionary<string, string> camposEspecificos)
         {
             // Verificar cambios en los campos básicos
@@ -295,8 +319,11 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Obtiene los campos específicos según la categoría seleccionada.
+        /// Obtiene los valores de los campos específicos según la categoría seleccionada.
+        /// Recopila los datos de los controles TextBox correspondientes a cada categoría.
         /// </summary>
+        /// <param name="categoria">Nombre de la categoría para la cual se obtienen los campos específicos.</param>
+        /// <returns>Diccionario que contiene los nombres y valores de los campos específicos.</returns>
         private Dictionary<string, string> ObtenerCamposEspecificos(string categoria)
         {
             var campos = new Dictionary<string, string>();
@@ -329,8 +356,11 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Actualiza el objeto de categoría específica con los datos del formulario
+        /// Actualiza el objeto de categoría específica con los datos ingresados en el formulario.
+        /// Si el objeto de categoría ya existe, actualiza sus propiedades; de lo contrario, crea uno nuevo.
         /// </summary>
+        /// <param name="campos">Diccionario con los valores de los campos específicos.</param>
+        /// <returns>Objeto actualizado de la categoría específica o null si ocurre un error.</returns>
         private object ActualizarCategoriaEspecifica(Dictionary<string, string> campos)
         {
             var categoriaSeleccionada = comboBoxCategoria.SelectedItem as Categoria;
@@ -443,7 +473,8 @@ namespace TitoAlquiler.View.ViewItem
 
         #region Métodos de Ayuda
         /// <summary>
-        /// Oculta todos los campos específicos de categorías
+        /// Oculta todos los campos específicos de todas las categorías.
+        /// Prepara el formulario para mostrar solo los campos relevantes para la categoría seleccionada.
         /// </summary>
         private void OcultarTodosLosCampos()
         {
@@ -474,7 +505,8 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Muestra los campos específicos para Transporte
+        /// Muestra los campos específicos para la categoría Transporte.
+        /// Hace visibles los controles relacionados con capacidad de pasajeros y tipo de combustible.
         /// </summary>
         private void MostrarCamposTransporte()
         {
@@ -484,7 +516,8 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Muestra los campos específicos para Electrodoméstico
+        /// Muestra los campos específicos para la categoría Electrodoméstico.
+        /// Hace visibles los controles relacionados con potencia en watts y tipo de electrodoméstico.
         /// </summary>
         private void MostrarCamposElectrodomestico()
         {
@@ -494,7 +527,8 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Muestra los campos específicos para Electrónica
+        /// Muestra los campos específicos para la categoría Electrónica.
+        /// Hace visibles los controles relacionados con resolución de pantalla y capacidad de almacenamiento.
         /// </summary>
         private void MostrarCamposElectronica()
         {
@@ -504,7 +538,8 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Muestra los campos específicos para Inmueble
+        /// Muestra los campos específicos para la categoría Inmueble.
+        /// Hace visibles los controles relacionados con metros cuadrados y ubicación.
         /// </summary>
         private void MostrarCamposInmueble()
         {
@@ -514,7 +549,8 @@ namespace TitoAlquiler.View.ViewItem
         }
 
         /// <summary>
-        /// Muestra los campos específicos para Indumentaria
+        /// Muestra los campos específicos para la categoría Indumentaria.
+        /// Hace visibles los controles relacionados con talla y material.
         /// </summary>
         private void MostrarCamposIndumentaria()
         {

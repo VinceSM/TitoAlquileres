@@ -1,36 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewitem\\modificaritem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewitem\\modificaritem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewalquiler\\modificaralquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\modificaralquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewalquiler\\crearalquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\crearalquiler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\view\\viewalquiler\\veralquileres.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:view\\viewalquiler\\veralquileres.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\model\\entities\\categorias\\inmueble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\categorias\\inmueble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|c:\\users\\vicente\\documents\\titoalquileres\\model\\entities\\categorias\\electronica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91EED9BE-ACAB-4112-ADD3-41A25EAD1174}|TitoAlquiler.csproj|solutionrelative:model\\entities\\categorias\\electronica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\gabri\\Desktop\\ITEC\\3er a\u00F1o\\EDI-III\\TitoAlquileres\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -38,8 +9,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -47,101 +22,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ModificarItem.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewItem\\ModificarItem.cs",
-              "RelativeDocumentMoniker": "View\\ViewItem\\ModificarItem.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewItem\\ModificarItem.cs",
-              "RelativeToolTip": "View\\ViewItem\\ModificarItem.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAD4v4MAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:56:53.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "VerAlquileres.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\VerAlquileres.Designer.cs",
-              "RelativeDocumentMoniker": "View\\ViewAlquiler\\VerAlquileres.Designer.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\VerAlquileres.Designer.cs",
-              "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.Designer.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAYwA4BAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:56:24.858Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "VerAlquileres.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\VerAlquileres.cs",
-              "RelativeDocumentMoniker": "View\\ViewAlquiler\\VerAlquileres.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\VerAlquileres.cs",
-              "RelativeToolTip": "View\\ViewAlquiler\\VerAlquileres.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAlwDkAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:55:47.261Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CrearAlquiler.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\CrearAlquiler.cs",
-              "RelativeDocumentMoniker": "View\\ViewAlquiler\\CrearAlquiler.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\CrearAlquiler.cs",
-              "RelativeToolTip": "View\\ViewAlquiler\\CrearAlquiler.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAtwFwAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:54:37.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Inmueble.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\Model\\Entities\\Categorias\\Inmueble.cs",
-              "RelativeDocumentMoniker": "Model\\Entities\\Categorias\\Inmueble.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\Model\\Entities\\Categorias\\Inmueble.cs",
-              "RelativeToolTip": "Model\\Entities\\Categorias\\Inmueble.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAYwA4AAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:54:27.405Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Electronica.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\Model\\Entities\\Categorias\\Electronica.cs",
-              "RelativeDocumentMoniker": "Model\\Entities\\Categorias\\Electronica.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\Model\\Entities\\Categorias\\Electronica.cs",
-              "RelativeToolTip": "Model\\Entities\\Categorias\\Electronica.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAYwA4AAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:54:14.708Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ModificarAlquiler.cs",
-              "DocumentMoniker": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\ModificarAlquiler.cs",
-              "RelativeDocumentMoniker": "View\\ViewAlquiler\\ModificarAlquiler.cs",
-              "ToolTip": "C:\\Users\\Vicente\\Documents\\TitoAlquileres\\View\\ViewAlquiler\\ModificarAlquiler.cs",
-              "RelativeToolTip": "View\\ViewAlquiler\\ModificarAlquiler.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAtwE4AAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T17:43:05.779Z",
-              "EditorCaption": ""
             }
           ]
         }
